@@ -8,7 +8,7 @@ public class RacoonGame extends BasicGame {
 
     private TiledMap grassMap;
     private Float x, y;
-    private final Integer SPEED = 2;
+    private final Integer SPEED = 5;
     private Integer mapWidth = 0, mapHeight = 0;
 
     RacoonGame(String title) {
@@ -52,7 +52,13 @@ public class RacoonGame extends BasicGame {
 
     @Override
     public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
-        grassMap.render( Math.round(this.x), Math.round(this.y));
+        grassMap.render(
+                Math.round(this.x),
+                Math.round(this.y),
+                Math.round(-this.x / 32) ,
+                Math.round(-this.y / 32),
+                Math.round(-this.x + gameContainer.getWidth() / 32) ,
+                Math.round(-this.y + gameContainer.getHeight() / 32));
     }
 
 }
