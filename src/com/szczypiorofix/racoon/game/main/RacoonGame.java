@@ -7,14 +7,17 @@ import org.newdawn.slick.tiled.TiledMap;
 public class RacoonGame extends BasicGame {
 
     private TiledMap grassMap;
-    private Float x, y;
-    private final Integer SPEED = 5;
-    private Integer mapWidth = 0, mapHeight = 0;
+    private double x, y;
+    private int mapX, mapY;
+    private final Float SPEED = 5f;
+    private int mapWidth = 0, mapHeight = 0;
 
     RacoonGame(String title) {
         super(title);
-        this.x = 0f;
-        this.y = 0f;
+        this.x = 0d;
+        this.y = 0d;
+        this.mapX = 0;
+        this.mapY = 0;
     }
 
     private void exitGame(GameContainer gameContainer) {
@@ -22,7 +25,7 @@ public class RacoonGame extends BasicGame {
     }
 
     @Override
-    public void init(GameContainer gameContainer) throws SlickException {
+    public void init(GameContainer gc) throws SlickException {
         grassMap = new TiledMap("res/map/mainmap.tmx");
         this.mapWidth = grassMap.getWidth();
         this.mapHeight = grassMap.getHeight();
@@ -30,35 +33,34 @@ public class RacoonGame extends BasicGame {
     }
 
     @Override
-    public void update(GameContainer gameContainer, int i) throws SlickException {
-        Input input = gameContainer.getInput();
-        if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-            exitGame(gameContainer);
+    public void update(GameContainer gc, int delta) throws SlickException {
+        if (gc.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
+            exitGame(gc);
         }
-        if (input.isKeyDown(Input.KEY_LEFT) && this.x < 0) {
-            this.x += SPEED;
+        if (gc.getInput().isKeyDown(Input.KEY_LEFT) && this.x < 0) {
+            this.x += delta / SPEED;
         }
-        if (input.isKeyDown((Input.KEY_RIGHT)) && this.x > - (this.mapWidth * this.grassMap.getTileWidth()) + gameContainer.getWidth()) {
-            this.x -= SPEED;
+        if (gc.getInput().isKeyDown((Input.KEY_RIGHT)) && this.x > - (this.mapWidth * this.grassMap.getTileWidth()) + gc.getWidth()) {
+            this.x -= delta / SPEED;
         }
-        if (input.isKeyDown(Input.KEY_UP) && this.y < 0) {
-            this.y += SPEED;
+        if (gc.getInput().isKeyDown(Input.KEY_UP) && this.y < 0) {
+            this.y += delta / SPEED;
         }
-        if (input.isKeyDown((Input.KEY_DOWN)) && this.y > - (this.mapHeight * this.grassMap.getTileHeight()) + gameContainer.getHeight()) {
-            this.y -= SPEED;
+        if (gc.getInput().isKeyDown((Input.KEY_DOWN)) && this.y > - (this.mapHeight * this.grassMap.getTileHeight()) + gc.getHeight()) {
+            this.y -= delta / SPEED;
         }
         //System.out.println(this.x+":"+this.y);
     }
 
     @Override
-    public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
+    public void render(GameContainer gc, Graphics g) throws SlickException {
         grassMap.render(
-                Math.round(this.x),
-                Math.round(this.y),
-                Math.round(-this.x / 32) ,
-                Math.round(-this.y / 32),
-                Math.round(-this.x + gameContainer.getWidth() / 32) ,
-                Math.round(-this.y + gameContainer.getHeight() / 32));
+                (int) this.x,
+                (int) this.y,
+                mapX,
+                mapY,
+                mapX + 25,
+                mapX +25);
     }
 
 }
