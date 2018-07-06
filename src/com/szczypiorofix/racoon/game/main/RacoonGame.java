@@ -9,7 +9,7 @@ public class RacoonGame extends BasicGame {
     private TiledMap grassMap;
     private double x, y;
     private int mapX, mapY;
-    private final Float SPEED = 5f;
+    private final Float SPEED = 3f;
     private int mapWidth = 0, mapHeight = 0;
 
     RacoonGame(String title) {
@@ -37,30 +37,50 @@ public class RacoonGame extends BasicGame {
         if (gc.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
             exitGame(gc);
         }
-        if (gc.getInput().isKeyDown(Input.KEY_LEFT) && this.x < 0) {
+        if (gc.getInput().isKeyDown(Input.KEY_LEFT)) {
             this.x += delta / SPEED;
         }
-        if (gc.getInput().isKeyDown((Input.KEY_RIGHT)) && this.x > - (this.mapWidth * this.grassMap.getTileWidth()) + gc.getWidth()) {
+        if (gc.getInput().isKeyDown((Input.KEY_RIGHT))) {
             this.x -= delta / SPEED;
         }
-        if (gc.getInput().isKeyDown(Input.KEY_UP) && this.y < 0) {
+        if (gc.getInput().isKeyDown(Input.KEY_UP)) {
             this.y += delta / SPEED;
         }
-        if (gc.getInput().isKeyDown((Input.KEY_DOWN)) && this.y > - (this.mapHeight * this.grassMap.getTileHeight()) + gc.getHeight()) {
+        if (gc.getInput().isKeyDown((Input.KEY_DOWN))) {
             this.y -= delta / SPEED;
         }
         //System.out.println(this.x+":"+this.y);
+
+        if (this.x < 0) {
+            mapX++;
+            x = 32;
+        }
+
+        if (this.x > 32) {
+            mapX--;
+            x = 0;
+        }
+
+        if (this.y < 0) {
+            mapY++;
+            y = 32;
+        }
+
+        if (this.y > 32) {
+            mapY--;
+            y = 0;
+        }
     }
 
     @Override
     public void render(GameContainer gc, Graphics g) throws SlickException {
         grassMap.render(
-                (int) this.x,
-                (int) this.y,
+                (int) this.x -32,
+                (int) this.y -32,
                 mapX,
                 mapY,
-                mapX + 25,
-                mapX +25);
+                mapX + 26,
+                mapX + 26);
     }
 
 }
