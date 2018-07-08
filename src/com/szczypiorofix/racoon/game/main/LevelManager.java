@@ -1,9 +1,10 @@
 package com.szczypiorofix.racoon.game.main;
 
+import com.szczypiorofix.racoon.game.def.Level;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
-import static com.szczypiorofix.racoon.game.main.Level.TOWN3;
+import static com.szczypiorofix.racoon.game.def.Level.TOWN3;
 
 public class LevelManager {
 

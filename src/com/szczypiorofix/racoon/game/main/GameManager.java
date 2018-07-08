@@ -1,6 +1,7 @@
 package com.szczypiorofix.racoon.game.main;
 
-import com.szczypiorofix.racoon.game.objects.Player;
+import com.szczypiorofix.racoon.game.def.Level;
+import com.szczypiorofix.racoon.game.objects.character.Player;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -17,6 +18,7 @@ class GameManager {
     private Player player;
 
     private LevelManager levelManager;
+    private ObjectManager objectManager;
 
     GameManager() {
         this.x = 0d;
@@ -25,15 +27,18 @@ class GameManager {
         this.mapY = 0;
 
         this.levelManager = new LevelManager();
+        this.objectManager = new ObjectManager();
     }
 
 
     void init(GameContainer gc) throws SlickException {
         levelManager.loadLevel(Level.WORLD_MAP);
         this.levelMap = levelManager.getLevelMap();
-        this.player = new Player(150,150);
+        int objectGroupCount = levelMap.getObjectGroupCount();
+        System.out.println(objectGroupCount);
+        this.player = new Player("PGarvey",150,150);
+        //System.out.println(player.getObjectType());
     }
-
 
 
     void handleInputs(GameContainer gc, int delta) {

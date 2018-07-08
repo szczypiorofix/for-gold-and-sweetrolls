@@ -1,4 +1,4 @@
-package com.szczypiorofix.racoon.game.main;
+package com.szczypiorofix.racoon.game.def;
 
 public enum Level {
 

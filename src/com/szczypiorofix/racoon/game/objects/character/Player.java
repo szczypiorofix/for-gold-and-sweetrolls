@@ -1,5 +1,7 @@
-package com.szczypiorofix.racoon.game.objects;
+package com.szczypiorofix.racoon.game.objects.character;
 
+import com.szczypiorofix.racoon.game.def.ObjectType;
+import com.szczypiorofix.racoon.game.objects.GameObject;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -9,12 +11,12 @@ public class Player extends GameObject {
 
     private Image image;
 
-    public Player(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public Player(String name, int x, int y) {
+        super(name, x, y, ObjectType.PLAYER);
         this.living = true;
         this.dynamic = true;
         this.visible = true;
+        this.moving = true;
         try {
             this.image = new Image("res/tiles/player.png");
         } catch (SlickException e) {
@@ -22,15 +24,16 @@ public class Player extends GameObject {
         }
     }
 
+
+
     @Override
-    public void update(GameContainer gc, int delta) throws SlickException {
+    public void update(GameContainer gc, int delta) {
 
     }
 
     @Override
-    public void render(GameContainer gc, Graphics g) throws SlickException {
+    public void render(GameContainer gc, Graphics g) {
         image.draw(this.x, this.y);
     }
-
 
 }
