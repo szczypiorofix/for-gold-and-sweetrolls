@@ -34,9 +34,11 @@ class GameManager {
     void init(GameContainer gc) throws SlickException {
         levelManager.loadLevel(Level.WORLD_MAP);
         this.levelMap = levelManager.getLevelMap();
-        int objectGroupCount = levelMap.getObjectGroupCount();
-        System.out.println(objectGroupCount);
-        this.player = new Player("PGarvey",150,150);
+        System.out.println(levelMap.getLayerCount());
+
+
+        // PLAYER W CENTRUM EKRANU
+        this.player = new Player("PGarvey",(gc.getWidth() / 2) - (levelMap.getTileWidth() / 2),(gc.getHeight() / 2) - (levelMap.getTileHeight() / 2));
         //System.out.println(player.getObjectType());
     }
 

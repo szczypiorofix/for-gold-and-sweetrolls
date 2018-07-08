@@ -19,21 +19,21 @@ public class LevelManager {
 
     public void loadLevel(Level level) {
         try {
-        switch (level) {
-                case WORLD_MAP: {
-                    levelMap = new TiledMap("res/map/mainmap.tmx");
-                    break;
-                }
-                case TOWN1: {
-                    break;
-                }
-                case TOWN2: {
-                    break;
-                }
-                case TOWN3: {
-                    break;
-                }
-        }
+            switch (level) {
+                    case WORLD_MAP: {
+                        levelMap = new TiledMap("res/map/tilemap.tmx");
+                        break;
+                    }
+                    case TOWN1: {
+                        break;
+                    }
+                    case TOWN2: {
+                        break;
+                    }
+                    case TOWN3: {
+                        break;
+                    }
+            }
         } catch (SlickException slickException) {
             slickException.printStackTrace();
         }
