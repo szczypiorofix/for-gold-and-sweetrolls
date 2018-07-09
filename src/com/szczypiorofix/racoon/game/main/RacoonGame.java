@@ -14,7 +14,7 @@ public class RacoonGame extends BasicGame {
 
     @Override
     public void init(GameContainer gc) throws SlickException {
-        this.gameManager.init(gc);
+        gameManager.init(gc);
     }
 
     @Override

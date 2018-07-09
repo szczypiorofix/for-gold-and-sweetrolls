@@ -11,8 +11,10 @@ abstract public class GameObject {
 
     public long id;
     public String name;
-    public int x = 0;
-    public int y = 0;
+    public float x = 0f;
+    public float y = 0f;
+    public float width = 0f;
+    public float height = 0f;
     public boolean moving = false;
     public boolean living = false;
     public boolean dynamic = false;
@@ -36,13 +38,13 @@ abstract public class GameObject {
         this.y = 0;
     }
 
-    public GameObject(String name, int x, int y) {
+    public GameObject(String name, float x, float y) {
         this(name);
         this.x = x;
         this.y = y;
     }
 
-    public GameObject(String name, int x, int y, ObjectType objectType) {
+    public GameObject(String name, float x, float y, ObjectType objectType) {
         this(name, x, y);
         this.objectType = objectType;
     }
@@ -57,10 +59,6 @@ abstract public class GameObject {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
@@ -69,20 +67,36 @@ abstract public class GameObject {
         this.name = name;
     }
 
-    public int getX() {
+    public float getX() {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
+    public float getY() {
         return y;
     }
 
-    public void setY(int y) {
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public void setY(float y) {
         this.y = y;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public void setWidth(float width) {
+        this.width = width;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
     }
 
     public boolean isMoving() {

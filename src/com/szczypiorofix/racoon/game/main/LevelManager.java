@@ -4,13 +4,9 @@ import com.szczypiorofix.racoon.game.def.Level;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
-import static com.szczypiorofix.racoon.game.def.Level.TOWN3;
 
 public class LevelManager {
 
-    public int levelId = 0;
-    public String levelName = "FirstLevel";
-    public Level[] levels = {Level.WORLD_MAP, Level.TOWN1, Level.TOWN2, TOWN3};
     private TiledMap levelMap;
 
     public LevelManager() {
@@ -21,7 +17,7 @@ public class LevelManager {
         try {
             switch (level) {
                     case WORLD_MAP: {
-                        levelMap = new TiledMap("res/map/tilemap.tmx");
+                        levelMap = new TiledMap("res/map/worldmap.tmx");
                         break;
                     }
                     case TOWN1: {

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="left-up" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextobjectid="6">
+ <tileset firstgid="1" source="dg_grounds32.tsx"/>
+ <layer name="background" width="100" height="100">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3by47bMAwF0Fm3BQrM4/9/tZsGMASSuqT4ssPFBdrpJLZ4TMly0p+Pj4+fyWRiyveS6vN5x6wGUqrP9cnhav5FxNtHcw28y/UgOfy6ROtjrfU72yAOVDQ2SKj3s7xndT29PDiH35cgJpoacq/3sKmu64kHYqFxsRigPfhkl2uNqHpwHpSJ5CJd87t50Wt+rK51VG9IHrvr2uLgaVNdb9RDa4GYUHU7MfCcz6rrrukP1AI1yYjHPUC1xctj7RGtRxcTz3mtyoe617V4dHfhfDraePVItMlfIk+0ke55q00og12ybCo8Tm0sr5Vq/fk/ET5d+kXag+xyMq9ZPSw9g9is469wQXtjd+4ZLpbe8O6ZnU92b0j7uwiTa7wsvNaZCBO0N7hnUtke1NpU6VLhwV0Tpz3yh8jO42oinXN1r0TMV9LxuHnL6sBF6hG0bpEmUq949gh1jHX913poHLhce8RSu2gXDxOqvl/Me3I9spuzPCxWl7Ue1M8yTTz7RLMuWXokwmOtP/WzExdPE4uLxkLbI54Wr7mK6xEvkxOPiHsvTw8vm+taztVeayK5eHt4myAWO4+dye61SP21Hl4mmR5ob2j7RLsvpI6zmlg8Tk00zyKrPJBe2eVVk9097ieRLJOK5/VZHl73o1YXy3Gzn9NbLaI8NPO6xeWkR1CP0z18lkdEr1xddr9j6RGLRZVHhsm1TtQ6gqwr67+hJpa56q4eyByCruHS71A/R/3v6KE1Qef29TNDzdwl/V3TI5Z7K28Tiwdionkvrl6oxyfxZ40JN2fdYU2PjHWd19x3Ra4jT/NA5xXOxKsXrT0S4dHBxNIrp/uSSo9KE817a3vlxIQ716rnJhke1GeXu2Nl9Qly3pkelImHC2fwxRyzwgQdR7QH0icaG+m1yHh2x6k0Qcbg5YH2ChrtPirSJLNHPD0oE4uPdd2LMInokSwL1MUS7bGRObKiR6RrLtLDy+TkuF4mWetItEdl0Lmr0zpSXbMsE80+RfKIXkeq69XNJHsd6eaRfb93uj/18ui4fkSt5ZEmHh7dLZD9R+QxMz0q73V3daGeo0SaUDV4Zw+qFlw9Opqc3l91tUDnCur8ozwQkxOP7hYn48jsU0+PbhaW+TrCw9qvJ9/LjhiDx7itfX4dT+S1wp2j9bvyUdeT1zW4ni/yfavIMSEm3GcCVddRhIXmO3AZ19huP4R4SHuou1qgJtnnj6Z6vZbGg85RiEn2NcfNY9J9a0eL1cNqwfVIxZiR2nczeLIHMt7qc0CupVMPZM7qXIsOyfDodO/SPePRK5LH6f9P67bfvUM4D4vFePhajMezPLo/n+seai/rtZaPx7mH515wPPw9rM+uxiPOY+civWY8zjxQk52B5FE95s6Rnk9rai45TG/YTTxcun7mdqfsTDSfPY9FjIlko/n8cyz8TSSXu332dqcgn2/uUj2Gp2VqPplMJpPJZDKZTCaTyWQymUwm8fkHjcDQuUCcAAA=
+  </data>
+ </layer>
+ <objectgroup name="obiekty" width="100" height="100">
+  <object id="1" name="player start" x="192" y="224" width="32" height="32"/>
+ </objectgroup>
+</map>

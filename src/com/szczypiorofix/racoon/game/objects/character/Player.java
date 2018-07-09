@@ -10,9 +10,12 @@ import org.newdawn.slick.SlickException;
 public class Player extends GameObject {
 
     private Image image;
+    private float sx, sy;
 
-    public Player(String name, int x, int y) {
+    public Player(String name, float x, float y) {
         super(name, x, y, ObjectType.PLAYER);
+        sx = 0;
+        sy = 0;
         this.living = true;
         this.dynamic = true;
         this.visible = true;
@@ -33,7 +36,39 @@ public class Player extends GameObject {
 
     @Override
     public void render(GameContainer gc, Graphics g) {
-        image.draw(this.x, this.y);
+        image.draw(sx, sy);
+
     }
 
+    public void moveNorth(float s) {
+        y -= s;
+    }
+
+    public void moveSouth(float s) {
+        y += s;
+    }
+
+    public void moveEast(float s) {
+        x += s;
+    }
+
+    public void moveWest(float s) {
+        x -= s;
+    }
+
+    public float getSx() {
+        return sx;
+    }
+
+    public void setSx(float sx) {
+        this.sx = sx;
+    }
+
+    public float getSy() {
+        return sy;
+    }
+
+    public void setSy(float sy) {
+        this.sy = sy;
+    }
 }
