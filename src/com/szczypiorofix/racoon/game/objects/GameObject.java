@@ -44,9 +44,21 @@ abstract public class GameObject {
         this.y = y;
     }
 
+    public GameObject(String name, float x, float y, float width, float height) {
+        this(name, x, y);
+        this.width = width;
+        this.height = height;
+    }
+
     public GameObject(String name, float x, float y, ObjectType objectType) {
         this(name, x, y);
         this.objectType = objectType;
+    }
+
+    public GameObject(String name, float x, float y, float width, float height, ObjectType objectType) {
+        this(name, x, y, objectType);
+        this.width = width;
+        this.height = height;
     }
 
 

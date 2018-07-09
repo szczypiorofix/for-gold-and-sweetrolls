@@ -33,9 +33,10 @@ class ObjectManager {
             int objectCount = level.getObjectCount(i);
             for (int j = 0; j < objectCount; j++) {
                 System.out.println("Obiekt: "+level.getObjectName(i, j));
+
                 // Looking for player...
                 if (level.getObjectName(i, j).equals("player start")) {
-                    player = new Player("PGarvey",level.getObjectX(i , j) - level.getTileWidth(), level.getObjectY(i, j) - level.getTileHeight());
+                    player = new Player("PGarvey",level.getObjectX(i , j) - level.getTileWidth(), level.getObjectY(i, j) - level.getTileHeight(), level.getTileWidth(), level.getTileHeight());
                     return;
                 }
             }

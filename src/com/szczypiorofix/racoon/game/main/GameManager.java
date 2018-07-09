@@ -38,6 +38,7 @@ class GameManager {
         player = objectManager.getPlayer();
         // PLAYER W CENTRUM EKRANU
         camera = new Camera(player.x, player.y, gc.getWidth(), gc.getHeight(), levelMap);
+        System.out.println(player.getWidth());
     }
 
 
@@ -89,9 +90,9 @@ class GameManager {
         camera.update(player);
 
 
-        player.setSx(gc.getWidth() / 2);
+        player.setSx(- player.getX() - camera.getX() - player.getWidth());
 
-        player.setSy(- player.getY() - camera.getY());
+        player.setSy(- player.getY() - camera.getY() - player.getHeight());
     }
 
     void render(GameContainer gc, Graphics g) throws SlickException {

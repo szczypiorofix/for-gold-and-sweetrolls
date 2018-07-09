@@ -12,8 +12,8 @@ public class Player extends GameObject {
     private Image image;
     private float sx, sy;
 
-    public Player(String name, float x, float y) {
-        super(name, x, y, ObjectType.PLAYER);
+    public Player(String name, float x, float y, float width, float height) {
+        super(name, x, y, width, height, ObjectType.PLAYER);
         sx = 0;
         sy = 0;
         this.living = true;
