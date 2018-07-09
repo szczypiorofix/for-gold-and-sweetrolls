@@ -36,9 +36,10 @@ class GameManager {
         objectManager.setLevel(levelMap);
 
         player = objectManager.getPlayer();
+        System.out.println(player.getX()+":"+player.getY());
+
         // PLAYER W CENTRUM EKRANU
         camera = new Camera(player.x, player.y, gc.getWidth(), gc.getHeight(), levelMap);
-        System.out.println(player.getWidth());
     }
 
 

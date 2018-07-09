@@ -25,8 +25,6 @@ class ObjectManager {
 
     public void setLevel(TiledMap level) {
         this.level = level;
-        //player = new Player("PGarvey",(gameContainer.getWidth() / 2) - (level.getTileWidth() / 2),(gameContainer.getHeight() / 2) - (level.getTileHeight() / 2));
-        //System.out.println(level.getObjectName(0, 0));
 
         int objectGroupCount = level.getObjectGroupCount();
         for (int i = 0; i < objectGroupCount; i++) {
@@ -36,7 +34,8 @@ class ObjectManager {
 
                 // Looking for player...
                 if (level.getObjectName(i, j).equals("player start")) {
-                    player = new Player("PGarvey",level.getObjectX(i , j) - level.getTileWidth(), level.getObjectY(i, j) - level.getTileHeight(), level.getTileWidth(), level.getTileHeight());
+                    player = new Player("PGarvey",level.getObjectX(i , j), level.getObjectY(i, j), level.getTileWidth(), level.getTileHeight());
+                    System.out.println(player.getX()+":"+player.getY());
                     return;
                 }
             }
