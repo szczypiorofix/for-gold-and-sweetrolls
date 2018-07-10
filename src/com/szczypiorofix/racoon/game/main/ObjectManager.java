@@ -1,11 +1,13 @@
 package com.szczypiorofix.racoon.game.main;
 
 
+import com.szczypiorofix.racoon.game.def.ObjectType;
 import com.szczypiorofix.racoon.game.objects.GameObject;
 import com.szczypiorofix.racoon.game.objects.character.Player;
-import org.newdawn.slick.Game;
+import com.szczypiorofix.racoon.game.objects.item.Chest;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
 import java.util.ArrayList;
@@ -16,11 +18,11 @@ class ObjectManager {
     private TiledMap level;
     private GameContainer gameContainer;
     private Player player;
-    private ArrayList<GameObject> worldMapTowns;
+    private ArrayList<GameObject> items;
 
     ObjectManager(GameContainer gc) {
         gameContainer = gc;
-        worldMapTowns = new ArrayList<>();
+        items = new ArrayList<>();
     }
 
     public void setLevel(TiledMap level) {
@@ -35,19 +37,42 @@ class ObjectManager {
                 // Looking for player...
                 if (level.getObjectName(i, j).equals("player start")) {
                     player = new Player("PGarvey",level.getObjectX(i , j), level.getObjectY(i, j), level.getTileWidth(), level.getTileHeight());
-                    System.out.println(player.getX()+":"+player.getY());
-                    return;
+                }
+
+                if (level.getObjectName(i, j).equals("Chest")) {
+                    items.add(new Chest(
+                            "Skrzynka",
+                            level.getObjectX(i , j),
+                            level.getObjectY(i, j),
+                            level.getTileWidth(),
+                            level.getTileHeight(),
+                            ObjectType.ITEM));
                 }
             }
         }
+
     }
 
-    public void update(GameContainer gc, int delta) {
-        player.update(gc, delta);
+
+    private void iteratingUpdate(GameContainer gc, int delta, ArrayList<GameObject> list) throws SlickException {
+       for(GameObject i : list) {
+           i.update(gc, delta);
+       }
     }
 
-    public void render(GameContainer gc, Graphics g) {
-        player.render(gc, g);
+
+    private void iteratingRender(GameContainer gc, Graphics g, ArrayList<GameObject> list) throws SlickException {
+        for(GameObject i : list) {
+            i.render(gc, g);
+        }
+    }
+
+    public void update(GameContainer gc, int delta) throws SlickException {
+        iteratingUpdate(gc, delta, items);
+    }
+
+    public void render(GameContainer gc, Graphics g) throws SlickException {
+        iteratingRender(gc, g, items);
     }
 
     public Player getPlayer() {

@@ -37,7 +37,6 @@ public class Player extends GameObject {
     @Override
     public void render(GameContainer gc, Graphics g) {
         image.draw(sx, sy);
-
     }
 
     public void moveNorth(float s) {
@@ -71,4 +70,5 @@ public class Player extends GameObject {
     public void setSy(float sy) {
         this.sy = sy;
     }
+
 }

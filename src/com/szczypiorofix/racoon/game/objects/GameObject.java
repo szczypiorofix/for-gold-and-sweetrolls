@@ -21,6 +21,7 @@ abstract public class GameObject {
     public boolean visible = false;
     public ObjectType objectType;
 
+
     private GameObject() {
         id = Registry.getInstance().register(this);
     }

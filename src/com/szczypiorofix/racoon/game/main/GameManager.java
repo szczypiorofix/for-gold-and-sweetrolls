@@ -11,6 +11,8 @@ class GameManager {
     private TiledMap levelMap;
     private double x, y;
     private int mapX, mapY;
+
+    private int tilesInWidth = 0, tilesInHeight = 0;
     private final static int SPEED = 2;
 
     private Player player;
@@ -35,8 +37,11 @@ class GameManager {
         levelMap = levelManager.getLevelMap();
         objectManager.setLevel(levelMap);
 
+        tilesInWidth = gc.getWidth() / levelMap.getTileWidth();
+        tilesInHeight = gc.getHeight() / levelMap.getTileHeight();
+
         player = objectManager.getPlayer();
-        System.out.println(player.getX()+":"+player.getY());
+        //System.out.println(player.getX()+":"+player.getY());
 
         // PLAYER W CENTRUM EKRANU
         camera = new Camera(player.x, player.y, gc.getWidth(), gc.getHeight(), levelMap);
@@ -66,51 +71,54 @@ class GameManager {
         }
     }
 
-    void handleLogic(GameContainer gc, int delta) {
-//        if (x < 0) {
-//            mapX++;
-//            x = 32;
-//        }
-//
-//        if (x > 32) {
-//            mapX--;
-//            x = 0;
-//        }
-//
-//        if (y < 0) {
-//            mapY++;
-//            y = 32;
-//        }
-//
-//        if (y > 32) {
-//            mapY--;
-//            y = 0;
-//        }
+    void handleLogic(GameContainer gc, int delta) throws SlickException {
+        if (x < 0) {
+            mapX++;
+            x = 32;
+        }
+
+        if (x > 32) {
+            mapX--;
+            x = 0;
+        }
+
+        if (y < 0) {
+            mapY++;
+            y = 32;
+        }
+
+        if (y > 32) {
+            mapY--;
+            y = 0;
+        }
+
+        player.setSx(gc.getWidth() / 2);
+        player.setSy(gc.getHeight() / 2);
 
         objectManager.update(gc, delta);
         camera.update(player);
 
-
-        player.setSx(- player.getX() - camera.getX() - player.getWidth());
-
-        player.setSy(- player.getY() - camera.getY() - player.getHeight());
     }
 
     void render(GameContainer gc, Graphics g) throws SlickException {
-//        levelMap.render(
-//                (int) Math.round(x - levelMap.getTileWidth()),
-//                (int) Math.round(y - levelMap.getTileHeight()),
-//                mapX,
-//                mapY,
-//                levelMap.getTileWidth(),
-//                levelMap.getTileHeight());
+
+        g.translate(- camera.getX(), - camera.getY());
 
         levelMap.render(
-                (int) camera.getX(),
-                (int) camera.getY()
+                (int) (x - levelMap.getTileWidth()),
+                (int) (x - levelMap.getTileHeight()),
+                mapX,
+                mapY,
+                tilesInWidth,
+                tilesInHeight
                 );
 
         objectManager.render(gc, g);
+
+        g.translate(camera.getX(), camera.getY());
+
+        player.render(gc, g);
+
         g.drawString("P: X:"+player.getX()+" Y:"+player.getY(), 10, 25);
         g.drawString("PS: X:"+player.getSx()+" Y:"+player.getSy(), 10, 35);
         g.drawString("C: X:"+camera.getX()+" Y:"+camera.getY(), 10, 45);

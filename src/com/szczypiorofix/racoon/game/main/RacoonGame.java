@@ -18,7 +18,7 @@ public class RacoonGame extends BasicGame {
     }
 
     @Override
-    public void update(GameContainer gc, int delta) {
+    public void update(GameContainer gc, int delta) throws SlickException {
         gameManager.handleInputs(gc, delta);
         gameManager.handleLogic(gc, delta);
     }

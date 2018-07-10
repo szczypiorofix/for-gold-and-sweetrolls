@@ -22,13 +22,11 @@ public class Camera {
     // http://slick.ninjacave.com/forum/viewtopic.php?t=1906
 
     public void update(Player player) {
-        //if (player.getX() > 150) {
-            x = - player.getX() - (width / 2) - (player.getWidth() / 2);
-        //}
 
-        //if (player.getY() > 150) {
-            y = - player.getY() - (height / 2) - (player.getHeight() / 2);
-        //}
+        x = player.getX() - (width / 2);
+
+        y = player.getY() - (height / 2);
+
     }
 
     public float getX() {
