@@ -1,23 +1,17 @@
 package com.szczypiorofix.racoon.game.objects.item;
 
 import com.szczypiorofix.racoon.game.def.ObjectType;
+import com.szczypiorofix.racoon.game.graphics.Textures;
 import com.szczypiorofix.racoon.game.objects.GameObject;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 
 public class Chest extends GameObject {
 
-    private Image image;
+    private Image chestImage;
 
     public Chest(String name, float x, float y, float width, float height, ObjectType objectType) {
         super(name, x, y, width, height, objectType);
-        try {
-            this.image = new Image("res/tiles/chest.png");
-        } catch (SlickException e) {
-            e.printStackTrace();
-        }
+        chestImage = Textures.getInstance().miscItems.getSprite(0, 0);
     }
 
     @Override
@@ -26,6 +20,6 @@ public class Chest extends GameObject {
 
     @Override
     public void render(GameContainer gc, Graphics g) throws SlickException {
-        image.draw(x, y);
+        chestImage.draw(x, y);
     }
 }

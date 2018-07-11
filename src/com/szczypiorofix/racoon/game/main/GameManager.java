@@ -3,6 +3,9 @@ package com.szczypiorofix.racoon.game.main;
 import com.szczypiorofix.racoon.game.def.Level;
 import com.szczypiorofix.racoon.game.objects.character.Player;
 import org.newdawn.slick.*;
+import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.EmptyTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.tiled.TiledMap;
 
 
@@ -14,6 +17,8 @@ class GameManager {
 
     private int tilesInWidth = 0, tilesInHeight = 0;
     private final static int SPEED = 2;
+
+    private Input input;
 
     private Player player;
 
@@ -32,6 +37,9 @@ class GameManager {
 
 
     void init(GameContainer gc) throws SlickException {
+
+        input = gc.getInput();
+
         objectManager = new ObjectManager(gc);
         levelManager.loadLevel(Level.WORLD_MAP);
         levelMap = levelManager.getLevelMap();
@@ -41,37 +49,37 @@ class GameManager {
         tilesInHeight = gc.getHeight() / levelMap.getTileHeight();
 
         player = objectManager.getPlayer();
-        //System.out.println(player.getX()+":"+player.getY());
 
-        // PLAYER W CENTRUM EKRANU
         camera = new Camera(player.x, player.y, gc.getWidth(), gc.getHeight(), levelMap);
     }
 
 
-    void handleInputs(GameContainer gc, int delta) {
-        if (gc.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
-            exitGame(gc);
+    void handleInputs(GameContainer gc, StateBasedGame sgb, int delta) {
+
+        if (input.isKeyPressed(Input.KEY_ESCAPE)) {
+            input.clearKeyPressedRecord();
+            sgb.enterState(MainClass.MAINMENU, new FadeOutTransition(Color.black), new EmptyTransition());
         }
 
-        if (gc.getInput().isKeyDown(Input.KEY_LEFT) || gc.getInput().isKeyDown(Input.KEY_A)) {
-            //x += delta / SPEED;
+        if (input.isKeyDown(Input.KEY_LEFT) || gc.getInput().isKeyDown(Input.KEY_A)) {
             player.moveWest(delta / SPEED);
         }
-        if (gc.getInput().isKeyDown((Input.KEY_RIGHT)) || gc.getInput().isKeyDown(Input.KEY_D)) {
-            //x -= delta / SPEED;
+
+        if (input.isKeyDown((Input.KEY_RIGHT)) || gc.getInput().isKeyDown(Input.KEY_D)) {
             player.moveEast(delta / SPEED);
         }
-        if (gc.getInput().isKeyDown(Input.KEY_UP) || gc.getInput().isKeyDown(Input.KEY_W)) {
-            //y += delta / SPEED;
+
+        if (input.isKeyDown(Input.KEY_UP) || gc.getInput().isKeyDown(Input.KEY_W)) {
             player.moveNorth(delta / SPEED);
         }
-        if (gc.getInput().isKeyDown((Input.KEY_DOWN)) || gc.getInput().isKeyDown(Input.KEY_S)) {
-            //y -= delta / SPEED;
+
+        if (input.isKeyDown((Input.KEY_DOWN)) || gc.getInput().isKeyDown(Input.KEY_S)) {
             player.moveSouth(delta / SPEED);
         }
+
     }
 
-    void handleLogic(GameContainer gc, int delta) throws SlickException {
+    void handleLogic(GameContainer gc, StateBasedGame sgb, int delta) throws SlickException {
         if (x < 0) {
             mapX++;
             x = 32;
@@ -100,7 +108,7 @@ class GameManager {
 
     }
 
-    void render(GameContainer gc, Graphics g) throws SlickException {
+    void render(GameContainer gc, StateBasedGame sgb, Graphics g) throws SlickException {
 
         g.translate(- camera.getX(), - camera.getY());
 
@@ -122,10 +130,6 @@ class GameManager {
         g.drawString("P: X:"+player.getX()+" Y:"+player.getY(), 10, 25);
         g.drawString("PS: X:"+player.getSx()+" Y:"+player.getSy(), 10, 35);
         g.drawString("C: X:"+camera.getX()+" Y:"+camera.getY(), 10, 45);
-    }
-
-    private void exitGame(GameContainer gameContainer) {
-        gameContainer.exit();
     }
 
 }

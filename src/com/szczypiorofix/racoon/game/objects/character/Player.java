@@ -1,6 +1,7 @@
 package com.szczypiorofix.racoon.game.objects.character;
 
 import com.szczypiorofix.racoon.game.def.ObjectType;
+import com.szczypiorofix.racoon.game.graphics.Textures;
 import com.szczypiorofix.racoon.game.objects.GameObject;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -20,11 +21,7 @@ public class Player extends GameObject {
         this.dynamic = true;
         this.visible = true;
         this.moving = true;
-        try {
-            this.image = new Image("res/tiles/player.png");
-        } catch (SlickException e) {
-            e.printStackTrace();
-        }
+        image = Textures.getInstance().classm32.getSprite(3, 0);
     }
 
 

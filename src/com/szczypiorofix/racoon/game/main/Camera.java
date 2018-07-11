@@ -12,20 +12,25 @@ public class Camera {
 
 
     public Camera(float x, float y, float width, float height, TiledMap tiledMap) {
+
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.tiledMap = tiledMap;
+
     }
 
-    // http://slick.ninjacave.com/forum/viewtopic.php?t=1906
 
     public void update(Player player) {
 
-        x = player.getX() - (width / 2);
+        //if (x > 150) {
+            x = player.getX() - (width / 2);
+        //}
 
-        y = player.getY() - (height / 2);
+        //if (y > 150) {
+            y = player.getY() - (height / 2);
+        //}
 
     }
 
