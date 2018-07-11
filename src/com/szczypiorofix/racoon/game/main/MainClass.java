@@ -3,19 +3,14 @@ package com.szczypiorofix.racoon.game.main;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
+import java.io.*;
+import java.util.Set;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-public class MainClass  {
+public class MainClass implements Runnable {
 
     public static final int SPLASHSCREEN = 0;
     public static final int MAINMENU = 1;
@@ -25,14 +20,11 @@ public class MainClass  {
     private static boolean DEBUG_MODE;
     private final static Logger LOGGER = Logger.getLogger(MainClass.class.getName());
     private FileHandler fileHandler = null;
-
-    private JWindow splashWindow;
-    private BufferedImage splashScreen;
+    private boolean serverThreadRunning = true;
 
 
     private MainClass() {
 
-        splashScreen();
         // LOGGER
         if (DEBUG_MODE) {
             try {
@@ -49,6 +41,24 @@ public class MainClass  {
             LOGGER.addHandler(fileHandler);
             logging(false, Level.INFO, "Uruchomienie gry w trybie DEBUG. Logger załadowany.");
         }
+
+
+        // server connection thread
+
+        Set<Thread> threads = Thread.getAllStackTraces().keySet();
+
+        for (Thread t : threads) {
+            String name = t.getName();
+            Thread.State state = t.getState();
+            int priority = t.getPriority();
+            String type = t.isDaemon() ? "Daemon" : "Normal";
+            System.out.printf("%-20s \t %s \t %d \t %s\n", name, state, priority, type);
+        }
+
+        Thread serverThread = new Thread(this);
+        serverThread.start();
+
+
 
 
         try {
@@ -74,40 +84,6 @@ public class MainClass  {
         }
     }
 
-    public BufferedImage loadImage(String path) {
-        BufferedImage image = null;
-        try {
-            image = ImageIO.read(getClass().getResource(path));
-            MainClass.logging(false, Level.INFO, "Obraz "+path +" załadowany poprawnie.");
-        } catch (IOException ex) {
-            MainClass.logging(false, Level.WARNING, "Błąd ładowania obrazu " +path);
-            MainClass.logging(false, Level.WARNING, MainClass.getStackTrace(ex));
-        }
-        return image;
-    }
-
-    private void splashScreen() {
-        splashWindow = new JWindow();
-
-        splashScreen = loadImage("/background.png");
-
-        JLabel label = new JLabel(new ImageIcon(splashScreen));
-        splashWindow.getContentPane().add(label);
-        splashWindow.setSize(splashScreen.getWidth(), splashScreen.getHeight());
-        label.setBackground(Color.BLACK);
-        splashWindow.setLocationRelativeTo(null);
-        splashWindow.setVisible(true);
-        logging(false, Level.INFO, "Uruchomienie ekranu splashScreen.");
-
-//        try {
-//            wait(500);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-
-        splashWindow.dispose();
-    }
-
 
     public static String getStackTrace(final Throwable throwable) {
         final StringWriter sw = new StringWriter();
@@ -116,14 +92,42 @@ public class MainClass  {
         return sw.getBuffer().toString();
     }
 
+
     public static void main(String[] args) {
 
-        if (args.length > 0)
+        if (args.length > 0) {
             if (args[0].equalsIgnoreCase("-debug")) DEBUG_MODE = true;
             else DEBUG_MODE = false;
+        }
 
         new MainClass();
 
     }
 
+    @Override
+    public void run() {
+        System.out.println("Another thread is running..");
+
+        while (serverThreadRunning) {
+            System.out.println("Łaczenie z serwerem...");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            new Client();
+
+//            Set<Thread> threads = Thread.getAllStackTraces().keySet();
+//
+//            for (Thread t : threads) {
+//                String name = t.getName();
+//                Thread.State state = t.getState();
+//                int priority = t.getPriority();
+//                String type = t.isDaemon() ? "Daemon" : "Normal";
+//                System.out.printf("%-20s \t %s \t %d \t %s\n", name, state, priority, type);
+//            }
+
+        }
+    }
 }

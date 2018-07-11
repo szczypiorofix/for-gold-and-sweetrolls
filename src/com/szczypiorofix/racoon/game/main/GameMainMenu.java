@@ -10,6 +10,8 @@ public class GameMainMenu extends BasicGameState {
 
     private Input input;
     private Image background;
+    private boolean serverStatus = false;
+    private String serverStatusMsg = "offline";
 
 
     @Override
@@ -21,6 +23,8 @@ public class GameMainMenu extends BasicGameState {
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         background = new Image("res/background.png");
         input = gc.getInput();
+
+        gc.setTargetFrameRate(60);
     }
 
     @Override
@@ -35,11 +39,17 @@ public class GameMainMenu extends BasicGameState {
             input.clearKeyPressedRecord();
             sbg.enterState(MainClass.EXIT, new FadeOutTransition(Color.black), new EmptyTransition());
         }
+
+        if (serverStatus) serverStatusMsg = "online";
+        else serverStatusMsg = "offline";
     }
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
+
         background.draw(0, 0, gc.getWidth(), gc.getHeight());
+
+        g.drawString("Server status: "+serverStatusMsg, 10, 30);
     }
 
 }
