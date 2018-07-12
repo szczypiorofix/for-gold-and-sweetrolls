@@ -16,6 +16,7 @@ abstract public class GameObject {
     public float width = 0f;
     public float height = 0f;
     public boolean moving = false;
+    public boolean moveable = false;
     public boolean living = false;
     public boolean dynamic = false;
     public boolean visible = false;
@@ -151,4 +152,13 @@ abstract public class GameObject {
     public void setObjectType(ObjectType objectType) {
         this.objectType = objectType;
     }
+
+    public boolean isMoveable() {
+        return moveable;
+    }
+
+    public void setMoveable(boolean moveable) {
+        this.moveable = moveable;
+    }
+
 }

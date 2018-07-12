@@ -23,11 +23,9 @@ public class GameMainMenu extends BasicGameState {
     private SFX sfx1;
     private MainMenuButton[] menuButtons;
 
-    TrueTypeFont font;
-    TrueTypeFont font2;
-
-    java.awt.Font UIFont1;
-    org.newdawn.slick.UnicodeFont uniFont;
+    private java.awt.Font UIFont1;
+    private org.newdawn.slick.UnicodeFont uniFont;
+    private Music mainMenuMusic;
 
 
     @Override
@@ -41,11 +39,12 @@ public class GameMainMenu extends BasicGameState {
 
         sfx1 = new SFX("sword-unsheathe.ogg");
 
+        mainMenuMusic = new Music("res/music/menu-music.ogg");
+        mainMenuMusic.play();
+
         menuButtons = new MainMenuButton[4];
 
-//        Font awtFont = new Font("Monospace", Font.BOLD, 24);
-//        font = new TrueTypeFont(awtFont, false);
-
+        gc.setMouseCursor(new Image("res/mouse_cursor.png"), 0, 0);
 
         try{
             UIFont1 = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT,
@@ -85,7 +84,7 @@ public class GameMainMenu extends BasicGameState {
             input.clearKeyPressedRecord();
 
 
-            NetworkClient.closeConnection();
+            //NetworkClient.closeConnection();
 
 
             sbg.enterState(MainClass.EXIT, new FadeOutTransition(Color.black), new EmptyTransition());
