@@ -39,11 +39,13 @@ public class GameMainMenu extends BasicGameState {
 
         sfx1 = new SFX("sword-unsheathe.ogg");
 
+        // https://opengameart.org/content/heroic-minority
         mainMenuMusic = new Music("res/music/menu-music.ogg");
         mainMenuMusic.play();
 
         menuButtons = new MainMenuButton[4];
 
+        // https://opengameart.org/content/dwarven-cursor
         gc.setMouseCursor(new Image("res/mouse_cursor.png"), 0, 0);
 
         try{
