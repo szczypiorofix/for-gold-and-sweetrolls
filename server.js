@@ -1,19 +1,26 @@
 var net = require('net');
-var HOST = '127.0.0.1';
-var PORT = 6969;
+var HOST = '0.0.0.0';
+var PORT = 3000;
 
-net.createServer(function(sock) {
+try {
 
-    console.log('CONNECTED: ' + sock.remoteAddress +':'+ sock.remotePort);
+    net.createServer(function(sock) {
 
-    sock.on('data', function(data) {
-        console.log('Otrzymano wiadomość: '+data);
-        sock.write("Godd says: "+data);
-    });
+        console.log('CONNECTED: ' + sock.remoteAddress +':'+ sock.remotePort);
 
-    sock.on('close', function(data) {
-        console.log('CLOSED: ' + sock.remoteAddress +' '+ sock.remotePort);
-    });
-}).listen(PORT, HOST);
+        sock.on('data', function(data) {
+            console.log('Otrzymano wiadomość: '+data);
+            sock.write("Godd says: "+data);
+        });
+
+        sock.on('close', function(data) {
+            console.log('CLOSED: ' + sock.remoteAddress +' '+ sock.remotePort);
+        });
+    }).listen(PORT, HOST);
+
+} catch (err) {
+    console.error(err);
+}
+
 
 console.log('Server listening on ' + HOST +':'+ PORT);

@@ -1,8 +1,8 @@
-lip 12, 2018 8:12:11 AM com.szczypiorofix.racoon.game.main.MainClass logging
+lip 12, 2018 8:12:11 AM MainClass logging
 INFO: Uruchomienie gry w trybie DEBUG. Logger załadowany.
-lip 12, 2018 8:12:11 AM com.szczypiorofix.racoon.game.main.MainClass logging
+lip 12, 2018 8:12:11 AM MainClass logging
 INFO: Uruchamianie nowego wątku...
-lip 12, 2018 8:12:13 AM com.szczypiorofix.racoon.game.main.MainClass logging
+lip 12, 2018 8:12:13 AM MainClass logging
 INFO: Błąd połączenia z serwerem. java.net.ConnectException: Connection refused: connect
 	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
 	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:79)
@@ -15,11 +15,11 @@ INFO: Błąd połączenia z serwerem. java.net.ConnectException: Connection refu
 	at java.net.Socket.connect(Socket.java:538)
 	at java.net.Socket.<init>(Socket.java:434)
 	at java.net.Socket.<init>(Socket.java:211)
-	at com.szczypiorofix.racoon.game.main.Client.<init>(Client.java:22)
-	at com.szczypiorofix.racoon.game.main.MainClass.run(MainClass.java:120)
+	at NetworkClient.<init>(Client.java:22)
+	at MainClass.run(MainClass.java:120)
 	at java.lang.Thread.run(Thread.java:748)
 
-lip 12, 2018 8:12:15 AM com.szczypiorofix.racoon.game.main.MainClass logging
+lip 12, 2018 8:12:15 AM MainClass logging
 INFO: Błąd połączenia z serwerem. java.net.ConnectException: Connection refused: connect
 	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
 	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:79)
@@ -32,11 +32,11 @@ INFO: Błąd połączenia z serwerem. java.net.ConnectException: Connection refu
 	at java.net.Socket.connect(Socket.java:538)
 	at java.net.Socket.<init>(Socket.java:434)
 	at java.net.Socket.<init>(Socket.java:211)
-	at com.szczypiorofix.racoon.game.main.Client.<init>(Client.java:22)
-	at com.szczypiorofix.racoon.game.main.MainClass.run(MainClass.java:120)
+	at NetworkClient.<init>(Client.java:22)
+	at MainClass.run(MainClass.java:120)
 	at java.lang.Thread.run(Thread.java:748)
 
-lip 12, 2018 8:12:17 AM com.szczypiorofix.racoon.game.main.MainClass logging
+lip 12, 2018 8:12:17 AM MainClass logging
 INFO: Błąd połączenia z serwerem. java.net.ConnectException: Connection refused: connect
 	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
 	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:79)
@@ -49,7 +49,7 @@ INFO: Błąd połączenia z serwerem. java.net.ConnectException: Connection refu
 	at java.net.Socket.connect(Socket.java:538)
 	at java.net.Socket.<init>(Socket.java:434)
 	at java.net.Socket.<init>(Socket.java:211)
-	at com.szczypiorofix.racoon.game.main.Client.<init>(Client.java:22)
-	at com.szczypiorofix.racoon.game.main.MainClass.run(MainClass.java:120)
+	at NetworkClient.<init>(Client.java:22)
+	at MainClass.run(MainClass.java:120)
 	at java.lang.Thread.run(Thread.java:748)
 
