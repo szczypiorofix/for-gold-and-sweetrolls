@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="natives-mac">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/libs/natives-mac.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

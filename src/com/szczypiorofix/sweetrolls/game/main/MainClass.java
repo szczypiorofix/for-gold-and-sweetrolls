@@ -134,6 +134,7 @@ public class MainClass implements Runnable {
             if (args[0].equalsIgnoreCase("-debug")) DEBUG_MODE = true;
             else DEBUG_MODE = false;
         }
+        //System.out.println("HELLO!");
         new MainClass();
     }
 
