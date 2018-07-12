@@ -1,5 +1,6 @@
 package com.szczypiorofix.racoon.game.main;
 
+import com.szczypiorofix.racoon.game.sounds.SFX;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -12,6 +13,7 @@ public class GameMainMenu extends BasicGameState {
     private Image background;
     private boolean serverStatus = false;
     private String serverStatusMsg = "offline";
+    private SFX sfx1;
 
 
     @Override
@@ -22,6 +24,9 @@ public class GameMainMenu extends BasicGameState {
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         background = new Image("res/background.png");
+
+        sfx1 = new SFX("sword-unsheathe.ogg");
+
         input = gc.getInput();
 
         gc.setTargetFrameRate(60);
@@ -38,6 +43,10 @@ public class GameMainMenu extends BasicGameState {
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
             input.clearKeyPressedRecord();
             sbg.enterState(MainClass.EXIT, new FadeOutTransition(Color.black), new EmptyTransition());
+        }
+
+        if (input.isKeyPressed(Input.KEY_ENTER)) {
+            sfx1.play();
         }
 
         if (serverStatus) serverStatusMsg = "online";

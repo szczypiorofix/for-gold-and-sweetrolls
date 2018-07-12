@@ -55,8 +55,8 @@ public class MainClass implements Runnable {
             System.out.printf("%-20s \t %s \t %d \t %s\n", name, state, priority, type);
         }
 
-        Thread serverThread = new Thread(this);
-        serverThread.start();
+//        Thread serverThread = new Thread(this);
+//        serverThread.start();
 
 
 
@@ -107,6 +107,7 @@ public class MainClass implements Runnable {
     @Override
     public void run() {
         System.out.println("Another thread is running..");
+        logging(false, Level.INFO, "Uruchamianie nowego wątku...");
 
         while (serverThreadRunning) {
             System.out.println("Łaczenie z serwerem...");

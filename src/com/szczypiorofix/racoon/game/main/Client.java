@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.logging.Level;
 
 
 class Client {
@@ -28,6 +29,7 @@ class Client {
 
         } catch (IOException e) {
             //e.printStackTrace();
+            MainClass.logging(false, Level.INFO, "Błąd połączenia z serwerem. "+MainClass.getStackTrace(e));
             System.out.println("Brak połączenia z serwerem...");
         }
 
