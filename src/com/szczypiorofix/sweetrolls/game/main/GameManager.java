@@ -94,6 +94,10 @@ class GameManager {
     }
 
     void handleLogic(GameContainer gc, StateBasedGame sgb, int delta) throws SlickException {
+
+//        x = player.getX();
+//        y = player.getY();
+
         if (x < 0) {
             mapX++;
             x = 32;
@@ -138,12 +142,12 @@ class GameManager {
         g.translate(- camera.getX(), - camera.getY());
 
         levelMap.render(
-                (int) (x - levelMap.getTileWidth()),
-                (int) (x - levelMap.getTileHeight()),
-                mapX,
-                mapY,
-                tilesInWidth,
-                tilesInHeight
+                0,
+                0,
+                0,
+                0,
+                    (int) (player.getX() / 32) + 6,
+                    (int) (player.getY() / 32) + 6
                 );
 
         objectManager.render(gc, sgb, g);
@@ -156,8 +160,8 @@ class GameManager {
         g.drawString("PS: X:"+player.getSx()+" Y:"+player.getSy(), 10, 35);
         g.drawString("C: X:"+camera.getX()+" Y:"+camera.getY(), 10, 45);
 
-        g.drawString("MX: "+mouseCursor.getX(), 10, 55);
-        g.drawString("MY: "+mouseCursor.getY(), 10, 65);
+        g.drawString("mapX: "+mapX, 10, 55);
+        g.drawString("mapY: "+mapY, 10, 65);
     }
 
 }

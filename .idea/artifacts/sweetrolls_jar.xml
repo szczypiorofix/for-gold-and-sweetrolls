@@ -1,0 +1,22 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="sweetrolls:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/sweetrolls_jar</output-path>
+    <root id="archive" name="for-gold-and-sweetrolls.jar">
+      <element id="module-output" name="for-gold-and-sweetrolls" />
+      <element id="extracted-dir" path="C:/Java Libraries/Slick2D/lib/ibxm.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="C:/Java Libraries/Slick2D/lib/jnlp.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="C:/Java Libraries/Slick2D/lib/slick.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="C:/Java Libraries/Slick2D/lib/lwjgl.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="C:/Java Libraries/Slick2D/lib/natives-windows.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="C:/Java Libraries/Slick2D/lib/lwjgl_util_applet.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="C:/Java Libraries/Slick2D/lib/tinylinepp.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="C:/Java Libraries/Slick2D/lib/lwjgl_util.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="C:/Java Libraries/Slick2D/lib/jinput.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="C:/Java Libraries/Slick2D/lib/natives-linux.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="C:/Java Libraries/Slick2D/lib/slick-examples.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="C:/Java Libraries/Slick2D/lib/natives-mac.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="C:/Java Libraries/Slick2D/lib/jogg-0.0.7.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="C:/Java Libraries/Slick2D/lib/jorbis-0.0.15.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

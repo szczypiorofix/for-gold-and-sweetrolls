@@ -11,6 +11,8 @@ import java.util.logging.SimpleFormatter;
 
 public class MainClass implements Runnable {
 
+    public static final String RES = "res/";
+
     public static final int SPLASHSCREEN = 0;
     public static final int MAINMENU = 1;
     public static final int GAME = 2;
@@ -53,7 +55,14 @@ public class MainClass implements Runnable {
     private void applicationStart() {
         try {
             AppGameContainer app = new AppGameContainer(new ForGoldAndSweetrolls("For Gold and Sweetrolls"));
-            String[] icons = {"res/icon.png"};
+            String[] icons = {
+                    RES+"icon16x16.png",
+                    RES+"icon24x24.png",
+                    RES+"icon32x32.png",
+                    RES+"icon64x64.png",
+                    RES+"icon96x96.png",
+                    RES+"icon128x128.png"
+            };
             app.setIcons(icons);
             app.setDisplayMode(800, 600, false);
             app.start();

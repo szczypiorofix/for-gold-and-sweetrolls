@@ -1,5 +1,6 @@
 package com.szczypiorofix.sweetrolls.game.sounds;
 
+import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 
@@ -11,7 +12,7 @@ public class SFX {
     public SFX(String fileName) {
         this.fileName = fileName;
         try {
-            s = new Sound("res/sfx/"+fileName);
+            s = new Sound(MainClass.RES + "sfx/"+fileName);
         } catch (SlickException e) {
             e.printStackTrace();
         }

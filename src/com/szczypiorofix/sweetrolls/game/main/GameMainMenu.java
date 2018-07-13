@@ -36,12 +36,12 @@ public class GameMainMenu extends BasicGameState {
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        background = new Image("res/background.png");
+        background = new Image(MainClass.RES+"background.png");
 
         sfx1 = new SFX("sword-unsheathe.ogg");
 
         // https://opengameart.org/content/heroic-minority
-        mainMenuMusic = new Music("res/music/menu-music.ogg");
+        mainMenuMusic = new Music(MainClass.RES+"music/menu-music.ogg");
         mainMenuMusic.play();
 
         menuButtons = new MainMenuButton[4];
@@ -60,7 +60,7 @@ public class GameMainMenu extends BasicGameState {
         input = gc.getInput();
 
         // https://opengameart.org/content/dwarven-cursor
-        gc.setMouseCursor(new Image("res/mouse_cursor.png"), 0, 0);
+        gc.setMouseCursor(new Image(MainClass.RES + "mouse_cursor.png"), 0, 0);
         mouseCursor = new MouseCursor("Mouse Cursor Main Menu", input.getMouseX(), input.getMouseY(), 1, 1, ObjectType.MOUSECURSOR);
 
         gc.setTargetFrameRate(60);

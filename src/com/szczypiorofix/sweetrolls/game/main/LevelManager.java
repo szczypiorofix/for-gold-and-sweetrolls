@@ -17,7 +17,7 @@ public class LevelManager {
         try {
             switch (level) {
                     case WORLD_MAP: {
-                        levelMap = new TiledMap("res/map/worldmap.tmx");
+                        levelMap = new TiledMap(MainClass.RES + "map/worldmap.tmx");
                         break;
                     }
                     case TOWN1: {

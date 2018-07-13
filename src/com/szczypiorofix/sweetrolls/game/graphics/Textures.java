@@ -1,5 +1,6 @@
 package com.szczypiorofix.sweetrolls.game.graphics;
 
+import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
@@ -16,9 +17,9 @@ public class Textures {
         System.out.println("Creating Textures ...");
 
         try {
-            miscItems = new SpriteSheet("res/spritesheets/dg_misc32.png", 32, 32);
-            classm32 = new SpriteSheet("res/spritesheets/dg_classm32.png", 32, 32);
-            mainMenuMainButtons = new SpriteSheet("res/assets/mm-gui.png", 128, 32);
+            miscItems = new SpriteSheet(MainClass.RES + "spritesheets/dg_misc32.png", 32, 32);
+            classm32 = new SpriteSheet(MainClass.RES + "spritesheets/dg_classm32.png", 32, 32);
+            mainMenuMainButtons = new SpriteSheet(MainClass.RES + "assets/mm-gui.png", 128, 32);
         } catch (SlickException e) {
             e.printStackTrace();
         }

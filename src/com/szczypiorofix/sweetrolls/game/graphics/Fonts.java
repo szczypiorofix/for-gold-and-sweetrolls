@@ -1,5 +1,6 @@
 package com.szczypiorofix.sweetrolls.game.graphics;
 
+import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import org.newdawn.slick.font.effects.ColorEffect;
 
 
@@ -13,7 +14,7 @@ public class Fonts {
 
         try{
             java.awt.Font UIFont1 = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT,
-                    org.newdawn.slick.util.ResourceLoader.getResourceAsStream("res/fonts/"+name));
+                    org.newdawn.slick.util.ResourceLoader.getResourceAsStream(MainClass.RES + "fonts/"+name));
             UIFont1 = UIFont1.deriveFont(style, size);
             uniFont = new org.newdawn.slick.UnicodeFont(UIFont1);
             uniFont.addAsciiGlyphs();
