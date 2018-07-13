@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="tinylinepp">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/src/libs/tinylinepp.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

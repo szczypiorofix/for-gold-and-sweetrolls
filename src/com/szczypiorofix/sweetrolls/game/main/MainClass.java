@@ -135,7 +135,9 @@ public class MainClass implements Runnable {
             else DEBUG_MODE = false;
         }
         //System.out.println("HELLO!");
+
         new MainClass();
+
     }
 
 }

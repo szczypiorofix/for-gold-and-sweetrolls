@@ -11,6 +11,7 @@ public enum ObjectType {
     SPECIAL,
     MONSTER,
     GUI,
+    MOUSECURSOR,
     DEFAULT
 
 }

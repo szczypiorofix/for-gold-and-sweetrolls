@@ -5,6 +5,7 @@ import com.szczypiorofix.sweetrolls.game.main.Registry;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.StateBasedGame;
 
 abstract public class GameObject {
 
@@ -20,6 +21,7 @@ abstract public class GameObject {
     public boolean living = false;
     public boolean dynamic = false;
     public boolean visible = false;
+    public boolean hover = false;
     public ObjectType objectType;
 
 
@@ -64,10 +66,21 @@ abstract public class GameObject {
     }
 
 
-    public abstract void update(GameContainer gc, int delta) throws SlickException;
+    public abstract void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException;
 
-    public abstract void render(GameContainer gc, Graphics g) throws SlickException;
+    public abstract void render(GameContainer gc, StateBasedGame sbg,  Graphics g) throws SlickException;
 
+    public boolean intersects(GameObject gameObject) {
+        return (
+                x > gameObject.x && x < gameObject.x + gameObject.width && y > gameObject.y && y < gameObject.y + gameObject.height);
+    }
+
+    public boolean intersects(float x, float y, float width, float height) {
+        return (
+                this.x > x && this.x < x + width && this.y > y && this.y < y + height);
+    }
+
+    // GETTERS & SETTERS
 
     public long getId() {
         return id;
@@ -161,4 +174,11 @@ abstract public class GameObject {
         this.moveable = moveable;
     }
 
+    public boolean isHover() {
+        return hover;
+    }
+
+    public void setHover(boolean hover) {
+        this.hover = hover;
+    }
 }

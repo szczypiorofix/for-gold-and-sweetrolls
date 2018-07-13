@@ -6,6 +6,7 @@ import com.szczypiorofix.sweetrolls.game.objects.GameObject;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.state.StateBasedGame;
 
 public class Player extends GameObject {
 
@@ -26,13 +27,16 @@ public class Player extends GameObject {
 
 
     @Override
-    public void update(GameContainer gc, int delta) {
+    public void update(GameContainer gc, StateBasedGame sbg, int delta) {
 
     }
 
     @Override
-    public void render(GameContainer gc, Graphics g) {
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
         image.draw(sx, sy);
+        if (hover) {
+            g.drawString(name, sx, sy - 15);
+        }
     }
 
     public void moveNorth(float s) {

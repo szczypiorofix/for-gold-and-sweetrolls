@@ -3,21 +3,20 @@
     <output-path>$PROJECT_DIR$/out/artifacts/for_gold_and_sweetrolls_jar</output-path>
     <root id="archive" name="for-gold-and-sweetrolls.jar">
       <element id="module-output" name="for-gold-and-sweetrolls" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/jogg-0.0.7.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/jinput.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/natives-mac.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/lwjgl_util_applet.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/ibxm.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/jnlp.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/lwjgl.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/slick.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/jinput.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/jogg-0.0.7.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/lwjgl_util.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/tinylinepp.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/natives-mac.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/jorbis-0.0.15.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/natives-linux.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/tinylinepp.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/lwjgl_util.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/ibxm.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/lwjgl.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/slick-examples.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/natives-windows.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/slick.jar" path-in-jar="/" />
-      <element id="dir-copy" path="$PROJECT_DIR$/src/META-INF" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/lwjgl_util_applet.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

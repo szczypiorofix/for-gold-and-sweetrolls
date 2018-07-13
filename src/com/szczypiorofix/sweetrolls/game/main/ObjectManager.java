@@ -8,6 +8,7 @@ import com.szczypiorofix.sweetrolls.game.objects.item.Chest;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
 import java.util.ArrayList;
@@ -54,30 +55,32 @@ class ObjectManager {
     }
 
 
-    private void iteratingUpdate(GameContainer gc, int delta, ArrayList<GameObject> list) throws SlickException {
+    private void iteratingUpdate(GameContainer gc, StateBasedGame sbg, int delta, ArrayList<GameObject> list) throws SlickException {
        for(GameObject i : list) {
-           i.update(gc, delta);
+           i.update(gc, sbg, delta);
        }
     }
 
 
-    private void iteratingRender(GameContainer gc, Graphics g, ArrayList<GameObject> list) throws SlickException {
+    private void iteratingRender(GameContainer gc, StateBasedGame sbg, Graphics g, ArrayList<GameObject> list) throws SlickException {
         for(GameObject i : list) {
-            i.render(gc, g);
+            i.render(gc, sbg, g);
         }
     }
 
-    public void update(GameContainer gc, int delta) throws SlickException {
-        iteratingUpdate(gc, delta, items);
+    public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
+        iteratingUpdate(gc, sbg, delta, items);
     }
 
-    public void render(GameContainer gc, Graphics g) throws SlickException {
-        iteratingRender(gc, g, items);
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
+        iteratingRender(gc, sbg, g, items);
     }
 
     public Player getPlayer() {
         return player;
     }
 
-
+    public ArrayList<GameObject> getItems() {
+        return items;
+    }
 }

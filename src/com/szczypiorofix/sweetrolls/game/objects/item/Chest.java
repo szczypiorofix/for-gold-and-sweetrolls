@@ -4,6 +4,7 @@ import com.szczypiorofix.sweetrolls.game.def.ObjectType;
 import com.szczypiorofix.sweetrolls.game.graphics.Textures;
 import com.szczypiorofix.sweetrolls.game.objects.GameObject;
 import org.newdawn.slick.*;
+import org.newdawn.slick.state.StateBasedGame;
 
 public class Chest extends GameObject {
 
@@ -15,11 +16,14 @@ public class Chest extends GameObject {
     }
 
     @Override
-    public void update(GameContainer gc, int delta) throws SlickException {
+    public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
     }
 
     @Override
-    public void render(GameContainer gc, Graphics g) throws SlickException {
+    public void render(GameContainer gc, StateBasedGame sbg,  Graphics g) throws SlickException {
         chestImage.draw(x, y);
+        if (hover) {
+            g.drawString(name, x, y - 10);
+        }
     }
 }
