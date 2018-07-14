@@ -1,6 +1,6 @@
 package com.szczypiorofix.sweetrolls.game.main;
 
-import com.szczypiorofix.sweetrolls.game.def.Level;
+import com.szczypiorofix.sweetrolls.game.def.LevelType;
 import com.szczypiorofix.sweetrolls.game.def.ObjectType;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
 import com.szczypiorofix.sweetrolls.game.objects.GameObject;
@@ -10,8 +10,6 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.EmptyTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.tiled.TiledMap;
-
-import java.util.ArrayList;
 
 
 class GameManager {
@@ -48,14 +46,15 @@ class GameManager {
         input = gc.getInput();
 
         objectManager = new ObjectManager(gc);
-        levelManager.loadLevel(Level.WORLD_MAP);
-        levelMap = levelManager.getLevelMap();
+        levelManager.loadLevel(LevelType.WORLD_MAP);
+        //levelMap = levelManager.getLevelMap();
         objectManager.setLevel(levelMap);
 
-        tilesInWidth = gc.getWidth() / levelMap.getTileWidth();
-        tilesInHeight = gc.getHeight() / levelMap.getTileHeight();
+        //tilesInWidth = gc.getWidth() / levelMap.getTileWidth();
+        //tilesInHeight = gc.getHeight() / levelMap.getTileHeight();
 
         player = objectManager.getPlayer();
+
 
         camera = new Camera(player.x, player.y, gc.getWidth(), gc.getHeight(), levelMap);
 
@@ -141,14 +140,19 @@ class GameManager {
 
         g.translate(- camera.getX(), - camera.getY());
 
-        levelMap.render(
-                0,
-                0,
-                0,
-                0,
-                    (int) (player.getX() / 32) + 6,
-                    (int) (player.getY() / 32) + 6
-                );
+//        levelMap.render(
+//
+//                0,
+//                0,
+//                (int) (-camera.getX() + player.getSx()) / 32,
+//                (int) (-camera.getY() + player.getSy()) / 32,
+////                    0,
+////                    0,
+////                    10,
+////                    10
+//                    (int) (player.getX() / 32) + 6,
+//                    (int) (player.getY() / 32) + 6
+//                );
 
         objectManager.render(gc, sgb, g);
 

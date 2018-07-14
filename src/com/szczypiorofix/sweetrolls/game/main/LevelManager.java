@@ -1,41 +1,38 @@
 package com.szczypiorofix.sweetrolls.game.main;
 
-import com.szczypiorofix.sweetrolls.game.def.Level;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.tiled.TiledMap;
+import com.szczypiorofix.sweetrolls.game.def.LevelType;
+import com.szczypiorofix.sweetrolls.game.tilemap.Level;
+
+
 
 
 public class LevelManager {
 
-    private TiledMap levelMap;
+    private Level currentLevel;
 
     public LevelManager() {
-
+        currentLevel = new Level();
     }
 
-    public void loadLevel(Level level) {
-        try {
-            switch (level) {
-                    case WORLD_MAP: {
-                        levelMap = new TiledMap(MainClass.RES + "map/worldmap.tmx");
-                        break;
-                    }
-                    case TOWN1: {
-                        break;
-                    }
-                    case TOWN2: {
-                        break;
-                    }
-                    case TOWN3: {
-                        break;
-                    }
+
+    public void loadLevel(LevelType level) {
+        switch (level) {
+            case WORLD_MAP: {
+                currentLevel.load("worldmap.xml");
+                System.out.println(currentLevel.getTileMap());
+                break;
             }
-        } catch (SlickException slickException) {
-            slickException.printStackTrace();
+            case TOWN1: {
+                break;
+            }
+            case TOWN2: {
+                break;
+            }
+            case TOWN3: {
+                break;
+            }
         }
+
     }
 
-    public TiledMap getLevelMap() {
-        return this.levelMap;
-    }
 }

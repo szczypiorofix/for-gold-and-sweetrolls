@@ -28,29 +28,30 @@ class ObjectManager {
 
     public void setLevel(TiledMap level) {
         this.level = level;
+        player = new Player("PGarvey",10, 10, 32, 32);
 
-        int objectGroupCount = level.getObjectGroupCount();
-        for (int i = 0; i < objectGroupCount; i++) {
-            int objectCount = level.getObjectCount(i);
-            for (int j = 0; j < objectCount; j++) {
-                System.out.println("Obiekt: "+level.getObjectName(i, j));
-
-                // Looking for player...
-                if (level.getObjectName(i, j).equals("player start")) {
-                    player = new Player("PGarvey",level.getObjectX(i , j), level.getObjectY(i, j), level.getTileWidth(), level.getTileHeight());
-                }
-
-                if (level.getObjectName(i, j).equals("Chest")) {
-                    items.add(new Chest(
-                            "Skrzynka",
-                            level.getObjectX(i , j),
-                            level.getObjectY(i, j),
-                            level.getTileWidth(),
-                            level.getTileHeight(),
-                            ObjectType.ITEM));
-                }
-            }
-        }
+//        int objectGroupCount = level.getObjectGroupCount();
+//        for (int i = 0; i < objectGroupCount; i++) {
+//            int objectCount = level.getObjectCount(i);
+//            for (int j = 0; j < objectCount; j++) {
+//                System.out.println("Obiekt: "+level.getObjectName(i, j));
+//
+//                // Looking for player...
+//                if (level.getObjectName(i, j).equals("player start")) {
+//                    player = new Player("PGarvey",level.getObjectX(i , j), level.getObjectY(i, j), level.getTileWidth(), level.getTileHeight());
+//                }
+//
+//                if (level.getObjectName(i, j).equals("Chest")) {
+//                    items.add(new Chest(
+//                            "Skrzynka",
+//                            level.getObjectX(i , j),
+//                            level.getObjectY(i, j),
+//                            level.getTileWidth(),
+//                            level.getTileHeight(),
+//                            ObjectType.ITEM));
+//                }
+//            }
+//        }
 
     }
 

@@ -1,6 +1,8 @@
 package com.szczypiorofix.sweetrolls.game.main;
 
 import com.szczypiorofix.sweetrolls.game.objects.character.Player;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.tiled.TiledMap;
 
 public class Camera {
@@ -66,3 +68,4 @@ public class Camera {
         this.tileY = tileY;
     }
 }
+

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="2018.06.27" orientation="orthogonal" renderorder="left-up" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="1">
- <tileset firstgid="1" source="dg_grounds32.tsx"/>
- <layer id="1" name="Warstwa Kafelków 1" width="100" height="100">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3RsQ2AMADAsB4B/7/K3gEJlqbgwXuknGOME3jlmKzu+aP5wZ3VrV/25IM/e/zwp/vCn/4PT/zYkR8tfrT40eNHjxc9XvT40eRHjxdNXnT50eUDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfMMFHzxMKkCcAAA=
-  </data>
- </layer>
-</map>

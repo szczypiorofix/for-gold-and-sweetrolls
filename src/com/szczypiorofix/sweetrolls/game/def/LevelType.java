@@ -1,6 +1,6 @@
 package com.szczypiorofix.sweetrolls.game.def;
 
-public enum Level {
+public enum LevelType {
 
     WORLD_MAP(1),
 
@@ -12,7 +12,7 @@ public enum Level {
 
     private final int id;
 
-    Level(int id) {
+    LevelType(int id) {
         this.id = id;
     }
 
