@@ -23,7 +23,6 @@ public class Level {
             saxParser.parse(new File("src/res/map/"+name), handler);
 
             tileMap = handler.getTileMap();
-            //System.out.println(tileMap.toString());
 
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
