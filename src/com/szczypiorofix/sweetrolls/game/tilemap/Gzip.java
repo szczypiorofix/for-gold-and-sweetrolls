@@ -13,9 +13,8 @@ import java.util.zip.GZIPInputStream;
 
 public class Gzip {
 
-    public static void unzip() throws Base64DecodingException {
-        String encoded = "PUT BASE 64ENCODED GZIPPED STRING HERE";
-        byte[] compressed = Base64.decode(encoded);
+    public static String unzip(String s) throws Base64DecodingException {
+        byte[] compressed = Base64.decode(s);
         String data = new String(compressed);
         //System.out.println(data);AAAA";
 
@@ -25,17 +24,18 @@ public class Gzip {
         if (!isZipped(compressed)) {
             System.out.println(compressed);
         }
+        StringBuilder output = new StringBuilder();
 
         try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(compressed)) {
             try (GZIPInputStream gzipInputStream = new GZIPInputStream(byteArrayInputStream)) {
                 try (InputStreamReader inputStreamReader = new InputStreamReader(gzipInputStream, StandardCharsets.UTF_8)) {
                     try (BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
-                        StringBuilder output = new StringBuilder();
+
                         String line;
                         while((line = bufferedReader.readLine()) != null){
                             output.append(line);
 
-                            System.out.println(output.toString());
+                            //System.out.println(output.toString());
 
                         }
 
@@ -45,6 +45,7 @@ public class Gzip {
         } catch(IOException e) {
             throw new RuntimeException("Failed to unzip content", e);
         }
+        return output.toString();
     }
 
     public static boolean isZipped(final byte[] compressed) {
