@@ -1,6 +1,8 @@
 package com.szczypiorofix.sweetrolls.game.tilemap;
 
 
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -21,6 +23,7 @@ public class TileSet {
     private int columns;
     private int sourceWidth;
     private int sourceHeight;
+    private Image image;
 
     public TileSet(int firstGrid, String source) {
         this.firstGrid = firstGrid;
@@ -32,6 +35,7 @@ public class TileSet {
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
             doc.getDocumentElement().normalize();
+
             NodeList tilesetList = doc.getElementsByTagName("tileset");
 
             for (int temp = 0; temp < tilesetList.getLength(); temp++) {
@@ -59,7 +63,67 @@ public class TileSet {
             e.printStackTrace();
         }
 
+        try {
+            image = new Image(imageSource);
+        } catch (SlickException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public String getImageSource() {
+        return imageSource;
+    }
+
+    public void setImageSource(String imageSource) {
+        this.imageSource = imageSource;
+    }
+
+    public int getTileWidth() {
+        return tileWidth;
+    }
+
+    public void setTileWidth(int tileWidth) {
+        this.tileWidth = tileWidth;
+    }
+
+    public int getTileHeight() {
+        return tileHeight;
+    }
+
+    public void setTileHeight(int tileHeight) {
+        this.tileHeight = tileHeight;
+    }
+
+    public int getTileCount() {
+        return tileCount;
+    }
+
+    public void setTileCount(int tileCount) {
+        this.tileCount = tileCount;
+    }
+
+    public int getColumns() {
+        return columns;
+    }
+
+    public void setColumns(int columns) {
+        this.columns = columns;
+    }
+
+    public int getSourceWidth() {
+        return sourceWidth;
+    }
+
+    public void setSourceWidth(int sourceWidth) {
+        this.sourceWidth = sourceWidth;
+    }
+
+    public int getSourceHeight() {
+        return sourceHeight;
+    }
+
+    public void setSourceHeight(int sourceHeight) {
+        this.sourceHeight = sourceHeight;
     }
 
     public int getFirstGrid() {

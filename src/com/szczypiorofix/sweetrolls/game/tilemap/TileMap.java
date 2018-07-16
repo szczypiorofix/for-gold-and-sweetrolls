@@ -104,7 +104,6 @@ public class TileMap {
             r += "TILESET firstgrid: "+t.getFirstGrid() +", source: "+t.getSource()+"\n";
         }
 
-
         for (int i = 0; i < layers.size(); i++) {
             r += "\nLayer "+i +": "+layers.get(i).getName() +" size: " +layers.get(i).getDataCSV().length;
         }

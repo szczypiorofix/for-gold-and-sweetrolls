@@ -54,10 +54,6 @@ class GameManager {
 
         objectManager.setLevel(levelMap);
 
-
-
-
-
         //tilesInWidth = gc.getWidth() / levelMap.getTileWidth();
         //tilesInHeight = gc.getHeight() / levelMap.getTileHeight();
 

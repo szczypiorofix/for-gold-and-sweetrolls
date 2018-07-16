@@ -27,12 +27,7 @@ class ObjectManager {
     public void setLevel(TileMap level) {
         this.level = level;
 
-
-
         player = new Player("PGarvey",10, 10, 32, 32);
-
-
-
 
     }
 
