@@ -11,45 +11,55 @@ public class TileMapXMLHandler extends DefaultHandler{
 
     private TileMap tileMap;
     private Layer layer;
+    private String CSV;
+    private boolean readCSV;
 
-    public TileMap getTileMap() {
+    TileMap getTileMap() {
         return tileMap;
     }
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-        if (qName.equalsIgnoreCase("tilemap")) {
+        if (qName.equalsIgnoreCase("map")) {
 
-            tileMap = new TileMap();
+            tileMap = new TileMap(
+                    Integer.parseInt(attributes.getValue("width")),
+                    Integer.parseInt(attributes.getValue("height")),
+                    Integer.parseInt(attributes.getValue("tilewidth")),
+                    Integer.parseInt(attributes.getValue("tileheight"))
+            );
 
-            String tileswide = attributes.getValue("tileswide");
-            String tileshigh = attributes.getValue("tileshigh");
-            String tilewidth = attributes.getValue("tilewidth");
-            String tileheight = attributes.getValue("tileheight");
+        } else if (qName.equalsIgnoreCase("tileset")) {
 
-            System.out.println("LAYER OK: tileswide:"+tileswide +", tileshigh:"+tileshigh +", tilewidth:"+tilewidth+", tileheight:"+tileheight);
+            tileMap.addTileSet(new TileSet(
+                    Integer.parseInt(attributes.getValue("firstgid")),
+                    attributes.getValue("source")
+            ));
 
         } else if (qName.equalsIgnoreCase("layer")) {
 
             layer = new Layer(
-                    Integer.parseInt(attributes.getValue("number")),
-                    attributes.getValue("name")
+                    attributes.getValue("name"),
+                    Integer.parseInt(attributes.getValue("width")),
+                    Integer.parseInt(attributes.getValue("height"))
             );
             tileMap.addLayer(layer);
 
-        } else if (qName.equalsIgnoreCase("tile")) {
-
-            Tile tile = new Tile(
-                    Integer.parseInt(attributes.getValue("x")),
-                    Integer.parseInt(attributes.getValue("y")),
-                    Integer.parseInt(attributes.getValue("tile")),
-                    Integer.parseInt(attributes.getValue("rot")),
-                    Boolean.parseBoolean(attributes.getValue("flipX"))
-            );
-
-            layer.addTile(tile);
-
+        } else if (qName.equalsIgnoreCase("data")) {
+            CSV = null;
+            readCSV = true;
         }
+    }
+
+    @Override
+    public void characters(char ch[], int start, int length) throws SAXException {
+        if (CSV == null && readCSV) {
+            CSV = new String(ch, start, length);
+        } else {
+            CSV += new String(ch, start, length);
+        }
+        if (readCSV) System.out.println(CSV);
+        readCSV = false;
     }
 
 }

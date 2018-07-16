@@ -11,7 +11,7 @@ import java.util.logging.SimpleFormatter;
 
 public class MainClass implements Runnable {
 
-    public static final String RES = "res/";
+    public static final String RES = "src/res/";
 
     public static final int SPLASHSCREEN = 0;
     public static final int MAINMENU = 1;

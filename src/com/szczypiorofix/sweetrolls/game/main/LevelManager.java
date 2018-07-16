@@ -14,11 +14,16 @@ public class LevelManager {
         currentLevel = new Level();
     }
 
+    public Level getCurrentLevel() {
+        return currentLevel;
+    }
 
     public void loadLevel(LevelType level) {
         switch (level) {
             case WORLD_MAP: {
-                currentLevel.load("worldmap.xml");
+                currentLevel.loadFromTiledMap("worldmap.tmx");
+                currentLevel.generateMap();
+
                 System.out.println(currentLevel.getTileMap());
                 break;
             }

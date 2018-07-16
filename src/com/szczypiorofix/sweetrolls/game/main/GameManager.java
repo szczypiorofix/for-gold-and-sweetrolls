@@ -1,22 +1,21 @@
 package com.szczypiorofix.sweetrolls.game.main;
 
-import com.sun.org.apache.xml.internal.security.exceptions.Base64DecodingException;
 import com.szczypiorofix.sweetrolls.game.def.LevelType;
 import com.szczypiorofix.sweetrolls.game.def.ObjectType;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
 import com.szczypiorofix.sweetrolls.game.objects.GameObject;
 import com.szczypiorofix.sweetrolls.game.objects.character.Player;
-import com.szczypiorofix.sweetrolls.game.tilemap.Gzip;
+import com.szczypiorofix.sweetrolls.game.tilemap.TileMap;
+
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.EmptyTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
-import org.newdawn.slick.tiled.TiledMap;
 
 
 class GameManager {
 
-    private TiledMap levelMap;
+    private TileMap levelMap;
     private double x, y;
     private int mapX, mapY;
 
@@ -49,14 +48,15 @@ class GameManager {
 
         objectManager = new ObjectManager(gc);
         levelManager.loadLevel(LevelType.WORLD_MAP);
-        //levelMap = levelManager.getLevelMap();
+
+
+        levelMap = levelManager.getCurrentLevel().getTileMap();
+
         objectManager.setLevel(levelMap);
 
-        try {
-            System.out.println(Gzip.unzip("H4sIAAAAAAAAC+3ZMY7DIBBAUdebOmdJ7n+yNCuttTEYbOMR8IqnSEmTsfgC5OeyLE8AAG71kxD9vyBKqgmtMLPU+n9lftMKs1iv88eG1++nvYXZ/F/XW32sOYMxk5o2jnYSPSMctb5n1PRR20n0nFBr72z13vjOXsIsau8eV3QSPTOUyvVRundohFGdvXtohFFdfbaqbSR6fshp2YZG6J0+IK2kj6N39NJGop8BpLS+f5Q0Ev0MIEUfkBfdSPT8kKMPyLurEX3Qo611qw/4E9VI9NxQIveOQh/Mbu8991Wd6INe3dGIPuhVSR9nG9EHPWvdiD4YQatG9MEoWjSiDUZzVSP2DkZ1thFtMIvSO3xO9AzQmjZgnz6gnCYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC+fQDSBxCVAHECAA=="));
-        } catch (Base64DecodingException e) {
-            e.printStackTrace();
-        }
+
+
+
 
         //tilesInWidth = gc.getWidth() / levelMap.getTileWidth();
         //tilesInHeight = gc.getHeight() / levelMap.getTileHeight();
@@ -161,6 +161,9 @@ class GameManager {
 //                    (int) (player.getX() / 32) + 6,
 //                    (int) (player.getY() / 32) + 6
 //                );
+
+        levelMap.draw(g, camera.getX(), camera.getY(), gc.getWidth(), gc.getHeight(), 10, 10);
+
 
         objectManager.render(gc, sgb, g);
 

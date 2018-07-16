@@ -1,37 +1,33 @@
 package com.szczypiorofix.sweetrolls.game.tilemap;
 
-import java.util.ArrayList;
 
 public class Layer {
 
-    private int number = 0;
     private String name;
-    private ArrayList<Tile> tiles;
+    private int width;
+    private int height;
+    private int[] dataCSV;
 
-    public Layer(int number, String name) {
-        this.number = number;
+    public Layer(String name, int width, int height) {
         this.name = name;
-        tiles = new ArrayList<>();
+        this.width = width;
+        this.height = height;
     }
 
-    public ArrayList<Tile> getTiles() {
-        return tiles;
+    public int getWidth() {
+        return width;
     }
 
-    public void setTiles(ArrayList<Tile> tiles) {
-        this.tiles = tiles;
+    public void setWidth(int width) {
+        this.width = width;
     }
 
-    public void addTile(Tile tile) {
-        this.tiles.add(tile);
+    public int getHeight() {
+        return height;
     }
 
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
+    public void setHeight(int height) {
+        this.height = height;
     }
 
     public String getName() {
@@ -41,4 +37,17 @@ public class Layer {
     public void setName(String name) {
         this.name = name;
     }
+
+    public int[] getDataCSV() {
+        return dataCSV;
+    }
+
+    public void setDataCSV(String dataCSV) {
+        String[] data = dataCSV.split(",");
+        this.dataCSV = new int[data.length];
+        for (int i = 0; i < data.length; i++) {
+            this.dataCSV[i] = Integer.parseInt(data[i].trim());
+        }
+    }
+
 }

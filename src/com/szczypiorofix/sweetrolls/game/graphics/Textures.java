@@ -10,6 +10,7 @@ public class Textures {
 
     public SpriteSheet miscItems = null;
     public SpriteSheet classm32 = null;
+    public SpriteSheet dg_grounds32 = null;
 
     public SpriteSheet mainMenuMainButtons = null;
 
@@ -20,6 +21,7 @@ public class Textures {
             miscItems = new SpriteSheet(MainClass.RES + "spritesheets/dg_misc32.png", 32, 32);
             classm32 = new SpriteSheet(MainClass.RES + "spritesheets/dg_classm32.png", 32, 32);
             mainMenuMainButtons = new SpriteSheet(MainClass.RES + "assets/mm-gui.png", 128, 32);
+            dg_grounds32 = new SpriteSheet(MainClass.RES + "map/dg_grounds32.png", 32, 32);
         } catch (SlickException e) {
             e.printStackTrace();
         }

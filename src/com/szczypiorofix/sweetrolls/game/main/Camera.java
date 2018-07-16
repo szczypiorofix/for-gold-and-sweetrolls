@@ -1,6 +1,7 @@
 package com.szczypiorofix.sweetrolls.game.main;
 
 import com.szczypiorofix.sweetrolls.game.objects.character.Player;
+import com.szczypiorofix.sweetrolls.game.tilemap.TileMap;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.tiled.TiledMap;
@@ -9,11 +10,11 @@ public class Camera {
 
     private float x, y;
     private float width, height;
-    private TiledMap tiledMap;
+    private TileMap tiledMap;
     private int tileX = 0, tileY = 0;
 
 
-    public Camera(float x, float y, float width, float height, TiledMap tiledMap) {
+    public Camera(float x, float y, float width, float height, TileMap tiledMap) {
 
         this.x = x;
         this.y = y;
