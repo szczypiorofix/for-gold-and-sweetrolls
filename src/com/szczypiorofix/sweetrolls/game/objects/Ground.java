@@ -23,6 +23,6 @@ public class Ground extends GameObject {
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) throws SlickException {
-        g.drawImage(image, x + offsetX, y + offsetY);
+        g.drawImage(image, - offsetX + x, - offsetY + y);
     }
 }

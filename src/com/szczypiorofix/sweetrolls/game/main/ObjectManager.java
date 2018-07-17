@@ -2,6 +2,7 @@ package com.szczypiorofix.sweetrolls.game.main;
 
 
 import com.szczypiorofix.sweetrolls.game.def.ObjectType;
+import com.szczypiorofix.sweetrolls.game.graphics.Textures;
 import com.szczypiorofix.sweetrolls.game.objects.GameObject;
 import com.szczypiorofix.sweetrolls.game.objects.Ground;
 import com.szczypiorofix.sweetrolls.game.objects.character.Player;
@@ -40,37 +41,50 @@ class ObjectManager {
 
         //System.out.println(maxX+":"+maxY);
 
-        player = new Player("PGarvey",0, 0, 32, 32);
+        player = new Player("PGarvey",570, 350, 32, 32);
 
         for (int layers = 0; layers < tileMap.getLayers().size(); layers++) {
             for (int i = 0; i < tileMap.getWidth(); i++) {
                 for (int j = 0; j < tileMap.getHeight(); j++) {
                     if (layers == 0) {
-                        ground.add(new Ground(
-                                "Ground",
-                                i * tileMap.getTileWidth(),
-                                j * tileMap.getTileHeight(),
-                                tileMap.getTileWidth(),
-                                tileMap.getTileHeight(),
-                                ObjectType.GROUND, tileMap.getTileSets().get(layers).getImageSprite(
-                                tileMap.getLayers().get(layers).getTileData(i + j * tileMap.getWidth())))
-                        );
+                        if (tileMap.getLayers().get(layers).getTileData(i + j * tileMap.getWidth()) > 0) {
+                            ground.add(new Ground(
+                                            "Ground",
+                                            i * tileMap.getTileWidth(),
+                                            j * tileMap.getTileHeight(),
+                                            tileMap.getTileWidth(),
+                                            tileMap.getTileHeight(),
+                                            ObjectType.GROUND,
+                                            tileMap.getTileSets().get(layers).getImageSprite(
+                                                    tileMap.getLayers().get(layers).getTileData(i + j * tileMap.getWidth())
+                                            )
+                                    )
+                            );
+                        }
                     }
-//                    if (layers == 1) {
-//                        onGround.add(new Chest(
-//                           "Chest",
-//                            i * tileMap.getTileWidth(),
-//                            j * tileMap.getTileHeight(),
-//                            tileMap.getTileWidth(),
-//                            tileMap.getTileHeight(),
-//                            ObjectType.ITEM, tileMap.getTileSets().get(layers).getImageSprite(
-//                            tileMap.getLayers().get(layers).getTileData(i + j * tileMap.getWidth()))
-//                        ));
-//                    }
+                    if (layers == 1) {
+                        if (tileMap.getLayers().get(layers).getTileData(i + j * tileMap.getWidth()) > 0) {
+                            onGround.add(new Chest(
+                                    "Chest",
+                                    i * tileMap.getTileWidth(),
+                                    j * tileMap.getTileHeight(),
+                                    tileMap.getTileWidth(),
+                                    tileMap.getTileHeight(),
+                                    ObjectType.ITEM,
+                                    tileMap.getTileSets().get(0).getImageSprite(
+                                        tileMap.getLayers().get(layers).getTileData(i + j * tileMap.getWidth())
+                                    )
+                                )
+                            );
+                        }
+
+                    }
 
                 }
             }
         }
+
+        // onGround.add(new Chest("Chest", 30, 30, 32, 32, ObjectType.ITEM, Textures.getInstance().miscItems.getSprite(1, 1)));
 
 
     }
@@ -84,9 +98,20 @@ class ObjectManager {
 
 
     private void iteratingRender(GameContainer gc, StateBasedGame sbg, Graphics g, ArrayList<GameObject> list, float offsetX, float offsetY) throws SlickException {
-        for(int i = 0; i < list.size(); i++) {
-            list.get(i).render(gc, sbg, g, offsetX, offsetY);
+//        for(int i = 0; i < list.size(); i++) {
+//            //int tileOffsetX = (int) offsetX / level.getTileWidth();
+//            //int tileOffsetY = (int) offsetY / level.getTileHeight();
+//
+//            list.get(i).render(gc, sbg, g, offsetX, offsetY);
+//        }
+
+        for (int x = -3; x < 3; x++) {
+            for (int y = -3; y < 3; y++) {
+                int index = (int) (((player.getX() / gc.getWidth()) + x) * 32 + (player.getY() / gc.getHeight() + y));
+                if (index >= 0) list.get(index).render(gc, sbg, g, offsetX, offsetY);
+            }
         }
+
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) throws SlickException {
@@ -95,6 +120,7 @@ class ObjectManager {
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) throws SlickException {
         iteratingRender(gc, sbg, g, ground, offsetX, offsetY);
+        iteratingRender(gc, sbg, g, onGround, offsetX, offsetY);
     }
 
     public Player getPlayer() {
@@ -103,6 +129,10 @@ class ObjectManager {
 
     public ArrayList<GameObject> getItems() {
         return items;
+    }
+
+    public ArrayList<GameObject> getOnGround() {
+        return onGround;
     }
 
     public ArrayList<GameObject> getGround() {

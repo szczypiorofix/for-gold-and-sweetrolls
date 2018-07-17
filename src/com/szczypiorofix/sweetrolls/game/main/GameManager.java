@@ -81,27 +81,23 @@ class GameManager {
         }
 
         if (input.isKeyDown(Input.KEY_RIGHT) || gc.getInput().isKeyDown(Input.KEY_D)) {
-            //player.setX(player.getX() - (delta / SPEED));
             player.setX(player.getX() + (delta/SPEED));
-//            offsetX = player.getX() - ((player.getWidth() + gc.getWidth()) / 2);
         }
 
         if (input.isKeyDown((Input.KEY_LEFT)) || gc.getInput().isKeyDown(Input.KEY_A)) {
-//            player.setX(player.getX() + (delta / SPEED));
-//            offsetX = player.getX() - ((player.getWidth() + gc.getWidth()) / 2);
             player.setX(player.getX() - (delta/SPEED));
         }
 
         if (input.isKeyDown(Input.KEY_UP) || gc.getInput().isKeyDown(Input.KEY_W)) {
             player.setY(player.getY() - (delta / SPEED));
-//            offsetY = player.getY() - ((player.getHeight() + gc.getHeight()) / 2);
         }
 
         if (input.isKeyDown((Input.KEY_DOWN)) || gc.getInput().isKeyDown(Input.KEY_S)) {
             player.setY(player.getY() + (delta / SPEED));
-//            offsetY = player.getY() - ((player.getHeight() + gc.getHeight()) / 2);
         }
 
+        offsetX = player.getX() - (gc.getWidth() / 2);
+        offsetY = player.getY() - (gc.getHeight() / 2);
 
     }
 
@@ -118,12 +114,12 @@ class GameManager {
 
         //camera.update(player);
 
-        if (mouseCursor.intersects(player.getX(), player.getY(), player.getWidth(), player.getHeight())) {
+        if (mouseCursor.intersects(player.getX() - offsetX, player.getY() - offsetY, player.getWidth(), player.getHeight())) {
             player.setHover(true);
         } else player.setHover(false);
 
-        for(GameObject item : objectManager.getItems()) {
-            if (mouseCursor.intersects(item.getX() - (player.getX() - player.getSx()), item.getY() - (player.getY() - player.getSy()), item.width, item.height)) {
+        for(GameObject item : objectManager.getOnGround()) {
+            if (mouseCursor.intersects(item.getX() - offsetX, item.getY() - offsetY, item.width, item.height)) {
                 item.setHover(true);
             } else item.setHover(false);
         }
@@ -146,6 +142,10 @@ class GameManager {
 
         g.drawString("offsetX: "+offsetX, 10, 55);
         g.drawString("offsetY: "+offsetY, 10, 65);
+
+        g.drawString("MX: "+mouseCursor.getX(), 10, 75);
+        g.drawString("MY: "+mouseCursor.getY(), 10, 85);
+
     }
 
 }

@@ -21,9 +21,9 @@ public class Chest extends GameObject {
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg,  Graphics g, float offsetX, float offsetY) throws SlickException {
-        chestImage.draw(x, y);
+        chestImage.draw(- offsetX + x, - offsetY + y);
         if (hover) {
-            g.drawString(name, x + offsetX, y + offsetY);
+            g.drawString(name, - offsetX + x, - offsetY + y - 15);
         }
     }
 }

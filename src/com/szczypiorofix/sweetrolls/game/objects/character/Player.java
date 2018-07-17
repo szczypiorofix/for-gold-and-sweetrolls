@@ -34,9 +34,9 @@ public class Player extends GameObject {
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) {
         //image.draw(sx, sy);
-        image.draw(x + offsetX, y + offsetY);
+        image.draw( - offsetX + x, - offsetY + y);
         if (hover) {
-            g.drawString(name, x, y - 15);
+            g.drawString(name, - offsetX + x, - offsetY + y - 15);
         }
     }
 
