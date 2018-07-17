@@ -28,11 +28,11 @@ public class Camera {
     public void update(Player player) {
 
         //if (x > 150) {
-            x = player.getX() - (width / 2);
+            x = - player.getX() + (width / 2);
         //}
 
         //if (y > 150) {
-            y = player.getY() - (height / 2);
+            y = - player.getY() + (height / 2);
         //}
 
     }

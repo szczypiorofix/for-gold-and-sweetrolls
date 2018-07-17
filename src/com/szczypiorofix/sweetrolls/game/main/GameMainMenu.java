@@ -63,7 +63,7 @@ public class GameMainMenu extends BasicGameState {
         gc.setMouseCursor(new Image(MainClass.RES + "mouse_cursor.png"), 0, 0);
         mouseCursor = new MouseCursor("Mouse Cursor Main Menu", input.getMouseX(), input.getMouseY(), 1, 1, ObjectType.MOUSECURSOR);
 
-        gc.setTargetFrameRate(60);
+        //gc.setTargetFrameRate(60);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class GameMainMenu extends BasicGameState {
 
         serverStatus = MainClass.serverOnline;
 
-        mouseCursor.update(gc, sbg, delta);
+        mouseCursor.update(gc, sbg, delta, 0, 0);
 
 
         for(int i = 0; i < menuButtons.length; i++) {
@@ -134,7 +134,7 @@ public class GameMainMenu extends BasicGameState {
         fontImmortal.draw("For Gold and Sweetrolls", 85, 60, Color.white);
 
         for(MainMenuButton m: menuButtons) {
-            m.render(gc, sbg, g);
+            m.render(gc, sbg, g, 0 ,0);
         }
     }
 

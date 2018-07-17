@@ -27,32 +27,17 @@ public class Player extends GameObject {
 
 
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta) {
+    public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) {
 
     }
 
     @Override
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
-        image.draw(sx, sy);
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) {
+        //image.draw(sx, sy);
+        image.draw(x + offsetX, y + offsetY);
         if (hover) {
-            g.drawString(name, sx, sy - 15);
+            g.drawString(name, x, y - 15);
         }
-    }
-
-    public void moveNorth(float s) {
-        y -= s;
-    }
-
-    public void moveSouth(float s) {
-        y += s;
-    }
-
-    public void moveEast(float s) {
-        x += s;
-    }
-
-    public void moveWest(float s) {
-        x -= s;
     }
 
     public float getSx() {

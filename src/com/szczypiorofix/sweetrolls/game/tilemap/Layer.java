@@ -1,6 +1,8 @@
 package com.szczypiorofix.sweetrolls.game.tilemap;
 
 
+import java.util.Arrays;
+
 public class Layer {
 
     private String name;
@@ -42,12 +44,13 @@ public class Layer {
         return dataCSV;
     }
 
+    public int getTileData(int tile) {
+        return dataCSV[tile];
+    }
+
     public void setDataCSV(String dataCSV) {
-        String[] data = dataCSV.split(",");
-        this.dataCSV = new int[data.length];
-        for (int i = 0; i < data.length; i++) {
-            this.dataCSV[i] = Integer.parseInt(data[i].trim());
-        }
+        String[] data = dataCSV.replace("\n", "").replace("\r", "").trim().split(",");
+        this.dataCSV = Arrays.stream(data).mapToInt(Integer::parseInt).toArray();
     }
 
 }

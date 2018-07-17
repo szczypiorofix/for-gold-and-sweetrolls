@@ -28,19 +28,19 @@ public class MainMenuButton extends GameObject {
     }
 
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
+    public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) throws SlickException {
     }
 
     @Override
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) throws SlickException {
 
         if (hover) {
             imagePressed.draw(x, y);
-            font.draw(name, nameX, y+8, Color.white);
+            font.draw(name, nameX + offsetX, y + 8 + offsetY, Color.white);
         }
         else {
             image.draw(x, y);
-            font.draw(name, nameX, y+5, Color.white);
+            font.draw(name, nameX + offsetX, y + 5 + offsetY, Color.white);
         }
 
     }

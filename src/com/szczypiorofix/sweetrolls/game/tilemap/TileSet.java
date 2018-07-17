@@ -144,17 +144,8 @@ public class TileSet {
         this.source = source;
     }
 
-    public SpriteSheet getImage() {
-        return image;
-    }
-
-    /**
-     * Return the right tile from spritesheet
-     * @param id Integer - id of tile
-     * @return Image - Slick2D image
-     */
-    public Image getTile(int id) {
-        return image.getSprite(2, 2);
+    public Image getImageSprite(int id) {
+        return image.getSprite((int) ((id  - firstGrid) % columns), (int) ((id - firstGrid) / columns) );
     }
 
 }

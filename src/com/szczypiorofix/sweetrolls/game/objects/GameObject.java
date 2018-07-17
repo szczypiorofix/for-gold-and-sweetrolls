@@ -66,9 +66,9 @@ abstract public class GameObject {
     }
 
 
-    public abstract void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException;
+    public abstract void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) throws SlickException;
 
-    public abstract void render(GameContainer gc, StateBasedGame sbg,  Graphics g) throws SlickException;
+    public abstract void render(GameContainer gc, StateBasedGame sbg,  Graphics g, float offsetX, float offsetY) throws SlickException;
 
     public boolean intersects(GameObject gameObject) {
         return (

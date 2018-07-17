@@ -18,6 +18,7 @@ class GameManager {
     private TileMap levelMap;
     private double x, y;
     private int mapX, mapY;
+    private float offsetX, offsetY;
 
     private int tilesInWidth = 0, tilesInHeight = 0;
     private final static int SPEED = 2;
@@ -37,6 +38,9 @@ class GameManager {
         y = 0d;
         mapX = 0;
         mapY = 0;
+
+        offsetX = 0;
+        offsetY = 0;
 
         levelManager = new LevelManager();
     }
@@ -69,66 +73,52 @@ class GameManager {
 
     void handleInputs(GameContainer gc, StateBasedGame sgb, int delta) throws SlickException {
 
-        mouseCursor.update(gc, sgb, delta);
+        mouseCursor.update(gc, sgb, delta, offsetX, offsetY);
 
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
             input.clearKeyPressedRecord();
             sgb.enterState(MainClass.MAINMENU, new FadeOutTransition(Color.black), new EmptyTransition());
         }
 
-        if (input.isKeyDown(Input.KEY_LEFT) || gc.getInput().isKeyDown(Input.KEY_A)) {
-            player.moveWest(delta / SPEED);
+        if (input.isKeyDown(Input.KEY_RIGHT) || gc.getInput().isKeyDown(Input.KEY_D)) {
+            //player.setX(player.getX() - (delta / SPEED));
+            player.setX(player.getX() + (delta/SPEED));
+//            offsetX = player.getX() - ((player.getWidth() + gc.getWidth()) / 2);
         }
 
-        if (input.isKeyDown((Input.KEY_RIGHT)) || gc.getInput().isKeyDown(Input.KEY_D)) {
-            player.moveEast(delta / SPEED);
+        if (input.isKeyDown((Input.KEY_LEFT)) || gc.getInput().isKeyDown(Input.KEY_A)) {
+//            player.setX(player.getX() + (delta / SPEED));
+//            offsetX = player.getX() - ((player.getWidth() + gc.getWidth()) / 2);
+            player.setX(player.getX() - (delta/SPEED));
         }
 
         if (input.isKeyDown(Input.KEY_UP) || gc.getInput().isKeyDown(Input.KEY_W)) {
-            player.moveNorth(delta / SPEED);
+            player.setY(player.getY() - (delta / SPEED));
+//            offsetY = player.getY() - ((player.getHeight() + gc.getHeight()) / 2);
         }
 
         if (input.isKeyDown((Input.KEY_DOWN)) || gc.getInput().isKeyDown(Input.KEY_S)) {
-            player.moveSouth(delta / SPEED);
+            player.setY(player.getY() + (delta / SPEED));
+//            offsetY = player.getY() - ((player.getHeight() + gc.getHeight()) / 2);
         }
-
 
 
     }
 
     void handleLogic(GameContainer gc, StateBasedGame sgb, int delta) throws SlickException {
 
-//        x = player.getX();
-//        y = player.getY();
 
-        if (x < 0) {
-            mapX++;
-            x = 32;
-        }
-
-        if (x > 32) {
-            mapX--;
-            x = 0;
-        }
-
-        if (y < 0) {
-            mapY++;
-            y = 32;
-        }
-
-        if (y > 32) {
-            mapY--;
-            y = 0;
-        }
 
         player.setSx(gc.getWidth() / 2);
         player.setSy(gc.getHeight() / 2);
 
-        objectManager.update(gc, sgb, delta);
+        objectManager.update(gc, sgb, delta, offsetX, offsetY);
 
-        camera.update(player);
+        player.update(gc, sgb, delta, offsetX, offsetY);
 
-        if (mouseCursor.intersects(player.getSx(), player.getSy(), player.getWidth(), player.getHeight())) {
+        //camera.update(player);
+
+        if (mouseCursor.intersects(player.getX(), player.getY(), player.getWidth(), player.getHeight())) {
             player.setHover(true);
         } else player.setHover(false);
 
@@ -142,37 +132,20 @@ class GameManager {
 
     void render(GameContainer gc, StateBasedGame sgb, Graphics g) throws SlickException {
 
-        g.translate(- camera.getX(), - camera.getY());
+        //g.translate(- camera.getX(), - camera.getY());
 
-//        levelMap.render(
-//
-//                0,
-//                0,
-//                (int) (-camera.getX() + player.getSx()) / 32,
-//                (int) (-camera.getY() + player.getSy()) / 32,
-////                    0,
-////                    0,
-////                    10,
-////                    10
-//                    (int) (player.getX() / 32) + 6,
-//                    (int) (player.getY() / 32) + 6
-//                );
+        objectManager.render(gc, sgb, g, offsetX, offsetY);
+        player.render(gc, sgb, g, offsetX, offsetY);
 
-        levelMap.draw(g, camera.getX(), camera.getY(), gc.getWidth(), gc.getHeight(), 10, 10);
+        //g.translate(camera.getX(), camera.getY());
 
-
-        objectManager.render(gc, sgb, g);
-
-        g.translate(camera.getX(), camera.getY());
-
-        player.render(gc, sgb, g);
 
         g.drawString("P: X:"+player.getX()+" Y:"+player.getY(), 10, 25);
         g.drawString("PS: X:"+player.getSx()+" Y:"+player.getSy(), 10, 35);
-        g.drawString("C: X:"+camera.getX()+" Y:"+camera.getY(), 10, 45);
+        //g.drawString("C: X:"+camera.getX()+" Y:"+camera.getY(), 10, 45);
 
-        g.drawString("mapX: "+mapX, 10, 55);
-        g.drawString("mapY: "+mapY, 10, 65);
+        g.drawString("offsetX: "+offsetX, 10, 55);
+        g.drawString("offsetY: "+offsetY, 10, 65);
     }
 
 }
