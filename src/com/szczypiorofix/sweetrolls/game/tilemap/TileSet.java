@@ -1,8 +1,10 @@
 package com.szczypiorofix.sweetrolls.game.tilemap;
 
 
+import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -23,7 +25,7 @@ public class TileSet {
     private int columns;
     private int sourceWidth;
     private int sourceHeight;
-    private Image image;
+    private SpriteSheet image;
 
     public TileSet(int firstGrid, String source) {
         this.firstGrid = firstGrid;
@@ -64,7 +66,7 @@ public class TileSet {
         }
 
         try {
-            image = new Image(imageSource);
+            image = new SpriteSheet(MainClass.RES +"map/" +imageSource, tileWidth, tileHeight);
         } catch (SlickException e) {
             e.printStackTrace();
         }
@@ -140,6 +142,19 @@ public class TileSet {
 
     public void setSource(String source) {
         this.source = source;
+    }
+
+    public SpriteSheet getImage() {
+        return image;
+    }
+
+    /**
+     * Return the right tile from spritesheet
+     * @param id Integer - id of tile
+     * @return Image - Slick2D image
+     */
+    public Image getTile(int id) {
+        return image.getSprite(2, 2);
     }
 
 }

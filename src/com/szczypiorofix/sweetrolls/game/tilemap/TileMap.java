@@ -120,7 +120,7 @@ public class TileMap {
 
         for (int i = 0; i < width ; i += tileWidth) {
             for (int j = 0; j < height; j += tileWeight) {
-                g.drawImage(Textures.getInstance().dg_grounds32.getSprite(1, 1), i, j);
+                g.drawImage(tileSets.get(0).getTile(1), i, j);
             }
         }
 
