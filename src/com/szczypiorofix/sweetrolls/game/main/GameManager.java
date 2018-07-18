@@ -29,7 +29,6 @@ class GameManager {
 
     private LevelManager levelManager;
     private ObjectManager objectManager;
-    private Camera camera;
 
     private MouseCursor mouseCursor;
 
@@ -64,7 +63,7 @@ class GameManager {
         player = objectManager.getPlayer();
 
 
-        camera = new Camera(player.x, player.y, gc.getWidth(), gc.getHeight(), levelMap);
+        //camera = new Camera(player.x, player.y, gc.getWidth(), gc.getHeight(), levelMap);
 
         mouseCursor = new MouseCursor("Mouse Cursor Game", input.getMouseX(), input.getMouseY(), 1, 1, ObjectType.MOUSECURSOR);
 
@@ -103,8 +102,6 @@ class GameManager {
 
     void handleLogic(GameContainer gc, StateBasedGame sgb, int delta) throws SlickException {
 
-
-
         player.setSx(gc.getWidth() / 2);
         player.setSy(gc.getHeight() / 2);
 
@@ -128,23 +125,17 @@ class GameManager {
 
     void render(GameContainer gc, StateBasedGame sgb, Graphics g) throws SlickException {
 
-        //g.translate(- camera.getX(), - camera.getY());
-
         objectManager.render(gc, sgb, g, offsetX, offsetY);
         player.render(gc, sgb, g, offsetX, offsetY);
 
-        //g.translate(camera.getX(), camera.getY());
-
-
         g.drawString("P: X:"+player.getX()+" Y:"+player.getY(), 10, 25);
-        g.drawString("PS: X:"+player.getSx()+" Y:"+player.getSy(), 10, 35);
-        //g.drawString("C: X:"+camera.getX()+" Y:"+camera.getY(), 10, 45);
+        g.drawString("PS: X:"+player.getSx()+" Y:"+player.getSy(), 10, 40);
 
-        g.drawString("offsetX: "+offsetX, 10, 55);
-        g.drawString("offsetY: "+offsetY, 10, 65);
+        g.drawString("offsetX: "+offsetX, 10, 60);
+        g.drawString("offsetY: "+offsetY, 10, 75);
 
-        g.drawString("MX: "+mouseCursor.getX(), 10, 75);
-        g.drawString("MY: "+mouseCursor.getY(), 10, 85);
+        g.drawString("PTX: "+player.getTileX(0), 10, 90);
+        g.drawString("PTY: "+player.getTileY(0), 10, 105);
 
     }
 

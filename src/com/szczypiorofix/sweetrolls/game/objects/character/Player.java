@@ -56,4 +56,11 @@ public class Player extends GameObject {
         this.sy = sy;
     }
 
+    public int getTileX(int offset) {
+        return (int) ((x + (width / 2)) / width) +offset;
+    }
+
+    public int getTileY(int offset) {
+        return (int) ((y + (height / 2)) / height) + offset;
+    }
 }

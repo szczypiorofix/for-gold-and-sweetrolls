@@ -109,10 +109,10 @@ public class TileMap {
 
         for (int i = 0; i < layers.size(); i++) {
             r += "\nLayer "+i +": "+layers.get(i).getName() +" size: " +layers.get(i).getDataCSV().length+"\n";
-//            for (int j = 0; j < layers.get(i).getDataCSV().length; j++) {
-//                r += layers.get(i).getTileData(j)+",";
-//            }
-            //r += "\n";
+            for (int j = 0; j < layers.get(i).getDataCSV().length; j++) {
+                r += layers.get(i).getTileData(j)+",";
+            }
+            r += "\n";
         }
 
         for (int i = 0; i < objectGroups.size(); i++) {
