@@ -47,7 +47,7 @@ class NetworkClient {
         return connected;
     }
 
-    public static String sendMessage(String msg) {
+    private static String sendMessage(String msg) {
         String result = "";
         if (connected) {
             out.println(msg);

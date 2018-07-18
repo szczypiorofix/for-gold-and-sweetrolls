@@ -14,7 +14,7 @@ public class TileMap {
     private int tileHeight;
     private int width;
     private int height;
-    private int nextobjectid;
+    private int nextObjectId;
 
     public TileMap(int width, int height, int tileWidth, int tileHeight) {
         this.width = width;
@@ -64,11 +64,11 @@ public class TileMap {
     }
 
     public int getNextobjectid() {
-        return nextobjectid;
+        return nextObjectId;
     }
 
-    public void setNextobjectid(int nextobjectid) {
-        this.nextobjectid = nextobjectid;
+    public void setNextobjectid(int nextObjectId) {
+        this.nextObjectId = nextObjectId;
     }
 
     public ArrayList<ObjectGroup> getObjectGroups() {
@@ -122,9 +122,8 @@ public class TileMap {
     }
 
 
-
-    public void draw(Graphics g, float x, float y, float width, float height, int mapX, int mapY) {
-
+//    public void draw(Graphics g, float x, float y, float width, float height, int mapX, int mapY) {
+//
 //        int counter = 0;
 //        for (int i = 0; i < width / tileWidth; i++) {
 //            for (int j = 0; j < height / tileHeight; j++) {
@@ -135,13 +134,13 @@ public class TileMap {
 //                counter++;
 //            }
 //        }
-
-        g.drawImage(tileSets.get(0)
-                .getImageSprite(
-                        layers.get(0).getTileData(0)
-                ), 1, 1
-        );
-
-    }
+//
+//        g.drawImage(tileSets.get(0)
+//                .getImageSprite(
+//                        layers.get(0).getTileData(0)
+//                ), 1, 1
+//        );
+//
+//    }
 
 }

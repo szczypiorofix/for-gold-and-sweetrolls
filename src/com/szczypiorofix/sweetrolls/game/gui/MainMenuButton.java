@@ -28,11 +28,11 @@ public class MainMenuButton extends GameObject {
     }
 
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) throws SlickException {
+    public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) {
     }
 
     @Override
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) throws SlickException {
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) {
 
         if (hover) {
             imagePressed.draw(x, y);

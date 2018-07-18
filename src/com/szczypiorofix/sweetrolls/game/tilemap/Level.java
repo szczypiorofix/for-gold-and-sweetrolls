@@ -6,6 +6,9 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
+import org.lwjgl.Sys;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
@@ -25,9 +28,9 @@ public class Level {
 
     }
 
-    public void loadFromTiledMap(String name) {
+    public void loadFromTiledMap(String fileName) {
         try {
-            File inputFile = new File("src/res/map/" + name);
+            File inputFile = new File("src/res/map/" + fileName);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
@@ -69,12 +72,58 @@ public class Level {
                         Node tilesetNode = tilesetList.item(i);
                         if (tilesetNode.getNodeType() == Node.ELEMENT_NODE) {
                             Element tilesetElement = (Element) tilesetNode;
-                            tileMap.addTileSet(new TileSet(
-                                    Integer.parseInt(tilesetElement.getAttribute("firstgid")),
-                                    MainClass.RES +"map/" +tilesetElement.getAttribute("source")
-                                    )
-                            );
+
+                            System.out.println(tilesetElement.getAttribute("name"));
+
+                            int firstGrid = Integer.parseInt(tilesetElement.getAttribute("firstgid"));
+                            String tilesetName = tilesetElement.getAttribute("name");
+
+                            System.out.println(tilesetName);
+
+                            int tileWidth = Integer.parseInt(tilesetElement.getAttribute("tilewidth"));
+                            int tileHeight = Integer.parseInt(tilesetElement.getAttribute("tileheight"));
+                            int tileCount = Integer.parseInt(tilesetElement.getAttribute("tilecount"));
+                            int columns = Integer.parseInt(tilesetElement.getAttribute("columns"));
+
+
+
+                            NodeList imageList = doc.getElementsByTagName("image");
+                            for (int j = 0; j < imageList.getLength(); j++) {
+                                Node imageNode = imageList.item(j);
+                                if (imageNode.getNodeType() == Node.ELEMENT_NODE) {
+                                    Element imageElement = (Element) imageNode;
+                                    String imageSource = imageElement.getAttribute("source");
+                                    int sourceWidth = Integer.parseInt(imageElement.getAttribute("width"));
+                                    int sourceHeight = Integer.parseInt(imageElement.getAttribute("height"));
+
+                                    SpriteSheet image = null;
+
+                                    try {
+                                        image = new SpriteSheet(MainClass.RES +"map/" +imageSource, tileWidth, tileHeight);
+                                    } catch (SlickException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    tileMap.addTileSet(new TileSet(
+                                            firstGrid,
+                                            tilesetName,
+                                            imageSource,
+                                            tileWidth,
+                                            tileHeight,
+                                            tileCount,
+                                            columns,
+                                            sourceWidth,
+                                            sourceHeight,
+                                            image)
+                                    );
+
+                                }
+                            }
+
+
                         }
+
+
                     }
 
                     NodeList objectGroupList = doc.getElementsByTagName("objectgroup");

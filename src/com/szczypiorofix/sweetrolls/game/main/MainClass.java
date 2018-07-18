@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-public class MainClass implements Runnable {
+public class MainClass { // implements Runnable {
 
     public static final String RES = "src/res/";
 
@@ -21,7 +21,7 @@ public class MainClass implements Runnable {
     private static boolean DEBUG_MODE;
     private final static Logger LOGGER = Logger.getLogger(MainClass.class.getName());
     private FileHandler fileHandler = null;
-    public static NetworkClient networkClient;
+    //public static NetworkClient networkClient;
 
     static boolean serverOnline = false;
 
@@ -47,10 +47,10 @@ public class MainClass implements Runnable {
 
     }
 
-    private void networkClientStart() {
-        Thread serverThread = new Thread(this);
-        serverThread.start();
-    }
+//    private void networkClientStart() {
+//        Thread serverThread = new Thread(this);
+//        serverThread.start();
+//    }
 
     private void applicationStart() {
         try {
@@ -101,37 +101,37 @@ public class MainClass implements Runnable {
     }
 
 
-    public static String getStackTrace(final Throwable throwable) {
-        final StringWriter sw = new StringWriter();
-        final PrintWriter pw = new PrintWriter(sw, true);
-        throwable.printStackTrace(pw);
-        return sw.getBuffer().toString();
-    }
+//    public static String getStackTrace(final Throwable throwable) {
+//        final StringWriter sw = new StringWriter();
+//        final PrintWriter pw = new PrintWriter(sw, true);
+//        throwable.printStackTrace(pw);
+//        return sw.getBuffer().toString();
+//    }
 
 
-    @Override
-    public void run() {
-        System.out.println("Another thread is running..");
-
-        System.out.println("Pierwsze łączenie z serwerem ...");
-
-        NetworkClient.startConnection();
-
-        boolean serverThreadRunning = true;
-
-        while (serverThreadRunning) {
-
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            serverOnline = NetworkClient.isConnected();
-            System.out.println("Server online?: " +serverOnline);
-
-        }
-    }
+//    @Override
+//    public void run() {
+//        System.out.println("Another thread is running..");
+//
+//        System.out.println("Pierwsze łączenie z serwerem ...");
+//
+//        NetworkClient.startConnection();
+//
+//        boolean serverThreadRunning = true;
+//
+//        while (serverThreadRunning) {
+//
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//
+//            serverOnline = NetworkClient.isConnected();
+//            System.out.println("Server online?: " +serverOnline);
+//
+//        }
+//    }
 
 
     /**
@@ -140,8 +140,7 @@ public class MainClass implements Runnable {
      */
     public static void main(String[] args) {
         if (args.length > 0) {
-            if (args[0].equalsIgnoreCase("-debug")) DEBUG_MODE = true;
-            else DEBUG_MODE = false;
+            DEBUG_MODE = args[0].equalsIgnoreCase("-debug");
         }
         //System.out.println("HELLO!");
 

@@ -17,12 +17,12 @@ public class Ground extends GameObject {
     }
 
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) throws SlickException {
+    public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) {
 
     }
 
     @Override
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) throws SlickException {
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) {
         g.drawImage(image, - offsetX + x, - offsetY + y);
     }
 }

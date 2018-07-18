@@ -16,11 +16,11 @@ public class Chest extends GameObject {
     }
 
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) throws SlickException {
+    public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) {
     }
 
     @Override
-    public void render(GameContainer gc, StateBasedGame sbg,  Graphics g, float offsetX, float offsetY) throws SlickException {
+    public void render(GameContainer gc, StateBasedGame sbg,  Graphics g, float offsetX, float offsetY) {
         chestImage.draw(- offsetX + x, - offsetY + y);
         if (hover) {
             g.drawString(name, - offsetX + x, - offsetY + y - 15);

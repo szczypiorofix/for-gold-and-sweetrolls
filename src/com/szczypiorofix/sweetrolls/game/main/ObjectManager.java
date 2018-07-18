@@ -68,7 +68,7 @@ class ObjectManager {
                                     )
                             );
                         } else {
-                            onGround.add(new EmptyObject("Empty"));
+                            ground.add(new EmptyObject("Empty"));
                         }
                     }
 
@@ -116,7 +116,6 @@ class ObjectManager {
 
         //onGround.add(new Chest("Chest", 30, 30, 32, 32, ObjectType.ITEM, Textures.getInstance().miscItems.getSprite(1, 1)));
 
-
     }
 
 
@@ -150,14 +149,14 @@ class ObjectManager {
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) throws SlickException {
         iteratingUpdate(gc, sbg, delta, ground, offsetX, offsetY);
-        iteratingUpdate(gc, sbg, delta, onGround, offsetX, offsetY);
-        iteratingUpdate(gc, sbg, delta, foreGround, offsetX, offsetY);
+        //iteratingUpdate(gc, sbg, delta, onGround, offsetX, offsetY);
+        //iteratingUpdate(gc, sbg, delta, foreGround, offsetX, offsetY);
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) throws SlickException {
         iteratingRender(gc, sbg, g, ground, offsetX, offsetY);
-        iteratingRender(gc, sbg, g, onGround, offsetX, offsetY);
-        iteratingRender(gc, sbg, g, foreGround, offsetX, offsetY);
+        //iteratingRender(gc, sbg, g, onGround, offsetX, offsetY);
+        //iteratingRender(gc, sbg, g, foreGround, offsetX, offsetY);
     }
 
     public Player getPlayer() {
@@ -170,6 +169,10 @@ class ObjectManager {
 
     public ArrayList<GameObject> getOnGround() {
         return onGround;
+    }
+
+    public ArrayList<GameObject> getForeGround() {
+        return foreGround;
     }
 
     public ArrayList<GameObject> getGround() {

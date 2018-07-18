@@ -20,7 +20,6 @@ class GameManager {
     private int mapX, mapY;
     private float offsetX, offsetY;
 
-    private int tilesInWidth = 0, tilesInHeight = 0;
     private final static int SPEED = 2;
 
     private Input input;
@@ -45,25 +44,18 @@ class GameManager {
     }
 
 
-    void init(GameContainer gc) throws SlickException {
+    void init(GameContainer gc) {
 
         input = gc.getInput();
 
         objectManager = new ObjectManager(gc);
         levelManager.loadLevel(LevelType.WORLD_MAP);
 
-
         levelMap = levelManager.getCurrentLevel().getTileMap();
 
         objectManager.setLevel(levelMap);
 
-        //tilesInWidth = gc.getWidth() / levelMap.getTileWidth();
-        //tilesInHeight = gc.getHeight() / levelMap.getTileHeight();
-
         player = objectManager.getPlayer();
-
-
-        //camera = new Camera(player.x, player.y, gc.getWidth(), gc.getHeight(), levelMap);
 
         mouseCursor = new MouseCursor("Mouse Cursor Game", input.getMouseX(), input.getMouseY(), 1, 1, ObjectType.MOUSECURSOR);
 
@@ -109,8 +101,6 @@ class GameManager {
 
         player.update(gc, sgb, delta, offsetX, offsetY);
 
-        //camera.update(player);
-
         if (mouseCursor.intersects(player.getX() - offsetX, player.getY() - offsetY, player.getWidth(), player.getHeight())) {
             player.setHover(true);
         } else player.setHover(false);
@@ -120,6 +110,12 @@ class GameManager {
                 item.setHover(true);
             } else item.setHover(false);
         }
+
+//        for(GameObject item : objectManager.getForeGround()) {
+//            if (mouseCursor.intersects(item.getX() - offsetX, item.getY() - offsetY, item.width, item.height)) {
+//                item.setHover(true);
+//            } else item.setHover(false);
+//        }
 
     }
 

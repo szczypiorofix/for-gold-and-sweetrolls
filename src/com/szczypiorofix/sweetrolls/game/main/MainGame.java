@@ -8,7 +8,6 @@ import org.newdawn.slick.state.StateBasedGame;
 public class MainGame extends BasicGameState {
 
     private GameManager gameManager;
-    private StateBasedGame game;
 
 
     @Override

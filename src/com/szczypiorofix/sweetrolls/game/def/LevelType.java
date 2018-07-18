@@ -2,21 +2,21 @@ package com.szczypiorofix.sweetrolls.game.def;
 
 public enum LevelType {
 
-    WORLD_MAP(1),
+    WORLD_MAP,
 
-    TOWN1(2),
+    TOWN1,
 
-    TOWN2(3),
+    TOWN2,
 
-    TOWN3(4);
+    TOWN3
 
-    private final int id;
-
-    LevelType(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return this.id;
-    }
+//    private final int id;
+//
+//    LevelType(int id) {
+//        this.id = id;
+//    }
+//
+//    public int getId() {
+//        return this.id;
+//    }
 }

@@ -27,49 +27,17 @@ public class TileSet {
     private int sourceHeight;
     private SpriteSheet image;
 
-    public TileSet(int firstGrid, String source) {
+    public TileSet(int firstGrid, String source, String imageSource, int tileWidth, int tileHeight, int tileCount, int columns, int sourceWidth, int sourceHeight, SpriteSheet image) {
         this.firstGrid = firstGrid;
         this.source = source;
-
-        try {
-            File inputFile = new File(source);
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(inputFile);
-            doc.getDocumentElement().normalize();
-
-            NodeList tilesetList = doc.getElementsByTagName("tileset");
-
-            for (int temp = 0; temp < tilesetList.getLength(); temp++) {
-                Node tilesetNode = tilesetList.item(temp);
-                if (tilesetNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element tilesetElement = (Element) tilesetNode;
-                    tileWidth = Integer.parseInt(tilesetElement.getAttribute("tilewidth"));
-                    tileHeight = Integer.parseInt(tilesetElement.getAttribute("tileheight"));
-                    tileCount = Integer.parseInt(tilesetElement.getAttribute("tilecount"));
-                    columns = Integer.parseInt(tilesetElement.getAttribute("columns"));
-
-                    NodeList imageList = doc.getElementsByTagName("image");
-                    for (int i = 0; i < imageList.getLength(); i++) {
-                        Node imageNode = imageList.item(i);
-                        if (imageNode.getNodeType() == Node.ELEMENT_NODE) {
-                            Element imageElement = (Element) imageNode;
-                            imageSource = imageElement.getAttribute("source");
-                            sourceWidth = Integer.parseInt(imageElement.getAttribute("width"));
-                            sourceHeight = Integer.parseInt(imageElement.getAttribute("height"));
-                        }
-                    }
-                }
-            }
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            image = new SpriteSheet(MainClass.RES +"map/" +imageSource, tileWidth, tileHeight);
-        } catch (SlickException e) {
-            e.printStackTrace();
-        }
+        this.imageSource = imageSource;
+        this.tileWidth = tileWidth;
+        this.tileHeight = tileHeight;
+        this.tileCount = tileCount;
+        this.columns = columns;
+        this.sourceWidth = sourceWidth;
+        this.sourceHeight = sourceHeight;
+        this.image = image;
     }
 
     public String getImageSource() {
@@ -145,7 +113,7 @@ public class TileSet {
     }
 
     public Image getImageSprite(int id) {
-        return image.getSprite((int) ((id  - firstGrid) % columns), (int) ((id - firstGrid) / columns) );
+        return image.getSprite((id  - firstGrid) % columns, (id - firstGrid) / columns);
     }
 
 }

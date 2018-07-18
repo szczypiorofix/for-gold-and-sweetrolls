@@ -23,7 +23,7 @@ public class LevelManager {
             case WORLD_MAP: {
                 currentLevel.loadFromTiledMap("worldmap.tmx");
                 currentLevel.generateMap();
-                System.out.println(currentLevel.getTileMap());
+                //System.out.println(currentLevel.getTileMap());
                 break;
             }
             case TOWN1: {

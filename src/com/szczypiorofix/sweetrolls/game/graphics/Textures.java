@@ -15,8 +15,6 @@ public class Textures {
     public SpriteSheet mainMenuMainButtons = null;
 
     private Textures() {
-        System.out.println("Creating Textures ...");
-
         try {
             miscItems = new SpriteSheet(MainClass.RES + "spritesheets/dg_misc32.png", 32, 32);
             classm32 = new SpriteSheet(MainClass.RES + "spritesheets/dg_classm32.png", 32, 32);
