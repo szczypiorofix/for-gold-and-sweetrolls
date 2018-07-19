@@ -5,11 +5,12 @@ import com.szczypiorofix.sweetrolls.game.main.Registry;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
 abstract public class GameObject {
 
-
+    public Vector2f vector;
     public long id;
     public String name;
     public float x = 0f;
