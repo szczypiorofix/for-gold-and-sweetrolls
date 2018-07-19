@@ -3,7 +3,6 @@ package com.szczypiorofix.sweetrolls.game.main;
 import com.szczypiorofix.sweetrolls.game.def.LevelType;
 import com.szczypiorofix.sweetrolls.game.def.ObjectType;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
-import com.szczypiorofix.sweetrolls.game.objects.GameObject;
 import com.szczypiorofix.sweetrolls.game.objects.character.Player;
 import com.szczypiorofix.sweetrolls.game.tilemap.TileMap;
 
@@ -15,9 +14,6 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 
 class GameManager {
 
-    private TileMap levelMap;
-    private double x, y;
-    private int mapX, mapY;
     private float offsetX, offsetY;
 
     private final static int SPEED = 2;
@@ -32,11 +28,6 @@ class GameManager {
     private MouseCursor mouseCursor;
 
     GameManager() {
-        x = 0d;
-        y = 0d;
-        mapX = 0;
-        mapY = 0;
-
         offsetX = 0;
         offsetY = 0;
 
@@ -51,7 +42,7 @@ class GameManager {
         objectManager = new ObjectManager(gc);
         levelManager.loadLevel(LevelType.WORLD_MAP);
 
-        levelMap = levelManager.getCurrentLevel().getTileMap();
+        TileMap levelMap = levelManager.getCurrentLevel().getTileMap();
 
         objectManager.setLevel(levelMap);
 
@@ -90,32 +81,25 @@ class GameManager {
         offsetX = player.getX() - (gc.getWidth() / 2);
         offsetY = player.getY() - (gc.getHeight() / 2);
 
+//        if (input.isKeyPressed(Input.KEY_SPACE)) {
+//            graczSwieci((int) player.getX(), (int) player.getY(), 5);
+//        }
     }
+
 
     void handleLogic(GameContainer gc, StateBasedGame sgb, int delta) throws SlickException {
 
         player.setSx(gc.getWidth() / 2);
         player.setSy(gc.getHeight() / 2);
 
-        objectManager.update(gc, sgb, delta, offsetX, offsetY);
+        objectManager.update(gc, sgb, delta, mouseCursor, offsetX, offsetY);
 
         player.update(gc, sgb, delta, offsetX, offsetY);
 
+        // HOVER NA PLATERZE
         if (mouseCursor.intersects(player.getX() - offsetX, player.getY() - offsetY, player.getWidth(), player.getHeight())) {
             player.setHover(true);
         } else player.setHover(false);
-
-        for(GameObject item : objectManager.getOnGround()) {
-            if (mouseCursor.intersects(item.getX() - offsetX, item.getY() - offsetY, item.width, item.height)) {
-                item.setHover(true);
-            } else item.setHover(false);
-        }
-
-//        for(GameObject item : objectManager.getForeGround()) {
-//            if (mouseCursor.intersects(item.getX() - offsetX, item.getY() - offsetY, item.width, item.height)) {
-//                item.setHover(true);
-//            } else item.setHover(false);
-//        }
 
     }
 

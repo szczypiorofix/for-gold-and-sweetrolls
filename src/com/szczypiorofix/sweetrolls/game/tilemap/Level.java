@@ -6,7 +6,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
-import org.lwjgl.Sys;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.w3c.dom.Document;
@@ -21,12 +20,6 @@ public class Level {
     public Level() {
     }
 
-
-    public void generateMap() {
-
-        // TODO odczytać z plików z tileMap.getTileSets()
-
-    }
 
     public void loadFromTiledMap(String fileName) {
         try {
@@ -70,60 +63,46 @@ public class Level {
                     for (int i = 0; i < tilesetList.getLength(); i++) {
 
                         Node tilesetNode = tilesetList.item(i);
+
                         if (tilesetNode.getNodeType() == Node.ELEMENT_NODE) {
                             Element tilesetElement = (Element) tilesetNode;
 
-                            System.out.println(tilesetElement.getAttribute("name"));
-
                             int firstGrid = Integer.parseInt(tilesetElement.getAttribute("firstgid"));
                             String tilesetName = tilesetElement.getAttribute("name");
-
-                            System.out.println(tilesetName);
 
                             int tileWidth = Integer.parseInt(tilesetElement.getAttribute("tilewidth"));
                             int tileHeight = Integer.parseInt(tilesetElement.getAttribute("tileheight"));
                             int tileCount = Integer.parseInt(tilesetElement.getAttribute("tilecount"));
                             int columns = Integer.parseInt(tilesetElement.getAttribute("columns"));
 
-
-
                             NodeList imageList = doc.getElementsByTagName("image");
-                            for (int j = 0; j < imageList.getLength(); j++) {
-                                Node imageNode = imageList.item(j);
-                                if (imageNode.getNodeType() == Node.ELEMENT_NODE) {
-                                    Element imageElement = (Element) imageNode;
-                                    String imageSource = imageElement.getAttribute("source");
-                                    int sourceWidth = Integer.parseInt(imageElement.getAttribute("width"));
-                                    int sourceHeight = Integer.parseInt(imageElement.getAttribute("height"));
+                            Node imageNode = imageList.item(i);
+                            if (imageNode.getNodeType() == Node.ELEMENT_NODE) {
+                                Element imageElement = (Element) imageNode;
+                                String imageSource = imageElement.getAttribute("source");
+                                int sourceWidth = Integer.parseInt(imageElement.getAttribute("width"));
+                                int sourceHeight = Integer.parseInt(imageElement.getAttribute("height"));
+                                SpriteSheet image = null;
 
-                                    SpriteSheet image = null;
-
-                                    try {
-                                        image = new SpriteSheet(MainClass.RES +"map/" +imageSource, tileWidth, tileHeight);
-                                    } catch (SlickException e) {
-                                        e.printStackTrace();
-                                    }
-
-                                    tileMap.addTileSet(new TileSet(
-                                            firstGrid,
-                                            tilesetName,
-                                            imageSource,
-                                            tileWidth,
-                                            tileHeight,
-                                            tileCount,
-                                            columns,
-                                            sourceWidth,
-                                            sourceHeight,
-                                            image)
-                                    );
-
+                                try {
+                                    image = new SpriteSheet(MainClass.RES +"map/" +imageSource, tileWidth, tileHeight);
+                                } catch (SlickException e) {
+                                    e.printStackTrace();
                                 }
+                                tileMap.addTileSet(new TileSet(
+                                        firstGrid,
+                                        tilesetName,
+                                        imageSource,
+                                        tileWidth,
+                                        tileHeight,
+                                        tileCount,
+                                        columns,
+                                        sourceWidth,
+                                        sourceHeight,
+                                        image)
+                                );
                             }
-
-
                         }
-
-
                     }
 
                     NodeList objectGroupList = doc.getElementsByTagName("objectgroup");
@@ -132,6 +111,7 @@ public class Level {
                         if (objectGroupNode.getNodeType() == Node.ELEMENT_NODE) {
                             Element objectGroupElement = (Element) objectGroupNode;
                             ObjectGroup objectGroup = new ObjectGroup(objectGroupElement.getAttribute("name"));
+
                             NodeList objectsList = doc.getElementsByTagName("object");
                             for (int j = 0; j < objectsList.getLength(); j++) {
                                 Node objectsNode = objectsList.item(j);
@@ -145,6 +125,27 @@ public class Level {
                                             Integer.parseInt(objectsElement.getAttribute("width")),
                                             Integer.parseInt(objectsElement.getAttribute("height"))
                                     ));
+
+                                    NodeList objectsProperties = objectsElement.getChildNodes();
+                                    // first is #text, second is "properties" node
+                                    if (objectsProperties.getLength() > 0) {
+                                        Node objectPropertyList = objectsProperties.item(1);
+                                        NodeList objectProperties = objectPropertyList.getChildNodes();
+
+                                        for (int k = 0; k < objectProperties.getLength(); k++) {
+                                            Node objectPropertyNode = objectProperties.item(k);
+
+                                            if (objectPropertyNode.getNodeType() == Node.ELEMENT_NODE) {
+                                                Element objectPropertyElement = (Element) objectPropertyNode;
+
+                                                objectGroup.getObjects().get(j).addProperty(new Property(
+                                                        objectPropertyElement.getAttribute("name"),
+                                                        objectPropertyElement.getAttribute("type").equals("") ? "string" : objectPropertyElement.getAttribute("type"),
+                                                        objectPropertyElement.getAttribute("value")
+                                                ));
+                                            }
+                                        }
+                                    }
                                 }
                             }
                             tileMap.addObjectGroup(objectGroup);

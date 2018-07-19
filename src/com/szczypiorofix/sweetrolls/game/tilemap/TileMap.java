@@ -104,43 +104,33 @@ public class TileMap {
         String r = "\nTILEMAP size "+ width +":" + height +", tiles: "+ tileWidth +":"+ tileHeight +", layers: "+layers.size()+"\n";
 
         for(TileSet t : tileSets) {
-            r += "TILESET firstgrid: "+t.getFirstGrid() +", source: "+t.getSource()+ ", tilecount: " + t.getTileCount() + ", columns: " + t.getColumns() +"\n";
+            r += "TILESET firstgrid: "+t.getFirstGrid() +", source: "+t.getImageSource()+ ", tilecount: " + t.getTileCount() + ", columns: " + t.getColumns() +"\n";
         }
 
         for (int i = 0; i < layers.size(); i++) {
             r += "\nLayer "+i +": "+layers.get(i).getName() +" size: " +layers.get(i).getDataCSV().length+"\n";
-            for (int j = 0; j < layers.get(i).getDataCSV().length; j++) {
-                r += layers.get(i).getTileData(j)+",";
-            }
-            r += "\n";
+//            for (int j = 0; j < layers.get(i).getDataCSV().length; j++) {
+//                r += layers.get(i).getTileData(j)+",";
+//            }
+//            r += "\n";
         }
 
         for (int i = 0; i < objectGroups.size(); i++) {
-            r += "\nObjectGroups "+i +": "+objectGroups.get(i).getName() +" size: " +objectGroups.get(i).getObjects().size();
+            r += "\nObjectGroups "+i +": "+objectGroups.get(i).getName() +" size: " +objectGroups.get(i).getObjects().size()+"\n";
+
+            for (int j = 0; j < objectGroups.get(i).getObjects().size(); j++) {
+                r += objectGroups.get(i).getObjects().get(j).getName() +" properties:\n";
+
+                for (int k = 0; k < objectGroups.get(i).getObjects().get(j).getProperties().size(); k++) {
+                    r += "name: "+objectGroups.get(i).getObjects().get(j).getProperties().get(k).getName()
+                            + ", type:" +objectGroups.get(i).getObjects().get(j).getProperties().get(k).getType().toString()
+                            + ", value:" +objectGroups.get(i).getObjects().get(j).getProperties().get(k).getValue()+"\n";
+                }
+                r += "\n";
+            }
+            r += "\n\n";
         }
         return r;
     }
-
-
-//    public void draw(Graphics g, float x, float y, float width, float height, int mapX, int mapY) {
-//
-//        int counter = 0;
-//        for (int i = 0; i < width / tileWidth; i++) {
-//            for (int j = 0; j < height / tileHeight; j++) {
-//                g.drawImage(tileSets.get(0)
-//                        .getImageSprite(
-//                                layers.get(0).getTileData(counter)
-//                        ), j * tileWidth, i * tileHeight);
-//                counter++;
-//            }
-//        }
-//
-//        g.drawImage(tileSets.get(0)
-//                .getImageSprite(
-//                        layers.get(0).getTileData(0)
-//                ), 1, 1
-//        );
-//
-//    }
 
 }

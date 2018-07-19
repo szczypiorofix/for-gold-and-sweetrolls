@@ -1,18 +1,9 @@
 package com.szczypiorofix.sweetrolls.game.tilemap;
 
 
-import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
 
 public class TileSet {
 
@@ -113,7 +104,7 @@ public class TileSet {
     }
 
     public Image getImageSprite(int id) {
-        return image.getSprite((id  - firstGrid) % columns, (id - firstGrid) / columns);
+        return image.getSprite(id % columns, id / columns);
     }
 
 }

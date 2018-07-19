@@ -22,6 +22,7 @@ abstract public class GameObject {
     public boolean dynamic = false;
     public boolean visible = false;
     public boolean hover = false;
+    public float opacity = 1.0f;
     public ObjectType objectType;
 
 
@@ -180,5 +181,13 @@ abstract public class GameObject {
 
     public void setHover(boolean hover) {
         this.hover = hover;
+    }
+
+    public float getOpacity() {
+        return opacity;
+    }
+
+    public void setOpacity(float opacity) {
+        this.opacity = opacity;
     }
 }
