@@ -20,6 +20,14 @@ public class Level {
     public Level() {
     }
 
+    private int parseFloatToIntger(String s) {
+        int r;
+        if (s.contains("."))
+            r = Integer.parseInt(s.substring(0, s.indexOf(".")));
+        else
+            r = Integer.parseInt(s);
+        return r;
+    }
 
     public void loadFromTiledMap(String fileName) {
         try {
@@ -110,21 +118,25 @@ public class Level {
                         Node objectGroupNode = objectGroupList.item(i);
                         if (objectGroupNode.getNodeType() == Node.ELEMENT_NODE) {
                             Element objectGroupElement = (Element) objectGroupNode;
+
                             ObjectGroup objectGroup = new ObjectGroup(objectGroupElement.getAttribute("name"));
 
-                            NodeList objectsList = doc.getElementsByTagName("object");
+                            NodeList objectsList = objectGroupElement.getChildNodes();
+
                             for (int j = 0; j < objectsList.getLength(); j++) {
                                 Node objectsNode = objectsList.item(j);
                                 if (objectsNode.getNodeType() == Node.ELEMENT_NODE) {
                                     Element objectsElement = (Element) objectsNode;
-                                    objectGroup.addObject(new TileObject(
+
+                                    TileObject tileObject = new TileObject(
                                             Integer.parseInt(objectsElement.getAttribute("id")),
                                             objectsElement.getAttribute("name"),
-                                            Integer.parseInt(objectsElement.getAttribute("x")),
-                                            Integer.parseInt(objectsElement.getAttribute("y")),
-                                            Integer.parseInt(objectsElement.getAttribute("width")),
-                                            Integer.parseInt(objectsElement.getAttribute("height"))
-                                    ));
+                                            parseFloatToIntger(objectsElement.getAttribute("x")),
+                                            parseFloatToIntger(objectsElement.getAttribute("y")),
+                                            parseFloatToIntger(objectsElement.getAttribute("width")),
+                                            parseFloatToIntger(objectsElement.getAttribute("height")),
+                                            objectsElement.getAttribute("gid").equalsIgnoreCase("") ? -1 : Integer.parseInt(objectsElement.getAttribute("gid"))
+                                    );
 
                                     NodeList objectsProperties = objectsElement.getChildNodes();
                                     // first is #text, second is "properties" node
@@ -138,7 +150,7 @@ public class Level {
                                             if (objectPropertyNode.getNodeType() == Node.ELEMENT_NODE) {
                                                 Element objectPropertyElement = (Element) objectPropertyNode;
 
-                                                objectGroup.getObjects().get(j).addProperty(new Property(
+                                                tileObject.addProperty(new Property(
                                                         objectPropertyElement.getAttribute("name"),
                                                         objectPropertyElement.getAttribute("type").equals("") ? "string" : objectPropertyElement.getAttribute("type"),
                                                         objectPropertyElement.getAttribute("value")
@@ -146,8 +158,11 @@ public class Level {
                                             }
                                         }
                                     }
+
+                                    objectGroup.addObject(tileObject);
                                 }
                             }
+
                             tileMap.addObjectGroup(objectGroup);
                         }
                     }

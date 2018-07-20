@@ -8,6 +8,7 @@ public class TileObject {
     private String name;
     private int x, y;
     private int width, height;
+    private int gid;
     private ArrayList<Property> properties;
 
     public TileObject(int id, String name, int x, int y, int width, int height) {
@@ -17,6 +18,17 @@ public class TileObject {
         this.y = y;
         this.width = width;
         this.height = height;
+        properties = new ArrayList<>();
+    }
+
+    public TileObject(int id, String name, int x, int y, int width, int height, int gid) {
+        this.id = id;
+        this.name = name;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.gid = gid;
         properties = new ArrayList<>();
     }
 
@@ -110,5 +122,13 @@ public class TileObject {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public int getGid() {
+        return gid;
+    }
+
+    public void setGid(int gid) {
+        this.gid = gid;
     }
 }

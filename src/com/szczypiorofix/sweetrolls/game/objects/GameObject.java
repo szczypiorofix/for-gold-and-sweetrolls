@@ -5,12 +5,10 @@ import com.szczypiorofix.sweetrolls.game.main.Registry;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
 abstract public class GameObject {
 
-    public Vector2f vector;
     public long id;
     public String name;
     public float x = 0f;
@@ -22,8 +20,8 @@ abstract public class GameObject {
     public boolean living = false;
     public boolean dynamic = false;
     public boolean visible = false;
+    public boolean passable = true;
     public boolean hover = false;
-    public float opacity = 1.0f;
     public ObjectType objectType;
 
 
@@ -184,11 +182,11 @@ abstract public class GameObject {
         this.hover = hover;
     }
 
-    public float getOpacity() {
-        return opacity;
+    public boolean isPassable() {
+        return passable;
     }
 
-    public void setOpacity(float opacity) {
-        this.opacity = opacity;
+    public void setPassable(boolean passable) {
+        this.passable = passable;
     }
 }

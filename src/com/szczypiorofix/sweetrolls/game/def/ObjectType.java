@@ -3,6 +3,7 @@ package com.szczypiorofix.sweetrolls.game.def;
 public enum ObjectType {
 
     PLAYER,
+    DEFAULT,
     GROUND,
     NPC,
     ITEM,
@@ -13,6 +14,5 @@ public enum ObjectType {
     MONSTER,
     GUI,
     MOUSECURSOR,
-    DEFAULT
-
+    TODD
 }
