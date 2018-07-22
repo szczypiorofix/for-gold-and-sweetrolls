@@ -5,6 +5,7 @@ import java.io.File;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 
+import com.szczypiorofix.sweetrolls.game.enums.LevelType;
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
@@ -27,6 +28,49 @@ public class Level {
         else
             r = Integer.parseInt(s);
         return r;
+    }
+
+    public void generateLevel(LevelType levelType) {
+        tileMap = new TileMap(50, 50, 32, 32);
+        Layer layer = new Layer("grounds", 50, 50);
+        layer.setDataCSV("21, 21, 21, 21");
+        tileMap.addLayer(layer);
+
+        SpriteSheet image = null;
+
+        try {
+            image = new SpriteSheet(MainClass.RES +"map/dg_grounds32.png", 32, 32);
+        } catch (SlickException e) {
+            e.printStackTrace();
+        }
+        TileSet tileSet = new TileSet(1,
+                "dg_grounds32",
+                "dg_grounds32.png",
+                32,
+                32,
+                171,
+                9,
+                288,
+                608,
+                image);
+        tileMap.addTileSet(tileSet);
+        ObjectGroup objectGroup = new ObjectGroup("player");
+        TileObject tileObject = new TileObject(
+                Integer.parseInt("1"),
+                "player",
+                10,
+                10,
+                32,
+                32,
+                -1);
+//        tileObject.addProperty(new Property(
+//                objectPropertyElement.getAttribute("name"),
+//                objectPropertyElement.getAttribute("type").equals("") ? "string" : objectPropertyElement.getAttribute("type"),
+//                objectPropertyElement.getAttribute("value")
+//        ));
+        // TODO player musi pozostać ten sam a nie tworzony na nowo - tylko x i y się zmienia względem nowej mapy.
+        objectGroup.addObject(tileObject);
+        tileMap.addObjectGroup(objectGroup);
     }
 
     public void loadFromTiledMap(String fileName) {
