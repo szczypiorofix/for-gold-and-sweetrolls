@@ -31,4 +31,9 @@ public class NPC extends Character {
             g.drawString(name, - offsetX + x, - offsetY + y - 15);
         }
     }
+
+    @Override
+    public void turn() {
+
+    }
 }

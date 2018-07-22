@@ -28,5 +28,6 @@ public class HUD {
         g.drawString(player.getPlayerClass() + " poziom: " +player.statistics.level, 600, 70);
         g.drawString("Exp: " +player.statistics.exp, 600, 90);
         g.drawString("Zdrowie: " +player.statistics.health +"/"+player.statistics.maxHealth, 600, 110);
+        g.drawString("Runda: " +player.getPlayerTurn(), 600, 125);
     }
 }

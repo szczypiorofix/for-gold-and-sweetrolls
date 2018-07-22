@@ -12,6 +12,7 @@ public class Player extends Character {
 
     private Image image;
     PlayerClass playerClass;
+    private int playerTurn;
 
     public Player(String name, float x, float y, float width, float height) {
         super(name, x, y, width, height, ObjectType.PLAYER);
@@ -29,9 +30,8 @@ public class Player extends Character {
         statistics.maxHealth = playerClass.maxHealth;
         statistics.health = playerClass.maxHealth;
         statistics.level = 1;
-
+        playerTurn = 0;
     }
-
 
 
     @Override
@@ -47,6 +47,11 @@ public class Player extends Character {
         }
     }
 
+    @Override
+    public void turn() {
+        playerTurn++;
+    }
+
     public int getTileX(int offset) {
         return (int) ((x + (width / 2)) / width) +offset;
     }
@@ -57,5 +62,9 @@ public class Player extends Character {
 
     public PlayerClass getPlayerClass() {
         return playerClass;
+    }
+
+    public int getPlayerTurn() {
+        return playerTurn;
     }
 }

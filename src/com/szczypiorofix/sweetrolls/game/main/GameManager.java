@@ -24,6 +24,7 @@ class GameManager {
     private ObjectManager objectManager;
     private MouseCursor mouseCursor;
     private int gameWidth, gameHeight;
+    private boolean setNextRound;
 
     GameManager() {
         offsetX = 0;
@@ -68,18 +69,22 @@ class GameManager {
 
         if (input.isKeyPressed(Input.KEY_RIGHT) || gc.getInput().isKeyPressed(Input.KEY_D)) {
             player.setX(player.getX() + tileWidth);
+            setNextRound = true;
         }
 
         if (input.isKeyPressed((Input.KEY_LEFT)) || gc.getInput().isKeyPressed(Input.KEY_A)) {
             player.setX(player.getX() - tileWidth);
+            setNextRound = true;
         }
 
         if (input.isKeyPressed(Input.KEY_UP) || gc.getInput().isKeyPressed(Input.KEY_W)) {
             player.setY(player.getY() - tileHeight);
+            setNextRound = true;
         }
 
         if (input.isKeyPressed((Input.KEY_DOWN)) || gc.getInput().isKeyPressed(Input.KEY_S)) {
             player.setY(player.getY() + tileHeight);
+            setNextRound = true;
         }
 
         offsetX = player.getX() - (gameWidth / 2) + (4 * tileWidth);
@@ -90,7 +95,6 @@ class GameManager {
     void handleLogic(GameContainer gc, StateBasedGame sgb, int delta) throws SlickException {
 
         objectManager.update(gc, sgb, delta, mouseCursor, offsetX, offsetY);
-
         player.update(gc, sgb, delta, offsetX, offsetY);
 
         // HOVER NA PLATERZE
@@ -98,6 +102,11 @@ class GameManager {
             player.setHover(true);
         } else player.setHover(false);
 
+        if (setNextRound) {
+            objectManager.turn();
+            player.turn();
+        }
+        setNextRound = false;
     }
 
     void render(GameContainer gc, StateBasedGame sgb, Graphics g) throws SlickException {

@@ -66,10 +66,15 @@ abstract public class GameObject {
     }
 
 
+    // ########## ABSTRACT METHODS ##########
     public abstract void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) throws SlickException;
 
     public abstract void render(GameContainer gc, StateBasedGame sbg,  Graphics g, float offsetX, float offsetY) throws SlickException;
 
+    public abstract void turn();
+
+
+    // ########## COMMON METHODS ##########
     public boolean intersects(GameObject gameObject) {
         return (
                 x > gameObject.x && x < gameObject.x + gameObject.width && y > gameObject.y && y < gameObject.y + gameObject.height);

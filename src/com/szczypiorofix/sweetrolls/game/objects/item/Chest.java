@@ -25,4 +25,9 @@ public class Chest extends GameObject {
             g.drawString(name, - offsetX + x, - offsetY + y - 15);
         }
     }
+
+    @Override
+    public void turn() {
+
+    }
 }

@@ -24,4 +24,9 @@ public class Ground extends GameObject {
         g.drawImage(image, - offsetX + x, - offsetY + y);
     }
 
+    @Override
+    public void turn() {
+
+    }
+
 }

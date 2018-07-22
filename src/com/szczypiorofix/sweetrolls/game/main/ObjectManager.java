@@ -205,15 +205,6 @@ class ObjectManager {
         }
     }
 
-//    private void draw(GameObject[][] matrix, GameContainer gc, StateBasedGame sbg, Graphics g, GameObject[][] list, float offsetX, float offsetY) throws SlickException {
-//        for (int i = 0; i < matrix.length; i ++) {
-//            for (int j = 0; j < matrix[0].length; j++) {
-//                if (matrix[i][j] != null)
-//                matrix[i][j].render(gc, sbg, g, offsetX, offsetY);
-//            }
-//        }
-//    }
-
     private void iterateRender(GameContainer gc, StateBasedGame sbg, Graphics g, GameObject[][] list, float offsetX, float offsetY) throws SlickException {
 
         for (int x = tilesToWest; x < tilesToEast; x++) {
@@ -233,21 +224,26 @@ class ObjectManager {
         }
     }
 
+    private void iterateTurn(GameObject[][] list) {
+
+        for (int x = 0; x < list.length; x++) {
+            for (int y = 0; y < list[0].length; y++) {
+                if (list[x][y] != null) {
+                    list[x][y].turn();
+                }
+            }
+        }
+    }
+
+    void turn() {
+        iterateTurn(ground);
+    }
+
     public void update(GameContainer gc, StateBasedGame sbg, int delta, MouseCursor mouseCursor, float offsetX, float offsetY) throws SlickException {
         iterateUpdate(gc, sbg, delta, ground, mouseCursor, offsetX, offsetY);
         iterateUpdate(gc, sbg, delta, npc, mouseCursor, offsetX, offsetY);
         iterateUpdate(gc, sbg, delta, items, mouseCursor, offsetX, offsetY);
     }
-
-//    private void graczSwieci(int x,  int y, int sila) {
-//        for (int sx = x - sila; sx <= x + sila; sx++) {
-//            for (int sy = y - sila; sy <= y + sila; sy++) {
-//                int dist = (int) (Math.max(0, sila - Math.sqrt(Math.pow(sx - x, 2) + Math.pow(sy - y, 2))));
-//                System.out.print(dist);
-//            }
-//            System.out.println();
-//        }
-//    }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) throws SlickException {
         iterateRender(gc, sbg, g, ground, offsetX, offsetY);
@@ -260,4 +256,31 @@ class ObjectManager {
     }
 
 
+
+
+
+
+
+
+
+
+    //    private void graczSwieci(int x,  int y, int sila) {
+//        for (int sx = x - sila; sx <= x + sila; sx++) {
+//            for (int sy = y - sila; sy <= y + sila; sy++) {
+//                int dist = (int) (Math.max(0, sila - Math.sqrt(Math.pow(sx - x, 2) + Math.pow(sy - y, 2))));
+//                System.out.print(dist);
+//            }
+//            System.out.println();
+//        }
+//    }
+
+
+    //    private void draw(GameObject[][] matrix, GameContainer gc, StateBasedGame sbg, Graphics g, GameObject[][] list, float offsetX, float offsetY) throws SlickException {
+//        for (int i = 0; i < matrix.length; i ++) {
+//            for (int j = 0; j < matrix[0].length; j++) {
+//                if (matrix[i][j] != null)
+//                matrix[i][j].render(gc, sbg, g, offsetX, offsetY);
+//            }
+//        }
+//    }
 }

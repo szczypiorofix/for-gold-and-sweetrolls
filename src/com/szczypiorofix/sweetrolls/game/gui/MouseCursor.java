@@ -23,4 +23,9 @@ public class MouseCursor extends GameObject {
 
     }
 
+    @Override
+    public void turn() {
+
+    }
+
 }

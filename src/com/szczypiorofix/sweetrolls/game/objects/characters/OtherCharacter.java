@@ -22,4 +22,9 @@ public class OtherCharacter extends Character {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) throws SlickException {
 
     }
+
+    @Override
+    public void turn() {
+
+    }
 }
