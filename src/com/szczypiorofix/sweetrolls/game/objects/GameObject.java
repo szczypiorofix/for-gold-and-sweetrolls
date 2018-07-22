@@ -1,6 +1,6 @@
 package com.szczypiorofix.sweetrolls.game.objects;
 
-import com.szczypiorofix.sweetrolls.game.def.ObjectType;
+import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.main.Registry;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -80,6 +80,7 @@ abstract public class GameObject {
                 this.x > x && this.x < x + width && this.y > y && this.y < y + height);
     }
 
+    // #############################################
     // GETTERS & SETTERS
 
     public long getId() {

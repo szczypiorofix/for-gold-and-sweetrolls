@@ -1,4 +1,4 @@
-package com.szczypiorofix.sweetrolls.game.def;
+package com.szczypiorofix.sweetrolls.game.enums;
 
 public enum PlayerState {
 

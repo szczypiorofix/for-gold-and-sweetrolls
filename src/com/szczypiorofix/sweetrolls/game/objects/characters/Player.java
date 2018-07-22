@@ -1,27 +1,35 @@
-package com.szczypiorofix.sweetrolls.game.objects.character;
+package com.szczypiorofix.sweetrolls.game.objects.characters;
 
-import com.szczypiorofix.sweetrolls.game.def.ObjectType;
+import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
+import com.szczypiorofix.sweetrolls.game.enums.PlayerClass;
 import com.szczypiorofix.sweetrolls.game.graphics.Textures;
-import com.szczypiorofix.sweetrolls.game.objects.GameObject;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class Player extends GameObject {
+public class Player extends Character {
 
     private Image image;
-    private float sx, sy;
+    PlayerClass playerClass;
 
     public Player(String name, float x, float y, float width, float height) {
         super(name, x, y, width, height, ObjectType.PLAYER);
-        sx = 0;
-        sy = 0;
         this.living = true;
         this.dynamic = true;
         this.visible = true;
         this.moving = true;
         image = Textures.getInstance().classm32.getSprite(3, 0);
+
+        playerClass = PlayerClass.WARRIOR;
+        statistics.strength = playerClass.strength;
+        statistics.dexterity = playerClass.dexterity;
+        statistics.constitution = playerClass.constitution;
+        statistics.intelligence = playerClass.intelligence;
+        statistics.maxHealth = playerClass.maxHealth;
+        statistics.health = playerClass.maxHealth;
+        statistics.level = 1;
+
     }
 
 
@@ -33,27 +41,10 @@ public class Player extends GameObject {
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) {
-        //image.draw(sx, sy);
         image.draw( - offsetX + x, - offsetY + y);
         if (hover) {
             g.drawString(name, - offsetX + x, - offsetY + y - 15);
         }
-    }
-
-    public float getSx() {
-        return sx;
-    }
-
-    public void setSx(float sx) {
-        this.sx = sx;
-    }
-
-    public float getSy() {
-        return sy;
-    }
-
-    public void setSy(float sy) {
-        this.sy = sy;
     }
 
     public int getTileX(int offset) {
@@ -62,5 +53,9 @@ public class Player extends GameObject {
 
     public int getTileY(int offset) {
         return (int) ((y + (height / 2)) / height) + offset;
+    }
+
+    public PlayerClass getPlayerClass() {
+        return playerClass;
     }
 }

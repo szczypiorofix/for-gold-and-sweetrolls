@@ -1,12 +1,12 @@
 package com.szczypiorofix.sweetrolls.game.main;
 
 
-import com.szczypiorofix.sweetrolls.game.def.ObjectType;
+import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
 import com.szczypiorofix.sweetrolls.game.objects.GameObject;
 import com.szczypiorofix.sweetrolls.game.objects.terrain.Ground;
-import com.szczypiorofix.sweetrolls.game.objects.character.NPC;
-import com.szczypiorofix.sweetrolls.game.objects.character.Player;
+import com.szczypiorofix.sweetrolls.game.objects.characters.NPC;
+import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import com.szczypiorofix.sweetrolls.game.tilemap.TileMap;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -18,26 +18,27 @@ class ObjectManager {
 
 
     private TileMap level;
-    private GameContainer gc;
     private Player player;
 
     private GameObject[][] ground;
     private GameObject[][] npc;
     private GameObject[][] items;
 
+    private int gameWidth, gameHeight;
 
 
     private int tilesToWest, tilesToEast, tilesToNorth, tilesToSouth;
 
-    ObjectManager(GameContainer gc) {
-        this.gc = gc;
+    ObjectManager(int width, int height) {
+        gameWidth = width;
+        gameHeight = height;
     }
 
     void setLevel(TileMap tileMap) {
         this.level = tileMap;
 
-        int maxX = gc.getWidth() / tileMap.getTileWidth();
-        int maxY = gc.getHeight() / tileMap.getTileHeight();
+        int maxX = gameWidth / tileMap.getTileWidth();
+        int maxY = gameHeight / tileMap.getTileHeight();
 
         tilesToWest = - maxX / 2 - 1;
         tilesToEast = maxX / 2 - 3;
@@ -67,8 +68,7 @@ class ObjectManager {
                 // Nie może być więcej niż 1 player!
                 if (player == null)
                 player = new Player(
-                        tileMap.getObjectGroups().get(objectGroups).getObjects().get(0).getStringProperty("name")
-                                + "_" +tileMap.getObjectGroups().get(objectGroups).getObjects().get(0).getIntegerProperty("age"),
+                        tileMap.getObjectGroups().get(objectGroups).getObjects().get(0).getStringProperty("name"),
                         tileMap.getObjectGroups().get(objectGroups).getObjects().get(0).getX(),
                         tileMap.getObjectGroups().get(objectGroups).getObjects().get(0).getY(),
                         tileMap.getObjectGroups().get(objectGroups).getObjects().get(0).getWidth(),

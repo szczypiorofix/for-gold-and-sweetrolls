@@ -1,9 +1,7 @@
 package com.szczypiorofix.sweetrolls.game.main;
 
-import com.szczypiorofix.sweetrolls.game.def.LevelType;
+import com.szczypiorofix.sweetrolls.game.enums.LevelType;
 import com.szczypiorofix.sweetrolls.game.tilemap.Level;
-
-
 
 
 public class LevelManager {
@@ -22,7 +20,7 @@ public class LevelManager {
         switch (level) {
             case WORLD_MAP: {
                 currentLevel.loadFromTiledMap("worldmap.tmx");
-                System.out.println(currentLevel.getTileMap());
+                //System.out.println(currentLevel.getTileMap());
                 break;
             }
             case TOWN1: {

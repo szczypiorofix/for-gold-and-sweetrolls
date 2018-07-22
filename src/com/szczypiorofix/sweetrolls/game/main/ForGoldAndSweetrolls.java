@@ -1,19 +1,12 @@
 package com.szczypiorofix.sweetrolls.game.main;
 
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.Game;
+import org.newdawn.slick.ScalableGame;
 
-public class ForGoldAndSweetrolls extends StateBasedGame {
+class ForGoldAndSweetrolls extends ScalableGame {
 
-    ForGoldAndSweetrolls(String name) {
-        super(name);
-    }
-
-    @Override
-    public void initStatesList(GameContainer gameContainer) {
-        this.addState(new GameMainMenu());
-        this.addState(new ExitGame());
-        this.addState(new MainGame());
+    ForGoldAndSweetrolls(Game held, int normalWidth, int normalHeight, boolean maintainAspect) {
+        super(held, normalWidth, normalHeight, maintainAspect);
     }
 
 }

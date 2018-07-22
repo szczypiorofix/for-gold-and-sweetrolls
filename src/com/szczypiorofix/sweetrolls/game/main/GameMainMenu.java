@@ -1,33 +1,51 @@
 package com.szczypiorofix.sweetrolls.game.main;
 
-import com.szczypiorofix.sweetrolls.game.def.ObjectType;
+import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.graphics.Fonts;
 import com.szczypiorofix.sweetrolls.game.gui.MainMenuButton;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
 import com.szczypiorofix.sweetrolls.game.sounds.SFX;
+import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.*;
 import org.newdawn.slick.Color;
+
+
 
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.EmptyTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
+import java.util.ArrayList;
+
 public class GameMainMenu extends BasicGameState {
 
     private Input input;
     private Image background;
-    private boolean serverStatus = false;
-    private String serverStatusMsg = "offline";
     private SFX sfx1;
     private MainMenuButton[] menuButtons;
-
     private Music mainMenuMusic;
-
     private Fonts fontImmortal;
-
     private MouseCursor mouseCursor;
+    private int windowWidth, windowHeight;
+    private DisplayMode[] modes;
+    private ArrayList<Resolution> resolutions;
+    private int resolutionIndex = 0;
+    private boolean fullScreen = false;
 
+    class Resolution {
+        int width, height;
+
+        Resolution(int width, int height) {
+            this.width = width;
+            this.height = height;
+        }
+    }
+
+    GameMainMenu(DisplayMode[] modes) {
+        this.modes = modes;
+
+    }
 
     @Override
     public int getID() {
@@ -36,6 +54,22 @@ public class GameMainMenu extends BasicGameState {
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        windowWidth = gc.getWidth();
+        windowHeight = gc.getHeight();
+        fullScreen = gc.isFullscreen();
+
+        resolutions = new ArrayList<>(1);
+        int c = 0;
+        for(DisplayMode d: modes) {
+            if (d.getFrequency() == 60 && d.getBitsPerPixel() == 32) {
+                resolutions.add(new Resolution(d.getWidth(), d.getHeight()));
+                if (d.getWidth() == windowWidth && d.getHeight() == windowHeight) {
+                    resolutionIndex = c;
+                }
+                c++;
+            }
+        }
+
         background = new Image(MainClass.RES+"background.png");
 
         sfx1 = new SFX("sword-unsheathe.ogg");
@@ -62,17 +96,12 @@ public class GameMainMenu extends BasicGameState {
         // https://opengameart.org/content/dwarven-cursor
         gc.setMouseCursor(new Image(MainClass.RES + "mouse_cursor.png"), 0, 0);
         mouseCursor = new MouseCursor("Mouse Cursor Main Menu", input.getMouseX(), input.getMouseY(), 1, 1, ObjectType.MOUSECURSOR);
-
-        //gc.setTargetFrameRate(60);
     }
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 
-        serverStatus = MainClass.serverOnline;
-
         mouseCursor.update(gc, sbg, delta, 0, 0);
-
 
         for(int i = 0; i < menuButtons.length; i++) {
             if (mouseCursor.intersects(menuButtons[i])) {
@@ -95,9 +124,6 @@ public class GameMainMenu extends BasicGameState {
             } else menuButtons[i].setHover(false);
         }
 
-
-
-
         if (input.isKeyPressed(Input.KEY_SPACE)) {
             input.clearKeyPressedRecord();
             sbg.enterState(MainClass.GAME, new FadeOutTransition(Color.black), new EmptyTransition());
@@ -105,11 +131,6 @@ public class GameMainMenu extends BasicGameState {
 
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
             input.clearKeyPressedRecord();
-
-
-            //NetworkClient.closeConnection();
-
-
             sbg.enterState(MainClass.EXIT, new FadeOutTransition(Color.black), new EmptyTransition());
         }
 
@@ -117,20 +138,31 @@ public class GameMainMenu extends BasicGameState {
             sfx1.play();
         }
 
-        //if (serverStatus) serverStatusMsg = "online";
-        //else serverStatusMsg = "offline";
+        if (input.isKeyPressed(Input.KEY_F1)) {
+            AppGameContainer gameContainer = (AppGameContainer) gc;
+            if (resolutionIndex > 0) resolutionIndex--;
+            gameContainer.setDisplayMode(resolutions.get(resolutionIndex).width, resolutions.get(resolutionIndex).height, fullScreen);
+            System.out.println(resolutions.get(resolutionIndex).width+":"+resolutions.get(resolutionIndex).height);
+        }
+
+        if (input.isKeyPressed(Input.KEY_F2)) {
+            AppGameContainer gameContainer = (AppGameContainer) gc;
+            if (resolutionIndex < resolutions.size()-1) resolutionIndex++;
+            gameContainer.setDisplayMode(resolutions.get(resolutionIndex).width, resolutions.get(resolutionIndex).height, fullScreen);
+            System.out.println(resolutions.get(resolutionIndex).width+":"+resolutions.get(resolutionIndex).height);
+        }
+
+        if (input.isKeyPressed(Input.KEY_F3)) {
+            fullScreen = !fullScreen;
+            gc.setFullscreen(fullScreen);
+        }
+
     }
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 
-        background.draw(0, 0, gc.getWidth(), gc.getHeight());
-
-        //g.drawString("Server status: "+serverStatusMsg, 10, 30);
-        g.drawString("MX: "+mouseCursor.getX(), 10, 50);
-        g.drawString("MY: "+mouseCursor.getY(), 10, 60);
-
-
+        background.draw(0, 0, windowWidth, windowHeight);
         fontImmortal.draw("For Gold and Sweetrolls", 85, 60, Color.white);
 
         for(MainMenuButton m: menuButtons) {

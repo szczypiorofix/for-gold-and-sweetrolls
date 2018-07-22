@@ -1,5 +1,8 @@
 package com.szczypiorofix.sweetrolls.game.main;
 
+import org.lwjgl.LWJGLException;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 
@@ -9,52 +12,38 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-public class MainClass { // implements Runnable {
+public class MainClass {
 
     public static final String RES = "src/res/";
 
-    public static final int SPLASHSCREEN = 0;
-    public static final int MAINMENU = 1;
-    public static final int GAME = 2;
-    public static final int EXIT = 10;
+    static final int MAINMENU = 1;
+    static final int GAME = 2;
+    static final int EXIT = 0;
 
     private static boolean DEBUG_MODE;
     private final static Logger LOGGER = Logger.getLogger(MainClass.class.getName());
     private FileHandler fileHandler = null;
-    //public static NetworkClient networkClient;
-
-    static boolean serverOnline = false;
 
 
     private MainClass() {
-
-//        Set<Thread> threads = Thread.getAllStackTraces().keySet();
-//
-//        for (Thread t : threads) {
-//            String name = t.getName();
-//            Thread.State state = t.getState();
-//            int priority = t.getPriority();
-//            String type = t.isDaemon() ? "Daemon" : "Normal";
-//            System.out.printf("%-20s \t %s \t %d \t %s\n", name, state, priority, type);
-//        }
-
-
         loggerSetup();
-
-        //networkClientStart();
-
         applicationStart();
-
     }
 
-//    private void networkClientStart() {
-//        Thread serverThread = new Thread(this);
-//        serverThread.start();
-//    }
-
     private void applicationStart() {
+        DisplayMode[] modes = null;
         try {
-            AppGameContainer app = new AppGameContainer(new ForGoldAndSweetrolls("For Gold and Sweetrolls"));
+            modes = Display.getAvailableDisplayModes();
+        } catch (LWJGLException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+
+        try {
+            GameStatesContainer gameStatesContainer = new GameStatesContainer(modes, "For Gold and Sweetrolls");
+            ForGoldAndSweetrolls fgas = new ForGoldAndSweetrolls(gameStatesContainer, 800, 600, true);
+
+            AppGameContainer app = new AppGameContainer(fgas);
             String[] icons = {
                     RES+"icon16x16.png",
                     RES+"icon24x24.png",
@@ -65,6 +54,10 @@ public class MainClass { // implements Runnable {
             };
             app.setIcons(icons);
             app.setDisplayMode(800, 600, false);
+            app.setVSync(true);
+            app.setTargetFrameRate(60);
+            app.setShowFPS(false);
+            app.setUpdateOnlyWhenVisible(true);
             app.start();
         } catch (SlickException e) {
             e.printStackTrace();
@@ -101,38 +94,12 @@ public class MainClass { // implements Runnable {
     }
 
 
-//    public static String getStackTrace(final Throwable throwable) {
-//        final StringWriter sw = new StringWriter();
-//        final PrintWriter pw = new PrintWriter(sw, true);
-//        throwable.printStackTrace(pw);
-//        return sw.getBuffer().toString();
-//    }
-
-
-//    @Override
-//    public void run() {
-//        System.out.println("Another thread is running..");
-//
-//        System.out.println("Pierwsze łączenie z serwerem ...");
-//
-//        NetworkClient.startConnection();
-//
-//        boolean serverThreadRunning = true;
-//
-//        while (serverThreadRunning) {
-//
-//            try {
-//                Thread.sleep(1000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//
-//            serverOnline = NetworkClient.isConnected();
-//            System.out.println("Server online?: " +serverOnline);
-//
-//        }
-//    }
-
+    public static String getStackTrace(final Throwable throwable) {
+        final StringWriter sw = new StringWriter();
+        final PrintWriter pw = new PrintWriter(sw, true);
+        throwable.printStackTrace(pw);
+        return sw.getBuffer().toString();
+    }
 
     /**
      * public static void main - this method starts all the pretty stuff ;)
@@ -142,10 +109,7 @@ public class MainClass { // implements Runnable {
         if (args.length > 0) {
             DEBUG_MODE = args[0].equalsIgnoreCase("-debug");
         }
-        //System.out.println("HELLO!");
-
         new MainClass();
-
     }
 
 }

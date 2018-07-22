@@ -1,6 +1,6 @@
 package com.szczypiorofix.sweetrolls.game.gui;
 
-import com.szczypiorofix.sweetrolls.game.def.ObjectType;
+import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.graphics.Fonts;
 import com.szczypiorofix.sweetrolls.game.graphics.Textures;
 import com.szczypiorofix.sweetrolls.game.objects.GameObject;
