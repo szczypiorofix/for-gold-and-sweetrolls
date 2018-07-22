@@ -23,13 +23,8 @@ public class LevelManager {
                 //System.out.println(currentLevel.getTileMap());
                 break;
             }
-            case TOWN1: {
-                break;
-            }
-            case TOWN2: {
-                break;
-            }
-            case TOWN3: {
+            case INNER_PLAINS: {
+                currentLevel.loadFromTiledMap("worldmap2.tmx");
                 break;
             }
         }

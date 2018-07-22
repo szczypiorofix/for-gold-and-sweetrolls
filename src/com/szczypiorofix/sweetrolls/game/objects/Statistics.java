@@ -9,6 +9,7 @@ public class Statistics {
     public int health;
     public int maxHealth;
     public int level;
-    public int exp;
+    public int currentLevelBar;
+    public int currentLevelMaxBar;
 
 }

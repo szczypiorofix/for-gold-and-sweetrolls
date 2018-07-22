@@ -1,7 +1,7 @@
 package com.szczypiorofix.sweetrolls.game.objects.characters;
 
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
-import com.szczypiorofix.sweetrolls.game.enums.PlayerClass;
+import com.szczypiorofix.sweetrolls.game.enums.PlayerState;
 import com.szczypiorofix.sweetrolls.game.graphics.Textures;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -11,9 +11,9 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Player extends Character {
 
     private Image image;
-    PlayerClass playerClass;
     private int playerTurn;
     private ObjectType terrainType;
+    private PlayerState playerState;
 
     public Player(String name, float x, float y, float width, float height) {
         super(name, x, y, width, height, ObjectType.PLAYER);
@@ -23,15 +23,11 @@ public class Player extends Character {
         this.moving = true;
         image = Textures.getInstance().classm32.getSprite(3, 0);
 
-        playerClass = PlayerClass.WARRIOR;
-        statistics.strength = playerClass.strength;
-        statistics.dexterity = playerClass.dexterity;
-        statistics.constitution = playerClass.constitution;
-        statistics.intelligence = playerClass.intelligence;
-        statistics.maxHealth = playerClass.maxHealth;
-        statistics.health = playerClass.maxHealth;
         statistics.level = 1;
+        statistics.currentLevelBar = 1;
+        statistics.currentLevelMaxBar = 8;
         playerTurn = 0;
+
     }
 
 
@@ -53,16 +49,28 @@ public class Player extends Character {
         playerTurn++;
     }
 
+    public void moveNorth(int offset) {
+        y -= offset;
+    }
+
+    public void moveSouth(int offset) {
+        y += offset;
+    }
+
+    public void moveWest(int offset) {
+        x -= offset;
+    }
+
+    public void moveEast(int offset) {
+        x += offset;
+    }
+
     public int getTileX(int offset) {
         return (int) ((x + (width / 2)) / width) +offset;
     }
 
     public int getTileY(int offset) {
         return (int) ((y + (height / 2)) / height) + offset;
-    }
-
-    public PlayerClass getPlayerClass() {
-        return playerClass;
     }
 
     public int getPlayerTurn() {
@@ -75,5 +83,17 @@ public class Player extends Character {
 
     public void setTerrainType(ObjectType terrainType) {
         this.terrainType = terrainType;
+    }
+
+    public void setPlayerTurn(int playerTurn) {
+        this.playerTurn = playerTurn;
+    }
+
+    public PlayerState getPlayerState() {
+        return playerState;
+    }
+
+    public void setPlayerState(PlayerState playerState) {
+        this.playerState = playerState;
     }
 }

@@ -2,6 +2,7 @@ package com.szczypiorofix.sweetrolls.game.main.core;
 
 
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
+import com.szczypiorofix.sweetrolls.game.enums.PlayerState;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
 import com.szczypiorofix.sweetrolls.game.objects.GameObject;
 import com.szczypiorofix.sweetrolls.game.objects.terrain.Ground;
@@ -55,7 +56,6 @@ class ObjectManager {
         ground = new GameObject[level.getWidth()][level.getHeight()];
         npc = new GameObject[level.getWidth()][level.getHeight()];
         items = new GameObject[level.getWidth()][level.getHeight()];
-
 
 
         // ############ OBIEKTY
@@ -192,7 +192,13 @@ class ObjectManager {
             }
         }
 
-        // SET PLAYER GROUND TILE
+
+        // SET PLAYER'S INITIAL GROUND TILE
+        setPlayerInitialState();
+    }
+
+
+    private void setPlayerInitialState() {
         player.setTerrainType(ground[player.getTileX(0)][player.getTileY(0)].getObjectType());
     }
 

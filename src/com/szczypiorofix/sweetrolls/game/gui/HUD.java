@@ -23,12 +23,17 @@ public class HUD {
     }
 
     public void render(GameContainer gc, StateBasedGame sgb, Graphics g) {
+        int levelMaxContainer = 156;
+        int currentLevel = (int) (player.statistics.currentLevelBar * levelMaxContainer) / player.statistics.currentLevelMaxBar;
+        if (currentLevel > levelMaxContainer) currentLevel = levelMaxContainer;
+
         image.draw(0, 0);
         g.drawString("Gracz: " + player.getName(), 600, 50);
-        g.drawString(player.getPlayerClass() + " poziom: " +player.statistics.level, 600, 70);
-        g.drawString("Exp: " +player.statistics.exp, 600, 90);
-        g.drawString("Zdrowie: " +player.statistics.health +"/"+player.statistics.maxHealth, 600, 110);
-        g.drawString("Runda: " +player.getPlayerTurn(), 600, 125);
-        g.drawString("Teren: " +player.getTerrainType().getName(), 600, 140);
+        g.drawString("Poziom: " +player.statistics.level, 600, 65);
+        g.drawRect(600, 85, 160, 11);
+        g.fillRect(602, 87, currentLevel, 8);
+        g.drawString("Zdrowie: " +player.statistics.health +"/"+player.statistics.maxHealth, 600, 100);
+        g.drawString("Runda: " +player.getPlayerTurn(), 600, 115);
+        g.drawString("Teren: " +player.getTerrainType().getName(), 600, 130);
     }
 }

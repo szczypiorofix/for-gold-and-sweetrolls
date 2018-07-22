@@ -2,6 +2,7 @@ package com.szczypiorofix.sweetrolls.game.main.core;
 
 import com.szczypiorofix.sweetrolls.game.enums.LevelType;
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
+import com.szczypiorofix.sweetrolls.game.enums.PlayerState;
 import com.szczypiorofix.sweetrolls.game.gui.HUD;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
@@ -26,6 +27,7 @@ public class GameManager {
     private MouseCursor mouseCursor;
     private int gameWidth, gameHeight;
     private boolean setNextRound;
+    private LevelType levelType;
 
     public GameManager() {
         offsetX = 0;
@@ -33,27 +35,32 @@ public class GameManager {
         levelManager = new LevelManager();
     }
 
+    private TileMap changeLevel(LevelType levelType) {
+        levelManager.loadLevel(levelType);
+        this.levelType = levelType;
+        TileMap levelMap = levelManager.getCurrentLevel().getTileMap();
+        objectManager.setLevel(levelMap);
+        player = objectManager.getPlayer();
+        return levelMap;
+    }
 
     public void init(GameContainer gc) {
 
+        gameWidth = gc.getWidth();
+        gameHeight = gc.getHeight();
+
         input = gc.getInput();
 
-        objectManager = new ObjectManager(gc.getWidth(), gc.getHeight());
-        levelManager.loadLevel(LevelType.WORLD_MAP);
+        objectManager = new ObjectManager(gameWidth, gameHeight);
 
-        TileMap levelMap = levelManager.getCurrentLevel().getTileMap();
-
-        objectManager.setLevel(levelMap);
-
-        player = objectManager.getPlayer();
+        // INITIAL WORLD MAP
+        TileMap levelMap = changeLevel(LevelType.WORLD_MAP);
+        player.setPlayerState(PlayerState.MOVING_WORLD_MAP);
 
         mouseCursor = new MouseCursor("Mouse Cursor Game", input.getMouseX(), input.getMouseY(), 1, 1, ObjectType.MOUSECURSOR);
 
         tileWidth = levelMap.getTileWidth();
         tileHeight = levelMap.getTileHeight();
-
-        gameWidth = gc.getWidth();
-        gameHeight = gc.getHeight();
 
         hud = new HUD(player);
     }
@@ -68,25 +75,46 @@ public class GameManager {
             sgb.enterState(MainClass.MAINMENU, new FadeOutTransition(Color.black), new EmptyTransition());
         }
 
-        if (input.isKeyPressed(Input.KEY_RIGHT) || gc.getInput().isKeyPressed(Input.KEY_D)) {
-            player.setX(player.getX() + tileWidth);
-            setNextRound = true;
+        if (player.getPlayerState() == PlayerState.MOVING_WORLD_MAP || player.getPlayerState() == PlayerState.MOVING_INNER_LOCATION) {
+            if (input.isKeyPressed(Input.KEY_RIGHT) || gc.getInput().isKeyPressed(Input.KEY_D)) {
+                player.moveEast(tileWidth);
+                setNextRound = true;
+            }
+
+            if (input.isKeyPressed((Input.KEY_LEFT)) || gc.getInput().isKeyPressed(Input.KEY_A)) {
+                player.moveWest(tileWidth);
+                setNextRound = true;
+            }
+
+            if (input.isKeyPressed(Input.KEY_UP) || gc.getInput().isKeyPressed(Input.KEY_W)) {
+                player.moveNorth(tileWidth);
+                setNextRound = true;
+            }
+
+            if (input.isKeyPressed((Input.KEY_DOWN)) || gc.getInput().isKeyPressed(Input.KEY_S)) {
+                player.moveSouth(tileWidth);
+                setNextRound = true;
+            }
+
+            if (player.getPlayerState() == PlayerState.MOVING_WORLD_MAP && levelType == LevelType.WORLD_MAP && input.isKeyPressed(Input.KEY_E)) {
+                System.out.println("GO TO INNER MAP");
+                player.setPlayerState(PlayerState.MOVING_INNER_LOCATION);
+                changeLevel(LevelType.INNER_PLAINS);
+            }
+
+            // TODO zapamiętywanie pozycji gracza na World Map;
+
+            if (player.getPlayerState() == PlayerState.MOVING_INNER_LOCATION && input.isKeyPressed(Input.KEY_Q)) {
+                System.out.println("GO TO WORLD MAP");
+                player.setPlayerState(PlayerState.MOVING_WORLD_MAP);
+                changeLevel(LevelType.WORLD_MAP);
+            }
+
+            if (input.isKeyPressed(Input.KEY_SPACE)) {
+                player.statistics.currentLevelBar++;
+            }
         }
 
-        if (input.isKeyPressed((Input.KEY_LEFT)) || gc.getInput().isKeyPressed(Input.KEY_A)) {
-            player.setX(player.getX() - tileWidth);
-            setNextRound = true;
-        }
-
-        if (input.isKeyPressed(Input.KEY_UP) || gc.getInput().isKeyPressed(Input.KEY_W)) {
-            player.setY(player.getY() - tileHeight);
-            setNextRound = true;
-        }
-
-        if (input.isKeyPressed((Input.KEY_DOWN)) || gc.getInput().isKeyPressed(Input.KEY_S)) {
-            player.setY(player.getY() + tileHeight);
-            setNextRound = true;
-        }
 
         offsetX = player.getX() - (gameWidth / 2) + (4 * tileWidth);
         offsetY = player.getY() - (gameHeight / 2);

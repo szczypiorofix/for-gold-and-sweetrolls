@@ -4,9 +4,7 @@ public enum PlayerState {
 
     MOVING_WORLD_MAP,
 
-    MOVING_FREE,
-
-    FIGHTING,
+    MOVING_INNER_LOCATION,
 
     PAUSE
 }
