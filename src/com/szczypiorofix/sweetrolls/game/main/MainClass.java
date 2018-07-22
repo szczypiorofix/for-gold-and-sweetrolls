@@ -1,5 +1,7 @@
 package com.szczypiorofix.sweetrolls.game.main;
 
+import com.szczypiorofix.sweetrolls.game.main.core.ForGoldAndSweetrolls;
+import com.szczypiorofix.sweetrolls.game.main.states.GameStatesContainer;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -12,13 +14,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-public class MainClass {
+public final class MainClass {
 
-    public static final String RES = "src/res/";
+    public static final String RES = "res/";
 
-    static final int MAINMENU = 1;
-    static final int GAME = 2;
-    static final int EXIT = 0;
+    public static final int MAINMENU = 1;
+    public static final int GAME = 2;
+    public static final int EXIT = 0;
 
     private static boolean DEBUG_MODE;
     private final static Logger LOGGER = Logger.getLogger(MainClass.class.getName());
@@ -94,12 +96,12 @@ public class MainClass {
     }
 
 
-    public static String getStackTrace(final Throwable throwable) {
-        final StringWriter sw = new StringWriter();
-        final PrintWriter pw = new PrintWriter(sw, true);
-        throwable.printStackTrace(pw);
-        return sw.getBuffer().toString();
-    }
+//    public static String getStackTrace(final Throwable throwable) {
+//        final StringWriter sw = new StringWriter();
+//        final PrintWriter pw = new PrintWriter(sw, true);
+//        throwable.printStackTrace(pw);
+//        return sw.getBuffer().toString();
+//    }
 
     /**
      * public static void main - this method starts all the pretty stuff ;)

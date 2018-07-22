@@ -6,11 +6,9 @@ import org.newdawn.slick.Sound;
 
 public class SFX {
 
-    private String fileName;
     private Sound s;
 
     public SFX(String fileName) {
-        this.fileName = fileName;
         try {
             s = new Sound(MainClass.RES + "sfx/"+fileName);
         } catch (SlickException e) {

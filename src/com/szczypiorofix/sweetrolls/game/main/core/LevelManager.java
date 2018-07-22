@@ -1,4 +1,4 @@
-package com.szczypiorofix.sweetrolls.game.main;
+package com.szczypiorofix.sweetrolls.game.main.core;
 
 import com.szczypiorofix.sweetrolls.game.enums.LevelType;
 import com.szczypiorofix.sweetrolls.game.tilemap.Level;

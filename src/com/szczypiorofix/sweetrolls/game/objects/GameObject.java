@@ -1,7 +1,7 @@
 package com.szczypiorofix.sweetrolls.game.objects;
 
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
-import com.szczypiorofix.sweetrolls.game.main.Registry;
+import com.szczypiorofix.sweetrolls.game.main.core.Registry;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -9,57 +9,57 @@ import org.newdawn.slick.state.StateBasedGame;
 
 abstract public class GameObject {
 
-    public long id;
-    public String name;
-    public float x = 0f;
-    public float y = 0f;
-    public float width = 0f;
-    public float height = 0f;
-    public boolean moving = false;
-    public boolean moveable = false;
-    public boolean living = false;
-    public boolean dynamic = false;
-    public boolean visible = false;
-    public boolean passable = true;
-    public boolean hover = false;
-    public ObjectType objectType;
+    protected final long id;
+    protected String name;
+    protected float x = 0f;
+    protected float y = 0f;
+    protected float width = 0f;
+    protected float height = 0f;
+    protected boolean moving = false;
+    protected boolean moveable = false;
+    protected boolean living = false;
+    protected boolean dynamic = false;
+    protected boolean visible = false;
+    protected boolean passable = true;
+    protected boolean hover = false;
+    protected ObjectType objectType;
 
 
-    private GameObject() {
+    protected GameObject() {
         id = Registry.getInstance().register(this);
     }
 
-    public GameObject(String name) {
+    protected GameObject(String name) {
         this();
         this.name = name;
         this.objectType = ObjectType.DEFAULT;
     }
 
-    public GameObject(String name, ObjectType objectType) {
+    protected GameObject(String name, ObjectType objectType) {
         this(name);
         this.objectType = objectType;
         this.x = 0;
         this.y = 0;
     }
 
-    public GameObject(String name, float x, float y) {
+    protected GameObject(String name, float x, float y) {
         this(name);
         this.x = x;
         this.y = y;
     }
 
-    public GameObject(String name, float x, float y, float width, float height) {
+    protected GameObject(String name, float x, float y, float width, float height) {
         this(name, x, y);
         this.width = width;
         this.height = height;
     }
 
-    public GameObject(String name, float x, float y, ObjectType objectType) {
+    protected GameObject(String name, float x, float y, ObjectType objectType) {
         this(name, x, y);
         this.objectType = objectType;
     }
 
-    public GameObject(String name, float x, float y, float width, float height, ObjectType objectType) {
+    protected GameObject(String name, float x, float y, float width, float height, ObjectType objectType) {
         this(name, x, y, objectType);
         this.width = width;
         this.height = height;

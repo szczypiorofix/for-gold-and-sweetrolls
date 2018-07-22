@@ -1,9 +1,10 @@
-package com.szczypiorofix.sweetrolls.game.main;
+package com.szczypiorofix.sweetrolls.game.main.core;
 
 import com.szczypiorofix.sweetrolls.game.enums.LevelType;
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.gui.HUD;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
+import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import com.szczypiorofix.sweetrolls.game.tilemap.TileMap;
 
@@ -13,27 +14,27 @@ import org.newdawn.slick.state.transition.EmptyTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
 
-class GameManager {
+public class GameManager {
 
     private float offsetX, offsetY;
     private int tileWidth, tileHeight;
     private Input input;
     private Player player;
     private HUD hud;
-    private LevelManager levelManager;
+    private final LevelManager levelManager;
     private ObjectManager objectManager;
     private MouseCursor mouseCursor;
     private int gameWidth, gameHeight;
     private boolean setNextRound;
 
-    GameManager() {
+    public GameManager() {
         offsetX = 0;
         offsetY = 0;
         levelManager = new LevelManager();
     }
 
 
-    void init(GameContainer gc) {
+    public void init(GameContainer gc) {
 
         input = gc.getInput();
 
@@ -58,7 +59,7 @@ class GameManager {
     }
 
 
-    void handleInputs(GameContainer gc, StateBasedGame sgb, int delta) throws SlickException {
+    public void handleInputs(GameContainer gc, StateBasedGame sgb, int delta) {
 
         mouseCursor.update(gc, sgb, delta, offsetX, offsetY);
 
@@ -92,7 +93,7 @@ class GameManager {
     }
 
 
-    void handleLogic(GameContainer gc, StateBasedGame sgb, int delta) throws SlickException {
+    public void handleLogic(GameContainer gc, StateBasedGame sgb, int delta) throws SlickException {
 
         objectManager.update(gc, sgb, delta, mouseCursor, offsetX, offsetY);
         player.update(gc, sgb, delta, offsetX, offsetY);
@@ -109,7 +110,7 @@ class GameManager {
         setNextRound = false;
     }
 
-    void render(GameContainer gc, StateBasedGame sgb, Graphics g) throws SlickException {
+    public void render(GameContainer gc, StateBasedGame sgb, Graphics g) throws SlickException {
 
         objectManager.render(gc, sgb, g, offsetX, offsetY);
         player.render(gc, sgb, g, offsetX, offsetY);

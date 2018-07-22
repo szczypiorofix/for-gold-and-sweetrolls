@@ -1,8 +1,7 @@
-package com.szczypiorofix.sweetrolls.game.main;
+package com.szczypiorofix.sweetrolls.game.main.states;
 
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class GameStatesContainer extends StateBasedGame {
@@ -15,7 +14,7 @@ public class GameStatesContainer extends StateBasedGame {
     }
 
     @Override
-    public void initStatesList(GameContainer gameContainer) throws SlickException {
+    public void initStatesList(GameContainer gameContainer) {
         this.addState(new GameMainMenu(modes));
         this.addState(new ExitGame());
         this.addState(new MainGame());

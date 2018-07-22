@@ -1,15 +1,13 @@
-package com.szczypiorofix.sweetrolls.game.main;
+package com.szczypiorofix.sweetrolls.game.main.states;
 
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.graphics.Fonts;
 import com.szczypiorofix.sweetrolls.game.gui.MainMenuButton;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
+import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import com.szczypiorofix.sweetrolls.game.sounds.SFX;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.*;
-import org.newdawn.slick.Color;
-
-
 
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -24,11 +22,10 @@ public class GameMainMenu extends BasicGameState {
     private Image background;
     private SFX sfx1;
     private MainMenuButton[] menuButtons;
-    private Music mainMenuMusic;
     private Fonts fontImmortal;
     private MouseCursor mouseCursor;
     private int windowWidth, windowHeight;
-    private DisplayMode[] modes;
+    private final DisplayMode[] modes;
     private ArrayList<Resolution> resolutions;
     private int resolutionIndex = 0;
     private boolean fullScreen = false;
@@ -75,7 +72,7 @@ public class GameMainMenu extends BasicGameState {
         sfx1 = new SFX("sword-unsheathe.ogg");
 
         // https://opengameart.org/content/heroic-minority
-        mainMenuMusic = new Music(MainClass.RES+"music/menu-music.ogg");
+        Music mainMenuMusic = new Music(MainClass.RES+"music/menu-music.ogg");
         mainMenuMusic.play();
 
         menuButtons = new MainMenuButton[4];
@@ -160,7 +157,7 @@ public class GameMainMenu extends BasicGameState {
     }
 
     @Override
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
 
         background.draw(0, 0, windowWidth, windowHeight);
         fontImmortal.draw("For Gold and Sweetrolls", 85, 60, Color.white);

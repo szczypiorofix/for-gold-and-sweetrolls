@@ -7,7 +7,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Chest extends GameObject {
 
-    private Image chestImage;
+    private final Image chestImage;
 
     public Chest(String name, float x, float y, float width, float height, ObjectType objectType, Image image) {
         super(name, x, y, width, height, objectType);

@@ -1,4 +1,4 @@
-package com.szczypiorofix.sweetrolls.game.main;
+package com.szczypiorofix.sweetrolls.game.main.core;
 
 import com.szczypiorofix.sweetrolls.game.objects.GameObject;
 
@@ -8,7 +8,7 @@ import java.util.Random;
 public class Registry {
 
     private static Registry instance;
-    private final HashMap<Long, GameObject> registry = new HashMap();
+    private final HashMap<Long, GameObject> registry = new HashMap<>();
     private static Random generator;
 
     public static synchronized Registry getInstance() {

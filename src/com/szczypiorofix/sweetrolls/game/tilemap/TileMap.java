@@ -1,8 +1,6 @@
 package com.szczypiorofix.sweetrolls.game.tilemap;
 
 
-import org.newdawn.slick.Graphics;
-
 import java.util.ArrayList;
 
 public class TileMap {
@@ -101,36 +99,34 @@ public class TileMap {
 
     @Override
     public String toString() {
-        String r = "\nTILEMAP size "+ width +":" + height +", tiles: "+ tileWidth +":"+ tileHeight +", layers: "+layers.size()+"\n";
+        StringBuilder r = new StringBuilder("\nTILEMAP size " + width + ":" + height + ", tiles: " + tileWidth + ":" + tileHeight + ", layers: " + layers.size() + "\n");
 
         for(TileSet t : tileSets) {
-            r += "TILESET firstgrid: "+t.getFirstGrid() +", source: "+t.getImageSource()+ ", tilecount: " + t.getTileCount() + ", columns: " + t.getColumns() +"\n";
+            r.append("TILESET firstgrid: ").append(t.getFirstGrid()).append(", source: ").append(t.getImageSource()).append(", tilecount: ").append(t.getTileCount()).append(", columns: ").append(t.getColumns()).append("\n");
         }
 
         for (int i = 0; i < layers.size(); i++) {
-            r += "\nLayer "+i +": "+layers.get(i).getName() +" size: " +layers.get(i).getDataCSV().length+"\n";
+            r.append("\nLayer ").append(i).append(": ").append(layers.get(i).getName()).append(" size: ").append(layers.get(i).getDataCSV().length).append("\n");
 //            for (int j = 0; j < layers.get(i).getDataCSV().length; j++) {
-//                r += layers.get(i).getTileData(j)+",";
+//                r.append(layers.get(i).getTileData(j)).append(",");
 //            }
-//            r += "\n";
+//            r.append("\n");
         }
 
         for (int i = 0; i < objectGroups.size(); i++) {
-            r += "\nObjectGroups "+i +": "+objectGroups.get(i).getName() +" size: " +objectGroups.get(i).getObjects().size()+"\n";
+            r.append("\nObjectGroups ").append(i).append(": ").append(objectGroups.get(i).getName()).append(" size: ").append(objectGroups.get(i).getObjects().size()).append("\n");
 
             for (int j = 0; j < objectGroups.get(i).getObjects().size(); j++) {
-                r += objectGroups.get(i).getObjects().get(j).getName() +" properties:\n";
+                r.append(objectGroups.get(i).getObjects().get(j).getName()).append(" properties:\n");
 
                 for (int k = 0; k < objectGroups.get(i).getObjects().get(j).getProperties().size(); k++) {
-                    r += "name: "+objectGroups.get(i).getObjects().get(j).getProperties().get(k).getName()
-                            + ", type:" +objectGroups.get(i).getObjects().get(j).getProperties().get(k).getType().toString()
-                            + ", value:" +objectGroups.get(i).getObjects().get(j).getProperties().get(k).getValue()+"\n";
+                    r.append("name: ").append(objectGroups.get(i).getObjects().get(j).getProperties().get(k).getName()).append(", type:").append(objectGroups.get(i).getObjects().get(j).getProperties().get(k).getType().toString()).append(", value:").append(objectGroups.get(i).getObjects().get(j).getProperties().get(k).getValue()).append("\n");
                 }
-                r += "\n";
+                r.append("\n");
             }
-            r += "\n\n";
+            r.append("\n\n");
         }
-        return r;
+        return r.toString();
     }
 
 }

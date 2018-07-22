@@ -1,4 +1,4 @@
-package com.szczypiorofix.sweetrolls.game.main;
+package com.szczypiorofix.sweetrolls.game.main.core;
 
 
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
@@ -73,7 +73,6 @@ class ObjectManager {
                         tileMap.getObjectGroups().get(objectGroups).getObjects().get(0).getY(),
                         tileMap.getObjectGroups().get(objectGroups).getObjects().get(0).getWidth(),
                         tileMap.getObjectGroups().get(objectGroups).getObjects().get(0).getHeight());
-
             }
 
             // ######## NPC
@@ -156,19 +155,35 @@ class ObjectManager {
                                 tileSet++;
                             }
 
+                            ObjectType type = ObjectType.DEFAULT;
+                            int terrain = tileMap.getLayers().get(layers).getTileData(i + j * tileMap.getWidth())
+                                    - tileMap.getTileSets().get(tileSet).getFirstGrid();
+
+                            if (terrain == 9 || terrain == 10 || terrain == 11) {
+                                type = ObjectType.PLAINS;
+                            }
+
+                            if (terrain == 18 || terrain == 19 || terrain == 20) {
+                                type = ObjectType.WATER;
+                            }
+
+                            if (terrain >= 54 && terrain <= 62) {
+                                type = ObjectType.FOREST;
+                            }
+
                             ground[i][j] = new Ground(
                                             "Ground",
                                             i * tileMap.getTileWidth(),
                                             j * tileMap.getTileHeight(),
                                             tileMap.getTileWidth(),
                                             tileMap.getTileHeight(),
-                                            ObjectType.GROUND,
+                                            type,
                                             tileMap.getTileSets().get(tileSet).getImageSprite(
                                                     tileMap.getLayers().get(layers).getTileData(i + j * tileMap.getWidth())
                                                             - tileMap.getTileSets().get(tileSet).getFirstGrid())
                             );
 
-                            tileSet = 0;
+                            //tileSet = 0;
                         } else {
                             ground[i][j] = null;
                         }
@@ -176,6 +191,9 @@ class ObjectManager {
                 }
             }
         }
+
+        // SET PLAYER GROUND TILE
+        player.setTerrainType(ground[player.getTileX(0)][player.getTileY(0)].getObjectType());
     }
 
 
@@ -237,6 +255,7 @@ class ObjectManager {
 
     void turn() {
         iterateTurn(ground);
+        player.setTerrainType(ground[player.getTileX(0)][player.getTileY(0)].getObjectType());
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta, MouseCursor mouseCursor, float offsetX, float offsetY) throws SlickException {

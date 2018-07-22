@@ -38,9 +38,9 @@ public class TileObject {
 
     public String getStringProperty(String prop) {
         String r = "null";
-        for (int i = 0; i < properties.size(); i++) {
-            if (properties.get(i).getType() == PropertyType.STRING && properties.get(i).getName().equalsIgnoreCase(prop)) {
-                r = properties.get(i).getValue();
+        for (Property property : properties) {
+            if (property.getType() == PropertyType.STRING && property.getName().equalsIgnoreCase(prop)) {
+                r = property.getValue();
             }
         }
         return r;
@@ -48,10 +48,10 @@ public class TileObject {
 
     public int getIntegerProperty(String prop) {
         int r = 0;
-        for (int i = 0; i < properties.size(); i++) {
-            if (properties.get(i).getType() == PropertyType.INTEGER
-                    && properties.get(i).getName().equalsIgnoreCase(prop)) {
-                r = Integer.parseInt(properties.get(i).getValue());
+        for (Property property : properties) {
+            if (property.getType() == PropertyType.INTEGER
+                    && property.getName().equalsIgnoreCase(prop)) {
+                r = Integer.parseInt(property.getValue());
             }
         }
         return r;
@@ -59,10 +59,10 @@ public class TileObject {
 
     public boolean getBooleanProperty(String prop) {
         boolean r = false;
-        for (int i = 0; i < properties.size(); i++) {
-            if (properties.get(i).getType() == PropertyType.BOOLEAN
-                    && properties.get(i).getName().equalsIgnoreCase(prop)) {
-                r = Boolean.parseBoolean(properties.get(i).getValue());
+        for (Property property : properties) {
+            if (property.getType() == PropertyType.BOOLEAN
+                    && property.getName().equalsIgnoreCase(prop)) {
+                r = Boolean.parseBoolean(property.getValue());
             }
         }
         return r;

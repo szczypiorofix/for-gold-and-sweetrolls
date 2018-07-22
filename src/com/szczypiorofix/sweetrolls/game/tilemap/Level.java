@@ -31,7 +31,7 @@ public class Level {
 
     public void loadFromTiledMap(String fileName) {
         try {
-            File inputFile = new File("src/res/map/" + fileName);
+            File inputFile = new File(MainClass.RES + "map/" + fileName);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);

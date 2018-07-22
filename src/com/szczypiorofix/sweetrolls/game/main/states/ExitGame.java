@@ -1,5 +1,6 @@
-package com.szczypiorofix.sweetrolls.game.main;
+package com.szczypiorofix.sweetrolls.game.main.states;
 
+import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.state.BasicGameState;

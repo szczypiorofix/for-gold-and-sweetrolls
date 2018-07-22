@@ -22,12 +22,13 @@ public class HUD {
         }
     }
 
-    public void render(GameContainer gc, StateBasedGame sgb, Graphics g) throws SlickException {
+    public void render(GameContainer gc, StateBasedGame sgb, Graphics g) {
         image.draw(0, 0);
         g.drawString("Gracz: " + player.getName(), 600, 50);
         g.drawString(player.getPlayerClass() + " poziom: " +player.statistics.level, 600, 70);
         g.drawString("Exp: " +player.statistics.exp, 600, 90);
         g.drawString("Zdrowie: " +player.statistics.health +"/"+player.statistics.maxHealth, 600, 110);
         g.drawString("Runda: " +player.getPlayerTurn(), 600, 125);
+        g.drawString("Teren: " +player.getTerrainType().getName(), 600, 140);
     }
 }

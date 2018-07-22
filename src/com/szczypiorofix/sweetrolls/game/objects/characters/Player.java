@@ -13,6 +13,7 @@ public class Player extends Character {
     private Image image;
     PlayerClass playerClass;
     private int playerTurn;
+    private ObjectType terrainType;
 
     public Player(String name, float x, float y, float width, float height) {
         super(name, x, y, width, height, ObjectType.PLAYER);
@@ -66,5 +67,13 @@ public class Player extends Character {
 
     public int getPlayerTurn() {
         return playerTurn;
+    }
+
+    public ObjectType getTerrainType() {
+        return terrainType;
+    }
+
+    public void setTerrainType(ObjectType terrainType) {
+        this.terrainType = terrainType;
     }
 }

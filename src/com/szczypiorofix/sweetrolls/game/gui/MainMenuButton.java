@@ -11,7 +11,7 @@ public class MainMenuButton extends GameObject {
 
     private Image image;
     private String name;
-    private float nameX = 0;
+    private float nameX;
     private boolean hover = false;
     private boolean active = false;
     private Image imagePressed;
