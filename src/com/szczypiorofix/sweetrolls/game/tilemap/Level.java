@@ -30,48 +30,50 @@ public class Level {
         return r;
     }
 
-    public void generateLevel(LevelType levelType) {
-        tileMap = new TileMap(50, 50, 32, 32);
-        Layer layer = new Layer("grounds", 50, 50);
-        layer.setDataCSV("21, 21, 21, 21");
-        tileMap.addLayer(layer);
-
-        SpriteSheet image = null;
-
-        try {
-            image = new SpriteSheet(MainClass.RES +"map/dg_grounds32.png", 32, 32);
-        } catch (SlickException e) {
-            e.printStackTrace();
-        }
-        TileSet tileSet = new TileSet(1,
-                "dg_grounds32",
-                "dg_grounds32.png",
-                32,
-                32,
-                171,
-                9,
-                288,
-                608,
-                image);
-        tileMap.addTileSet(tileSet);
-        ObjectGroup objectGroup = new ObjectGroup("player");
-        TileObject tileObject = new TileObject(
-                Integer.parseInt("1"),
-                "player",
-                10,
-                10,
-                32,
-                32,
-                -1);
+//    public void generateLevel(LevelType levelType) {
+//        tileMap = new TileMap(50, 50, 32, 32);
+//        Layer layer = new Layer("grounds", 50, 50);
+//        layer.setDataCSV("21, 21, 21, 21");
+//        tileMap.addLayer(layer);
+//
+//        SpriteSheet image = null;
+//
+//        try {
+//            image = new SpriteSheet(MainClass.RES +"map/dg_grounds32.png", 32, 32);
+//        } catch (SlickException e) {
+//            e.printStackTrace();
+//        }
+//        TileSet tileSet = new TileSet(1,
+//                "dg_grounds32",
+//                "dg_grounds32.png",
+//                32,
+//                32,
+//                171,
+//                9,
+//                288,
+//                608,
+//                image);
+//        tileMap.addTileSet(tileSet);
+//        ObjectGroup objectGroup = new ObjectGroup("player");
+//          tileObject = new TileObject(
+//                Integer.parseInt("1"),
+//                "",
+//                "player",
+//                10,
+//                10,
+//                10,
+//                32,
+//                32,
+//                -1);
 //        tileObject.addProperty(new Property(
 //                objectPropertyElement.getAttribute("name"),
 //                objectPropertyElement.getAttribute("type").equals("") ? "string" : objectPropertyElement.getAttribute("type"),
 //                objectPropertyElement.getAttribute("value")
 //        ));
-        // TODO player musi pozostać ten sam a nie tworzony na nowo - tylko x i y się zmienia względem nowej mapy.
-        objectGroup.addObject(tileObject);
-        tileMap.addObjectGroup(objectGroup);
-    }
+//        // TODO player musi pozostać ten sam a nie tworzony na nowo - tylko x i y się zmienia względem nowej mapy.
+//        objectGroup.addObject(tileObject);
+//        tileMap.addObjectGroup(objectGroup);
+//    }
 
     public void loadFromTiledMap(String fileName) {
         try {
@@ -119,40 +121,50 @@ public class Level {
                         if (tilesetNode.getNodeType() == Node.ELEMENT_NODE) {
                             Element tilesetElement = (Element) tilesetNode;
 
-                            int firstGrid = Integer.parseInt(tilesetElement.getAttribute("firstgid"));
-                            String tilesetName = tilesetElement.getAttribute("name");
+                            // COMMON ATTRIBUTE
+                            int firstGid = Integer.parseInt(tilesetElement.getAttribute("firstgid"));
 
-                            int tileWidth = Integer.parseInt(tilesetElement.getAttribute("tilewidth"));
-                            int tileHeight = Integer.parseInt(tilesetElement.getAttribute("tileheight"));
-                            int tileCount = Integer.parseInt(tilesetElement.getAttribute("tilecount"));
-                            int columns = Integer.parseInt(tilesetElement.getAttribute("columns"));
-
-                            NodeList imageList = doc.getElementsByTagName("image");
-                            Node imageNode = imageList.item(i);
-                            if (imageNode.getNodeType() == Node.ELEMENT_NODE) {
-                                Element imageElement = (Element) imageNode;
-                                String imageSource = imageElement.getAttribute("source");
-                                int sourceWidth = Integer.parseInt(imageElement.getAttribute("width"));
-                                int sourceHeight = Integer.parseInt(imageElement.getAttribute("height"));
-                                SpriteSheet image = null;
-
-                                try {
-                                    image = new SpriteSheet(MainClass.RES +"map/" +imageSource, tileWidth, tileHeight);
-                                } catch (SlickException e) {
-                                    e.printStackTrace();
-                                }
+                            // EMBEDDED TILESETS OR NOT
+                            if (!tilesetElement.getAttribute("source").equalsIgnoreCase("")) {
                                 tileMap.addTileSet(new TileSet(
-                                        firstGrid,
-                                        tilesetName,
-                                        imageSource,
-                                        tileWidth,
-                                        tileHeight,
-                                        tileCount,
-                                        columns,
-                                        sourceWidth,
-                                        sourceHeight,
-                                        image)
+                                        firstGid,
+                                        tilesetElement.getAttribute("source")
+                                        )
                                 );
+                            } else {
+                                String tilesetName = tilesetElement.getAttribute("name");
+                                int tileWidth = Integer.parseInt(tilesetElement.getAttribute("tilewidth"));
+                                int tileHeight = Integer.parseInt(tilesetElement.getAttribute("tileheight"));
+                                int tileCount = Integer.parseInt(tilesetElement.getAttribute("tilecount"));
+                                int columns = Integer.parseInt(tilesetElement.getAttribute("columns"));
+
+                                NodeList imageList = doc.getElementsByTagName("image");
+                                Node imageNode = imageList.item(i);
+                                if (imageNode.getNodeType() == Node.ELEMENT_NODE) {
+                                    Element imageElement = (Element) imageNode;
+                                    String imageSource = imageElement.getAttribute("source");
+                                    int sourceWidth = Integer.parseInt(imageElement.getAttribute("width"));
+                                    int sourceHeight = Integer.parseInt(imageElement.getAttribute("height"));
+                                    SpriteSheet image = null;
+
+                                    try {
+                                        image = new SpriteSheet(MainClass.RES +"map/" +imageSource, tileWidth, tileHeight);
+                                    } catch (SlickException e) {
+                                        e.printStackTrace();
+                                    }
+                                    tileMap.addTileSet(new TileSet(
+                                            firstGid,
+                                            tilesetName,
+                                            imageSource,
+                                            tileWidth,
+                                            tileHeight,
+                                            tileCount,
+                                            columns,
+                                            sourceWidth,
+                                            sourceHeight,
+                                            image)
+                                    );
+                                }
                             }
                         }
                     }
@@ -164,7 +176,6 @@ public class Level {
                             Element objectGroupElement = (Element) objectGroupNode;
 
                             ObjectGroup objectGroup = new ObjectGroup(objectGroupElement.getAttribute("name"));
-
                             NodeList objectsList = objectGroupElement.getChildNodes();
 
                             for (int j = 0; j < objectsList.getLength(); j++) {
@@ -174,31 +185,40 @@ public class Level {
 
                                     TileObject tileObject = new TileObject(
                                             Integer.parseInt(objectsElement.getAttribute("id")),
+                                            objectsElement.getAttribute("template").equalsIgnoreCase("") ? objectsElement.getAttribute("template") : "",
+                                            //objectsElement.getAttribute("template"),
                                             objectsElement.getAttribute("name"),
                                             parseFloatToIntger(objectsElement.getAttribute("x")),
                                             parseFloatToIntger(objectsElement.getAttribute("y")),
-                                            parseFloatToIntger(objectsElement.getAttribute("width")),
-                                            parseFloatToIntger(objectsElement.getAttribute("height")),
-                                            objectsElement.getAttribute("gid").equalsIgnoreCase("") ? -1 : Integer.parseInt(objectsElement.getAttribute("gid"))
+                                            tileMap.getTileSets()
                                     );
+                                    if (!objectsElement.getAttribute("gid").equalsIgnoreCase("")) {
+                                        tileObject.setGid(Integer.parseInt(objectsElement.getAttribute("gid")));
+                                    }
 
-                                    NodeList objectsProperties = objectsElement.getChildNodes();
-                                    // first is #text, second is "properties" node
+
+                                    NodeList objectsProperties = objectsElement.getElementsByTagName("properties");
                                     if (objectsProperties.getLength() > 0) {
-                                        Node objectPropertyList = objectsProperties.item(1);
-                                        NodeList objectProperties = objectPropertyList.getChildNodes();
+                                        for (int k = 0; k < objectsProperties.getLength(); k++) {
+                                            Node objectPropertiesNode = objectsProperties.item(k);
 
-                                        for (int k = 0; k < objectProperties.getLength(); k++) {
-                                            Node objectPropertyNode = objectProperties.item(k);
+                                            if (objectPropertiesNode.getNodeType() == Node.ELEMENT_NODE) {
+                                                Element objectPropertiesElement = (Element) objectPropertiesNode;
+                                                NodeList objectPropertyList = objectPropertiesElement.getElementsByTagName("property");
 
-                                            if (objectPropertyNode.getNodeType() == Node.ELEMENT_NODE) {
-                                                Element objectPropertyElement = (Element) objectPropertyNode;
-
-                                                tileObject.addProperty(new Property(
-                                                        objectPropertyElement.getAttribute("name"),
-                                                        objectPropertyElement.getAttribute("type").equals("") ? "string" : objectPropertyElement.getAttribute("type"),
-                                                        objectPropertyElement.getAttribute("value")
-                                                ));
+                                                if (objectPropertyList.getLength() > 0) {
+                                                    for (int p = 0; p < objectPropertyList.getLength(); p++) {
+                                                        Node objectPropertyNode = objectPropertyList.item(p);
+                                                        if (objectPropertyNode.getNodeType() == Node.ELEMENT_NODE) {
+                                                            Element objectPropertyElement = (Element) objectPropertyNode;
+                                                            tileObject.addProperty(new Property(
+                                                                    objectPropertyElement.getAttribute("name"),
+                                                                    objectPropertyElement.getAttribute("type").equals("") ? "string" : objectPropertyElement.getAttribute("type"),
+                                                                    objectPropertyElement.getAttribute("value")
+                                                            ));
+                                                        }
+                                                    }
+                                                }
                                             }
                                         }
                                     }

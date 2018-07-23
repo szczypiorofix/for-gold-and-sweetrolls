@@ -60,6 +60,7 @@ class ObjectManager {
 
         // ############ OBIEKTY
 
+        //player = new Player("PGarvey", 600, 930, 32, 32);
         for (int objectGroups = 0; objectGroups < tileMap.getObjectGroups().size(); objectGroups++) {
 
             // ######## PLAYER
@@ -73,6 +74,7 @@ class ObjectManager {
                         tileMap.getObjectGroups().get(objectGroups).getObjects().get(0).getY(),
                         tileMap.getObjectGroups().get(objectGroups).getObjects().get(0).getWidth(),
                         tileMap.getObjectGroups().get(objectGroups).getObjects().get(0).getHeight());
+
             }
 
             // ######## NPC
@@ -82,7 +84,7 @@ class ObjectManager {
 
                     tileSet = 0;
                     while (tileMap.getObjectGroups().get(objectGroups).getObjects().get(npcs).getGid() >
-                            tileMap.getTileSets().get(tileSet).getFirstGrid() + tileMap.getTileSets().get(tileSet).getTileCount()
+                            tileMap.getTileSets().get(tileSet).getFirstGid() + tileMap.getTileSets().get(tileSet).getTileCount()
                             ) {
                         tileSet++;
                     }
@@ -100,8 +102,10 @@ class ObjectManager {
                                 tileMap.getObjectGroups().get(objectGroups).getObjects().get(npcs).getGid() != -1 ?
                                     tileMap.getTileSets().get(tileSet).getImageSprite(
                                         tileMap.getObjectGroups().get(objectGroups).getObjects().get(npcs).getGid()
-                                        - tileMap.getTileSets().get(tileSet).getFirstGrid())
-                                        : null
+                                        - tileMap.getTileSets().get(tileSet).getFirstGid())
+                                        : null,
+                                //tileMap.getObjectGroups().get(objectGroups).getObjects().get(npcs).getIntegerProperty("maxhealth")
+                                110
                         );
                 }
             }
@@ -113,7 +117,7 @@ class ObjectManager {
 
                     tileSet = 0;
                     while (tileMap.getObjectGroups().get(objectGroups).getObjects().get(item).getGid() >
-                            tileMap.getTileSets().get(tileSet).getFirstGrid() + tileMap.getTileSets().get(tileSet).getTileCount()
+                            tileMap.getTileSets().get(tileSet).getFirstGid() + tileMap.getTileSets().get(tileSet).getTileCount()
                             ) {
                         tileSet++;
                     }
@@ -131,7 +135,7 @@ class ObjectManager {
                                     tileMap.getObjectGroups().get(objectGroups).getObjects().get(item).getGid() != -1 ?
                                             tileMap.getTileSets().get(tileSet).getImageSprite(
                                                     tileMap.getObjectGroups().get(objectGroups).getObjects().get(item).getGid()
-                                                            - tileMap.getTileSets().get(tileSet).getFirstGrid())
+                                                            - tileMap.getTileSets().get(tileSet).getFirstGid())
                                             : null
                             );
                 }
@@ -157,7 +161,7 @@ class ObjectManager {
 
                             ObjectType type = ObjectType.DEFAULT;
                             int terrain = tileMap.getLayers().get(layers).getTileData(i + j * tileMap.getWidth())
-                                    - tileMap.getTileSets().get(tileSet).getFirstGrid();
+                                    - tileMap.getTileSets().get(tileSet).getFirstGid();
 
                             if (terrain == 9 || terrain == 10 || terrain == 11) {
                                 type = ObjectType.PLAINS;
@@ -180,10 +184,10 @@ class ObjectManager {
                                             type,
                                             tileMap.getTileSets().get(tileSet).getImageSprite(
                                                     tileMap.getLayers().get(layers).getTileData(i + j * tileMap.getWidth())
-                                                            - tileMap.getTileSets().get(tileSet).getFirstGrid())
+                                                            - tileMap.getTileSets().get(tileSet).getFirstGid())
                             );
 
-                            //tileSet = 0;
+                            tileSet = 0;
                         } else {
                             ground[i][j] = null;
                         }
@@ -192,14 +196,13 @@ class ObjectManager {
             }
         }
 
-
         // SET PLAYER'S INITIAL GROUND TILE
         setPlayerInitialState();
     }
 
 
     private void setPlayerInitialState() {
-        player.setTerrainType(ground[player.getTileX(0)][player.getTileY(0)].getObjectType());
+        //player.setTerrainType(ground[player.getTileX(0)][player.getTileY(0)].getObjectType());
     }
 
 

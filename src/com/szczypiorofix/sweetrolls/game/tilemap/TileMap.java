@@ -102,7 +102,7 @@ public class TileMap {
         StringBuilder r = new StringBuilder("\nTILEMAP size " + width + ":" + height + ", tiles: " + tileWidth + ":" + tileHeight + ", layers: " + layers.size() + "\n");
 
         for(TileSet t : tileSets) {
-            r.append("TILESET firstgrid: ").append(t.getFirstGrid()).append(", source: ").append(t.getImageSource()).append(", tilecount: ").append(t.getTileCount()).append(", columns: ").append(t.getColumns()).append("\n");
+            r.append("TILESET firstgrid: ").append(t.getFirstGid()).append(", source: ").append(t.getImageSource()).append(", tilecount: ").append(t.getTileCount()).append(", columns: ").append(t.getColumns()).append("\n");
         }
 
         for (int i = 0; i < layers.size(); i++) {

@@ -96,19 +96,19 @@ public class GameManager {
                 setNextRound = true;
             }
 
-            if (player.getPlayerState() == PlayerState.MOVING_WORLD_MAP && levelType == LevelType.WORLD_MAP && input.isKeyPressed(Input.KEY_E)) {
-                System.out.println("GO TO INNER MAP");
-                player.setPlayerState(PlayerState.MOVING_INNER_LOCATION);
-                changeLevel(LevelType.INNER_PLAINS);
-            }
-
-            // TODO zapamiętywanie pozycji gracza na World Map;
-
-            if (player.getPlayerState() == PlayerState.MOVING_INNER_LOCATION && input.isKeyPressed(Input.KEY_Q)) {
-                System.out.println("GO TO WORLD MAP");
-                player.setPlayerState(PlayerState.MOVING_WORLD_MAP);
-                changeLevel(LevelType.WORLD_MAP);
-            }
+//            if (player.getPlayerState() == PlayerState.MOVING_WORLD_MAP && levelType == LevelType.WORLD_MAP && input.isKeyPressed(Input.KEY_E)) {
+//                System.out.println("GO TO INNER MAP");
+//                player.setPlayerState(PlayerState.MOVING_INNER_LOCATION);
+//                changeLevel(LevelType.INNER_PLAINS);
+//            }
+//
+//            // TODO zapamiętywanie pozycji gracza na World Map;
+//
+//            if (player.getPlayerState() == PlayerState.MOVING_INNER_LOCATION && input.isKeyPressed(Input.KEY_Q)) {
+//                System.out.println("GO TO WORLD MAP");
+//                player.setPlayerState(PlayerState.MOVING_WORLD_MAP);
+//                changeLevel(LevelType.WORLD_MAP);
+//            }
 
             if (input.isKeyPressed(Input.KEY_SPACE)) {
                 player.statistics.currentLevelBar++;

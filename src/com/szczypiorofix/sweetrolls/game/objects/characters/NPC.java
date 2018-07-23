@@ -16,6 +16,15 @@ public class NPC extends Character {
         if (image == null) {
             npcImage = Textures.getInstance().classm32.getSprite(0, 0);
         } else npcImage = image;
+        statistics.maxHealth = 100;
+    }
+
+    public NPC(String name, float x, float y, float width, float height, Image image, int maxhealth) {
+        super(name, x, y, width, height, ObjectType.NPC);
+        if (image == null) {
+            npcImage = Textures.getInstance().classm32.getSprite(0, 0);
+        } else npcImage = image;
+        statistics.maxHealth = maxhealth;
     }
 
     @Override
@@ -27,7 +36,7 @@ public class NPC extends Character {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) {
         npcImage.draw(- offsetX + x, - offsetY + y);
         if (hover) {
-            g.drawString(name, - offsetX + x, - offsetY + y - 15);
+            g.drawString(name +" "+statistics.maxHealth, - offsetX + x, - offsetY + y - 15);
         }
     }
 
