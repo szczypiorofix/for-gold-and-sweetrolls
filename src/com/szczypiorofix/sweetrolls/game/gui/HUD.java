@@ -34,6 +34,6 @@ public class HUD {
         g.fillRect(602, 87, currentLevel, 8);
         g.drawString("Zdrowie: " +player.statistics.health +"/"+player.statistics.maxHealth, 600, 100);
         g.drawString("Runda: " +player.getPlayerTurn(), 600, 115);
-        //g.drawString("Teren: " +player.getTerrainType().getName(), 600, 130);
+        g.drawString("Teren: " +player.getTerrainType().getName(), 600, 130);
     }
 }

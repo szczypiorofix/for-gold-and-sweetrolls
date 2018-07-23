@@ -186,7 +186,6 @@ public class Level {
                                     TileObject tileObject = new TileObject(
                                             Integer.parseInt(objectsElement.getAttribute("id")),
                                             objectsElement.getAttribute("template").equalsIgnoreCase("") ? objectsElement.getAttribute("template") : "",
-                                            //objectsElement.getAttribute("template"),
                                             objectsElement.getAttribute("name"),
                                             parseFloatToIntger(objectsElement.getAttribute("x")),
                                             parseFloatToIntger(objectsElement.getAttribute("y")),
@@ -195,7 +194,6 @@ public class Level {
                                     if (!objectsElement.getAttribute("gid").equalsIgnoreCase("")) {
                                         tileObject.setGid(Integer.parseInt(objectsElement.getAttribute("gid")));
                                     }
-
 
                                     NodeList objectsProperties = objectsElement.getElementsByTagName("properties");
                                     if (objectsProperties.getLength() > 0) {
@@ -211,11 +209,13 @@ public class Level {
                                                         Node objectPropertyNode = objectPropertyList.item(p);
                                                         if (objectPropertyNode.getNodeType() == Node.ELEMENT_NODE) {
                                                             Element objectPropertyElement = (Element) objectPropertyNode;
-                                                            tileObject.addProperty(new Property(
-                                                                    objectPropertyElement.getAttribute("name"),
-                                                                    objectPropertyElement.getAttribute("type").equals("") ? "string" : objectPropertyElement.getAttribute("type"),
-                                                                    objectPropertyElement.getAttribute("value")
-                                                            ));
+                                                            if (!tileObject.isSetProperty(objectPropertyElement.getAttribute("name"))) {
+                                                                tileObject.addProperty(new Property(
+                                                                        objectPropertyElement.getAttribute("name"),
+                                                                        objectPropertyElement.getAttribute("type").equals("") ? "string" : objectPropertyElement.getAttribute("type"),
+                                                                        objectPropertyElement.getAttribute("value")
+                                                                ));
+                                                            }
                                                         }
                                                     }
                                                 }

@@ -202,7 +202,7 @@ class ObjectManager {
 
 
     private void setPlayerInitialState() {
-        //player.setTerrainType(ground[player.getTileX(0)][player.getTileY(0)].getObjectType());
+        player.setTerrainType(ground[player.getTileX(0)][player.getTileY(0)].getObjectType());
     }
 
 

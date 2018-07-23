@@ -20,7 +20,7 @@ public class LevelManager {
         switch (level) {
             case WORLD_MAP: {
                 currentLevel.loadFromTiledMap("worldmap.tmx");
-                System.out.println(currentLevel.getTileMap());
+                //System.out.println(currentLevel.getTileMap());
                 break;
             }
             case INNER_PLAINS: {

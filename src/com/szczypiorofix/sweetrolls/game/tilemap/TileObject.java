@@ -31,6 +31,7 @@ public class TileObject {
         this.id = id;
         this.template = template;
         this.name = name;
+        System.out.println(this.template);
         this.x = x;
         this.y = y;
         properties = new ArrayList<>();
@@ -67,18 +68,20 @@ public class TileObject {
                         }
 
                         NodeList objectsList = templatesElement.getElementsByTagName("object");
+                        System.out.println("Name: "+objectsList.getLength());
                         for (int objects = 0; objects < objectsList.getLength(); objects++) {
                             Node objectNode = objectsList.item(objects);
                             if (objectNode.getNodeType() == Node.ELEMENT_NODE) {
                                 Element objectElement = (Element) objectNode;
-                                name = objectElement.getAttribute("name");
-                                type = objectElement.getAttribute("type");
-                                width = Integer.parseInt(objectElement.getAttribute("width"));
-                                height = Integer.parseInt(objectElement.getAttribute("height"));
+                                this.name = objectElement.getAttribute("name");
+                                this.type = objectElement.getAttribute("type");
+                                this.width = Integer.parseInt(objectElement.getAttribute("width"));
+                                this.height = Integer.parseInt(objectElement.getAttribute("height"));
 
                                 for (int i = 0; i < tileSets.size(); i++) {
                                     if (tileSets.get(i).getSourceFile().equalsIgnoreCase(tilesetSource)) {
                                         gid = Integer.parseInt(objectElement.getAttribute("gid")) + tileSets.get(i).getFirstGid() - 1;
+                                        System.out.println(gid);
                                         break;
                                     }
                                 }
@@ -116,10 +119,21 @@ public class TileObject {
                 e.printStackTrace();
             }
         }
+
+        //System.out.println(this.name +" " +this.x +":" +this.y +", w:"+this.width +", h:"+this.height);
     }
 
     public void addProperty(Property property) {
         properties.add(property);
+    }
+
+    public boolean isSetProperty(String prop) {
+        for (Property property : properties) {
+            if (property.getName().equalsIgnoreCase(prop)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public String getStringProperty(String prop) {
