@@ -31,7 +31,7 @@ public class TileObject {
         this.id = id;
         this.template = template;
         this.name = name;
-        System.out.println(this.template);
+        //System.out.println(this.template);
         this.x = x;
         this.y = y;
         properties = new ArrayList<>();
@@ -41,6 +41,8 @@ public class TileObject {
         this.height = 32;
 
         if (!template.equalsIgnoreCase("")) {
+
+            System.out.println("TEMPLATE !");
             try {
                 File inputFile = new File(MainClass.RES + "map/" + template);
                 DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -50,6 +52,7 @@ public class TileObject {
 
                 NodeList templateList = doc.getElementsByTagName("template");
 
+                //System.out.println(templateList.getLength());
 
                 for (int templates = 0; templates < templateList.getLength(); templates++) {
                     Node templateNode = templateList.item(templates);
@@ -68,7 +71,7 @@ public class TileObject {
                         }
 
                         NodeList objectsList = templatesElement.getElementsByTagName("object");
-                        System.out.println("Name: "+objectsList.getLength());
+                        //System.out.println("Name: "+objectsList.getLength());
                         for (int objects = 0; objects < objectsList.getLength(); objects++) {
                             Node objectNode = objectsList.item(objects);
                             if (objectNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -81,7 +84,7 @@ public class TileObject {
                                 for (int i = 0; i < tileSets.size(); i++) {
                                     if (tileSets.get(i).getSourceFile().equalsIgnoreCase(tilesetSource)) {
                                         gid = Integer.parseInt(objectElement.getAttribute("gid")) + tileSets.get(i).getFirstGid() - 1;
-                                        System.out.println(gid);
+                                        //System.out.println(gid);
                                         break;
                                     }
                                 }

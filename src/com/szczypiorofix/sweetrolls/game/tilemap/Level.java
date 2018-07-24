@@ -185,7 +185,7 @@ public class Level {
 
                                     TileObject tileObject = new TileObject(
                                             Integer.parseInt(objectsElement.getAttribute("id")),
-                                            objectsElement.getAttribute("template").equalsIgnoreCase("") ? objectsElement.getAttribute("template") : "",
+                                            !objectsElement.getAttribute("template").equalsIgnoreCase("") ? objectsElement.getAttribute("template") : "",
                                             objectsElement.getAttribute("name"),
                                             parseFloatToIntger(objectsElement.getAttribute("x")),
                                             parseFloatToIntger(objectsElement.getAttribute("y")),
@@ -196,6 +196,7 @@ public class Level {
                                     }
 
                                     NodeList objectsProperties = objectsElement.getElementsByTagName("properties");
+
                                     if (objectsProperties.getLength() > 0) {
                                         for (int k = 0; k < objectsProperties.getLength(); k++) {
                                             Node objectPropertiesNode = objectsProperties.item(k);
@@ -209,7 +210,9 @@ public class Level {
                                                         Node objectPropertyNode = objectPropertyList.item(p);
                                                         if (objectPropertyNode.getNodeType() == Node.ELEMENT_NODE) {
                                                             Element objectPropertyElement = (Element) objectPropertyNode;
+
                                                             if (!tileObject.isSetProperty(objectPropertyElement.getAttribute("name"))) {
+                                                                System.out.println("New property: " +objectPropertyElement.getAttribute("name") + " : " +objectPropertyElement.getAttribute("value"));
                                                                 tileObject.addProperty(new Property(
                                                                         objectPropertyElement.getAttribute("name"),
                                                                         objectPropertyElement.getAttribute("type").equals("") ? "string" : objectPropertyElement.getAttribute("type"),
@@ -223,6 +226,7 @@ public class Level {
                                         }
                                     }
 
+                                    System.out.println(tileObject.getName() + ": " +tileObject.getProperties().size());
                                     objectGroup.addObject(tileObject);
                                 }
                             }
