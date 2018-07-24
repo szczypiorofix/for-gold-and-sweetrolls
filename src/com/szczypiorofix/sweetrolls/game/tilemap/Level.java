@@ -5,7 +5,6 @@ import java.io.File;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 
-import com.szczypiorofix.sweetrolls.game.enums.LevelType;
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
@@ -30,50 +29,6 @@ public class Level {
         return r;
     }
 
-//    public void generateLevel(LevelType levelType) {
-//        tileMap = new TileMap(50, 50, 32, 32);
-//        Layer layer = new Layer("grounds", 50, 50);
-//        layer.setDataCSV("21, 21, 21, 21");
-//        tileMap.addLayer(layer);
-//
-//        SpriteSheet image = null;
-//
-//        try {
-//            image = new SpriteSheet(MainClass.RES +"map/dg_grounds32.png", 32, 32);
-//        } catch (SlickException e) {
-//            e.printStackTrace();
-//        }
-//        TileSet tileSet = new TileSet(1,
-//                "dg_grounds32",
-//                "dg_grounds32.png",
-//                32,
-//                32,
-//                171,
-//                9,
-//                288,
-//                608,
-//                image);
-//        tileMap.addTileSet(tileSet);
-//        ObjectGroup objectGroup = new ObjectGroup("player");
-//          tileObject = new TileObject(
-//                Integer.parseInt("1"),
-//                "",
-//                "player",
-//                10,
-//                10,
-//                10,
-//                32,
-//                32,
-//                -1);
-//        tileObject.addProperty(new Property(
-//                objectPropertyElement.getAttribute("name"),
-//                objectPropertyElement.getAttribute("type").equals("") ? "string" : objectPropertyElement.getAttribute("type"),
-//                objectPropertyElement.getAttribute("value")
-//        ));
-//        // TODO player musi pozostać ten sam a nie tworzony na nowo - tylko x i y się zmienia względem nowej mapy.
-//        objectGroup.addObject(tileObject);
-//        tileMap.addObjectGroup(objectGroup);
-//    }
 
     public void loadFromTiledMap(String fileName) {
         try {
@@ -176,7 +131,7 @@ public class Level {
                             Element objectGroupElement = (Element) objectGroupNode;
 
                             ObjectGroup objectGroup = new ObjectGroup(objectGroupElement.getAttribute("name"));
-                            NodeList objectsList = objectGroupElement.getChildNodes();
+                            NodeList objectsList = objectGroupElement.getElementsByTagName("object");
 
                             for (int j = 0; j < objectsList.getLength(); j++) {
                                 Node objectsNode = objectsList.item(j);
@@ -188,7 +143,9 @@ public class Level {
                                             !objectsElement.getAttribute("template").equalsIgnoreCase("") ? objectsElement.getAttribute("template") : "",
                                             objectsElement.getAttribute("name"),
                                             parseFloatToIntger(objectsElement.getAttribute("x")),
-                                            parseFloatToIntger(objectsElement.getAttribute("y")),
+                                            parseFloatToIntger(objectsElement.getAttribute("y")), // TODO Hardcoded -height because of wrogne Y axis counting or offset 32 on every object layer but player layer
+                                            objectsElement.getAttribute("width").equalsIgnoreCase("") ? -1 : parseFloatToIntger(objectsElement.getAttribute("width")),
+                                            objectsElement.getAttribute("height").equalsIgnoreCase("") ? -1 : parseFloatToIntger(objectsElement.getAttribute("height")),
                                             tileMap.getTileSets()
                                     );
                                     if (!objectsElement.getAttribute("gid").equalsIgnoreCase("")) {
@@ -196,28 +153,26 @@ public class Level {
                                     }
 
                                     NodeList objectsProperties = objectsElement.getElementsByTagName("properties");
-
                                     if (objectsProperties.getLength() > 0) {
                                         for (int k = 0; k < objectsProperties.getLength(); k++) {
                                             Node objectPropertiesNode = objectsProperties.item(k);
-
                                             if (objectPropertiesNode.getNodeType() == Node.ELEMENT_NODE) {
                                                 Element objectPropertiesElement = (Element) objectPropertiesNode;
                                                 NodeList objectPropertyList = objectPropertiesElement.getElementsByTagName("property");
-
                                                 if (objectPropertyList.getLength() > 0) {
+
                                                     for (int p = 0; p < objectPropertyList.getLength(); p++) {
                                                         Node objectPropertyNode = objectPropertyList.item(p);
                                                         if (objectPropertyNode.getNodeType() == Node.ELEMENT_NODE) {
                                                             Element objectPropertyElement = (Element) objectPropertyNode;
-
-                                                            if (!tileObject.isSetProperty(objectPropertyElement.getAttribute("name"))) {
-                                                                System.out.println("New property: " +objectPropertyElement.getAttribute("name") + " : " +objectPropertyElement.getAttribute("value"));
+                                                            if (!tileObject.isSetProperty("name")) {
                                                                 tileObject.addProperty(new Property(
                                                                         objectPropertyElement.getAttribute("name"),
                                                                         objectPropertyElement.getAttribute("type").equals("") ? "string" : objectPropertyElement.getAttribute("type"),
                                                                         objectPropertyElement.getAttribute("value")
                                                                 ));
+                                                            } else {
+                                                                tileObject.setProperty(objectPropertyElement.getAttribute("name"), objectPropertyElement.getAttribute("value"), objectPropertyElement.getAttribute("value"));
                                                             }
                                                         }
                                                     }
@@ -225,12 +180,9 @@ public class Level {
                                             }
                                         }
                                     }
-
-                                    System.out.println(tileObject.getName() + ": " +tileObject.getProperties().size());
                                     objectGroup.addObject(tileObject);
                                 }
                             }
-
                             tileMap.addObjectGroup(objectGroup);
                         }
                     }

@@ -5,6 +5,7 @@ import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.enums.PlayerState;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
 import com.szczypiorofix.sweetrolls.game.objects.GameObject;
+import com.szczypiorofix.sweetrolls.game.objects.item.Chest;
 import com.szczypiorofix.sweetrolls.game.objects.terrain.Ground;
 import com.szczypiorofix.sweetrolls.game.objects.characters.NPC;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
@@ -46,13 +47,6 @@ class ObjectManager {
         tilesToNorth = - maxY / 2 - 1;
         tilesToSouth = maxY / 2 + 1;
 
-//        int margin = 5;
-//
-//        tilesToWest = - margin;
-//        tilesToEast = margin;
-//        tilesToNorth = - margin;
-//        tilesToSouth = margin;
-
         ground = new GameObject[level.getWidth()][level.getHeight()];
         npc = new GameObject[level.getWidth()][level.getHeight()];
         items = new GameObject[level.getWidth()][level.getHeight()];
@@ -60,7 +54,6 @@ class ObjectManager {
 
         // ############ OBIEKTY
 
-        //player = new Player("PGarvey", 600, 930, 32, 32);
         for (int objectGroups = 0; objectGroups < tileMap.getObjectGroups().size(); objectGroups++) {
 
             // ######## PLAYER
@@ -73,7 +66,8 @@ class ObjectManager {
                         tileMap.getObjectGroups().get(objectGroups).getObjects().get(0).getX(),
                         tileMap.getObjectGroups().get(objectGroups).getObjects().get(0).getY(),
                         tileMap.getObjectGroups().get(objectGroups).getObjects().get(0).getWidth(),
-                        tileMap.getObjectGroups().get(objectGroups).getObjects().get(0).getHeight());
+                        tileMap.getObjectGroups().get(objectGroups).getObjects().get(0).getHeight(),
+                        tileMap.getObjectGroups().get(objectGroups).getObjects().get(0).getProperties());
 
             }
 
@@ -84,7 +78,7 @@ class ObjectManager {
 
                     tileSet = 0;
                     while (tileMap.getObjectGroups().get(objectGroups).getObjects().get(npcs).getGid() >
-                            tileMap.getTileSets().get(tileSet).getFirstGid() + tileMap.getTileSets().get(tileSet).getTileCount()
+                            tileMap.getTileSets().get(tileSet).getFirstGid() + tileMap.getTileSets().get(tileSet).getTileCount() - (tileSet + 1)
                             ) {
                         tileSet++;
                     }
@@ -99,13 +93,12 @@ class ObjectManager {
                                 tileMap.getObjectGroups().get(objectGroups).getObjects().get(npcs).getY(),
                                 tileMap.getObjectGroups().get(objectGroups).getObjects().get(npcs).getWidth(),
                                 tileMap.getObjectGroups().get(objectGroups).getObjects().get(npcs).getHeight(),
-                                tileMap.getObjectGroups().get(objectGroups).getObjects().get(npcs).getGid() != -1 ?
+                                tileMap.getObjectGroups().get(objectGroups).getObjects().get(npcs).getGid() >= 0 ?
                                     tileMap.getTileSets().get(tileSet).getImageSprite(
                                         tileMap.getObjectGroups().get(objectGroups).getObjects().get(npcs).getGid()
                                         - tileMap.getTileSets().get(tileSet).getFirstGid())
                                         : null,
-                                //tileMap.getObjectGroups().get(objectGroups).getObjects().get(npcs).getIntegerProperty("maxhealth")
-                                110
+                                tileMap.getObjectGroups().get(objectGroups).getObjects().get(npcs).getProperties()
                         );
                 }
             }
@@ -117,14 +110,14 @@ class ObjectManager {
 
                     tileSet = 0;
                     while (tileMap.getObjectGroups().get(objectGroups).getObjects().get(item).getGid() >
-                            tileMap.getTileSets().get(tileSet).getFirstGid() + tileMap.getTileSets().get(tileSet).getTileCount()
+                            tileMap.getTileSets().get(tileSet).getFirstGid() + tileMap.getTileSets().get(tileSet).getTileCount() - (tileSet + 1)
                             ) {
                         tileSet++;
                     }
 
                     items[tileMap.getObjectGroups().get(objectGroups).getObjects().get(item).getX() / tileMap.getTileWidth()]
                             [tileMap.getObjectGroups().get(objectGroups).getObjects().get(item).getY() / tileMap.getTileHeight()] =
-                            new NPC(
+                            new Chest(
                                     tileMap.getObjectGroups().get(objectGroups).getObjects().get(item).getStringProperty("name").equalsIgnoreCase("null")
                                             ? tileMap.getObjectGroups().get(objectGroups).getObjects().get(item).getName()
                                             : tileMap.getObjectGroups().get(objectGroups).getObjects().get(item).getStringProperty("name"),
@@ -132,12 +125,15 @@ class ObjectManager {
                                     tileMap.getObjectGroups().get(objectGroups).getObjects().get(item).getY(),
                                     tileMap.getObjectGroups().get(objectGroups).getObjects().get(item).getWidth(),
                                     tileMap.getObjectGroups().get(objectGroups).getObjects().get(item).getHeight(),
-                                    tileMap.getObjectGroups().get(objectGroups).getObjects().get(item).getGid() != -1 ?
+                                    tileMap.getObjectGroups().get(objectGroups).getObjects().get(item).getGid() >= 0 ?
                                             tileMap.getTileSets().get(tileSet).getImageSprite(
                                                     tileMap.getObjectGroups().get(objectGroups).getObjects().get(item).getGid()
                                                             - tileMap.getTileSets().get(tileSet).getFirstGid())
-                                            : null
+                                            : null,
+                                    tileMap.getObjectGroups().get(objectGroups).getObjects().get(item).getProperties()
                             );
+//                    System.out.println(tileMap.getObjectGroups().get(objectGroups).getObjects().get(item).getGid()
+//                            - tileMap.getTileSets().get(tileSet).getFirstGid());
                 }
             }
         }

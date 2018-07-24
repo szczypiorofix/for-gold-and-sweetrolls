@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+ <tileset firstgid="1" source="dg_misc32.tsx"/>
+ <object name="item" type="item" gid="2" width="32" height="32">
+  <properties>
+   <property name="name" value="Item_name"/>
+  </properties>
+ </object>
+</template>

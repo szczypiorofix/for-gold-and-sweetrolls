@@ -2,6 +2,7 @@ package com.szczypiorofix.sweetrolls.game.tilemap;
 
 public class Property {
 
+    public static final String ERROR_MSG = "ERROR";
     private String name;
     private PropertyType type;
     private String value;
@@ -43,23 +44,23 @@ public class Property {
         return name;
     }
 
-//    public void setName(String name) {
-//        this.name = name;
-//    }
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public PropertyType getType() {
         return type;
     }
 
-//    public void setType(PropertyType type) {
-//        this.type = type;
-//    }
+    public void setType(PropertyType type) {
+        this.type = type;
+    }
 
     public String getValue() {
         return value;
     }
-//
-//    public void setValue(String value) {
-//        this.value = value;
-//    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
 }

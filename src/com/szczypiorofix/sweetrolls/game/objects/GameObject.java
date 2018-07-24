@@ -2,10 +2,14 @@ package com.szczypiorofix.sweetrolls.game.objects;
 
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.main.core.Registry;
+import com.szczypiorofix.sweetrolls.game.tilemap.Property;
+import com.szczypiorofix.sweetrolls.game.tilemap.PropertyType;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
+
+import java.util.ArrayList;
 
 abstract public class GameObject {
 
@@ -23,6 +27,7 @@ abstract public class GameObject {
     protected boolean passable = true;
     protected boolean hover = false;
     protected ObjectType objectType;
+    protected ArrayList<Property> properties;
 
 
     protected GameObject() {
@@ -40,6 +45,7 @@ abstract public class GameObject {
         this.objectType = objectType;
         this.x = 0;
         this.y = 0;
+        this.properties = new ArrayList<>();
     }
 
     protected GameObject(String name, float x, float y) {
@@ -63,6 +69,13 @@ abstract public class GameObject {
         this(name, x, y, objectType);
         this.width = width;
         this.height = height;
+    }
+
+    protected GameObject(String name, float x, float y, float width, float height, ObjectType objectType, ArrayList<Property> properties) {
+        this(name, x, y, objectType);
+        this.width = width;
+        this.height = height;
+        this.properties = properties;
     }
 
 
@@ -195,4 +208,54 @@ abstract public class GameObject {
     public void setPassable(boolean passable) {
         this.passable = passable;
     }
+
+    public ArrayList<Property> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(ArrayList<Property> properties) {
+        this.properties = properties;
+    }
+
+    public boolean isSetProperty(String prop) {
+        for (Property property : properties) {
+            if (property.getName().equalsIgnoreCase(prop)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String getStringProperty(String prop) {
+        String r = Property.ERROR_MSG;
+        for (Property property : properties) {
+            if (property.getType() == PropertyType.STRING && property.getName().equalsIgnoreCase(prop)) {
+                r = property.getValue();
+            }
+        }
+        return r;
+    }
+
+    public int getIntegerProperty(String prop) {
+        int r = -1;
+        for (Property property : properties) {
+            if (property.getType() == PropertyType.INTEGER
+                    && property.getName().equalsIgnoreCase(prop)) {
+                r = Integer.parseInt(property.getValue());
+            }
+        }
+        return r;
+    }
+
+    public boolean getBooleanProperty(String prop) {
+        boolean r = false;
+        for (Property property : properties) {
+            if (property.getType() == PropertyType.BOOLEAN
+                    && property.getName().equalsIgnoreCase(prop)) {
+                r = Boolean.parseBoolean(property.getValue());
+            }
+        }
+        return r;
+    }
+
 }

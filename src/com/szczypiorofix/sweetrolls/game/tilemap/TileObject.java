@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+
 public class TileObject {
 
     private int id;
@@ -26,23 +27,20 @@ public class TileObject {
     private int tilesetFirstGid;
     private String tilesetSource = "";
     private ArrayList<Property> properties;
+    private boolean isTemplate = false;
 
-    public TileObject(int id, String template, String name, int x, int y, ArrayList<TileSet> tileSets) {
+    public TileObject(int id, String template, String name, int x, int y, int width, int height, ArrayList<TileSet> tileSets) {
         this.id = id;
         this.template = template;
         this.name = name;
-        //System.out.println(this.template);
         this.x = x;
         this.y = y;
+        this.width = width;
+        this.height = height;
         properties = new ArrayList<>();
 
-        // TODO Remove it!
-        this.width = 32;
-        this.height = 32;
-
         if (!template.equalsIgnoreCase("")) {
-
-            System.out.println("TEMPLATE !");
+            isTemplate = true;
             try {
                 File inputFile = new File(MainClass.RES + "map/" + template);
                 DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -51,8 +49,6 @@ public class TileObject {
                 doc.getDocumentElement().normalize();
 
                 NodeList templateList = doc.getElementsByTagName("template");
-
-                //System.out.println(templateList.getLength());
 
                 for (int templates = 0; templates < templateList.getLength(); templates++) {
                     Node templateNode = templateList.item(templates);
@@ -65,13 +61,12 @@ public class TileObject {
                             Node tilesetNode = tilesetsList.item(tilesets);
                             if (tilesetNode.getNodeType() == Node.ELEMENT_NODE) {
                                 Element tilesetElement = (Element) tilesetNode;
-                                tilesetFirstGid = Integer.parseInt(tilesetElement.getAttribute("firstgid"));
-                                tilesetSource = tilesetElement.getAttribute("source");
+                                this.tilesetFirstGid = Integer.parseInt(tilesetElement.getAttribute("firstgid"));
+                                this.tilesetSource = tilesetElement.getAttribute("source");
                             }
                         }
 
                         NodeList objectsList = templatesElement.getElementsByTagName("object");
-                        //System.out.println("Name: "+objectsList.getLength());
                         for (int objects = 0; objects < objectsList.getLength(); objects++) {
                             Node objectNode = objectsList.item(objects);
                             if (objectNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -83,8 +78,8 @@ public class TileObject {
 
                                 for (int i = 0; i < tileSets.size(); i++) {
                                     if (tileSets.get(i).getSourceFile().equalsIgnoreCase(tilesetSource)) {
-                                        gid = Integer.parseInt(objectElement.getAttribute("gid")) + tileSets.get(i).getFirstGid() - 1;
-                                        //System.out.println(gid);
+                                        gid = Integer.parseInt(objectElement.getAttribute("gid")) + tileSets.get(i).getFirstGid()-1;
+                                        //System.out.print(gid+ " : ");
                                         break;
                                     }
                                 }
@@ -122,12 +117,49 @@ public class TileObject {
                 e.printStackTrace();
             }
         }
+    }
 
-        //System.out.println(this.name +" " +this.x +":" +this.y +", w:"+this.width +", h:"+this.height);
+    public boolean isTemplate() {
+        return isTemplate;
     }
 
     public void addProperty(Property property) {
         properties.add(property);
+    }
+
+    public void setProperty(String prop, String type, String value) {
+        for (Property property : properties) {
+            if (property.getName().equalsIgnoreCase(prop)) {
+                //System.out.println("Ustawiamy wartość: "+property.getName() +", z "+property.getValue() +" na "+value);
+                property.setValue(value);
+                switch (type) {
+                    case "bool": {
+                        property.setType(PropertyType.BOOLEAN);
+                        break;
+                    }
+                    case "int": {
+                        property.setType(PropertyType.INTEGER);
+                        break;
+                    }
+                    case "string": {
+                        property.setType(PropertyType.STRING);
+                        break;
+                    }
+                    case "file": {
+                        property.setType(PropertyType.FILE);
+                        break;
+                    }
+                    case "float": {
+                        property.setType(PropertyType.FLOAT);
+                        break;
+                    }
+                    case "color": {
+                        property.setType(PropertyType.COLOR);
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     public boolean isSetProperty(String prop) {
@@ -140,7 +172,7 @@ public class TileObject {
     }
 
     public String getStringProperty(String prop) {
-        String r = "null";
+        String r = Property.ERROR_MSG;
         for (Property property : properties) {
             if (property.getType() == PropertyType.STRING && property.getName().equalsIgnoreCase(prop)) {
                 r = property.getValue();

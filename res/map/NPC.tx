@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template>
  <tileset firstgid="1" source="dg_people32.tsx"/>
- <object name="Default NPC" type="npc" gid="2" width="32" height="32">
+ <object name="npc" type="npc" gid="1" width="32" height="32">
   <properties>
-   <property name="alive" type="bool" value="true"/>
    <property name="maxhealth" type="int" value="100"/>
-   <property name="name" value="Default NPC"/>
+   <property name="name" value="NPC_name"/>
   </properties>
  </object>
 </template>

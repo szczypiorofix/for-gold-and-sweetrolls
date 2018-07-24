@@ -3,10 +3,13 @@ package com.szczypiorofix.sweetrolls.game.objects.characters;
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.enums.PlayerState;
 import com.szczypiorofix.sweetrolls.game.graphics.Textures;
+import com.szczypiorofix.sweetrolls.game.tilemap.Property;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.state.StateBasedGame;
+
+import java.util.ArrayList;
 
 public class Player extends Character {
 
@@ -15,12 +18,14 @@ public class Player extends Character {
     private ObjectType terrainType;
     private PlayerState playerState;
 
-    public Player(String name, float x, float y, float width, float height) {
-        super(name, x, y, width, height, ObjectType.PLAYER);
+    public Player(String name, float x, float y, float width, float height, ArrayList<Property> properties) {
+        super(name, x, y, width, height, ObjectType.PLAYER, properties);
+        this.name = name;
         this.living = true;
         this.dynamic = true;
         this.visible = true;
         this.moving = true;
+
         image = Textures.getInstance().classm32.getSprite(3, 0);
 
         statistics.level = 1;
@@ -40,7 +45,9 @@ public class Player extends Character {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) {
         image.draw( - offsetX + x, - offsetY + y);
         if (hover) {
-            g.drawString(name, - offsetX + x, - offsetY + y - 15);
+            g.drawString(this.name, - offsetX + x, - offsetY + y - 15);
+            g.drawString("w: "+width +", h: "+height, - offsetX + x, - offsetY + y - 30);
+            g.drawString("x: "+x +", y: "+y, - offsetX + x, - offsetY + y - 45);
         }
     }
 
