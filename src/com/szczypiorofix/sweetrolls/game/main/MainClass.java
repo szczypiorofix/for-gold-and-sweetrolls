@@ -56,8 +56,8 @@ public final class MainClass {
             };
             app.setIcons(icons);
             app.setDisplayMode(800, 600, false);
-            app.setVSync(true);
             app.setTargetFrameRate(60);
+            app.setVSync(true);
             app.setShowFPS(false);
             app.setUpdateOnlyWhenVisible(true);
             app.start();

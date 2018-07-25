@@ -16,19 +16,11 @@ public class LevelManager {
         return currentLevel;
     }
 
-    public void loadLevel(LevelType level) {
-        switch (level) {
-            case WORLD_MAP: {
-                currentLevel.loadFromTiledMap("worldmap.tmx");
-                //System.out.println(currentLevel.getTileMap());
-                break;
-            }
-            case INNER_PLAINS: {
-                currentLevel.loadFromTiledMap("worldmap2.tmx");
-                break;
-            }
-        }
-
+    public void loadLevel(String level) {
+        System.out.print("Loading data from "+level +" file ...");
+        currentLevel.loadFromTiledMap(level);
+        System.out.println(" done.");
+        //System.out.println(currentLevel.getTileMap());
     }
 
 }

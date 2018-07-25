@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="2018.07.13" orientation="orthogonal" renderorder="right-down" width="300" height="300" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="98">
+<map version="1.0" tiledversion="2018.07.13" orientation="orthogonal" renderorder="right-down" width="300" height="300" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="108">
  <tileset firstgid="1" name="dg_grounds32" tilewidth="32" tileheight="32" tilecount="171" columns="9">
   <image source="dg_grounds32.png" width="288" height="608"/>
  </tileset>
- <tileset firstgid="172" source="dg_people32.tsx"/>
- <tileset firstgid="184" source="dg_misc32.tsx"/>
- <tileset firstgid="303" source="dg_weapons32.tsx"/>
- <tileset firstgid="403" source="dg_humans32.tsx"/>
+ <tileset firstgid="172" source="dg_town332.tsx"/>
  <layer id="1" name="background" width="300" height="300">
   <data encoding="csv">
 21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,
@@ -311,18 +308,26 @@
 21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21
 </data>
  </layer>
- <objectgroup id="5" name="npc" offsetx="0" offsety="32">
-  <object id="93" template="npc.tx" x="864" y="2080"/>
- </objectgroup>
  <objectgroup id="4" name="player">
-  <object id="71" name="player spawn" type="player" x="800" y="2112" width="32" height="32">
+  <object id="71" name="player spawn" type="player" x="736" y="2208" width="32" height="32">
    <properties>
     <property name="age" type="int" value="21"/>
     <property name="name" value="PGarvey"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="6" name="items" offsetx="0" offsety="32">
-  <object id="97" template="item.tx" x="704" y="2048"/>
+ <objectgroup id="7" name="places" offsetx="0" offsety="32">
+  <object id="106" template="place.tx" gid="206" x="896" y="2080">
+   <properties>
+    <property name="filename" value="tristram.tmx"/>
+    <property name="name" value="Tristram"/>
+   </properties>
+  </object>
+  <object id="107" template="place.tx" x="704.667" y="2050">
+   <properties>
+    <property name="filename" value="isengard.tmx"/>
+    <property name="name" value="Isengard"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

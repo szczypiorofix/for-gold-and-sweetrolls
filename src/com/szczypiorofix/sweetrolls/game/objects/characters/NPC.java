@@ -32,8 +32,6 @@ public class NPC extends Character {
         npcImage.draw(- offsetX + x, - offsetY + y);
         if (hover) {
             g.drawString(name +" "+statistics.maxHealth, - offsetX + x, - offsetY + y - 15);
-            g.drawString("w: "+width +", h: "+height, - offsetX + x, - offsetY + y - 30);
-            g.drawString("x: "+x +", y: "+y, - offsetX + x, - offsetY + y - 45);
         }
     }
 

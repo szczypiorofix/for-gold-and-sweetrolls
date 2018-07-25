@@ -4,6 +4,6 @@ public enum LevelType {
 
     WORLD_MAP,
 
-    INNER_PLAINS;
+    TOWN_TRISTRAM;
 
 }

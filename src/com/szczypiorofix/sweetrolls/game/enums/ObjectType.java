@@ -11,6 +11,7 @@ public enum ObjectType {
     MONSTER("wróg"),
 
     // ###### TERRAINS
+    PLACE("miejsce"),
     WATER("woda"),
     PLAINS("równiny"),
     HILLS("wzgórza"),

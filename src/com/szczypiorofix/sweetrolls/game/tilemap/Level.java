@@ -143,7 +143,7 @@ public class Level {
                                             !objectsElement.getAttribute("template").equalsIgnoreCase("") ? objectsElement.getAttribute("template") : "",
                                             objectsElement.getAttribute("name"),
                                             parseFloatToIntger(objectsElement.getAttribute("x")),
-                                            parseFloatToIntger(objectsElement.getAttribute("y")), // TODO Hardcoded -height because of wrogne Y axis counting or offset 32 on every object layer but player layer
+                                            parseFloatToIntger(objectsElement.getAttribute("y")),
                                             objectsElement.getAttribute("width").equalsIgnoreCase("") ? -1 : parseFloatToIntger(objectsElement.getAttribute("width")),
                                             objectsElement.getAttribute("height").equalsIgnoreCase("") ? -1 : parseFloatToIntger(objectsElement.getAttribute("height")),
                                             tileMap.getTileSets()

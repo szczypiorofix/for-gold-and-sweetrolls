@@ -17,6 +17,9 @@ public class Player extends Character {
     private int playerTurn;
     private ObjectType terrainType;
     private PlayerState playerState;
+    private int worldMapTileX = 0;
+    private int worldMapTileY = 0;
+    private String currentLevelName;
 
     public Player(String name, float x, float y, float width, float height, ArrayList<Property> properties) {
         super(name, x, y, width, height, ObjectType.PLAYER, properties);
@@ -33,6 +36,8 @@ public class Player extends Character {
         statistics.currentLevelMaxBar = 8;
         playerTurn = 0;
 
+        setWorldMapTileX(getTileX());
+        setWorldMapTileY(getTileY());
     }
 
 
@@ -54,6 +59,12 @@ public class Player extends Character {
     @Override
     public void turn() {
         playerTurn++;
+
+        if (playerState == PlayerState.MOVING_WORLD_MAP) {
+            worldMapTileX = getTileX();
+            worldMapTileY = getTileY();
+        }
+
     }
 
     public void moveNorth(int offset) {
@@ -70,14 +81,6 @@ public class Player extends Character {
 
     public void moveEast(int offset) {
         x += offset;
-    }
-
-    public int getTileX(int offset) {
-        return (int) ((x + (width / 2)) / width) +offset;
-    }
-
-    public int getTileY(int offset) {
-        return (int) ((y + (height / 2)) / height) + offset;
     }
 
     public int getPlayerTurn() {
@@ -102,5 +105,29 @@ public class Player extends Character {
 
     public void setPlayerState(PlayerState playerState) {
         this.playerState = playerState;
+    }
+
+    public int getWorldMapTileX() {
+        return worldMapTileX;
+    }
+
+    public void setWorldMapTileX(int worldMapTileX) {
+        this.worldMapTileX = worldMapTileX;
+    }
+
+    public int getWorldMapTileY() {
+        return worldMapTileY;
+    }
+
+    public void setWorldMapTileY(int worldMapTileY) {
+        this.worldMapTileY = worldMapTileY;
+    }
+
+    public String getCurrentLevelName() {
+        return currentLevelName;
+    }
+
+    public void setCurrentLevelName(String currentLevelName) {
+        this.currentLevelName = currentLevelName;
     }
 }

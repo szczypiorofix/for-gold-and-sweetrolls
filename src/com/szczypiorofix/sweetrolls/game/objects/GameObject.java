@@ -258,4 +258,19 @@ abstract public class GameObject {
         return r;
     }
 
+    public int getTileX(int offset) {
+        return (int) ((x + (width / 2)) / width) +offset;
+    }
+
+    public int getTileY(int offset) {
+        return (int) ((y + (height / 2)) / height) + offset;
+    }
+
+    public int getTileX() {
+        return (int) ((x + (width / 2)) / width);
+    }
+
+    public int getTileY() {
+        return (int) ((y + (height / 2)) / height);
+    }
 }

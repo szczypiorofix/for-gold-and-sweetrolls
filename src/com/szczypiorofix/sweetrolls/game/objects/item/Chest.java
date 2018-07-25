@@ -26,8 +26,6 @@ public class Chest extends Item {
         chestImage.draw(- offsetX + x, - offsetY + y);
         if (hover) {
             g.drawString(name, - offsetX + x, - offsetY + y - 15);
-            g.drawString("w: "+width +", h: "+height, - offsetX + x, - offsetY + y - 30);
-            g.drawString("x: "+x +", y: "+y, - offsetX + x, - offsetY + y - 45);
         }
     }
 

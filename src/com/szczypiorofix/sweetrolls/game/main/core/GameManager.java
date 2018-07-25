@@ -1,6 +1,5 @@
 package com.szczypiorofix.sweetrolls.game.main.core;
 
-import com.szczypiorofix.sweetrolls.game.enums.LevelType;
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.enums.PlayerState;
 import com.szczypiorofix.sweetrolls.game.gui.HUD;
@@ -14,11 +13,15 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.EmptyTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
+import java.util.HashMap;
+
 
 public class GameManager {
 
+    public static final String WORLD_MAP_NAME = "worldmap.tmx";
     private float offsetX, offsetY;
     private int tileWidth, tileHeight;
+    private int mapWidth, mapHeight;
     private Input input;
     private Player player;
     private HUD hud;
@@ -27,21 +30,34 @@ public class GameManager {
     private MouseCursor mouseCursor;
     private int gameWidth, gameHeight;
     private boolean setNextRound;
-    private LevelType levelType;
+    private HashMap<String, TileMap> levels;
+    private String currentLevelName;
 
     public GameManager() {
         offsetX = 0;
         offsetY = 0;
+        levels = new HashMap<>();
         levelManager = new LevelManager();
     }
 
-    private TileMap changeLevel(LevelType levelType) {
-        levelManager.loadLevel(levelType);
-        this.levelType = levelType;
-        TileMap levelMap = levelManager.getCurrentLevel().getTileMap();
-        objectManager.setLevel(levelMap);
-        player = objectManager.getPlayer();
-        return levelMap;
+    private void changeLevel(String levelName) {
+        this.currentLevelName = levelName;
+        TileMap levelMap;
+        if (!levels.containsKey(levelName)) {
+            levelManager.loadLevel(levelName);
+            levelMap = levelManager.getCurrentLevel().getTileMap();
+            levels.put(levelName, levelMap);
+            objectManager.generateLevel(levelMap, levelName);
+            player = objectManager.getPlayer();
+        } else {
+            levelMap = levels.get(levelName);
+        }
+        tileWidth = levelMap.getTileWidth();
+        tileHeight = levelMap.getTileHeight();
+        mapWidth = levelMap.getWidth();
+        mapHeight = levelMap.getHeight();
+        objectManager.setLevel(levelMap, levelName);
+        player.setCurrentLevelName(currentLevelName);
     }
 
     public void init(GameContainer gc) {
@@ -54,14 +70,12 @@ public class GameManager {
         objectManager = new ObjectManager(gameWidth, gameHeight);
 
         // INITIAL WORLD MAP
-        TileMap levelMap = changeLevel(LevelType.WORLD_MAP);
+        changeLevel(WORLD_MAP_NAME);
         player.setPlayerState(PlayerState.MOVING_WORLD_MAP);
 
         mouseCursor = new MouseCursor("Mouse Cursor Game", input.getMouseX(), input.getMouseY(), 1, 1, ObjectType.MOUSECURSOR);
 
-        tileWidth = levelMap.getTileWidth();
-        tileHeight = levelMap.getTileHeight();
-
+        player.setCurrentLevelName(currentLevelName);
         hud = new HUD(player);
     }
 
@@ -87,28 +101,36 @@ public class GameManager {
             }
 
             if (input.isKeyPressed(Input.KEY_UP) || gc.getInput().isKeyPressed(Input.KEY_W)) {
-                player.moveNorth(tileWidth);
+                player.moveNorth(tileHeight);
                 setNextRound = true;
             }
 
             if (input.isKeyPressed((Input.KEY_DOWN)) || gc.getInput().isKeyPressed(Input.KEY_S)) {
-                player.moveSouth(tileWidth);
+                player.moveSouth(tileHeight);
                 setNextRound = true;
             }
 
-//            if (player.getPlayerState() == PlayerState.MOVING_WORLD_MAP && levelType == LevelType.WORLD_MAP && input.isKeyPressed(Input.KEY_E)) {
-//                System.out.println("GO TO INNER MAP");
-//                player.setPlayerState(PlayerState.MOVING_INNER_LOCATION);
-//                changeLevel(LevelType.INNER_PLAINS);
-//            }
-//
-//            // TODO zapamiętywanie pozycji gracza na World Map;
-//
-//            if (player.getPlayerState() == PlayerState.MOVING_INNER_LOCATION && input.isKeyPressed(Input.KEY_Q)) {
-//                System.out.println("GO TO WORLD MAP");
-//                player.setPlayerState(PlayerState.MOVING_WORLD_MAP);
-//                changeLevel(LevelType.WORLD_MAP);
-//            }
+            if (input.isKeyPressed(Input.KEY_E)) {
+                if (player.getPlayerState() == PlayerState.MOVING_WORLD_MAP) {
+
+                    if (objectManager.getPlaces()[player.getTileX()][player.getTileY()] != null) {
+                        System.out.println("Entering: "+objectManager.getPlaces()[player.getTileX()][player.getTileY()].getStringProperty("name")+".");
+                        player.setPlayerState(PlayerState.MOVING_INNER_LOCATION);
+                        changeLevel(objectManager.getPlaces()[player.getTileX()][player.getTileY()].getStringProperty("filename"));
+                    }
+                } else {
+                    if (player.getTileX() <= 0
+                            || player.getTileY() <= 0
+                            || player.getTileX() >= mapWidth-1
+                            || player.getTileY() >= mapHeight-1
+                            ) {
+
+                        System.out.println("Exiting to world map.");
+                        player.setPlayerState(PlayerState.MOVING_WORLD_MAP);
+                        changeLevel(WORLD_MAP_NAME);
+                    }
+                }
+            }
 
             if (input.isKeyPressed(Input.KEY_SPACE)) {
                 player.statistics.currentLevelBar++;
