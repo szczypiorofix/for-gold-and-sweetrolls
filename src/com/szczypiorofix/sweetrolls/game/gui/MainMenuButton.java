@@ -1,8 +1,8 @@
 package com.szczypiorofix.sweetrolls.game.gui;
 
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
-import com.szczypiorofix.sweetrolls.game.graphics.Fonts;
-import com.szczypiorofix.sweetrolls.game.graphics.Textures;
+import com.szczypiorofix.sweetrolls.game.main.graphics.Fonts;
+import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
 import com.szczypiorofix.sweetrolls.game.objects.GameObject;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;

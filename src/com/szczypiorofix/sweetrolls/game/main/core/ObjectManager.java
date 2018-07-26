@@ -309,13 +309,15 @@ class ObjectManager {
         return places;
     }
 
-    public int getMaxTileX() {
-        return maxTileX;
+    public GameObject[][] getGround() {
+        return ground;
     }
 
-    public int getMaxTileY() {
-        return maxTileY;
+    public GameObject[][] getNpc() {
+        return npc;
     }
+
+
 
     //    private void graczSwieci(int x,  int y, int sila) {
 //        for (int sx = x - sila; sx <= x + sila; sx++) {

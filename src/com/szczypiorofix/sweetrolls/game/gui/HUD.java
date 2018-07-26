@@ -1,6 +1,6 @@
 package com.szczypiorofix.sweetrolls.game.gui;
 
-import com.szczypiorofix.sweetrolls.game.graphics.Fonts;
+import com.szczypiorofix.sweetrolls.game.main.graphics.Fonts;
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import org.newdawn.slick.*;

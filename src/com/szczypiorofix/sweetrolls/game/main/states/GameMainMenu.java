@@ -1,11 +1,11 @@
 package com.szczypiorofix.sweetrolls.game.main.states;
 
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
-import com.szczypiorofix.sweetrolls.game.graphics.Fonts;
+import com.szczypiorofix.sweetrolls.game.main.graphics.Fonts;
 import com.szczypiorofix.sweetrolls.game.gui.MainMenuButton;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
-import com.szczypiorofix.sweetrolls.game.sounds.SFX;
+import com.szczypiorofix.sweetrolls.game.main.sounds.SFX;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.*;
 

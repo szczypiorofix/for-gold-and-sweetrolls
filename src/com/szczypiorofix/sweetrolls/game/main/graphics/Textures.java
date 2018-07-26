@@ -1,4 +1,4 @@
-package com.szczypiorofix.sweetrolls.game.graphics;
+package com.szczypiorofix.sweetrolls.game.main.graphics;
 
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import org.newdawn.slick.SlickException;

@@ -1,7 +1,7 @@
 package com.szczypiorofix.sweetrolls.game.objects.characters;
 
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
-import com.szczypiorofix.sweetrolls.game.graphics.Textures;
+import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
 import com.szczypiorofix.sweetrolls.game.tilemap.Property;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;

@@ -1,8 +1,9 @@
 package com.szczypiorofix.sweetrolls.game.objects.characters;
 
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
+import com.szczypiorofix.sweetrolls.game.enums.PlayerAction;
 import com.szczypiorofix.sweetrolls.game.enums.PlayerState;
-import com.szczypiorofix.sweetrolls.game.graphics.Textures;
+import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
 import com.szczypiorofix.sweetrolls.game.tilemap.Property;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -20,6 +21,7 @@ public class Player extends Character {
     private int worldMapTileX = 0;
     private int worldMapTileY = 0;
     private String currentLevelName;
+    private PlayerAction playerAction;
 
     public Player(String name, float x, float y, float width, float height, ArrayList<Property> properties) {
         super(name, x, y, width, height, ObjectType.PLAYER, properties);
@@ -28,6 +30,9 @@ public class Player extends Character {
         this.dynamic = true;
         this.visible = true;
         this.moving = true;
+
+        playerAction = PlayerAction.MOVE;
+        playerState = PlayerState.MOVING_WORLD_MAP;
 
         image = Textures.getInstance().classm32.getSprite(3, 0);
 
@@ -129,5 +134,13 @@ public class Player extends Character {
 
     public void setCurrentLevelName(String currentLevelName) {
         this.currentLevelName = currentLevelName;
+    }
+
+    public PlayerAction getPlayerAction() {
+        return playerAction;
+    }
+
+    public void setPlayerAction(PlayerAction playerAction) {
+        this.playerAction = playerAction;
     }
 }

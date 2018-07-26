@@ -1,7 +1,6 @@
 package com.szczypiorofix.sweetrolls.game.main.core;
 
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
-import com.szczypiorofix.sweetrolls.game.enums.PlayerState;
 import com.szczypiorofix.sweetrolls.game.gui.HUD;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
@@ -14,6 +13,12 @@ import org.newdawn.slick.state.transition.EmptyTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
 import java.util.HashMap;
+
+import static com.szczypiorofix.sweetrolls.game.enums.PlayerAction.MOVE;
+import static com.szczypiorofix.sweetrolls.game.enums.PlayerAction.TALK;
+import static com.szczypiorofix.sweetrolls.game.enums.PlayerAction.FIGHT;
+import static com.szczypiorofix.sweetrolls.game.enums.PlayerState.MOVING_INNER_LOCATION;
+import static com.szczypiorofix.sweetrolls.game.enums.PlayerState.MOVING_WORLD_MAP;
 
 
 public class GameManager {
@@ -71,7 +76,6 @@ public class GameManager {
 
         // INITIAL WORLD MAP
         changeLevel(WORLD_MAP_NAME);
-        player.setPlayerState(PlayerState.MOVING_WORLD_MAP);
 
         mouseCursor = new MouseCursor("Mouse Cursor Game", input.getMouseX(), input.getMouseY(), 1, 1, ObjectType.MOUSECURSOR);
 
@@ -85,40 +89,64 @@ public class GameManager {
         mouseCursor.update(gc, sgb, delta, offsetX, offsetY);
 
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-            input.clearKeyPressedRecord();
-            sgb.enterState(MainClass.MAINMENU, new FadeOutTransition(Color.black), new EmptyTransition());
+            if (player.getPlayerAction() == MOVE) {
+                input.clearKeyPressedRecord();
+                sgb.enterState(MainClass.MAINMENU, new FadeOutTransition(Color.black), new EmptyTransition());
+            } else if (player.getPlayerAction() == TALK) {
+                player.setPlayerAction(MOVE);
+            }
         }
 
-        if (player.getPlayerState() == PlayerState.MOVING_WORLD_MAP || player.getPlayerState() == PlayerState.MOVING_INNER_LOCATION) {
+        // PLAYER CONTROLS
+        if (player.getPlayerState() == MOVING_WORLD_MAP || player.getPlayerState() == MOVING_INNER_LOCATION) {
+
             if (input.isKeyPressed(Input.KEY_RIGHT) || gc.getInput().isKeyPressed(Input.KEY_D)) {
-                player.moveEast(tileWidth);
-                setNextRound = true;
+
+                if (player.getPlayerAction() == MOVE) {
+                    player.moveEast(tileWidth);
+                    setNextRound = true;
+                }
+
+                if (player.getPlayerAction() == TALK) {
+                    if (objectManager.getNpc()[player.getTileX(1)][player.getTileY()] != null) {
+                        System.out.println("ROZMOWA !!!");
+                        System.out.println("ROZMOWA !!!" +objectManager.getNpc()[player.getTileX(1)][player.getTileY()].getTileX() +":" + objectManager.getNpc()[player.getTileX(1)][player.getTileY()].getTileY());
+                    }
+                }
             }
 
             if (input.isKeyPressed((Input.KEY_LEFT)) || gc.getInput().isKeyPressed(Input.KEY_A)) {
-                player.moveWest(tileWidth);
-                setNextRound = true;
+                if (player.getPlayerAction() == MOVE) {
+                    player.moveWest(tileWidth);
+                    setNextRound = true;
+                }
             }
 
             if (input.isKeyPressed(Input.KEY_UP) || gc.getInput().isKeyPressed(Input.KEY_W)) {
-                player.moveNorth(tileHeight);
-                setNextRound = true;
+                if (player.getPlayerAction() == MOVE) {
+                    player.moveNorth(tileHeight);
+                    setNextRound = true;
+                }
             }
 
             if (input.isKeyPressed((Input.KEY_DOWN)) || gc.getInput().isKeyPressed(Input.KEY_S)) {
-                player.moveSouth(tileHeight);
-                setNextRound = true;
+                if (player.getPlayerAction() == MOVE) {
+                    player.moveSouth(tileHeight);
+                    setNextRound = true;
+                }
             }
 
             if (input.isKeyPressed(Input.KEY_E)) {
-                if (player.getPlayerState() == PlayerState.MOVING_WORLD_MAP) {
 
+                // ENTERING INNER MAP FROM WORLD MAP
+                if (player.getPlayerState() == MOVING_WORLD_MAP) {
                     if (objectManager.getPlaces()[player.getTileX()][player.getTileY()] != null) {
                         System.out.println("Entering: "+objectManager.getPlaces()[player.getTileX()][player.getTileY()].getStringProperty("name")+".");
-                        player.setPlayerState(PlayerState.MOVING_INNER_LOCATION);
+                        player.setPlayerState(MOVING_INNER_LOCATION);
                         changeLevel(objectManager.getPlaces()[player.getTileX()][player.getTileY()].getStringProperty("filename"));
                     }
                 } else {
+                    // EXIT FROM INNER MAP
                     if (player.getTileX() <= 0
                             || player.getTileY() <= 0
                             || player.getTileX() >= mapWidth-1
@@ -126,15 +154,27 @@ public class GameManager {
                             ) {
 
                         System.out.println("Exiting to world map.");
-                        player.setPlayerState(PlayerState.MOVING_WORLD_MAP);
+                        player.setPlayerState(MOVING_WORLD_MAP);
                         changeLevel(WORLD_MAP_NAME);
                     }
                 }
             }
 
-            if (input.isKeyPressed(Input.KEY_SPACE)) {
-                player.statistics.currentLevelBar++;
+            if (input.isKeyPressed(Input.KEY_T)) {
+                // INTERACTIONS WITH NPSs
+                if (player.getPlayerState() == MOVING_INNER_LOCATION) {
+
+                    // CANNOT TALK TO PORTALS
+                    if (objectManager.getPlaces()[player.getTileX()][player.getTileY()] == null) {
+                        System.out.println("Talk to who?");
+                        player.setPlayerAction(TALK);
+                    }
+                }
             }
+
+//            if (input.isKeyPressed(Input.KEY_SPACE)) {
+//                player.statistics.currentLevelBar++;
+//            }
         }
 
 

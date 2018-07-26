@@ -1,4 +1,4 @@
-package com.szczypiorofix.sweetrolls.game.sounds;
+package com.szczypiorofix.sweetrolls.game.main.sounds;
 
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import org.newdawn.slick.SlickException;
