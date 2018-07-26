@@ -18,7 +18,7 @@ public class Place extends Item {
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) throws SlickException {
-
+        hover = false;
     }
 
     @Override

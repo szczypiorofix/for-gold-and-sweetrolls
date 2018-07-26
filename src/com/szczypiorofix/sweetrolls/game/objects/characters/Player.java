@@ -48,12 +48,15 @@ public class Player extends Character {
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) {
-
+        hover = false;
     }
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) {
         image.draw( - offsetX + x, - offsetY + y);
+        if (playerAction == PlayerAction.TALK) {
+            g.drawString("Zagadaj?", - offsetX + x, - offsetY + y - 15);
+        }
         if (hover) {
             g.drawString(this.name, - offsetX + x, - offsetY + y - 15);
             g.drawString("w: "+width +", h: "+height, - offsetX + x, - offsetY + y - 30);

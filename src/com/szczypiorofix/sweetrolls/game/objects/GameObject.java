@@ -267,10 +267,10 @@ abstract public class GameObject {
     }
 
     public int getTileX() {
-        return (int) ((x + (width / 2)) / width);
+        return ((int) ((x + (width / 2)) / width) > 0) ? (int) ((x + (width / 2)) / width) : 0;
     }
 
     public int getTileY() {
-        return (int) ((y + (height / 2)) / height);
+        return ((int) ((y + (height / 2)) / height) > 0) ? (int) ((y + (height / 2)) / height) : 0;
     }
 }

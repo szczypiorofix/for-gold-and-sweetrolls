@@ -8,14 +8,44 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class MouseCursor extends GameObject {
 
+    private float offsetX, offsetY;
+    private int tileX, tileY;
+
     public MouseCursor(String name, float x, float y, float width, float height, ObjectType objectType) {
         super(name, x, y, width, height, objectType);
+    }
+
+    @Override
+    public int getTileX() {
+        return tileX;
+    }
+
+    public void setPositionTile(int tileX, int tileY) {
+        this.tileX = tileX;
+        this.tileY = tileY;
+    }
+
+    public void setTileX(int tileX) {
+        this.tileX = tileX;
+    }
+
+    public void setTileY(int tileY) {
+        this.tileY = tileY;
+    }
+
+    @Override
+    public int getTileY() {
+        return tileY;
     }
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) {
         x = gc.getInput().getMouseX();
         y = gc.getInput().getMouseY();
+        this.offsetX = offsetX;
+        this.offsetY = offsetY;
+        this.tileX = ((int) ((x / width) + (offsetX / width)) >= 0) ? (int) ((x / width) + (offsetX / width)) : 0;
+        this.tileY = ((int) ((y / height) + (offsetY / height)) >= 0) ? (int) ((y / height) + (offsetY / height)) : 0;
     }
 
     @Override

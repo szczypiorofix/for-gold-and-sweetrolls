@@ -16,12 +16,15 @@ public class Ground extends GameObject {
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) {
-
+        hover = false;
     }
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) {
         g.drawImage(image, - offsetX + x, - offsetY + y);
+        if (hover) {
+            g.drawRect(- offsetX + x - 1, - offsetY + y - 1, width - 2, height - 2);
+        }
     }
 
     @Override

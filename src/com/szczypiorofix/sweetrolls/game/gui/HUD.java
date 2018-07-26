@@ -11,9 +11,11 @@ public class HUD {
     private Image image;
     private Player player;
     private Fonts smallHUDFont;
+    private MouseCursor mouseCursor;
 
-    public HUD(Player player) {
+    public HUD(Player player, MouseCursor mouseCursor) {
         this.player = player;
+        this.mouseCursor = mouseCursor;
         try {
             image = new Image(MainClass.RES + "assets/hud.png");
         } catch (SlickException e) {
@@ -30,16 +32,17 @@ public class HUD {
         image.draw(0, 0);
 
 
-        smallHUDFont.draw("Gracz: " + player.getName(), 600, 50, Color.white);
-        smallHUDFont.draw("Poziom: " +player.statistics.level, 600, 65, Color.white);
+        smallHUDFont.draw("Gracz: " + player.getName(), 600, 50);
+        smallHUDFont.draw("Poziom: " +player.statistics.level, 600, 65);
         g.drawRect(600, 85, 160, 11);
         g.fillRect(602, 87, currentLevel, 8);
-        smallHUDFont.draw("Zdrowie: " +player.statistics.health +"/"+player.statistics.maxHealth, 600, 100, Color.white);
-        smallHUDFont.draw("Runda: " +player.getPlayerTurn(), 600, 115, Color.white);
-        smallHUDFont.draw("Teren: " +player.getTerrainType().getName(), 600, 130, Color.white);
-        smallHUDFont.draw("Tiles current: " +player.getTileX(0)+":"+player.getTileY(0), 600, 145, Color.white);
-        smallHUDFont.draw("Tiles world: " +player.getWorldMapTileX()+":"+player.getWorldMapTileY(), 600, 160, Color.white);
-        smallHUDFont.draw("Location: " +player.getCurrentLevelName(), 600, 175, Color.white);
+        smallHUDFont.draw("Zdrowie: " +player.statistics.health +"/"+player.statistics.maxHealth, 600, 100);
+        smallHUDFont.draw("Runda: " +player.getPlayerTurn(), 600, 115);
+        smallHUDFont.draw("Teren: " +player.getTerrainType().getName(), 600, 130);
+        smallHUDFont.draw("Tiles current: " +player.getTileX(0)+":"+player.getTileY(0), 600, 145);
+        smallHUDFont.draw("Tiles world: " +player.getWorldMapTileX()+":"+player.getWorldMapTileY(), 600, 160);
+        smallHUDFont.draw("Location: " +player.getCurrentLevelName(), 600, 175);
+        smallHUDFont.draw("Mouse tile: " +mouseCursor.getTileX()+":"+mouseCursor.getTileY(), 600, 190);
     }
 
 }

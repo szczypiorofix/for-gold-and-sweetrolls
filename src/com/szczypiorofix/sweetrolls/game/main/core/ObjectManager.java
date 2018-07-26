@@ -16,7 +16,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import java.util.HashMap;
-import java.util.HashSet;
 
 
 class ObjectManager {
@@ -31,7 +30,6 @@ class ObjectManager {
     private GameObject[][] npc;
 
     private int gameWidth, gameHeight;
-    private int maxTileX, maxTileY;
 
     private HashMap<String, LevelMap> levelMaps;
 
@@ -203,8 +201,8 @@ class ObjectManager {
 
         this.level = tileMap;
 
-        maxTileX = gameWidth / tileMap.getTileWidth();
-        maxTileY = gameHeight / tileMap.getTileHeight();
+        int maxTileX = gameWidth / tileMap.getTileWidth();
+        int maxTileY = gameHeight / tileMap.getTileHeight();
 
         tilesToWest = - maxTileX / 2 - 1;
         tilesToEast = maxTileX / 2 - 3;
@@ -237,16 +235,6 @@ class ObjectManager {
                         ) {
                     if (list[player.getTileX() + x][player.getTileY() + y] != null) {
                         list[player.getTileX() + x][player.getTileY() + y].update(gc, sbg, delta, offsetX, offsetY);
-
-                        // Mouse hover
-                        if (mouseCursor.intersects(
-                                list[player.getTileX() + x][player.getTileY() + y].getX() - offsetX,
-                                list[player.getTileX() + x][player.getTileY() + y].getY() - offsetY,
-                                list[player.getTileX() + x][player.getTileY() + y].getWidth(),
-                                list[player.getTileX() + x][player.getTileY() + y].getHeight()
-                        )) {
-                            list[player.getTileX() + x][player.getTileY() + y].setHover(true);
-                        } else list[player.getTileX() + x][player.getTileY() + y].setHover(false);
                     }
                 }
             }

@@ -6,9 +6,10 @@ import com.szczypiorofix.sweetrolls.game.gui.MainMenuButton;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import com.szczypiorofix.sweetrolls.game.main.sounds.SFX;
-import org.lwjgl.opengl.DisplayMode;
-import org.newdawn.slick.*;
 
+import org.lwjgl.opengl.DisplayMode;
+
+import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.EmptyTransition;
@@ -16,11 +17,12 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 
 import java.util.ArrayList;
 
+
 public class GameMainMenu extends BasicGameState {
 
     private Input input;
     private Image background;
-    private SFX sfx1;
+    //private SFX sfx1;
     private MainMenuButton[] menuButtons;
     private Fonts fontImmortal;
     private MouseCursor mouseCursor;
@@ -69,11 +71,11 @@ public class GameMainMenu extends BasicGameState {
 
         background = new Image(MainClass.RES+"background.png");
 
-        sfx1 = new SFX("sword-unsheathe.ogg");
+        //sfx1 = new SFX("sword-unsheathe.ogg");
 
         // https://opengameart.org/content/heroic-minority
-        Music mainMenuMusic = new Music(MainClass.RES+"music/menu-music.ogg");
-        mainMenuMusic.play();
+//        Music mainMenuMusic = new Music(MainClass.RES+"music/menu-music.ogg");
+//        mainMenuMusic.play();
 
         menuButtons = new MainMenuButton[4];
 
@@ -131,9 +133,9 @@ public class GameMainMenu extends BasicGameState {
             sbg.enterState(MainClass.EXIT, new FadeOutTransition(Color.black), new EmptyTransition());
         }
 
-        if (input.isKeyPressed(Input.KEY_ENTER)) {
-            sfx1.play();
-        }
+//        if (input.isKeyPressed(Input.KEY_ENTER)) {
+//            sfx1.play();
+//        }
 
         if (input.isKeyPressed(Input.KEY_F1)) {
             AppGameContainer gameContainer = (AppGameContainer) gc;
