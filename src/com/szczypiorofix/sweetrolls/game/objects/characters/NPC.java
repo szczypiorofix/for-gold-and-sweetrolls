@@ -48,10 +48,10 @@ public class NPC extends Character {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) {
         npcImage.draw(- offsetX + x, - offsetY + y);
         if (hover) {
-            g.drawString(name, - offsetX + x, - offsetY + y - 15);
+            g.drawString(name, - offsetX + x, - offsetY + y - 20);
         }
         if (shortTalk) {
-            smallHUDFont.draw(talks[randomTalk], - offsetX + x - 15, - offsetY + y - 25);
+            smallHUDFont.draw(talks[randomTalk], - offsetX + x - 25, - offsetY + y - 35);
         }
     }
 
