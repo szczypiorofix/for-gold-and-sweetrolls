@@ -22,13 +22,12 @@ public class BitMapFont {
         this.name = name;
         chars = new ArrayList<>();
         size = DEFAULT_FONT_SIZE;
-        scale = 1;
+        scale = 0.5f;
     }
 
     public BitMapFont(String name, float size) {
         this(name);
         this.size = size;
-        scale = 1;
     }
 
     public BitMapFont(int fontWidth, int fontHeight, int fontSpace, String name) {
@@ -46,11 +45,31 @@ public class BitMapFont {
         }
     }
 
-    public void draw(Graphics g, String text, int x, int y) {
+    public float getStringLength(String text) {
+        float c = 0;
         for (int i = 0; i < text.length(); i++) {
             for (int j = 0; j < chars.size(); j++) {
+                if (text.charAt(i) == chars.get(j).getAscii()
+                        || ((int) (text.charAt(i)) == chars.get(j).getUcode() && (chars.get(j).getUcode() > 0))
+                        ) {
 
-                if (text.charAt(i) == chars.get(j).getAscii() || ((int) (text.charAt(i)) == chars.get(j).getUcode() && (chars.get(j).getUcode() > 0))) {
+                    c += chars.get(j).getWidth() * scale;
+                }
+                if (text.charAt(i) == 32) {
+                    c += 0.2f * scale;
+                }
+            }
+        }
+        return c;
+    }
+
+    public void draw(String text, int x, int y) {
+        float c = 0;
+        for (int i = 0; i < text.length(); i++) {
+            for (int j = 0; j < chars.size(); j++) {
+                if (text.charAt(i) == chars.get(j).getAscii()
+                    || ((int) (text.charAt(i)) == chars.get(j).getUcode() && (chars.get(j).getUcode() > 0))
+                    ) {
 
                     fontImage.getSubImage(
                             chars.get(j).getX(),
@@ -58,17 +77,41 @@ public class BitMapFont {
                             chars.get(j).getWidth(),
                             chars.get(j).getHeight()
                     ).draw(
-                            x + (i * (chars.get(j).getWidth() * scale)),
-                            y,
+                            x + c  * scale,
+                            (int) (( y + chars.get(j).getTop() * scale ) + fontHeight * scale ) - (fontHeight * scale),
                             scale
                     );
+                    c += chars.get(j).getWidth();
+                }
+                if (text.charAt(i) == 32) {
+                    c += 0.2f;
+                }
+            }
+        }
+    }
 
-                    g.drawRect(
-                            x + (i * chars.get(j).getWidth()),
-                            y,
+    public void draw(String text, float x, float y) {
+        float c = 0;
+        for (int i = 0; i < text.length(); i++) {
+            for (int j = 0; j < chars.size(); j++) {
+                if (text.charAt(i) == chars.get(j).getAscii()
+                        || ((int) (text.charAt(i)) == chars.get(j).getUcode() && (chars.get(j).getUcode() > 0))
+                        ) {
+
+                    fontImage.getSubImage(
+                            chars.get(j).getX(),
+                            chars.get(j).getY(),
                             chars.get(j).getWidth(),
                             chars.get(j).getHeight()
+                    ).draw(
+                            x + c  * scale,
+                            (int) (( y + chars.get(j).getTop() * scale ) + fontHeight * scale ) - (fontHeight * scale),
+                            scale
                     );
+                    c += chars.get(j).getWidth();
+                }
+                if (text.charAt(i) == 32) {
+                    c += 0.2f;
                 }
             }
         }
@@ -80,6 +123,7 @@ public class BitMapFont {
 
     public void setSize(float size) {
         this.size = size;
+        scale = size / 16;
     }
 
     public void addChar(FontChar fontChar) {

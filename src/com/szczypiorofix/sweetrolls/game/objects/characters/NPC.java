@@ -1,6 +1,8 @@
 package com.szczypiorofix.sweetrolls.game.objects.characters;
 
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
+import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
+import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
 import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
 import com.szczypiorofix.sweetrolls.game.tilemap.Property;
 import org.newdawn.slick.GameContainer;
@@ -13,6 +15,7 @@ import java.util.Random;
 
 public class NPC extends Character {
 
+    private BitMapFont font;
     private Image npcImage;
     private String[] talks = {
         "IT JUST WORKS !", "See that mountain? You can climb it!", "You can do whatever you want!", "Skyrim has infinite quests!"
@@ -24,6 +27,7 @@ public class NPC extends Character {
             npcImage = Textures.getInstance().classm32.getSprite(0, 0);
         } else npcImage = image;
         statistics.maxHealth = getIntegerProperty("maxhealth");
+        font = FontParser.getFont("Immortal HUD Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
     }
 
     @Override
@@ -43,10 +47,10 @@ public class NPC extends Character {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) {
         npcImage.draw(- offsetX + x, - offsetY + y);
         if (hover) {
-            g.drawString(name, - offsetX + x, - offsetY + y - 20);
+            font.draw(name, - offsetX + x, - offsetY + y - 20);
         }
         if (shortTalk) {
-            g.drawString(talks[randomTalk], - offsetX + x - 25, - offsetY + y - 35);
+            font.draw(talks[randomTalk], - offsetX + x - 25, - offsetY + y - 35);
         }
     }
 

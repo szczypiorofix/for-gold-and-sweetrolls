@@ -1,6 +1,8 @@
 package com.szczypiorofix.sweetrolls.game.gui;
 
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
+import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
+import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
 import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
 import com.szczypiorofix.sweetrolls.game.objects.GameObject;
 import org.newdawn.slick.*;
@@ -14,14 +16,17 @@ public class MainMenuButton extends GameObject {
     private boolean hover = false;
     private boolean active = false;
     private Image imagePressed;
+    private BitMapFont font;
 
 
     public MainMenuButton(String name, float x, float y, float width, float height) {
         super(name, x, y, width, height, ObjectType.GUI);
         this.name = name;
-        nameX = x + 60 - (name.length() * 4);
         image = Textures.getInstance().mainMenuMainButtons.getSprite(0, 0);
         imagePressed = Textures.getInstance().mainMenuMainButtons.getSprite(1, 0);
+        font = FontParser.getFont("Immortal Menu Button Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
+        font.setSize(4f);
+        nameX = x + (width / 2) - (font.getStringLength(name) / 2);
     }
 
     @Override
@@ -33,11 +38,11 @@ public class MainMenuButton extends GameObject {
 
         if (hover) {
             imagePressed.draw(x, y);
-            g.drawString(name, nameX + offsetX, y + 8 + offsetY);
+            font.draw(name, (int) (nameX + offsetX), (int) (y + 8 + offsetY));
         }
         else {
             image.draw(x, y);
-            g.drawString(name, nameX + offsetX, y + 5 + offsetY);
+            font.draw(name, (int) (nameX + offsetX), (int) (y + 5 + offsetY));
         }
 
     }

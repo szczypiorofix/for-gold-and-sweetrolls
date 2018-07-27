@@ -24,7 +24,7 @@ public class GameMainMenu extends BasicGameState {
     private Image background;
     private MainMenuButton[] menuButtons;
     private MouseCursor mouseCursor;
-    private BitMapFont font;
+    private BitMapFont titleFont;
     private int windowWidth, windowHeight;
     private final DisplayMode[] modes;
     private ArrayList<Resolution> resolutions;
@@ -77,10 +77,9 @@ public class GameMainMenu extends BasicGameState {
 //        mainMenuMusic.play();
 
 
-        FontParser fontParser = new FontParser("MyFont1", "myf1.xml", "myf1.png");
-        font = fontParser.getBitMapFont();
-        font.setSize(2f);
-        System.out.println("using font:" +font.getName() + ", size: "+font.getSize());
+        //FontParser("MyFont1", "myf1.xml", "myf1.png")
+        titleFont = FontParser.getFont("Immortal Bitmap Title Font", "immortal-bitmap.xml", "immortal-bitmap.png");
+        titleFont.setSize(15f);
 
         menuButtons = new MainMenuButton[4];
 
@@ -165,12 +164,11 @@ public class GameMainMenu extends BasicGameState {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
 
         background.draw(0, 0, windowWidth, windowHeight);
-//        font.draw(g,"AĄBCĆDEĘFGHIJKLŁMNŃOÓPRSŚTUWXYZŻŹ", 90, 60);
-//        font.draw(g,"aąbcćdeęfghijklłmnńoóprsśtuwxyzżź", 90, 120);
+        titleFont.draw("For Fold and Sweetrolls", 70, 50);
 
-        font.draw(g,"A B C", 10, 60);
-        font.draw(g,"a b c", 10, 120);
-
+        //titleFont.draw("AĄBCĆDEĘFGHIJKLŁMNŃOÓPRSŚTUWXYZŻŹ", 5, 5);
+        //titleFont.draw("aąbcćdeęfghijklłmnńoóprsśtuwxyzżź", 5, 40);
+        //titleFont.draw("1234567890~!@#$%^&*()_+-=][{}'|?/;:,.", 5, 80);
 
         for(MainMenuButton m: menuButtons) {
             m.render(gc, sbg, g, 0 ,0);
