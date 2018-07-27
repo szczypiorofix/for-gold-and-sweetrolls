@@ -14,11 +14,9 @@ import org.newdawn.slick.state.transition.EmptyTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
 import java.util.HashMap;
-import java.util.Random;
 
 import static com.szczypiorofix.sweetrolls.game.enums.PlayerAction.MOVE;
 import static com.szczypiorofix.sweetrolls.game.enums.PlayerAction.TALK;
-import static com.szczypiorofix.sweetrolls.game.enums.PlayerAction.FIGHT;
 import static com.szczypiorofix.sweetrolls.game.enums.PlayerState.MOVING_INNER_LOCATION;
 import static com.szczypiorofix.sweetrolls.game.enums.PlayerState.MOVING_WORLD_MAP;
 
@@ -112,8 +110,8 @@ public class GameManager {
                 }
 
                 if (player.getPlayerAction() == TALK) {
-                    if (objectManager.getNpc()[player.getTileX(1)][player.getTileY()] != null) {
-                        System.out.println("ROZMOWA !!!" +objectManager.getNpc()[player.getTileX(1)][player.getTileY()].getTileX() +":" + objectManager.getNpc()[player.getTileX(1)][player.getTileY()].getTileY());
+                    if (objectManager.getNpc(player.getTileX(1), player.getTileY()) != null) {
+                        System.out.println("ROZMOWA !!!" +objectManager.getNpc(player.getTileX(1), player.getTileY()).getTileX() +":" + objectManager.getNpc(player.getTileX(1), player.getTileY()).getTileY());
                     } else {
                         System.out.println("Nie ma tu nikogo do rozmowy.");
                         player.setPlayerAction(MOVE);
@@ -128,8 +126,8 @@ public class GameManager {
                 }
 
                 if (player.getPlayerAction() == TALK) {
-                    if (objectManager.getNpc()[player.getTileX(-1)][player.getTileY()] != null) {
-                        System.out.println("ROZMOWA !!!" +objectManager.getNpc()[player.getTileX(-1)][player.getTileY()].getTileX() +":" + objectManager.getNpc()[player.getTileX(-1)][player.getTileY()].getTileY());
+                    if (objectManager.getNpcs()[player.getTileX(-1)][player.getTileY()] != null) {
+                        System.out.println("ROZMOWA !!!" +objectManager.getNpcs()[player.getTileX(-1)][player.getTileY()].getTileX() +":" + objectManager.getNpcs()[player.getTileX(-1)][player.getTileY()].getTileY());
                     } else {
                         System.out.println("Nie ma tu nikogo do rozmowy.");
                         player.setPlayerAction(MOVE);
@@ -144,8 +142,8 @@ public class GameManager {
                 }
 
                 if (player.getPlayerAction() == TALK) {
-                    if (objectManager.getNpc()[player.getTileX()][player.getTileY(-1)] != null) {
-                        System.out.println("ROZMOWA !!!" +objectManager.getNpc()[player.getTileX()][player.getTileY(-1)].getTileX() +":" + objectManager.getNpc()[player.getTileX()][player.getTileY(-1)].getTileY());
+                    if (objectManager.getNpcs()[player.getTileX()][player.getTileY(-1)] != null) {
+                        System.out.println("ROZMOWA !!!" +objectManager.getNpcs()[player.getTileX()][player.getTileY(-1)].getTileX() +":" + objectManager.getNpcs()[player.getTileX()][player.getTileY(-1)].getTileY());
                     } else {
                         System.out.println("Nie ma tu nikogo do rozmowy.");
                         player.setPlayerAction(MOVE);
@@ -160,8 +158,8 @@ public class GameManager {
                 }
 
                 if (player.getPlayerAction() == TALK) {
-                    if (objectManager.getNpc()[player.getTileX()][player.getTileY(1)] != null) {
-                        System.out.println("ROZMOWA !!!" +objectManager.getNpc()[player.getTileX()][player.getTileY(1)].getTileX() +":" + objectManager.getNpc()[player.getTileX()][player.getTileY(1)].getTileY());
+                    if (objectManager.getNpc(player.getTileX(), player.getTileY(1)) != null) {
+                        System.out.println("ROZMOWA !!!" +objectManager.getNpc(player.getTileX(), player.getTileY(1)).getTileX() +":" + objectManager.getNpcs()[player.getTileX()][player.getTileY(1)].getTileY());
                     } else {
                         System.out.println("Nie ma tu nikogo do rozmowy.");
                         player.setPlayerAction(MOVE);
@@ -173,11 +171,11 @@ public class GameManager {
 
                 // ENTERING INNER MAP FROM WORLD MAP
                 if (player.getPlayerState() == MOVING_WORLD_MAP) {
-                    if (objectManager.getPlaces()[player.getTileX()][player.getTileY()] != null) {
-                        System.out.println("Entering: "+objectManager.getPlaces()[player.getTileX()][player.getTileY()].getStringProperty("name")+".");
+                    if (objectManager.getPlace(player.getTileX(), player.getTileY()) != null) {
+                        System.out.println("Entering: "+objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("name")+".");
                         player.setPlayerState(MOVING_INNER_LOCATION);
                         mouseCursor.setPositionTile(0, 0);
-                        changeLevel(objectManager.getPlaces()[player.getTileX()][player.getTileY()].getStringProperty("filename"));
+                        changeLevel(objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("filename"));
                     }
                 } else {
                     // EXIT FROM INNER MAP
@@ -199,7 +197,7 @@ public class GameManager {
                 if (player.getPlayerState() == MOVING_INNER_LOCATION) {
 
                     // CANNOT TALK TO PORTALS
-                    if (objectManager.getPlaces()[player.getTileX()][player.getTileY()] == null) {
+                    if (objectManager.getPlace(player.getTileX(), player.getTileY()) == null) {
                         System.out.println("Talk to who?");
                         player.setPlayerAction(TALK);
                     }
@@ -240,20 +238,20 @@ public class GameManager {
                 && player.getTileY() >= mouseCursor.getTileY() - 1
                 && player.getTileY() <= mouseCursor.getTileY() + 1
                 ) {
-            if (objectManager.getGround()[mouseCursor.getTileX()][mouseCursor.getTileY()] != null) {
+            if (objectManager.getGround(mouseCursor.getTileX(), mouseCursor.getTileY()) != null) {
                 for (int i = -1; i < 2; i++) {
                     for (int j = -1; j < 2; j++) {
                         if (!(i == 0 && j == 0)
                                 && player.getTileX(i) > 0
                                 && player.getTileY(j) > 0) {
-                            objectManager.getGround()[player.getTileX(i)][player.getTileY(j)].setHover(true);
-                            if (objectManager.getNpc()[player.getTileX(i)][player.getTileY(j)] != null
-                                    && objectManager.getNpc()[player.getTileX(i)][player.getTileY(j)].getTileX() == mouseCursor.getTileX()
-                                    && objectManager.getNpc()[player.getTileX(i)][player.getTileY(j)].getTileY() == mouseCursor.getTileY()
+                            objectManager.getGround(player.getTileX(i), player.getTileY(j)).setHover(true);
+                            if (objectManager.getNpc(player.getTileX(i), player.getTileY(j)) != null
+                                    && objectManager.getNpc(player.getTileX(i), player.getTileY(j)).getTileX() == mouseCursor.getTileX()
+                                    && objectManager.getNpc(player.getTileX(i), player.getTileY(j)).getTileY() == mouseCursor.getTileY()
                                     ) {
-                                objectManager.getNpc()[player.getTileX(i)][player.getTileY(j)].setHover(true);
+                                objectManager.getNpc(player.getTileX(i), player.getTileY(j)).setHover(true);
                                 if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-                                    NPC npc = (NPC) objectManager.getNpc()[player.getTileX(i)][player.getTileY(j)];
+                                    NPC npc = (NPC) objectManager.getNpc(player.getTileX(i), player.getTileY(j));
                                     if (!npc.isShortTalk()) npc.setShortTalk(true);
                                 }
                             }
@@ -265,14 +263,14 @@ public class GameManager {
 
         // MOUSE HOVER ON OBJECTS
         if (player.getPlayerState() == MOVING_WORLD_MAP) {
-            if (objectManager.getPlaces()[mouseCursor.getTileX()][mouseCursor.getTileY()] != null) {
-                objectManager.getPlaces()[mouseCursor.getTileX()][mouseCursor.getTileY()].setHover(true);
+            if (objectManager.getPlace(mouseCursor.getTileX(), mouseCursor.getTileY()) != null) {
+                objectManager.getPlace(mouseCursor.getTileX(), mouseCursor.getTileY()).setHover(true);
             }
         }
 
 //        if (player.getPlayerState() == MOVING_INNER_LOCATION) {
-//            if (objectManager.getNpc()[mouseCursor.getTileX()][mouseCursor.getTileY()] != null) {
-//                objectManager.getNpc()[mouseCursor.getTileX()][mouseCursor.getTileY()].setHover(true);
+//            if (objectManager.getNpc(mouseCursor.getTileX(), mouseCursor.getTileY()) != null) {
+//                objectManager.getNpc(mouseCursor.getTileX(), mouseCursor.getTileY()).setHover(true);
 //            }
 //        }
 

@@ -1,12 +1,12 @@
 package com.szczypiorofix.sweetrolls.game.main.states;
 
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
-import com.szczypiorofix.sweetrolls.game.main.graphics.Fonts;
 import com.szczypiorofix.sweetrolls.game.gui.MainMenuButton;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
-import com.szczypiorofix.sweetrolls.game.main.sounds.SFX;
 
+import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
+import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
 import org.lwjgl.opengl.DisplayMode;
 
 import org.newdawn.slick.*;
@@ -22,10 +22,9 @@ public class GameMainMenu extends BasicGameState {
 
     private Input input;
     private Image background;
-    //private SFX sfx1;
     private MainMenuButton[] menuButtons;
-    private Fonts fontImmortal;
     private MouseCursor mouseCursor;
+    private BitMapFont font;
     private int windowWidth, windowHeight;
     private final DisplayMode[] modes;
     private ArrayList<Resolution> resolutions;
@@ -77,18 +76,22 @@ public class GameMainMenu extends BasicGameState {
 //        Music mainMenuMusic = new Music(MainClass.RES+"music/menu-music.ogg");
 //        mainMenuMusic.play();
 
+
+        FontParser fontParser = new FontParser("MyFont1", "myf1.xml", "myf1.png");
+        font = fontParser.getBitMapFont();
+        font.setSize(2f);
+        System.out.println("using font:" +font.getName() + ", size: "+font.getSize());
+
         menuButtons = new MainMenuButton[4];
 
+        // ##################### FONT #####################
         // https://www.fontsquirrel.com/fonts/Immortal
-        fontImmortal = new Fonts("immortal.ttf", java.awt.Font.BOLD, 52.f);
-
-        Fonts menuFont = new Fonts("immortal.ttf", java.awt.Font.BOLD, 13f);
 
 
-        menuButtons[0] = new MainMenuButton("NOWA GRA", (gc.getWidth() / 2) - (128 / 2), 200, 128, 32, menuFont);
-        menuButtons[1] = new MainMenuButton("USTAWIENIA", (gc.getWidth() / 2) - (128 / 2), 240, 128, 32, menuFont);
-        menuButtons[2] = new MainMenuButton("POMOC", (gc.getWidth() / 2) - (128 / 2), 280, 128, 32, menuFont);
-        menuButtons[3] = new MainMenuButton("KONIEC", (gc.getWidth() / 2) - (128 / 2), 320, 128, 32, menuFont);
+        menuButtons[0] = new MainMenuButton("NOWA GRA", (gc.getWidth() / 2) - (128 / 2), 200, 128, 32);
+        menuButtons[1] = new MainMenuButton("USTAWIENIA", (gc.getWidth() / 2) - (128 / 2), 240, 128, 32);
+        menuButtons[2] = new MainMenuButton("POMOC", (gc.getWidth() / 2) - (128 / 2), 280, 128, 32);
+        menuButtons[3] = new MainMenuButton("KONIEC", (gc.getWidth() / 2) - (128 / 2), 320, 128, 32);
 
         input = gc.getInput();
 
@@ -162,7 +165,12 @@ public class GameMainMenu extends BasicGameState {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
 
         background.draw(0, 0, windowWidth, windowHeight);
-        fontImmortal.draw("For Gold and Sweetrolls", 85, 60, Color.white);
+//        font.draw(g,"AĄBCĆDEĘFGHIJKLŁMNŃOÓPRSŚTUWXYZŻŹ", 90, 60);
+//        font.draw(g,"aąbcćdeęfghijklłmnńoóprsśtuwxyzżź", 90, 120);
+
+        font.draw(g,"A B C", 10, 60);
+        font.draw(g,"a b c", 10, 120);
+
 
         for(MainMenuButton m: menuButtons) {
             m.render(gc, sbg, g, 0 ,0);

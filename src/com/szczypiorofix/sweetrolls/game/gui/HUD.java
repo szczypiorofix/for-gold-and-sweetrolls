@@ -1,6 +1,5 @@
 package com.szczypiorofix.sweetrolls.game.gui;
 
-import com.szczypiorofix.sweetrolls.game.main.graphics.Fonts;
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import org.newdawn.slick.*;
@@ -10,7 +9,6 @@ public class HUD {
 
     private Image image;
     private Player player;
-    private Fonts smallHUDFont;
     private MouseCursor mouseCursor;
 
     public HUD(Player player, MouseCursor mouseCursor) {
@@ -21,7 +19,6 @@ public class HUD {
         } catch (SlickException e) {
             e.printStackTrace();
         }
-        smallHUDFont = new Fonts("immortal.ttf", java.awt.Font.BOLD, 14f);
     }
 
     public void render(GameContainer gc, StateBasedGame sgb, Graphics g) {
@@ -32,17 +29,17 @@ public class HUD {
         image.draw(0, 0);
 
 
-        smallHUDFont.draw("Gracz: " + player.getName(), 600, 50);
-        smallHUDFont.draw("Poziom: " +player.statistics.level, 600, 65);
+        g.drawString("Gracz: " + player.getName(), 600, 50);
+        g.drawString("Poziom: " +player.statistics.level, 600, 65);
         g.drawRect(600, 85, 160, 11);
         g.fillRect(602, 87, currentLevel, 8);
-        smallHUDFont.draw("Zdrowie: " +player.statistics.health +"/"+player.statistics.maxHealth, 600, 100);
-        smallHUDFont.draw("Runda: " +player.getPlayerTurn(), 600, 115);
-        smallHUDFont.draw("Teren: " +player.getTerrainType().getName(), 600, 130);
-        smallHUDFont.draw("Tiles current: " +player.getTileX(0)+":"+player.getTileY(0), 600, 145);
-        smallHUDFont.draw("Tiles world: " +player.getWorldMapTileX()+":"+player.getWorldMapTileY(), 600, 160);
-        smallHUDFont.draw("Location: " +player.getCurrentLevelName(), 600, 175);
-        smallHUDFont.draw("Mouse tile: " +mouseCursor.getTileX()+":"+mouseCursor.getTileY(), 600, 190);
+        g.drawString("Zdrowie: " +player.statistics.health +"/"+player.statistics.maxHealth, 600, 100);
+        g.drawString("Runda: " +player.getPlayerTurn(), 600, 115);
+        g.drawString("Teren: " +player.getTerrainType().getName(), 600, 130);
+        g.drawString("Tiles current: " +player.getTileX(0)+":"+player.getTileY(0), 600, 145);
+        g.drawString("Tiles world: " +player.getWorldMapTileX()+":"+player.getWorldMapTileY(), 600, 160);
+        g.drawString("Location: " +player.getCurrentLevelName(), 600, 175);
+        g.drawString("Mouse tile: " +mouseCursor.getTileX()+":"+mouseCursor.getTileY(), 600, 190);
     }
 
 }

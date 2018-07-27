@@ -25,9 +25,9 @@ class ObjectManager {
     private Player player;
 
     // WORLD MAP OBJECTS
-    private GameObject[][] ground;
+    private GameObject[][] grounds;
     private GameObject[][] places;
-    private GameObject[][] npc;
+    private GameObject[][] npcs;
 
     private int gameWidth, gameHeight;
 
@@ -44,9 +44,9 @@ class ObjectManager {
     void generateLevel(TileMap tileMap, String levelName) {
         this.level = tileMap;
 
-        ground = new GameObject[level.getWidth()][level.getHeight()];
+        grounds = new GameObject[level.getWidth()][level.getHeight()];
         places = new GameObject[level.getWidth()][level.getHeight()];
-        npc = new GameObject[level.getWidth()][level.getHeight()];
+        npcs = new GameObject[level.getWidth()][level.getHeight()];
 
         // ############ OBIEKTY
         for (int objectGroups = 0; objectGroups < tileMap.getObjectGroups().size(); objectGroups++) {
@@ -123,7 +123,7 @@ class ObjectManager {
                         tileSet++;
                     }
 
-                    npc[currentItem.getX() / tileMap.getTileWidth()]
+                    this.npcs[currentItem.getX() / tileMap.getTileWidth()]
                             [currentItem.getY() / tileMap.getTileHeight()] =
                             new NPC(
                                     currentItem.getStringProperty("name").equalsIgnoreCase("null")
@@ -175,7 +175,7 @@ class ObjectManager {
                             if (terrain >= 54 && terrain <= 62) {
                                 type = ObjectType.FOREST;
                             }
-                            ground[i][j] = new Ground(
+                            grounds[i][j] = new Ground(
                                     "Ground",
                                     i * tileMap.getTileWidth(),
                                     j * tileMap.getTileHeight(),
@@ -187,14 +187,14 @@ class ObjectManager {
                                                     - tileMap.getTileSets().get(tileSet).getFirstGid())
                             );
                         } else {
-                            ground[i][j] = null;
+                            grounds[i][j] = null;
                         }
                     }
                 }
             }
         }
 
-        levelMaps.put(levelName, new LevelMap(ground, places, npc, (int) player.getX(), (int) player.getY()));
+        levelMaps.put(levelName, new LevelMap(grounds, places, npcs, (int) player.getX(), (int) player.getY()));
     }
 
     void setLevel(TileMap tileMap, String levelName) {
@@ -209,9 +209,9 @@ class ObjectManager {
         tilesToNorth = - maxTileY / 2 - 1;
         tilesToSouth = maxTileY / 2 + 1;
 
-        ground = levelMaps.get(levelName).getGround();
+        grounds = levelMaps.get(levelName).getGround();
         places = levelMaps.get(levelName).getPlaces();
-        npc = levelMaps.get(levelName).getNpc();
+        npcs = levelMaps.get(levelName).getNpc();
 
         if (!levelName.equalsIgnoreCase(GameManager.WORLD_MAP_NAME)) {
             player.setX(levelMaps.get(levelName).getPlayerSpawnX());
@@ -222,7 +222,7 @@ class ObjectManager {
         }
 
         // SET PLAYER'S INITIAL GROUND TILE
-        player.setTerrainType(ground[player.getTileX()][player.getTileY()].getObjectType());
+        player.setTerrainType(grounds[player.getTileX()][player.getTileY()].getObjectType());
     }
 
     private void iterateUpdate(GameContainer gc, StateBasedGame sbg, int delta, GameObject[][] list, MouseCursor mouseCursor, float offsetX, float offsetY) throws SlickException {
@@ -272,37 +272,49 @@ class ObjectManager {
     }
 
     void turn() {
-        iterateTurn(ground);
-        iterateTurn(npc);
-        player.setTerrainType(ground[player.getTileX()][player.getTileY()].getObjectType());
+        iterateTurn(grounds);
+        iterateTurn(npcs);
+        player.setTerrainType(grounds[player.getTileX()][player.getTileY()].getObjectType());
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int delta, MouseCursor mouseCursor, float offsetX, float offsetY) throws SlickException {
-        iterateUpdate(gc, sbg, delta, ground, mouseCursor, offsetX, offsetY);
+        iterateUpdate(gc, sbg, delta, grounds, mouseCursor, offsetX, offsetY);
         iterateUpdate(gc, sbg, delta, places, mouseCursor, offsetX, offsetY);
-        iterateUpdate(gc, sbg, delta, npc, mouseCursor, offsetX, offsetY);
+        iterateUpdate(gc, sbg, delta, npcs, mouseCursor, offsetX, offsetY);
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) throws SlickException {
-        iterateRender(gc, sbg, g, ground, offsetX, offsetY);
+        iterateRender(gc, sbg, g, grounds, offsetX, offsetY);
         iterateRender(gc, sbg, g, places, offsetX, offsetY);
-        iterateRender(gc, sbg, g, npc, offsetX, offsetY);
+        iterateRender(gc, sbg, g, npcs, offsetX, offsetY);
      }
 
     Player getPlayer() {
         return player;
     }
 
+    public GameObject getPlace(int x, int y) {
+        return places[x][y];
+    }
+
+    public GameObject getGround(int x, int y) {
+        return grounds[x][y];
+    }
+
+    public GameObject getNpc(int x, int y) {
+        return npcs[x][y];
+    }
+
     public GameObject[][] getPlaces() {
         return places;
     }
 
-    public GameObject[][] getGround() {
-        return ground;
+    public GameObject[][] getGrounds() {
+        return grounds;
     }
 
-    public GameObject[][] getNpc() {
-        return npc;
+    public GameObject[][] getNpcs() {
+        return npcs;
     }
 
 

@@ -1,7 +1,6 @@
 package com.szczypiorofix.sweetrolls.game.gui;
 
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
-import com.szczypiorofix.sweetrolls.game.main.graphics.Fonts;
 import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
 import com.szczypiorofix.sweetrolls.game.objects.GameObject;
 import org.newdawn.slick.*;
@@ -15,16 +14,14 @@ public class MainMenuButton extends GameObject {
     private boolean hover = false;
     private boolean active = false;
     private Image imagePressed;
-    private Fonts font;
 
 
-    public MainMenuButton(String name, float x, float y, float width, float height, Fonts font) {
+    public MainMenuButton(String name, float x, float y, float width, float height) {
         super(name, x, y, width, height, ObjectType.GUI);
         this.name = name;
         nameX = x + 60 - (name.length() * 4);
         image = Textures.getInstance().mainMenuMainButtons.getSprite(0, 0);
         imagePressed = Textures.getInstance().mainMenuMainButtons.getSprite(1, 0);
-        this.font = font;
     }
 
     @Override
@@ -36,11 +33,11 @@ public class MainMenuButton extends GameObject {
 
         if (hover) {
             imagePressed.draw(x, y);
-            font.draw(name, nameX + offsetX, y + 8 + offsetY, Color.white);
+            g.drawString(name, nameX + offsetX, y + 8 + offsetY);
         }
         else {
             image.draw(x, y);
-            font.draw(name, nameX + offsetX, y + 5 + offsetY, Color.white);
+            g.drawString(name, nameX + offsetX, y + 5 + offsetY);
         }
 
     }
