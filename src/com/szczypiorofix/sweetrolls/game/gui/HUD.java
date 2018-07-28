@@ -34,17 +34,17 @@ public class HUD {
         image.draw(0, 0);
 
 
-        font.draw("Gracz: " + player.getName(), 600, 50);
-        font.draw("Poziom: " +player.statistics.level, 600, 65);
-        g.drawRect(600, 85, 160, 11);
-        g.fillRect(602, 87, currentLevel, 8);
-        font.draw("Zdrowie: " +player.statistics.health +"/"+player.statistics.maxHealth, 600, 100);
-        font.draw("Runda: " +player.getPlayerTurn(), 600, 115);
-        font.draw("Teren: " +player.getTerrainType().getName(), 600, 130);
-        font.draw("Tiles current: " +player.getTileX(0)+":"+player.getTileY(0), 600, 145);
-        font.draw("Tiles world: " +player.getWorldMapTileX()+":"+player.getWorldMapTileY(), 600, 160);
-        font.draw("Location: " +player.getCurrentLevelName(), 600, 175);
-        font.draw("Mouse tile: " +mouseCursor.getTileX()+":"+mouseCursor.getTileY(), 600, 190);
+        font.draw("Gracz: " + player.getName(), 590, 50);
+        font.draw("Poziom: " +player.statistics.level, 590, 70);
+        g.drawRect(590, 90, 160, 11);
+        g.fillRect(592, 92, currentLevel, 8);
+        font.draw("Zdrowie: " +player.statistics.health +"/"+player.statistics.maxHealth, 590, 120);
+        font.draw("Runda: " +player.getPlayerTurn(), 590, 140);
+        font.draw("Teren: " +player.getTerrainType().getName(), 590, 160);
+        font.draw("Tiles current: " +player.getTileX(0)+":"+player.getTileY(0), 590, 180);
+        font.draw("Tiles world: " +player.getWorldMapTileX()+":"+player.getWorldMapTileY(), 590, 200);
+        font.draw("Location: " +player.getCurrentLevelName(), 590, 220);
+        font.draw("Mouse tile: " +mouseCursor.getTileX()+":"+mouseCursor.getTileY(), 590, 240);
     }
 
 }

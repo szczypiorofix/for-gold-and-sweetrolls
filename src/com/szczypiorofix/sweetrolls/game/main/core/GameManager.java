@@ -244,7 +244,8 @@ public class GameManager {
                         if (!(i == 0 && j == 0)
                                 && player.getTileX(i) > 0
                                 && player.getTileY(j) > 0) {
-                            objectManager.getGround(player.getTileX(i), player.getTileY(j)).setHover(true);
+                            //objectManager.getGround(player.getTileX(i), player.getTileY(j)).setHover(true);
+                            objectManager.getGround(mouseCursor.getTileX(), mouseCursor.getTileY()).setHover(true);
                             if (objectManager.getNpc(player.getTileX(i), player.getTileY(j)) != null
                                     && objectManager.getNpc(player.getTileX(i), player.getTileY(j)).getTileX() == mouseCursor.getTileX()
                                     && objectManager.getNpc(player.getTileX(i), player.getTileY(j)).getTileY() == mouseCursor.getTileY()

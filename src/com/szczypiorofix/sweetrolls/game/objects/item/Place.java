@@ -31,7 +31,7 @@ public class Place extends Item {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) throws SlickException {
         image.draw(- offsetX + x, - offsetY + y);
         if (hover) {
-            font.draw(name, (int) (- offsetX + x), (int) (- offsetY + y - 15));
+            font.draw(name, - offsetX + x, - offsetY + y - 20);
         }
     }
 

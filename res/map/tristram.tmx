@@ -67,8 +67,9 @@
   </object>
  </objectgroup>
  <objectgroup id="3" name="npc" offsetx="0" offsety="32">
-  <object id="2" template="npc.tx" gid="470" x="224" y="320">
+  <object id="2" template="npc.tx" name="Todd" gid="470" x="224" y="320">
    <properties>
+    <property name="commonname" value="Dziwna postać"/>
     <property name="name" value="Todd"/>
    </properties>
   </object>

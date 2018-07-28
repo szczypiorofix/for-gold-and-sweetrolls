@@ -4,6 +4,7 @@ import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
 import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
 import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
+import com.szczypiorofix.sweetrolls.game.quests.ArticyXMLParser;
 import com.szczypiorofix.sweetrolls.game.tilemap.Property;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -27,7 +28,13 @@ public class NPC extends Character {
             npcImage = Textures.getInstance().classm32.getSprite(0, 0);
         } else npcImage = image;
         statistics.maxHealth = getIntegerProperty("maxhealth");
-        font = FontParser.getFont("Immortal HUD Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
+        font = FontParser.getFont("Immortal NPC Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
+        font.setSize(5.5f);
+
+        if (name.equalsIgnoreCase("Todd")) {
+
+
+        }
     }
 
     @Override
@@ -47,10 +54,10 @@ public class NPC extends Character {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) {
         npcImage.draw(- offsetX + x, - offsetY + y);
         if (hover) {
-            font.draw(name, - offsetX + x, - offsetY + y - 20);
+            font.draw(getStringProperty("commonname"), - offsetX + x, - offsetY + y - 22);
         }
         if (shortTalk) {
-            font.draw(talks[randomTalk], - offsetX + x - 25, - offsetY + y - 35);
+            font.draw(talks[randomTalk], - offsetX + x - 25, - offsetY + y - 40);
         }
     }
 

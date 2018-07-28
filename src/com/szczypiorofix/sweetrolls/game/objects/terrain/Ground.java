@@ -8,6 +8,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Ground extends GameObject {
 
     private Image image;
+    private Color highlighColor = new Color(1f, 1f, 1f, 0.65f);
 
     public Ground(String name, float x, float y, float width, float height, ObjectType objectType, Image image) {
         super(name, x, y, width, height, objectType);
@@ -21,10 +22,12 @@ public class Ground extends GameObject {
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) {
-        g.drawImage(image, - offsetX + x, - offsetY + y);
+        //g.drawImage(image, - offsetX + x, - offsetY + y);
         if (hover) {
-            g.drawRect(- offsetX + x - 1, - offsetY + y - 1, width - 2, height - 2);
-        }
+            //g.drawRect(- offsetX + x - 1, - offsetY + y - 1, width - 2, height - 2);
+            g.drawImage(image, - offsetX + x, - offsetY + y, highlighColor);
+        } else
+        g.drawImage(image, - offsetX + x, - offsetY + y);
     }
 
     @Override

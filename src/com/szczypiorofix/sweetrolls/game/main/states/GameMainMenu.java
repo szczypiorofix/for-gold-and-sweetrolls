@@ -7,6 +7,7 @@ import com.szczypiorofix.sweetrolls.game.main.MainClass;
 
 import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
 import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
+import com.szczypiorofix.sweetrolls.game.quests.ArticyXMLParser;
 import org.lwjgl.opengl.DisplayMode;
 
 import org.newdawn.slick.*;
@@ -77,7 +78,13 @@ public class GameMainMenu extends BasicGameState {
 //        mainMenuMusic.play();
 
 
-        //FontParser("MyFont1", "myf1.xml", "myf1.png")
+
+        // ARTICY DRAFT
+
+        ArticyXMLParser articyXMLParser = new ArticyXMLParser("TestProject.xml");
+
+
+
         titleFont = FontParser.getFont("Immortal Bitmap Title Font", "immortal-bitmap.xml", "immortal-bitmap.png");
         titleFont.setSize(15f);
 

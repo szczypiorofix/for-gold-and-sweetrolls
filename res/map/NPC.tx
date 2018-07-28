@@ -5,6 +5,7 @@
   <properties>
    <property name="maxhealth" type="int" value="100"/>
    <property name="name" value="NPC_name"/>
+   <property name="commonname" value="NPC_commonname"/>
   </properties>
  </object>
 </template>

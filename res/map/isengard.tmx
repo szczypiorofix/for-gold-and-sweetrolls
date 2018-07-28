@@ -67,6 +67,10 @@
   </object>
  </objectgroup>
  <objectgroup id="3" name="npc" offsetx="0" offsety="32">
-  <object id="2" template="npc.tx" x="288" y="800"/>
+  <object id="2" template="npc.tx" x="288" y="800">
+   <properties>
+    <property name="commonname" value="Mieszkaniec osady"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
