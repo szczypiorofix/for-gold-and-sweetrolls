@@ -1,15 +1,17 @@
 package com.szczypiorofix.sweetrolls.game.main.core;
 
-import com.szczypiorofix.sweetrolls.game.objects.GameObject;
+import com.szczypiorofix.sweetrolls.game.objects.characters.NPC;
+import com.szczypiorofix.sweetrolls.game.objects.item.Place;
+import com.szczypiorofix.sweetrolls.game.objects.terrain.Ground;
 
 public class LevelMap {
 
-    private GameObject[][] ground;
-    private GameObject[][] places;
-    private GameObject[][] npc;
+    private Ground[][] ground;
+    private Place[][] places;
+    private NPC[][] npc;
     private int playerSpawnX, playerSpawnY;
 
-    public LevelMap(GameObject[][] ground, GameObject[][] places, GameObject[][] npc, int playerSpawnX, int playerSpawnY) {
+    public LevelMap(Ground[][] ground, Place[][] places, NPC[][] npc, int playerSpawnX, int playerSpawnY) {
         this.ground = ground;
         this.places = places;
         this.npc = npc;
@@ -17,27 +19,27 @@ public class LevelMap {
         this.playerSpawnY = playerSpawnY;
     }
 
-    public GameObject[][] getGround() {
+    public Ground[][] getGround() {
         return ground;
     }
 
-    public void setGround(GameObject[][] ground) {
+    public void setGround(Ground[][] ground) {
         this.ground = ground;
     }
 
-    public GameObject[][] getPlaces() {
+    public Place[][] getPlaces() {
         return places;
     }
 
-    public void setPlaces(GameObject[][] places) {
+    public void setPlaces(Place[][] places) {
         this.places = places;
     }
 
-    public GameObject[][] getNpc() {
+    public NPC[][] getNpc() {
         return npc;
     }
 
-    public void setNpc(GameObject[][] npc) {
+    public void setNpc(NPC[][] npc) {
         this.npc = npc;
     }
 

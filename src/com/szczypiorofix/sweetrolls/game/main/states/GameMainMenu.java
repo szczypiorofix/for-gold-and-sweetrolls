@@ -81,7 +81,9 @@ public class GameMainMenu extends BasicGameState {
 
         // ARTICY DRAFT
 
-        ArticyXMLParser articyXMLParser = new ArticyXMLParser("TestProject.xml");
+        //
+
+
 
 
 

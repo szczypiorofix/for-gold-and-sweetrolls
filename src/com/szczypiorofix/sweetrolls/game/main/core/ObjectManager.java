@@ -25,9 +25,9 @@ class ObjectManager {
     private Player player;
 
     // WORLD MAP OBJECTS
-    private GameObject[][] grounds;
-    private GameObject[][] places;
-    private GameObject[][] npcs;
+    private Ground[][] grounds;
+    private Place[][] places;
+    private NPC[][] npcs;
 
     private int gameWidth, gameHeight;
 
@@ -44,9 +44,9 @@ class ObjectManager {
     void generateLevel(TileMap tileMap, String levelName) {
         this.level = tileMap;
 
-        grounds = new GameObject[level.getWidth()][level.getHeight()];
-        places = new GameObject[level.getWidth()][level.getHeight()];
-        npcs = new GameObject[level.getWidth()][level.getHeight()];
+        grounds = new Ground[level.getWidth()][level.getHeight()];
+        places = new Place[level.getWidth()][level.getHeight()];
+        npcs = new NPC[level.getWidth()][level.getHeight()];
 
         // ############ OBIEKTY
         for (int objectGroups = 0; objectGroups < tileMap.getObjectGroups().size(); objectGroups++) {
@@ -305,15 +305,15 @@ class ObjectManager {
         return npcs[x][y];
     }
 
-    public GameObject[][] getPlaces() {
+    public Place[][] getPlaces() {
         return places;
     }
 
-    public GameObject[][] getGrounds() {
+    public Ground[][] getGrounds() {
         return grounds;
     }
 
-    public GameObject[][] getNpcs() {
+    public NPC[][] getNpcs() {
         return npcs;
     }
 

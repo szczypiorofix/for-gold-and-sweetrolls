@@ -74,7 +74,6 @@ public class NPC extends Character {
         if (shortTalk) {
             randomTalk = new Random().nextInt(talks.length);
         }
-        System.out.println(talks[randomTalk]);
         this.shortTalk = shortTalk;
     }
 }

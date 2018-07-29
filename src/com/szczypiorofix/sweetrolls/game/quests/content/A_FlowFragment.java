@@ -1,78 +1,36 @@
 package com.szczypiorofix.sweetrolls.game.quests.content;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
-public class A_FlowFragment extends ArticyObject {
+public class A_FlowFragment extends A_Object {
 
-    private String displayName;
-    private String technicalName;
-    private String shortId;
-    private ArrayList<A_Pin> pins;
-    private int pinCount;
-    private String text;
+    public HashMap<String, A_Pin> pins;
+    public int pinCount;
+    public String text;
 
     public A_FlowFragment(String id) {
         super(id);
-        pins = new ArrayList<>();
+        pins = new HashMap<>();
         pinCount = 0;
     }
 
-    public A_FlowFragment(String id, String displayName, String technicalName, String shortId) {
-        this(id);
-        this.displayName = displayName;
-        this.technicalName = technicalName;
-        this.shortId = shortId;
-    }
 
     public void addPin(A_Pin pin) {
-        pins.add(pin);
+        pins.put(pin.id, pin);
     }
 
-    public String getText() {
-        return text;
+    public A_Pin getPin(String k) {
+        return pins.get(k);
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
-
-    public String getTechnicalName() {
-        return technicalName;
-    }
-
-    public void setTechnicalName(String technicalName) {
-        this.technicalName = technicalName;
-    }
-
-    public String getShortId() {
-        return shortId;
-    }
-
-    public void setShortId(String shortId) {
-        this.shortId = shortId;
-    }
-
-    public ArrayList<A_Pin> getPins() {
-        return pins;
-    }
-
-    public void setPins(ArrayList<A_Pin> pins) {
-        this.pins = pins;
-    }
-
-    public int getPinCount() {
-        return pinCount;
-    }
-
-    public void setPinCount(int pinCount) {
-        this.pinCount = pinCount;
+    @Override
+    public String toString() {
+        return "A_FlowFragment{" +
+                ", pinCount=" + pinCount +
+                ", pins=\n" + pins +
+                "\ntext='" + text + '\'' +
+                ", id='" + id + '\'' +
+                ", displayName='" + displayName + '\'' +
+                "}";
     }
 }
