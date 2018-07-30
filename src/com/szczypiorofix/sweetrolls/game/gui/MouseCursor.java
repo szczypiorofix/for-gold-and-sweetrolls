@@ -4,15 +4,18 @@ import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.objects.GameObject;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class MouseCursor extends GameObject {
 
     private float offsetX, offsetY;
     private int tileX, tileY;
+    private Input input;
 
-    public MouseCursor(String name, float x, float y, float width, float height, ObjectType objectType) {
+    public MouseCursor(String name, float x, float y, float width, float height, ObjectType objectType, Input input) {
         super(name, x, y, width, height, objectType);
+        this.input = input;
     }
 
     @Override

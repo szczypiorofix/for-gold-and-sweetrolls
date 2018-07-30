@@ -1,10 +1,12 @@
 package com.szczypiorofix.sweetrolls.game.main.fonts;
 
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
+import org.lwjgl.Sys;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 public class BitMapFont {
@@ -65,10 +67,17 @@ public class BitMapFont {
 
     public void draw(String text, int x, int y) {
         float c = 0;
+        char[] ch = text.toCharArray();
+        int line = 0;
+        boolean newLine = false;
         for (int i = 0; i < text.length(); i++) {
             for (int j = 0; j < chars.size(); j++) {
-                if (text.charAt(i) == chars.get(j).getAscii()
-                    || ((int) (text.charAt(i)) == chars.get(j).getUcode() && (chars.get(j).getUcode() > 0))
+                if (ch[i] == '\n' || ch[i] == '\r') {
+                    line++;
+                    c = 0;
+                }
+                if (ch[i] == chars.get(j).getAscii()
+                    || ((int) (ch[i]) == chars.get(j).getUcode() && (chars.get(j).getUcode() > 0))
                     ) {
 
                     fontImage.getSubImage(
@@ -78,12 +87,13 @@ public class BitMapFont {
                             chars.get(j).getHeight()
                     ).draw(
                             x + c  * scale,
-                            (int) (( y + chars.get(j).getTop() * scale ) + fontHeight * scale ) - (fontHeight * scale),
+                            (int) (( y + chars.get(j).getTop() * scale ) + fontHeight * scale ) - (fontHeight * scale) + (line * scale),
                             scale
                     );
+
                     c += chars.get(j).getWidth();
                 }
-                if (text.charAt(i) == 32) {
+                if (ch[i] == 32) {
                     c += 0.2f;
                 }
             }
@@ -92,10 +102,18 @@ public class BitMapFont {
 
     public void draw(String text, float x, float y) {
         float c = 0;
-        for (int i = 0; i < text.length(); i++) {
+        char[] ch = text.toCharArray();
+        int line = 0;
+        boolean newLine = false;
+        for (int i = 0; i < ch.length; i++) {
             for (int j = 0; j < chars.size(); j++) {
-                if (text.charAt(i) == chars.get(j).getAscii()
-                        || ((int) (text.charAt(i)) == chars.get(j).getUcode() && (chars.get(j).getUcode() > 0))
+                if (ch[i] == '\n' || ch[i] == '\r') {
+                    line++;
+                    newLine = true;
+                }
+
+                if (ch[i] == chars.get(j).getAscii()
+                        || ((int) ch[i] == chars.get(j).getUcode() && (chars.get(j).getUcode() > 0))
                         ) {
 
                     fontImage.getSubImage(
@@ -105,12 +123,13 @@ public class BitMapFont {
                             chars.get(j).getHeight()
                     ).draw(
                             x + c  * scale,
-                            (int) (( y + chars.get(j).getTop() * scale ) + fontHeight * scale ) - (fontHeight * scale),
+                            (int) (( y + chars.get(j).getTop() * scale ) + fontHeight * scale ) - (fontHeight * scale) + (line * scale),
                             scale
                     );
                     c += chars.get(j).getWidth();
                 }
-                if (text.charAt(i) == 32) {
+
+                if (ch[i] == 32) {
                     c += 0.2f;
                 }
             }

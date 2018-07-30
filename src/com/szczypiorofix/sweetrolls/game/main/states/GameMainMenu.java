@@ -79,13 +79,6 @@ public class GameMainMenu extends BasicGameState {
 
 
 
-        // ARTICY DRAFT
-
-        //
-
-
-
-
 
         titleFont = FontParser.getFont("Immortal Bitmap Title Font", "immortal-bitmap.xml", "immortal-bitmap.png");
         titleFont.setSize(15f);
@@ -105,7 +98,7 @@ public class GameMainMenu extends BasicGameState {
 
         // https://opengameart.org/content/dwarven-cursor
         gc.setMouseCursor(new Image(MainClass.RES + "mouse_cursor.png"), 0, 0);
-        mouseCursor = new MouseCursor("Mouse Cursor Main Menu", input.getMouseX(), input.getMouseY(), 1, 1, ObjectType.MOUSECURSOR);
+        mouseCursor = new MouseCursor("Mouse Cursor Main Menu", input.getMouseX(), input.getMouseY(), 1, 1, ObjectType.MOUSECURSOR, input);
     }
 
     @Override

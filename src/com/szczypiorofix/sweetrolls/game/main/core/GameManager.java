@@ -1,6 +1,7 @@
 package com.szczypiorofix.sweetrolls.game.main.core;
 
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
+import com.szczypiorofix.sweetrolls.game.gui.DialogueFrame;
 import com.szczypiorofix.sweetrolls.game.gui.HUD;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
@@ -8,6 +9,7 @@ import com.szczypiorofix.sweetrolls.game.objects.characters.NPC;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import com.szczypiorofix.sweetrolls.game.tilemap.TileMap;
 
+import org.lwjgl.Sys;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.EmptyTransition;
@@ -41,10 +43,12 @@ public class GameManager {
     private ObjectManager objectManager;
     private MouseCursor mouseCursor;
     private String currentLevelName;
+    private DialogueFrame dialogueFrame;
 
     public GameManager() {
         offsetX = 0;
         offsetY = 0;
+        dialogueFrame = new DialogueFrame();
     }
 
     private void changeLevel(String levelName) {
@@ -79,7 +83,7 @@ public class GameManager {
         // INITIAL WORLD MAP
         changeLevel(WORLD_MAP_NAME);
 
-        mouseCursor = new MouseCursor("Mouse Cursor Game", input.getMouseX(), input.getMouseY(), 32, 32, ObjectType.MOUSECURSOR);
+        mouseCursor = new MouseCursor("Mouse Cursor Game", input.getMouseX(), input.getMouseY(), 32, 32, ObjectType.MOUSECURSOR, input);
 
         player.setCurrentLevelName(currentLevelName);
         hud = new HUD(player, mouseCursor);
@@ -221,6 +225,8 @@ public class GameManager {
         objectManager.update(gc, sgb, delta, mouseCursor, offsetX, offsetY);
         player.update(gc, sgb, delta, offsetX, offsetY);
 
+        dialogueFrame.update(gc, sgb, delta, offsetX, offsetY);
+
         if (setNextRound) {
             objectManager.turn();
             player.turn();
@@ -244,16 +250,25 @@ public class GameManager {
                         if (!(i == 0 && j == 0)
                                 && player.getTileX(i) > 0
                                 && player.getTileY(j) > 0) {
+
                             //objectManager.getGround(player.getTileX(i), player.getTileY(j)).setHover(true);
+
                             objectManager.getGround(mouseCursor.getTileX(), mouseCursor.getTileY()).setHover(true);
                             if (objectManager.getNpc(player.getTileX(i), player.getTileY(j)) != null
                                     && objectManager.getNpc(player.getTileX(i), player.getTileY(j)).getTileX() == mouseCursor.getTileX()
                                     && objectManager.getNpc(player.getTileX(i), player.getTileY(j)).getTileY() == mouseCursor.getTileY()
                                     ) {
+
                                 objectManager.getNpc(player.getTileX(i), player.getTileY(j)).setHover(true);
+
                                 if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
                                     NPC npc = (NPC) objectManager.getNpc(player.getTileX(i), player.getTileY(j));
-                                    if (!npc.isShortTalk()) npc.setShortTalk(true);
+                                    if (!npc.isShortTalk()) {
+                                        //npc.setShortTalk(true);
+                                        dialogueFrame = new DialogueFrame(player, npc, mouseCursor);
+                                        dialogueFrame.setShowDialog(true);
+                                    }
+
                                 }
                             }
                         }
@@ -275,6 +290,10 @@ public class GameManager {
 //            }
 //        }
 
+        if (dialogueFrame.isShowDialog()) {
+            //dialogueFrame.getNpc().getCurrentDialogueState()
+        }
+
     }
 
     public void render(GameContainer gc, StateBasedGame sgb, Graphics g) throws SlickException {
@@ -288,6 +307,7 @@ public class GameManager {
 //        g.drawString("PTX: "+player.getTileX(0), 10, 90);
 //        g.drawString("PTY: "+player.getTileY(0), 10, 105);
 
+        dialogueFrame.render(gc, sgb, g);
         hud.render(gc, sgb, g);
     }
 

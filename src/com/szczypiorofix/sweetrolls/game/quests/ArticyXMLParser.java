@@ -15,7 +15,7 @@ import java.util.*;
 public class ArticyXMLParser {
 
     private HashMap<String, A_Entity> entitiesList;
-    private HashMap<String, A_FlowFragment> flowFragments;
+    private A_FlowFragment flowFragment;
     private HashMap<String, A_Connection> connections;
     private HashMap<String, A_Dialogue> dialogues;
     private HashMap<String, A_DialogueFragment> dialoguesFragmens;
@@ -38,7 +38,7 @@ public class ArticyXMLParser {
         startId = "-1";
 
         entitiesList = new HashMap<>();
-        flowFragments = new HashMap<>();
+        //flowFragments = new HashMap<>();
         connections = new HashMap<>();
         dialogues = new HashMap<>();
         dialoguesFragmens = new HashMap<>();
@@ -98,7 +98,7 @@ public class ArticyXMLParser {
                                 if (ffNode.getNodeType() == Node.ELEMENT_NODE) {
                                     Element ffElement = (Element) ffNode;
 
-                                    A_FlowFragment a_flowFragment = new A_FlowFragment(ffElement.getAttribute("Id"));
+                                    flowFragment = new A_FlowFragment(ffElement.getAttribute("Id"));
 
                                     // DisplayName
                                     NodeList displayNameList = ffElement.getElementsByTagName("DisplayName");
@@ -111,15 +111,7 @@ public class ArticyXMLParser {
                                                 Node lsNode = localizedStringNameList.item(ls);
                                                 if (lsNode.getNodeType() == Node.ELEMENT_NODE) {
                                                     Element lsElement = (Element) lsNode;
-                                                    a_flowFragment.displayName = lsElement.getTextContent().trim();
-
-                                                    if (a_flowFragment.displayName.equalsIgnoreCase("START")) {
-                                                        startId = ffElement.getAttribute("Id");
-                                                    }
-
-                                                    if (a_flowFragment.displayName.equalsIgnoreCase("STOP")) {
-                                                        stopId = ffElement.getAttribute("Id");
-                                                    }
+                                                    flowFragment.displayName = lsElement.getTextContent().trim();
                                                 }
                                             }
                                         }
@@ -136,7 +128,7 @@ public class ArticyXMLParser {
                                                 Node lsNode = localizedStringNameList.item(ls);
                                                 if (lsNode.getNodeType() == Node.ELEMENT_NODE) {
                                                     Element lsElement = (Element) lsNode;
-                                                    a_flowFragment.text = lsElement.getTextContent().trim();
+                                                    flowFragment.text = lsElement.getTextContent().trim();
                                                 }
                                             }
                                         }
@@ -149,7 +141,7 @@ public class ArticyXMLParser {
                                         if (pinsNode.getNodeType() == Node.ELEMENT_NODE) {
                                             Element pinsElement = (Element) pinsNode;
 
-                                           a_flowFragment.pinCount = Integer.parseInt(pinsElement.getAttribute("Count"));
+                                            flowFragment.pinCount = Integer.parseInt(pinsElement.getAttribute("Count"));
 
                                            NodeList pinList = pinsElement.getElementsByTagName("Pin");
                                            for (int p = 0; p < pinList.getLength(); p++) {
@@ -168,13 +160,11 @@ public class ArticyXMLParser {
                                                            s,
                                                            pinElement.getAttribute("Expression")
                                                    );
-                                                   a_flowFragment.addPin(a_pin);
+                                                   flowFragment.addPin(a_pin);
                                                }
                                            }
                                         }
                                     }
-
-                                    flowFragments.put(a_flowFragment.id, a_flowFragment);
                                 }
                             }
 
@@ -234,6 +224,23 @@ public class ArticyXMLParser {
                                                 if (lsNode.getNodeType() == Node.ELEMENT_NODE) {
                                                     Element lsElement = (Element) lsNode;
                                                     a_dialogue.displayName = lsElement.getTextContent().trim();
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    // Text
+                                    NodeList textList = connectionsElement.getElementsByTagName("Text");
+                                    for (int tn = 0; tn < textList.getLength(); tn++) {
+                                        Node tNode = textList.item(tn);
+                                        if (tNode.getNodeType() == Node.ELEMENT_NODE) {
+                                            Element tElement = (Element) tNode;
+                                            NodeList localizedStringNameList = tElement.getElementsByTagName("LocalizedString");
+                                            for (int ls = 0; ls < localizedStringNameList.getLength(); ls++) {
+                                                Node lsNode = localizedStringNameList.item(ls);
+                                                if (lsNode.getNodeType() == Node.ELEMENT_NODE) {
+                                                    Element lsElement = (Element) lsNode;
+                                                    a_dialogue.text = lsElement.getTextContent().trim();
                                                 }
                                             }
                                         }
@@ -353,8 +360,7 @@ public class ArticyXMLParser {
 
 
         System.out.println("Flow Fragments: ");
-        flowFragments.forEach((key, value)
-                -> System.out.println(key + " => " + value));
+        System.out.println(flowFragment);
         System.out.println();
 
 
@@ -383,87 +389,106 @@ public class ArticyXMLParser {
         System.out.println();
         System.out.println();
 
-        System.out.println("Flow from "+startId +" to "+stopId);
-
-        currentId = startId;
         boolean end = false;
         state = State.FLOW_FRAGMENT;
 
-        Scanner in = new Scanner(System.in);
 
-        String[] ids;
+        startId = flowFragment.pins.get("0x0100000000000153").id;
+        stopId = flowFragment.pins.get("0x010000000000012A").id;
+
+        System.out.println("Flow from "+startId +" to "+stopId);
+
+        currentId = startId;
+
+        Scanner in = new Scanner(System.in);
+        String[] ids = new String[0];
+        int input;
+        int c= 0;
 
         do {
-
+            c = 0;
             try {
                 Thread.sleep(250);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
-            System.out.println("Piny: ");
-            int c = 0;
+            System.out.println("Current id: "+currentId);
 
-            switch (state) {
-                case FLOW_FRAGMENT: {
-                    Set<Map.Entry<String, A_Pin>> employeeSalaryEntries = flowFragments.get(currentId).pins.entrySet();
-                    Iterator<Map.Entry<String, A_Pin>> employeeSalaryIterator = employeeSalaryEntries.iterator();
-
-                    ids = new String[flowFragments.get(currentId).pins.size()];
-
-                    while (employeeSalaryIterator.hasNext()) {
-                        Map.Entry<String, A_Pin> entry = employeeSalaryIterator.next();
-                        System.out.println("[" +c+"] " + entry.getKey() + " => " + entry.getValue());
-                        ids[c] = entry.getKey();
-                        c++;
-                    }
-
-//                    for (int i = 0; i < ids.length; i++) {
-//                        System.out.println(ids[i]);
-//                    }
-
-                    Integer i = in.nextInt();
-                    if (i == -1 || currentId.equalsIgnoreCase(stopId)) end = true;
-
-                    if (i < ids.length && i >= 0) {
-                        currentId = ids[i];
-                        state = State.CONNECTION;
-                    }
-
-                    break;
-                }
-                case DIALOGUE: {
-                    break;
-                }
-                case CONNECTION: {
-
-                    System.out.println("Current id: "+currentId);
-                    String prevId = currentId;
-//                    connections.forEach((key, value)
-//                            -> {
-//                        if (currentId.equalsIgnoreCase(value.sourcePinRef)) {
-//                            currentId = value.targetIdRef;
-//                        }
-//                    });
-                    System.out.println("Zmiana ID z "+prevId +" na " +currentId);
-                    connections.forEach((key, value)
-                            -> {
-                        if (currentId.equalsIgnoreCase(value.targetPinRef)) {
-                            currentId = value.targetIdRef;
-                            state = State.FLOW_FRAGMENT;
-                            return;
-                        }
-                    });
-
-                    break;
-                }
-                case DIALOGUE_FRAGMENT: {
-
-                }
-                case PIN: {
-
+            if (state == State.FLOW_FRAGMENT) {
+                Set<Map.Entry<String, A_Pin>> flowFragmentEntries = flowFragment.pins.entrySet();
+                Iterator<Map.Entry<String, A_Pin>> flowFramentIterator = flowFragmentEntries.iterator();
+                ids = new String[flowFragment.pins.size()];
+                while (flowFramentIterator.hasNext()) {
+                    Map.Entry<String, A_Pin> entry = flowFramentIterator.next();
+                    System.out.println("[" +c+"] " + entry.getKey() + " => " + entry.getValue());
+                    ids[c] = entry.getKey();
+                    c++;
                 }
             }
+
+
+            if (state == State.CONNECTION) {
+                connections.forEach((key, value)
+                        -> {
+                        if (currentId.equalsIgnoreCase(value.sourcePinRef)) {
+                            currentId = value.targetIdRef;
+                            state = State.DIALOGUE;
+                            //System.out.println("new current id :" +currentId);
+                        }
+                    }
+                );
+            }
+
+
+            if (state == State.DIALOGUE) {
+                dialogues.forEach((key, value)
+                                -> {
+                            if (key.equalsIgnoreCase(currentId)) {
+                                System.out.println("Dialog :" +key +", " +value.displayName);
+                                System.out.println(value.text);
+
+
+
+                            }
+
+                        }
+                );
+            }
+
+
+            input = in.nextInt();
+
+            if (input >= 0 && input < ids.length) {
+                currentId = ids[input];
+                //System.out.println("New currentId: "+currentId);
+                state = State.CONNECTION;
+            }
+            if (input == -1 || currentId.equalsIgnoreCase(stopId)) end = true;
+
+
+
+
+
+//                    Set<Map.Entry<String, A_Pin>> employeeSalaryEntries = flowFragments.get(currentId).pins.entrySet();
+//                    Iterator<Map.Entry<String, A_Pin>> employeeSalaryIterator = employeeSalaryEntries.iterator();
+//
+//                    ids = new String[flowFragments.get(currentId).pins.size()];
+//
+//                    while (employeeSalaryIterator.hasNext()) {
+//                        Map.Entry<String, A_Pin> entry = employeeSalaryIterator.next();
+//                        System.out.println("[" +c+"] " + entry.getKey() + " => " + entry.getValue());
+//                        ids[c] = entry.getKey();
+//                        c++;
+//                    }
+//                    Integer i = in.nextInt();
+//                    if (i == -1 || currentId.equalsIgnoreCase(stopId)) end = true;
+//
+//                    if (i < ids.length && i >= 0) {
+//                        currentId = ids[i];
+//                        state = State.CONNECTION;
+//                    }
+
 
 
         } while (!end);
