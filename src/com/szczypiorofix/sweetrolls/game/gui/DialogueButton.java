@@ -28,7 +28,7 @@ public class DialogueButton extends GameObject {
         this.endButton = endButton;
         this.nextDialogueState = nextDialogueState;
         font = FontParser.getFont("Immortal Menu Button Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
-        font.setSize(4f);
+        font.setSize(5f);
     }
 
 

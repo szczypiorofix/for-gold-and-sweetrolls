@@ -149,10 +149,10 @@ public class ArticyXMLParser {
                                                if (pNode.getNodeType() == Node.ELEMENT_NODE) {
                                                    Element pinElement = (Element) pNode;
 
-                                                   Semantic s;
+                                                   A_Semantic s;
                                                    if (pinElement.getAttribute("Semantic").equalsIgnoreCase("Input"))
-                                                       s = Semantic.INPUT;
-                                                   else s = Semantic.OUTPUT;
+                                                       s = A_Semantic.INPUT;
+                                                   else s = A_Semantic.OUTPUT;
 
                                                    A_Pin a_pin = new A_Pin(
                                                            pinElement.getAttribute("Id"),
@@ -321,10 +321,10 @@ public class ArticyXMLParser {
                                                 if (pNode.getNodeType() == Node.ELEMENT_NODE) {
                                                     Element pinElement = (Element) pNode;
 
-                                                    Semantic s;
+                                                    A_Semantic s;
                                                     if (pinElement.getAttribute("Semantic").equalsIgnoreCase("Input"))
-                                                        s = Semantic.INPUT;
-                                                    else s = Semantic.OUTPUT;
+                                                        s = A_Semantic.INPUT;
+                                                    else s = A_Semantic.OUTPUT;
 
                                                     A_Pin a_pin = new A_Pin(
                                                             pinElement.getAttribute("Id"),

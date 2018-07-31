@@ -1,13 +1,12 @@
 package com.szczypiorofix.sweetrolls.game.objects.characters;
 
+import com.szczypiorofix.sweetrolls.game.dialogs.Dialogue;
+import com.szczypiorofix.sweetrolls.game.dialogs.npc.DialoguePete;
+import com.szczypiorofix.sweetrolls.game.dialogs.npc.DialogueTodd;
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
-import com.szczypiorofix.sweetrolls.game.gui.DialogueButton;
 import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
 import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
 import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
-import com.szczypiorofix.sweetrolls.game.quests.ArticyXMLParser;
-import com.szczypiorofix.sweetrolls.game.quests.DialoguePart;
-import com.szczypiorofix.sweetrolls.game.quests.content.Dialogs;
 import com.szczypiorofix.sweetrolls.game.tilemap.Property;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -15,14 +14,13 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.state.StateBasedGame;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 
 public class NPC extends Character {
 
     private BitMapFont font;
     private Image npcImage;
-    private Dialogs dialog;
+    private Dialogue dialogue;
     private String[] talks = {
         "IT JUST WORKS !", "See that mountain? You can climb it!", "You can do whatever you want!", "Skyrim has infinite quests!"
     };
@@ -39,7 +37,16 @@ public class NPC extends Character {
         font = FontParser.getFont("Immortal NPC Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
         font.setSize(5.5f);
 
-        dialog = new Dialogs(this);
+        dialogue = new Dialogue();
+
+        if (name.equals("Todd Howard")) {
+            dialogue = new DialogueTodd(this);
+        }
+
+        if (name.equals("Pete Hines")) {
+            dialogue = new DialoguePete(this);
+        }
+
         displayName = getStringProperty("commonname");
     }
 
@@ -83,9 +90,6 @@ public class NPC extends Character {
         this.playerKnow = playerKnow;
     }
 
-    public Dialogs getDialog() {
-        return dialog;
-    }
 
     public String[] getTalks() {
         return talks;
@@ -100,5 +104,9 @@ public class NPC extends Character {
             randomTalk = new Random().nextInt(talks.length);
         }
         this.shortTalk = shortTalk;
+    }
+
+    public Dialogue getDialogue() {
+        return dialogue;
     }
 }

@@ -1,4 +1,4 @@
-package com.szczypiorofix.sweetrolls.game.quests;
+package com.szczypiorofix.sweetrolls.game.dialogs;
 
 import com.szczypiorofix.sweetrolls.game.gui.DialogueButton;
 

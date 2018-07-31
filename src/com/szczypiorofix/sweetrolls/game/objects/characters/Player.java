@@ -3,6 +3,7 @@ package com.szczypiorofix.sweetrolls.game.objects.characters;
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.enums.PlayerAction;
 import com.szczypiorofix.sweetrolls.game.enums.PlayerState;
+import com.szczypiorofix.sweetrolls.game.main.core.TimeCounter;
 import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
 import com.szczypiorofix.sweetrolls.game.tilemap.Property;
 import org.newdawn.slick.GameContainer;
@@ -22,6 +23,8 @@ public class Player extends Character {
     private int worldMapTileY = 0;
     private String currentLevelName;
     private PlayerAction playerAction;
+    private float offsetX, offsetY;
+    private TimeCounter timeCounter;
 
     public Player(String name, float x, float y, float width, float height, ArrayList<Property> properties) {
         super(name, x, y, width, height, ObjectType.PLAYER, properties);
@@ -43,12 +46,16 @@ public class Player extends Character {
 
         setWorldMapTileX(getTileX());
         setWorldMapTileY(getTileY());
+
+        timeCounter = new TimeCounter(this);
     }
 
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) {
         hover = false;
+        this.offsetX = offsetX;
+        this.offsetY = offsetY;
     }
 
     @Override
@@ -68,11 +75,25 @@ public class Player extends Character {
     public void turn() {
         playerTurn++;
 
+        timeCounter.nextTurn();
+
         if (playerState == PlayerState.MOVING_WORLD_MAP) {
             worldMapTileX = getTileX();
             worldMapTileY = getTileY();
         }
 
+    }
+
+    public TimeCounter getTimeCounter() {
+        return timeCounter;
+    }
+
+    public float getOffsetX() {
+        return offsetX;
+    }
+
+    public float getOffsetY() {
+        return offsetY;
     }
 
     public void moveNorth(int offset) {

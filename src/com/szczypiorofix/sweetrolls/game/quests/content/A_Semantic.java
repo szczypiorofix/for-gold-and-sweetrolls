@@ -1,6 +1,6 @@
 package com.szczypiorofix.sweetrolls.game.quests.content;
 
-public enum Semantic {
+public enum A_Semantic {
 
     INPUT,
 

@@ -69,6 +69,8 @@ public class GameManager {
         mapHeight = levelMap.getHeight();
         objectManager.setLevel(levelMap, levelName);
         player.setCurrentLevelName(currentLevelName);
+        offsetX = -16;
+        offsetY = -16;
     }
 
     public void init(GameContainer gc) {
@@ -108,7 +110,7 @@ public class GameManager {
 
             if (input.isKeyPressed(Input.KEY_RIGHT) || gc.getInput().isKeyPressed(Input.KEY_D)) {
 
-                if (player.getPlayerAction() == MOVE) {
+                if (player.getPlayerAction() == MOVE && player.getTileX() < objectManager.getLevel().getWidth()-1) {
                     player.moveEast(tileWidth);
                     setNextRound = true;
                 }
@@ -124,7 +126,7 @@ public class GameManager {
             }
 
             if (input.isKeyPressed((Input.KEY_LEFT)) || gc.getInput().isKeyPressed(Input.KEY_A)) {
-                if (player.getPlayerAction() == MOVE) {
+                if (player.getPlayerAction() == MOVE && player.getTileX() > 0) {
                     player.moveWest(tileWidth);
                     setNextRound = true;
                 }
@@ -140,7 +142,7 @@ public class GameManager {
             }
 
             if (input.isKeyPressed(Input.KEY_UP) || gc.getInput().isKeyPressed(Input.KEY_W)) {
-                if (player.getPlayerAction() == MOVE) {
+                if (player.getPlayerAction() == MOVE && player.getTileY() > 0) {
                     player.moveNorth(tileHeight);
                     setNextRound = true;
                 }
@@ -156,7 +158,7 @@ public class GameManager {
             }
 
             if (input.isKeyPressed((Input.KEY_DOWN)) || gc.getInput().isKeyPressed(Input.KEY_S)) {
-                if (player.getPlayerAction() == MOVE) {
+                if (player.getPlayerAction() == MOVE && player.getTileY() < objectManager.getLevel().getHeight()-1) {
                     player.moveSouth(tileHeight);
                     setNextRound = true;
                 }
@@ -213,10 +215,25 @@ public class GameManager {
 //            }
         }
 
+        calculateOffset();
 
-        offsetX = player.getX() - (gameWidth / 2) + (4 * tileWidth);
-        offsetY = player.getY() - (gameHeight / 2);
+    }
 
+    private void calculateOffset() {
+        if ((player.getTileX() >= objectManager.getTilesToEast() - 1)
+                &&
+                (player.getTileX() < objectManager.getLevel().getWidth() - objectManager.getTilesToEast() + 1)
+                ) {
+            offsetX = player.getX() - (gameWidth / 2) + (4 * tileWidth);
+        }
+
+
+        if ((player.getTileY() >= objectManager.getTilesToSouth() - 1)
+                &&
+                (player.getTileY() < objectManager.getLevel().getHeight() - objectManager.getTilesToSouth() + 2)
+                ) {
+            offsetY = player.getY() - (gameHeight / 2);
+        }
     }
 
 
@@ -249,9 +266,11 @@ public class GameManager {
                     for (int j = -1; j < 2; j++) {
                         if (!(i == 0 && j == 0)
                                 && player.getTileX(i) > 0
-                                && player.getTileY(j) > 0) {
+                                && player.getTileY(j) > 0
+                                && player.getTileX(i) < objectManager.getLevel().getWidth()-1
+                                && player.getTileY(j) < objectManager.getLevel().getHeight()-1) {
 
-                            //objectManager.getGround(player.getTileX(i), player.getTileY(j)).setHover(true);
+                            objectManager.getGround(player.getTileX(i), player.getTileY(j)).setHover(true);
 
                             objectManager.getGround(mouseCursor.getTileX(), mouseCursor.getTileY()).setHover(true);
                             if (objectManager.getNpc(player.getTileX(i), player.getTileY(j)) != null
@@ -301,11 +320,10 @@ public class GameManager {
         objectManager.render(gc, sgb, g, offsetX, offsetY);
         player.render(gc, sgb, g, offsetX, offsetY);
 
-//        g.drawString("P: X:"+player.getX()+" Y:"+player.getY(), 10, 25);
-//        g.drawString("offsetX: "+offsetX, 10, 60);
-//        g.drawString("offsetY: "+offsetY, 10, 75);
-//        g.drawString("PTX: "+player.getTileX(0), 10, 90);
-//        g.drawString("PTY: "+player.getTileY(0), 10, 105);
+        Color c = g.getColor();
+        g.setColor(new Color(0.5f, 0f, 0.5f, player.getTimeCounter().getDayNightEffect()));
+        g.fillRect(0, 0, gameWidth, gameHeight);
+        g.setColor(c);
 
         dialogueFrame.render(gc, sgb, g);
         hud.render(gc, sgb, g);

@@ -228,7 +228,7 @@ class ObjectManager {
     private void iterateUpdate(GameContainer gc, StateBasedGame sbg, int delta, GameObject[][] list, MouseCursor mouseCursor, float offsetX, float offsetY) throws SlickException {
         for (int x = tilesToWest; x < tilesToEast; x++) {
             for (int y = tilesToNorth; y < tilesToSouth; y++) {
-                if (player.getTileX(x) > 0
+                if (player.getTileX(x) >= 0
                         && player.getTileY(y) >= 0
                         && player.getTileX(x) < level.getWidth()
                         && player.getTileY(y) < level.getHeight()
@@ -243,16 +243,43 @@ class ObjectManager {
 
     private void iterateRender(GameContainer gc, StateBasedGame sbg, Graphics g, GameObject[][] list, float offsetX, float offsetY) throws SlickException {
 
-        for (int x = tilesToWest; x < tilesToEast; x++) {
-            for (int y = tilesToNorth; y < tilesToSouth; y++) {
+        int tW = tilesToWest;
+        int tE = tilesToEast;
+        int tS = tilesToSouth;
+        int tN = tilesToNorth;
+
+        if (player.getTileX() <= (getTilesToEast())) {
+            tE = Math.abs(tilesToWest) + Math.abs(tilesToEast);
+        }
+
+        if (player.getTileX() > (level.getWidth() - 10) ) {
+            tW = tilesToWest - 4;
+        }
+
+        if (player.getTileY() <= getTilesToSouth()) {
+            tS = Math.abs(tilesToSouth) + Math.abs(tilesToNorth);
+        }
+
+        if (player.getTileY() > (level.getHeight() - 10) ) {
+            tN = tilesToNorth - tilesToSouth;
+        }
+
+        for (int x = tW; x < tE; x++) {
+            for (int y = tN; y < tS; y++) {
                 if (player.getTileX(x) >= 0
                         && player.getTileY(y) >= 0
                         && player.getTileX(x) < level.getWidth()
                         && player.getTileY(y) < level.getHeight()) {
 
-                    if (list[player.getTileX() + x][player.getTileY() + y] != null) {
+                    int sx = x;
+                    int sy = y;
+                    if (player.getTileX() < tilesToEast) {
+                        //sx += 1;
+                    }
 
-                        list[player.getTileX() + x][player.getTileY() + y].render(gc, sbg, g, offsetX, offsetY);
+                    if (list[player.getTileX() + sx][player.getTileY() + sy] != null) {
+
+                        list[player.getTileX() + sx][player.getTileY() + sy].render(gc, sbg, g, offsetX, offsetY);
 
                     }
                 }
@@ -293,6 +320,10 @@ class ObjectManager {
         return player;
     }
 
+    public TileMap getLevel() {
+        return level;
+    }
+
     public GameObject getPlace(int x, int y) {
         return places[x][y];
     }
@@ -317,6 +348,21 @@ class ObjectManager {
         return npcs;
     }
 
+    public int getTilesToWest() {
+        return tilesToWest;
+    }
+
+    public int getTilesToEast() {
+        return tilesToEast;
+    }
+
+    public int getTilesToNorth() {
+        return tilesToNorth;
+    }
+
+    public int getTilesToSouth() {
+        return tilesToSouth;
+    }
 
 
     //    private void graczSwieci(int x,  int y, int sila) {
