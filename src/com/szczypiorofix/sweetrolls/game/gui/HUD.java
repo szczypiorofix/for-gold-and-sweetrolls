@@ -39,12 +39,14 @@ public class HUD {
         g.drawRect(590, 90, 160, 11);
         g.fillRect(592, 92, currentLevel, 8);
         font.draw("Zdrowie: " +player.statistics.health +"/"+player.statistics.maxHealth, 590, 120);
-        font.draw("Dzień: " +player.getTimeCounter().getDayCounter()+", godzina: "+player.getTimeCounter().getHourCounter()+":00", 590, 140);
+        font.draw("D: " +player.getTimeCounter().getDayCounter()+", H: "+player.getTimeCounter().getHourCounter()+":" + (
+                player.getTimeCounter().getMinuteCounter() < 10 ? player.getTimeCounter().getMinuteCounter()+"0"
+                        : player.getTimeCounter().getMinuteCounter()
+        ), 590, 140);
         font.draw("Teren: " +player.getTerrainType().getName(), 590, 160);
         font.draw("Tiles c: " +player.getTileX(0)+":"+player.getTileY(0), 590, 180);
         font.draw("Tiles w: " +player.getWorldMapTileX()+":"+player.getWorldMapTileY(), 590, 200);
         font.draw("Location: " +player.getCurrentLevelName(), 590, 220);
-        font.draw("DAY/NIGHT: " +player.getTimeCounter().getDayNightEffect(), 590, 240);
         //font.draw("Mouse tile: " +mouseCursor.getTileX()+":"+mouseCursor.getTileY(), 590, 240);
         //font.draw("Player x: " +player.getX()+":"+player.getY(), 590, 260);
         //font.draw("Player offset: " +player.getOffsetX()+":"+player.getOffsetY(), 590, 280);

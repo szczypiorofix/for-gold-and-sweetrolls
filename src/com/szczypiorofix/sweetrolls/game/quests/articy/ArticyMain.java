@@ -1,4 +1,5 @@
-package com.szczypiorofix.sweetrolls.game.quests;
+package com.szczypiorofix.sweetrolls.game.quests.articy;
+
 
 public class ArticyMain {
 

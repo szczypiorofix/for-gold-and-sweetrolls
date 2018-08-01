@@ -9,7 +9,6 @@ import com.szczypiorofix.sweetrolls.game.objects.characters.NPC;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import com.szczypiorofix.sweetrolls.game.tilemap.TileMap;
 
-import org.lwjgl.Sys;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.EmptyTransition;
@@ -321,7 +320,7 @@ public class GameManager {
         player.render(gc, sgb, g, offsetX, offsetY);
 
         Color c = g.getColor();
-        g.setColor(new Color(0.5f, 0f, 0.5f, player.getTimeCounter().getDayNightEffect()));
+        g.setColor(player.getTimeCounter().getDayNightEffect());
         g.fillRect(0, 0, gameWidth, gameHeight);
         g.setColor(c);
 

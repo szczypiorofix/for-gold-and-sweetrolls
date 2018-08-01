@@ -19,8 +19,8 @@ public final class MainGame extends BasicGameState {
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) {
-        gc.setVSync(false);
-        gc.setTargetFrameRate(0);
+        //gc.setVSync(false);
+        //gc.setTargetFrameRate(0);
         gameManager = new GameManager();
         gameManager.init(gc);
     }

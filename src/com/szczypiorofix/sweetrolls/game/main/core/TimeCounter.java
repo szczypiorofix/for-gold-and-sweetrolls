@@ -2,6 +2,7 @@ package com.szczypiorofix.sweetrolls.game.main.core;
 
 import com.szczypiorofix.sweetrolls.game.enums.PlayerState;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
+import org.newdawn.slick.Color;
 
 public class TimeCounter {
 
@@ -9,39 +10,69 @@ public class TimeCounter {
 
     private int dayCounter;
     private int hourCounter;
-    private final int WORLD_MAP_HOUR_COUNTER = 1;
-    private final int INNER_MAP_HOUR_COUNTER = 1;
-    private final int DAY = 24;
-    private float dayNightEffect = 0f;
+    private int minuteCounter;
+    private final int WORLD_MAP_MINUTE_COUNTER = 60;
+    private final int INNER_MAP_MINUTE_COUNTER = 10;
+    private final int HOURS_IN_DAY = 24;
+    private final int MINUTES_IN_HOUR = 60;
+    private Color dayNightEffect;
+    private float darkness = 0f;
 
     public TimeCounter(Player player) {
         this.player = player;
         dayCounter = 0;
-        hourCounter = 0;
+        hourCounter = 9;
+        minuteCounter = 0;
+        dayNightEffect = new Color(0.6f - darkness, 0f, 0.6f - darkness, darkness * 1.5f);
+    }
+
+    private void calculateDarkness() {
+        if (hourCounter > 7 && hourCounter < 19) {
+            darkness = 0f;
+        } else if (hourCounter >= 19 && hourCounter < 23 ) {
+            darkness += 0.1f;
+        }
+        else if (hourCounter > 4 && hourCounter <= 7 ) {
+            darkness -= 0.1f;
+        }
+        dayNightEffect = new Color(0.6f - darkness, 0f, 0.6f - darkness, darkness * 1.5f);
     }
 
     public void nextTurn() {
         if (player.getPlayerState() == PlayerState.MOVING_WORLD_MAP) {
-            hourCounter += WORLD_MAP_HOUR_COUNTER;
+            minuteCounter += WORLD_MAP_MINUTE_COUNTER;
         } else if (player.getPlayerState() == PlayerState.MOVING_INNER_LOCATION) {
-            hourCounter += INNER_MAP_HOUR_COUNTER;
+            minuteCounter += INNER_MAP_MINUTE_COUNTER;
         }
 
-        if (hourCounter >= DAY) {
+        if (minuteCounter >= MINUTES_IN_HOUR) {
+            hourCounter++;
+            minuteCounter = Math.abs(MINUTES_IN_HOUR - minuteCounter);
+            calculateDarkness();
+        }
+
+        if (hourCounter >= HOURS_IN_DAY) {
             dayCounter++;
-            hourCounter = Math.abs(DAY - hourCounter);
+            hourCounter = Math.abs(HOURS_IN_DAY - hourCounter);
+            calculateDarkness();
         }
-
-        dayNightEffect = 0.5f - (float) (hourCounter) / (float) (DAY);
 
     }
 
-    public float getDayNightEffect() {
+    public Color getDayNightEffect() {
         return dayNightEffect;
     }
 
     public int getDayCounter() {
         return dayCounter;
+    }
+
+    public int getMinuteCounter() {
+        return minuteCounter;
+    }
+
+    public void setMinuteCounter(int minuteCounter) {
+        this.minuteCounter = minuteCounter;
     }
 
     public void setDayCounter(int dayCounter) {

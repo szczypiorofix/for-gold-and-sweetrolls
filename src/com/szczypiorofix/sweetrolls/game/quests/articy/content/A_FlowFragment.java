@@ -1,4 +1,4 @@
-package com.szczypiorofix.sweetrolls.game.quests.content;
+package com.szczypiorofix.sweetrolls.game.quests.articy.content;
 
 import java.util.HashMap;
 
@@ -27,10 +27,9 @@ public class A_FlowFragment extends A_Object {
     public String toString() {
         return "A_FlowFragment{" +
                 ", pinCount=" + pinCount +
-                ", pins=\n" + pins +
-                "\ntext='" + text + '\'' +
-                ", id='" + id + '\'' +
-                ", displayName='" + displayName + '\'' +
-                "}";
+                "\npins=\n" + pins +
+                "\ntext=" + text +
+                ", id=" + id+
+                ", displayName=" + displayName + "}";
     }
 }

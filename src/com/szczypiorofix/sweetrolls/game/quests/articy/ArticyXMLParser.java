@@ -1,7 +1,7 @@
-package com.szczypiorofix.sweetrolls.game.quests;
+package com.szczypiorofix.sweetrolls.game.quests.articy;
 
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
-import com.szczypiorofix.sweetrolls.game.quests.content.*;
+import com.szczypiorofix.sweetrolls.game.quests.articy.content.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -375,7 +375,7 @@ public class ArticyXMLParser {
 
         System.out.println("Dialogues: ");
         dialogues.forEach((key, value)
-                -> System.out.println(key + " => " + value.displayName));
+                -> System.out.println(key + " => " + value.displayName +", text=" +value.text));
         System.out.println();
 
 
@@ -403,7 +403,7 @@ public class ArticyXMLParser {
         Scanner in = new Scanner(System.in);
         String[] ids = new String[0];
         int input;
-        int c= 0;
+        int c;
 
         do {
             c = 0;

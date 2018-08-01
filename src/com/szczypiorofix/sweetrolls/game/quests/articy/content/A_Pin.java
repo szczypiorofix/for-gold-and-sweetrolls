@@ -1,4 +1,4 @@
-package com.szczypiorofix.sweetrolls.game.quests.content;
+package com.szczypiorofix.sweetrolls.game.quests.articy.content;
 
 public class A_Pin extends A_Object {
 
@@ -20,9 +20,6 @@ public class A_Pin extends A_Object {
 
     @Override
     public String toString() {
-        return "A_Pin{" +
-                "index=" + index +
-                ", semantic=" + ASemantic +
-                ", id='" + id + "\'}, \n";
+        return "\nA_Pin{index=" + index + " semantic=" + ASemantic + " id=" + id +"}\n";
     }
 }

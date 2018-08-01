@@ -14,6 +14,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+
+/**
+ *
+ * ################################## FOR GOLD AND SWEETROLLS MAIN CLASS ################################################
+ *
+ */
 public final class MainClass {
 
     public static final String RES = "res/";
@@ -27,12 +33,21 @@ public final class MainClass {
     private FileHandler fileHandler = null;
 
 
+    /**
+     * Main constructor of the class
+     */
     private MainClass() {
         loggerSetup();
         applicationStart();
     }
 
+
+    /**
+     * Initialize and start Slick AppGameContainer
+     */
     private void applicationStart() {
+
+        /* Obtain display modes. */
         DisplayMode[] modes = null;
         try {
             modes = Display.getAvailableDisplayModes();
@@ -66,6 +81,9 @@ public final class MainClass {
         }
     }
 
+    /**
+     * Initialize logging system.
+     */
     private void loggerSetup() {
         if (DEBUG_MODE) {
             try {
@@ -85,6 +103,12 @@ public final class MainClass {
     }
 
 
+    /**
+     * Main logging method.
+     * @param critical (boolean) - if true the application will stop.
+     * @param level (Level) - level of logs.
+     * @param msg (String) - Logging message.
+     */
     public static void logging(boolean critical, Level level, String msg) {
         if (DEBUG_MODE) {
             LOGGER.log(level, msg);
@@ -105,7 +129,7 @@ public final class MainClass {
 
     /**
      * public static void main - this method starts all the pretty stuff ;)
-     * @param args String - params
+     * @param args String - params e.g. "-debug" to enable debigging mode.
      */
     public static void main(String[] args) {
         if (args.length > 0) {

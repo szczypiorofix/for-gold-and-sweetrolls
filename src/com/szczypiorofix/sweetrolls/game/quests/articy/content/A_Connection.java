@@ -1,4 +1,4 @@
-package com.szczypiorofix.sweetrolls.game.quests.content;
+package com.szczypiorofix.sweetrolls.game.quests.articy.content;
 
 public class A_Connection extends A_Object {
 

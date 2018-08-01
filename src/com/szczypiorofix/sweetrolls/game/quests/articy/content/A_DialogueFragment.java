@@ -1,4 +1,4 @@
-package com.szczypiorofix.sweetrolls.game.quests.content;
+package com.szczypiorofix.sweetrolls.game.quests.articy.content;
 
 import java.util.HashMap;
 

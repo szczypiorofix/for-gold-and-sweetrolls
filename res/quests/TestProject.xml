@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
-<Export Version="3.1" CreatorTool="articy:draft" CreatorVersion="3.1.14" CreatedOn="2018-07-29T22:27:08Z">
+<Export Version="3.1" CreatorTool="articy:draft" CreatorVersion="3.1.14" CreatedOn="2018-08-01T15:27:04Z">
   <Settings>
     <ExportMarkup>0</ExportMarkup>
     <ExportQueries>0</ExportQueries>
@@ -85,10 +85,24 @@
       <DisplayName>Tury</DisplayName>
       <Color>#C8E2E7</Color>
     </Journeys>
+    <TextPropertyDefinition Id="0x0100000000000347" BasedOn="0x03000000FD6D0840">
+      <DisplayName Count="1">
+        <LocalizedString Lang="">Opis</LocalizedString>
+      </DisplayName>
+      <Color>#C8E2E7</Color>
+      <TechnicalName>Opis</TechnicalName>
+    </TextPropertyDefinition>
     <Locations Id="0x030000003140D3AC">
       <DisplayName>Lokacje</DisplayName>
       <Color>#C8E2E7</Color>
     </Locations>
+    <NumberPropertyDefinition Id="0x010000000000034B" BasedOn="0x03000000BB84646C">
+      <DisplayName Count="1">
+        <LocalizedString Lang="">Poziom</LocalizedString>
+      </DisplayName>
+      <Color>#C8E2E7</Color>
+      <TechnicalName>Poziom</TechnicalName>
+    </NumberPropertyDefinition>
     <ObjectTemplates Id="0x030000009AF68DCD">
       <DisplayName>Szablony</DisplayName>
       <Color>#C8E2E7</Color>
@@ -101,6 +115,20 @@
       <DisplayName>Definicje właśności</DisplayName>
       <Color>#C8E2E7</Color>
     </PropertyTemplates>
+    <TextPropertyDefinition Id="0x01000000000002FB" BasedOn="0x0300000069DB68B1">
+      <DisplayName Count="1">
+        <LocalizedString Lang="">Imię</LocalizedString>
+      </DisplayName>
+      <Color>#C8E2E7</Color>
+      <TechnicalName>Imie</TechnicalName>
+    </TextPropertyDefinition>
+    <TextPropertyDefinition Id="0x01000000000002FF" BasedOn="0x0300000069DB68B1">
+      <DisplayName Count="1">
+        <LocalizedString Lang="">Nazwisko</LocalizedString>
+      </DisplayName>
+      <Color>#C8E2E7</Color>
+      <TechnicalName>Nazwisko</TechnicalName>
+    </TextPropertyDefinition>
     <TypedObjectTemplates Id="0x0300000078B45A71">
       <DisplayName>Podmioty</DisplayName>
       <Color>#C8E2E7</Color>
@@ -197,68 +225,39 @@
       <DisplayName>Skrypty</DisplayName>
       <Color>#C8E2E7</Color>
     </TypedPropertyTemplates>
-    <Connection Id="0x01000000000001A1">
+    <Connection Id="0x01000000000002F2">
       <Color>#C8E2E7</Color>
-      <TechnicalName>Con_D518B954</TechnicalName>
-      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037928353</Url>
-      <Label Count="0"/>
-      <Source IdRef="0x0100000000000136" PinRef="0x0100000000000139"/>
-      <Target IdRef="0x010000000000019C" PinRef="0x010000000000019F"/>
-      <ShowLabel>0</ShowLabel>
-    </Connection>
-    <Connection Id="0x01000000000001A2">
-      <Color>#C8E2E7</Color>
-      <TechnicalName>Con_C324A066</TechnicalName>
-      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037928354</Url>
-      <Label Count="0"/>
-      <Source IdRef="0x010000000000019C" PinRef="0x01000000000001A0"/>
-      <Target IdRef="0x0100000000000136" PinRef="0x010000000000013A"/>
-      <ShowLabel>0</ShowLabel>
-    </Connection>
-    <Connection Id="0x0100000000000252">
-      <Color>#C8E2E7</Color>
-      <TechnicalName>Con_D0ED6C2B</TechnicalName>
-      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037928530</Url>
+      <TechnicalName>Con_6C30E096</TechnicalName>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037928690</Url>
       <Label Count="0"/>
       <Source IdRef="0x0100000000000136" PinRef="0x0100000000000139"/>
       <Target IdRef="0x010000000000024D" PinRef="0x0100000000000250"/>
       <ShowLabel>0</ShowLabel>
     </Connection>
-    <Connection Id="0x0100000000000253">
+    <Connection Id="0x01000000000002F3">
       <Color>#C8E2E7</Color>
-      <TechnicalName>Con_E05688F2</TechnicalName>
-      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037928531</Url>
+      <TechnicalName>Con_6C560844</TechnicalName>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037928691</Url>
       <Label Count="0"/>
       <Source IdRef="0x010000000000024D" PinRef="0x0100000000000251"/>
-      <Target IdRef="0x0100000000000136" PinRef="0x010000000000013A"/>
+      <Target IdRef="0x01000000000002F4" PinRef="0x01000000000002F7"/>
       <ShowLabel>0</ShowLabel>
     </Connection>
-    <Connection Id="0x0100000000000154">
+    <Connection Id="0x01000000000002F9">
       <Color>#C8E2E7</Color>
-      <TechnicalName>Con_ED7CDB97</TechnicalName>
-      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037928276</Url>
-      <Label Count="1">
-        <LocalizedString Lang="">Start</LocalizedString>
-      </Label>
-      <Source IdRef="0x0100000000000126" PinRef="0x0100000000000153"/>
-      <Target IdRef="0x0100000000000136" PinRef="0x0100000000000139"/>
-      <ShowLabel>0</ShowLabel>
-    </Connection>
-    <Connection Id="0x0100000000000238">
-      <Color>#C8E2E7</Color>
-      <TechnicalName>Con_9A86AD7D</TechnicalName>
-      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037928504</Url>
+      <TechnicalName>Con_524B6DB6</TechnicalName>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037928697</Url>
       <Label Count="0"/>
-      <Source IdRef="0x0100000000000136" PinRef="0x010000000000013A"/>
-      <Target IdRef="0x0100000000000126" PinRef="0x010000000000012A"/>
+      <Source IdRef="0x01000000000002F4" PinRef="0x01000000000002F8"/>
+      <Target IdRef="0x0100000000000136" PinRef="0x010000000000013A"/>
       <ShowLabel>0</ShowLabel>
     </Connection>
     <Dialogue Id="0x0100000000000136">
       <DisplayName Count="1">
-        <LocalizedString Lang="">Dialog pierwszy</LocalizedString>
+        <LocalizedString Lang="">Todd Howard</LocalizedString>
       </DisplayName>
       <Text Count="1">
-        <LocalizedString Lang="">To jest początek dialogu z postacią.</LocalizedString>
+        <LocalizedString Lang="">Dialog z Toddem Howardem</LocalizedString>
       </Text>
       <Color>#C8E2E7</Color>
       <TechnicalName>Dlg_DFAA7D9F</TechnicalName>
@@ -267,7 +266,7 @@
       <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037928246</Url>
       <Features Count="0"/>
       <References Count="1">
-        <Reference IdRef="0x010000000000010F"/>
+        <Reference IdRef="0x010000000000030C"/>
       </References>
       <Pins Count="2">
         <Pin Id="0x0100000000000139" Index="0" Semantic="Input">
@@ -277,42 +276,14 @@
           <Expression/>
         </Pin>
       </Pins>
-      <Position X="392" Y="225"/>
+      <Position X="192" Y="175"/>
       <Size Width="291" Height="200"/>
       <ZIndex>0</ZIndex>
     </Dialogue>
-    <DialogueFragment Id="0x010000000000019C">
-      <DisplayName><![CDATA[Todd: "Dzień dobry wędrowcze."]]></DisplayName>
-      <Text Count="1">
-        <LocalizedString Lang="">Dzień dobry wędrowcze.</LocalizedString>
-      </Text>
-      <Color>#C8E2E7</Color>
-      <TechnicalName>DFr_42E1C1AE</TechnicalName>
-      <ExternalId/>
-      <ShortId>0x42E1C1AE</ShortId>
-      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037928348</Url>
-      <Features Count="0"/>
-      <Pins Count="2">
-        <Pin Id="0x010000000000019F" Index="0" Semantic="Input">
-          <Expression/>
-        </Pin>
-        <Pin Id="0x01000000000001A0" Index="0" Semantic="Output">
-          <Expression/>
-        </Pin>
-      </Pins>
-      <Position X="300" Y="400"/>
-      <Size Width="225" Height="200"/>
-      <ZIndex>3</ZIndex>
-      <Speaker IdRef="0x010000000000010F"/>
-      <StageDirections Count="0"/>
-      <MenuText Count="1">
-        <LocalizedString Lang="">Dzień dobry!</LocalizedString>
-      </MenuText>
-    </DialogueFragment>
     <DialogueFragment Id="0x010000000000024D">
-      <DisplayName><![CDATA[Todd: "Co tak milczyssz?"]]></DisplayName>
+      <DisplayName><![CDATA[Todd: "Witaj! Jestem Todd. Todd Howard."]]></DisplayName>
       <Text Count="1">
-        <LocalizedString Lang="">Co tak milczyssz?</LocalizedString>
+        <LocalizedString Lang="">Witaj! Jestem Todd. Todd Howard.</LocalizedString>
       </Text>
       <Color>#C8E2E7</Color>
       <TechnicalName>DFr_980A2323</TechnicalName>
@@ -328,33 +299,82 @@
           <Expression/>
         </Pin>
       </Pins>
-      <Position X="300" Y="625"/>
+      <Position X="450" Y="650"/>
       <Size Width="225" Height="200"/>
-      <ZIndex>3</ZIndex>
-      <Speaker IdRef="0x010000000000010F"/>
+      <ZIndex>2</ZIndex>
+      <Speaker IdRef="0x010000000000030C"/>
       <StageDirections Count="0"/>
       <MenuText Count="1">
-        <LocalizedString Lang="">Nic nie mów</LocalizedString>
+        <LocalizedString Lang=""/>
       </MenuText>
     </DialogueFragment>
-    <Entity Id="0x010000000000010F">
+    <DialogueFragment Id="0x01000000000002F4">
+      <DisplayName><![CDATA[Todd: "It just works!"]]></DisplayName>
+      <Text Count="1">
+        <LocalizedString Lang="">It just works!</LocalizedString>
+      </Text>
+      <Color>#C8E2E7</Color>
+      <TechnicalName>DFr_B95B06D0</TechnicalName>
+      <ExternalId/>
+      <ShortId>0xB95B06D0</ShortId>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037928692</Url>
+      <Features Count="0"/>
+      <Pins Count="2">
+        <Pin Id="0x01000000000002F7" Index="0" Semantic="Input">
+          <Expression/>
+        </Pin>
+        <Pin Id="0x01000000000002F8" Index="0" Semantic="Output">
+          <Expression/>
+        </Pin>
+      </Pins>
+      <Position X="750" Y="650"/>
+      <Size Width="225" Height="200"/>
+      <ZIndex>3</ZIndex>
+      <Speaker IdRef="0x010000000000030C"/>
+      <StageDirections Count="0"/>
+      <MenuText Count="0"/>
+    </DialogueFragment>
+    <Entity Id="0x010000000000030C" ObjectTemplateReference="0x0100000000000307" ObjectTemplateReferenceName="NPC">
       <DisplayName Count="1">
         <LocalizedString Lang="">Todd</LocalizedString>
       </DisplayName>
       <Color>#C8E2E7</Color>
-      <TechnicalName>Ntt_8398F235</TechnicalName>
+      <TechnicalName>Ntt_B75F3E53</TechnicalName>
       <ExternalId/>
-      <ShortId>0x8398F235</ShortId>
-      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037928207</Url>
-      <Features Count="0"/>
+      <ShortId>0xB75F3E53</ShortId>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037928716</Url>
+      <Features Count="1">
+        <Feature Name="Imi" IdRef="0x0100000000000316">
+          <Properties Count="4">
+            <String Name="Imie">Todd</String>
+            <String Name="Nazwisko">Howard</String>
+            <Number Name="Poziom">1</Number>
+            <String Name="Opis">Todd Howard. Jedna z postaci małego miasteczka.</String>
+          </Properties>
+        </Feature>
+      </Features>
       <References Count="0"/>
     </Entity>
+    <FeatureDefinition Id="0x0100000000000316">
+      <DisplayName Count="1">
+        <LocalizedString Lang="">Cechy główne postaci</LocalizedString>
+      </DisplayName>
+      <Color>#C8E2E7</Color>
+      <TechnicalName>Imi</TechnicalName>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037928726</Url>
+      <PropertyDefinitions Count="4">
+        <PropertyDefinitionRef IdRef="0x010000000000038F"/>
+        <PropertyDefinitionRef IdRef="0x0100000000000394"/>
+        <PropertyDefinitionRef IdRef="0x0100000000000399"/>
+        <PropertyDefinitionRef IdRef="0x010000000000039E"/>
+      </PropertyDefinitions>
+    </FeatureDefinition>
     <FlowFragment Id="0x0100000000000126">
       <DisplayName Count="1">
-        <LocalizedString Lang="">START</LocalizedString>
+        <LocalizedString Lang="">Tristram</LocalizedString>
       </DisplayName>
       <Text Count="1">
-        <LocalizedString Lang="">Dialog z Toddem.</LocalizedString>
+        <LocalizedString Lang=""/>
       </Text>
       <Color>#C8E2E7</Color>
       <TechnicalName>FFr_6C0043C3</TechnicalName>
@@ -375,32 +395,84 @@
       <Size Width="275" Height="200"/>
       <ZIndex>0</ZIndex>
     </FlowFragment>
+    <ObjectTemplateDefinition Id="0x0100000000000307">
+      <DisplayName Count="1">
+        <LocalizedString Lang="">NPC</LocalizedString>
+      </DisplayName>
+      <Color>#C4BD97</Color>
+      <TechnicalName>NPC</TechnicalName>
+      <ExternalId/>
+      <ShortId>0x4B88448D</ShortId>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037928711</Url>
+      <FeatureDefinitions Count="1">
+        <FeatureDefinitionRef IdRef="0x0100000000000316"/>
+      </FeatureDefinitions>
+    </ObjectTemplateDefinition>
+    <NumberPropertyDefinition Id="0x03000000BB84646C">
+      <IsMandatory>0</IsMandatory>
+      <DisplayThousandsSeparator>0</DisplayThousandsSeparator>
+    </NumberPropertyDefinition>
+    <TextPropertyDefinition Id="0x0300000069DB68B1">
+      <IsMandatory>0</IsMandatory>
+      <IsLocalized>0</IsLocalized>
+      <AllowsLinebreaks>0</AllowsLinebreaks>
+    </TextPropertyDefinition>
+    <TextPropertyDefinition Id="0x03000000FD6D0840">
+      <IsMandatory>0</IsMandatory>
+      <IsLocalized>0</IsLocalized>
+      <AllowsLinebreaks>1</AllowsLinebreaks>
+    </TextPropertyDefinition>
+    <TextPropertyDefinition Id="0x010000000000038F" BasedOn="0x01000000000002FB">
+      <DisplayName Count="1">
+        <LocalizedString Lang="">Imię</LocalizedString>
+      </DisplayName>
+      <TechnicalName>Imie</TechnicalName>
+    </TextPropertyDefinition>
+    <TextPropertyDefinition Id="0x0100000000000394" BasedOn="0x01000000000002FF">
+      <DisplayName Count="1">
+        <LocalizedString Lang="">Nazwisko</LocalizedString>
+      </DisplayName>
+      <TechnicalName>Nazwisko</TechnicalName>
+    </TextPropertyDefinition>
+    <NumberPropertyDefinition Id="0x0100000000000399" BasedOn="0x010000000000034B">
+      <DisplayName Count="1">
+        <LocalizedString Lang="">Poziom</LocalizedString>
+      </DisplayName>
+      <TechnicalName>Poziom</TechnicalName>
+    </NumberPropertyDefinition>
+    <TextPropertyDefinition Id="0x010000000000039E" BasedOn="0x0100000000000347">
+      <DisplayName Count="1">
+        <LocalizedString Lang="">Opis</LocalizedString>
+      </DisplayName>
+      <TechnicalName>Opis</TechnicalName>
+    </TextPropertyDefinition>
   </Content>
   <Hierarchy>
     <Node IdRef="0x0100000000000001" Type="Project">
       <Node IdRef="0x0300000043CE43F7" Type="Flow">
         <Node IdRef="0x0100000000000126" Type="FlowFragment">
           <Node IdRef="0x0100000000000136" Type="Dialogue">
-            <Node IdRef="0x010000000000019C" Type="DialogueFragment"/>
-            <Node IdRef="0x01000000000001A1" Type="Connection"/>
-            <Node IdRef="0x01000000000001A2" Type="Connection"/>
             <Node IdRef="0x010000000000024D" Type="DialogueFragment"/>
-            <Node IdRef="0x0100000000000252" Type="Connection"/>
-            <Node IdRef="0x0100000000000253" Type="Connection"/>
+            <Node IdRef="0x01000000000002F2" Type="Connection"/>
+            <Node IdRef="0x01000000000002F3" Type="Connection"/>
+            <Node IdRef="0x01000000000002F4" Type="DialogueFragment"/>
+            <Node IdRef="0x01000000000002F9" Type="Connection"/>
           </Node>
-          <Node IdRef="0x0100000000000154" Type="Connection"/>
-          <Node IdRef="0x0100000000000238" Type="Connection"/>
         </Node>
       </Node>
       <Node IdRef="0x030000003140D3AC" Type="Locations"/>
       <Node IdRef="0x03000000AC61A2B3" Type="Entities">
-        <Node IdRef="0x010000000000010F" Type="Entity"/>
+        <Node IdRef="0x010000000000030C" Type="Entity"/>
       </Node>
       <Node IdRef="0x030000004C3DAF54" Type="Assets"/>
       <Node IdRef="0x0300000029CF057C" Type="ObjectTemplates">
-        <Node IdRef="0x03000000D2404DC0" Type="Features"/>
+        <Node IdRef="0x03000000D2404DC0" Type="Features">
+          <Node IdRef="0x0100000000000316" Type="FeatureDefinition"/>
+        </Node>
         <Node IdRef="0x030000009AF68DCD" Type="ObjectTemplates">
-          <Node IdRef="0x0300000078B45A71" Type="TypedObjectTemplates"/>
+          <Node IdRef="0x0300000078B45A71" Type="TypedObjectTemplates">
+            <Node IdRef="0x0100000000000307" Type="ObjectTemplateDefinition"/>
+          </Node>
           <Node IdRef="0x030000006D1BC275" Type="TypedObjectTemplates"/>
           <Node IdRef="0x03000000030B5ACF" Type="TypedObjectTemplates"/>
           <Node IdRef="0x030000008DD5C0F2" Type="TypedObjectTemplates"/>
@@ -420,9 +492,15 @@
           <Node IdRef="0x03000000BA022E2F" Type="TypedObjectTemplates"/>
         </Node>
         <Node IdRef="0x030000002C0951AE" Type="PropertyTemplates">
-          <Node IdRef="0x030000006E2C178B" Type="TypedPropertyTemplates"/>
+          <Node IdRef="0x030000006E2C178B" Type="TypedPropertyTemplates">
+            <Node IdRef="0x010000000000034B" Type="NumberPropertyTemplate"/>
+          </Node>
           <Node IdRef="0x03000000BB12F1B8" Type="TypedPropertyTemplates"/>
-          <Node IdRef="0x030000006F82D78E" Type="TypedPropertyTemplates"/>
+          <Node IdRef="0x030000006F82D78E" Type="TypedPropertyTemplates">
+            <Node IdRef="0x01000000000002FB" Type="ShortTextPropertyTemplate"/>
+            <Node IdRef="0x01000000000002FF" Type="ShortTextPropertyTemplate"/>
+            <Node IdRef="0x0100000000000347" Type="LargeTextPropertyTemplate"/>
+          </Node>
           <Node IdRef="0x0300000037DCE3F0" Type="TypedPropertyTemplates"/>
           <Node IdRef="0x030000003630A240" Type="TypedPropertyTemplates"/>
           <Node IdRef="0x03000000D745C449" Type="TypedPropertyTemplates"/>
