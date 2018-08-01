@@ -69,7 +69,6 @@ public class BitMapFont {
         float c = 0;
         char[] ch = text.toCharArray();
         int line = 0;
-        boolean newLine = false;
         for (int i = 0; i < text.length(); i++) {
             for (int j = 0; j < chars.size(); j++) {
                 if (ch[i] == '\n' || ch[i] == '\r') {
@@ -104,12 +103,11 @@ public class BitMapFont {
         float c = 0;
         char[] ch = text.toCharArray();
         int line = 0;
-        boolean newLine = false;
         for (int i = 0; i < ch.length; i++) {
             for (int j = 0; j < chars.size(); j++) {
                 if (ch[i] == '\n' || ch[i] == '\r') {
                     line++;
-                    newLine = true;
+                    c = 0;
                 }
 
                 if (ch[i] == chars.get(j).getAscii()

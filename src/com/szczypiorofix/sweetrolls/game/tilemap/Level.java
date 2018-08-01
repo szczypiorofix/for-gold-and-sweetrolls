@@ -17,7 +17,8 @@ public class Level {
 
     private TileMap tileMap;
 
-    public Level() {
+    public Level(String levelFileName) {
+        loadFromTiledMap(levelFileName);
     }
 
     private int parseFloatToIntger(String s) {
@@ -30,7 +31,7 @@ public class Level {
     }
 
 
-    public void loadFromTiledMap(String fileName) {
+    private void loadFromTiledMap(String fileName) {
         try {
             File inputFile = new File(MainClass.RES + "map/" + fileName);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();

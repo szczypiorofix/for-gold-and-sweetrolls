@@ -54,8 +54,11 @@ public class GameManager {
         this.currentLevelName = levelName;
         TileMap levelMap;
         if (!levels.containsKey(levelName)) {
-            levelManager.loadLevel(levelName);
-            levelMap = levelManager.getCurrentLevel().getTileMap();
+            if (levelName.equalsIgnoreCase("generate")) {
+                levelMap = levelManager.generateLevel(levelName);
+            } else {
+                levelMap = levelManager.loadLevel(levelName);
+            }
             levels.put(levelName, levelMap);
             objectManager.generateLevel(levelMap, levelName);
             player = objectManager.getPlayer();
@@ -114,14 +117,14 @@ public class GameManager {
                     setNextRound = true;
                 }
 
-                if (player.getPlayerAction() == TALK) {
-                    if (objectManager.getNpc(player.getTileX(1), player.getTileY()) != null) {
-                        System.out.println("ROZMOWA !!!" +objectManager.getNpc(player.getTileX(1), player.getTileY()).getTileX() +":" + objectManager.getNpc(player.getTileX(1), player.getTileY()).getTileY());
-                    } else {
-                        System.out.println("Nie ma tu nikogo do rozmowy.");
-                        player.setPlayerAction(MOVE);
-                    }
-                }
+//                if (player.getPlayerAction() == TALK) {
+//                    if (objectManager.getNpc(player.getTileX(1), player.getTileY()) != null) {
+//                        System.out.println("ROZMOWA !!!" +objectManager.getNpc(player.getTileX(1), player.getTileY()).getTileX() +":" + objectManager.getNpc(player.getTileX(1), player.getTileY()).getTileY());
+//                    } else {
+//                        System.out.println("Nie ma tu nikogo do rozmowy.");
+//                        player.setPlayerAction(MOVE);
+//                    }
+//                }
             }
 
             if (input.isKeyPressed((Input.KEY_LEFT)) || gc.getInput().isKeyPressed(Input.KEY_A)) {
@@ -130,14 +133,14 @@ public class GameManager {
                     setNextRound = true;
                 }
 
-                if (player.getPlayerAction() == TALK) {
-                    if (objectManager.getNpcs()[player.getTileX(-1)][player.getTileY()] != null) {
-                        System.out.println("ROZMOWA !!!" +objectManager.getNpcs()[player.getTileX(-1)][player.getTileY()].getTileX() +":" + objectManager.getNpcs()[player.getTileX(-1)][player.getTileY()].getTileY());
-                    } else {
-                        System.out.println("Nie ma tu nikogo do rozmowy.");
-                        player.setPlayerAction(MOVE);
-                    }
-                }
+//                if (player.getPlayerAction() == TALK) {
+//                    if (objectManager.getNpcs()[player.getTileX(-1)][player.getTileY()] != null) {
+//                        System.out.println("ROZMOWA !!!" +objectManager.getNpcs()[player.getTileX(-1)][player.getTileY()].getTileX() +":" + objectManager.getNpcs()[player.getTileX(-1)][player.getTileY()].getTileY());
+//                    } else {
+//                        System.out.println("Nie ma tu nikogo do rozmowy.");
+//                        player.setPlayerAction(MOVE);
+//                    }
+//                }
             }
 
             if (input.isKeyPressed(Input.KEY_UP) || gc.getInput().isKeyPressed(Input.KEY_W)) {
@@ -146,14 +149,14 @@ public class GameManager {
                     setNextRound = true;
                 }
 
-                if (player.getPlayerAction() == TALK) {
-                    if (objectManager.getNpcs()[player.getTileX()][player.getTileY(-1)] != null) {
-                        System.out.println("ROZMOWA !!!" +objectManager.getNpcs()[player.getTileX()][player.getTileY(-1)].getTileX() +":" + objectManager.getNpcs()[player.getTileX()][player.getTileY(-1)].getTileY());
-                    } else {
-                        System.out.println("Nie ma tu nikogo do rozmowy.");
-                        player.setPlayerAction(MOVE);
-                    }
-                }
+//                if (player.getPlayerAction() == TALK) {
+//                    if (objectManager.getNpcs()[player.getTileX()][player.getTileY(-1)] != null) {
+//                        System.out.println("ROZMOWA !!!" +objectManager.getNpcs()[player.getTileX()][player.getTileY(-1)].getTileX() +":" + objectManager.getNpcs()[player.getTileX()][player.getTileY(-1)].getTileY());
+//                    } else {
+//                        System.out.println("Nie ma tu nikogo do rozmowy.");
+//                        player.setPlayerAction(MOVE);
+//                    }
+//                }
             }
 
             if (input.isKeyPressed((Input.KEY_DOWN)) || gc.getInput().isKeyPressed(Input.KEY_S)) {
@@ -162,14 +165,14 @@ public class GameManager {
                     setNextRound = true;
                 }
 
-                if (player.getPlayerAction() == TALK) {
-                    if (objectManager.getNpc(player.getTileX(), player.getTileY(1)) != null) {
-                        System.out.println("ROZMOWA !!!" +objectManager.getNpc(player.getTileX(), player.getTileY(1)).getTileX() +":" + objectManager.getNpcs()[player.getTileX()][player.getTileY(1)].getTileY());
-                    } else {
-                        System.out.println("Nie ma tu nikogo do rozmowy.");
-                        player.setPlayerAction(MOVE);
-                    }
-                }
+//                if (player.getPlayerAction() == TALK) {
+//                    if (objectManager.getNpc(player.getTileX(), player.getTileY(1)) != null) {
+//                        System.out.println("ROZMOWA !!!" +objectManager.getNpc(player.getTileX(), player.getTileY(1)).getTileX() +":" + objectManager.getNpcs()[player.getTileX()][player.getTileY(1)].getTileY());
+//                    } else {
+//                        System.out.println("Nie ma tu nikogo do rozmowy.");
+//                        player.setPlayerAction(MOVE);
+//                    }
+//                }
             }
 
             if (input.isKeyPressed(Input.KEY_E)) {
@@ -181,6 +184,11 @@ public class GameManager {
                         player.setPlayerState(MOVING_INNER_LOCATION);
                         mouseCursor.setPositionTile(0, 0);
                         changeLevel(objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("filename"));
+                    } else {
+                        System.out.println("Generate level...");
+                        player.setPlayerState(MOVING_INNER_LOCATION);
+                        mouseCursor.setPositionTile(0, 0);
+                        changeLevel("generate");
                     }
                 } else {
                     // EXIT FROM INNER MAP
@@ -321,7 +329,7 @@ public class GameManager {
 
         Color c = g.getColor();
         g.setColor(player.getTimeCounter().getDayNightEffect());
-        g.fillRect(0, 0, gameWidth, gameHeight);
+        g.fillRect(0, 0, gameWidth - 240, gameHeight);
         g.setColor(c);
 
         dialogueFrame.render(gc, sgb, g);

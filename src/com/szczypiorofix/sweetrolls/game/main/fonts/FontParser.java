@@ -9,14 +9,11 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
-import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+
 
 public class FontParser {
 
-    private static FontParser instance;
     private static BitMapFont bitMapFont;
     private static HashSet<String> fonts;
 
@@ -71,7 +68,7 @@ public class FontParser {
         }
         if (!fonts.contains(fontName)) {
             fonts.add(fontName);
-            instance = new FontParser(fontName, xmlFontName, pngFontName);
+            new FontParser(fontName, xmlFontName, pngFontName);
         }
         return bitMapFont;
     }

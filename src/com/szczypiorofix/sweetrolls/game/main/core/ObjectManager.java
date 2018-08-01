@@ -18,7 +18,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import java.util.HashMap;
 
 
-class ObjectManager {
+public class ObjectManager {
 
 
     private TileMap level;
