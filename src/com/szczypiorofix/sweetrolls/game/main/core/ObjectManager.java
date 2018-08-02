@@ -155,15 +155,15 @@ public class ObjectManager {
 
                     // ###### BACKGROUND
                     if (layers == 0) {
-                        if (tileMap.getLayers().get(layers).getTileData(i + j * tileMap.getWidth()) > 0) {
+                        if (tileMap.getLayers().get(layers).getTileData(i, j) > 0) {
                             tileSet = 0;
-                            while (tileMap.getLayers().get(layers).getTileData((i + j * tileMap.getWidth())) >
+                            while (tileMap.getLayers().get(layers).getTileData(i, j) >
                                     tileMap.getTileSets().get(tileSet).getFirstGid() + tileMap.getTileSets().get(tileSet).getTileCount() - (tileSet + 1) ) {
                                 tileSet++;
                             }
 
                             ObjectType type = ObjectType.DEFAULT;
-                            int terrain = tileMap.getLayers().get(layers).getTileData(i + j * tileMap.getWidth())
+                            int terrain = tileMap.getLayers().get(layers).getTileData(i, j)
                                     - tileMap.getTileSets().get(tileSet).getFirstGid();
 
                             if (terrain == 9 || terrain == 10 || terrain == 11) {
@@ -183,7 +183,7 @@ public class ObjectManager {
                                     tileMap.getTileHeight(),
                                     type,
                                     tileMap.getTileSets().get(tileSet).getImageSprite(
-                                            tileMap.getLayers().get(layers).getTileData(i + j * tileMap.getWidth())
+                                            tileMap.getLayers().get(layers).getTileData(i, j)
                                                     - tileMap.getTileSets().get(tileSet).getFirstGid())
                             );
                         } else {

@@ -64,7 +64,7 @@ public class Level {
                                     Integer.parseInt(layerElement.getAttribute("width")),
                                     Integer.parseInt(layerElement.getAttribute("height"))
                             );
-                            layer.setDataCSV(layerElement.getElementsByTagName("data").item(0).getTextContent());
+                            layer.setDataCSVFromString(layerElement.getElementsByTagName("data").item(0).getTextContent());
                             tileMap.addLayer(layer);
                         }
                     }

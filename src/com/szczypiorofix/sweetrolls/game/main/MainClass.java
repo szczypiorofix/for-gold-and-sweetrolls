@@ -9,6 +9,7 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 
 import java.io.*;
+import java.util.Random;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,6 +24,7 @@ import java.util.logging.SimpleFormatter;
 public final class MainClass {
 
     public static final String RES = "res/";
+    public static final Random RANDOM = new Random();
 
     public static final int MAINMENU = 1;
     public static final int GAME = 2;

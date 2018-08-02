@@ -55,7 +55,7 @@ public class GameManager {
         TileMap levelMap;
         if (!levels.containsKey(levelName)) {
             if (levelName.equalsIgnoreCase("generate")) {
-                levelMap = levelManager.generateLevel(levelName);
+                levelMap = levelManager.loadGeneratedLevel(levelName);
             } else {
                 levelMap = levelManager.loadLevel(levelName);
             }
@@ -101,7 +101,8 @@ public class GameManager {
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
             if (player.getPlayerAction() == MOVE) {
                 input.clearKeyPressedRecord();
-                sgb.enterState(MainClass.MAINMENU, new FadeOutTransition(Color.black), new EmptyTransition());
+                //sgb.enterState(MainClass.MAINMENU, new FadeOutTransition(Color.black), new EmptyTransition());
+                sgb.enterState(MainClass.MAINMENU);
             } else if (player.getPlayerAction() == TALK) {
                 player.setPlayerAction(MOVE);
             }
@@ -185,7 +186,6 @@ public class GameManager {
                         mouseCursor.setPositionTile(0, 0);
                         changeLevel(objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("filename"));
                     } else {
-                        System.out.println("Generate level...");
                         player.setPlayerState(MOVING_INNER_LOCATION);
                         mouseCursor.setPositionTile(0, 0);
                         changeLevel("generate");

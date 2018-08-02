@@ -113,12 +113,14 @@ public class GameMainMenu extends BasicGameState {
                     switch (i) {
                         case 0: {
                             input.clearKeyPressedRecord();
-                            sbg.enterState(MainClass.GAME, new FadeOutTransition(Color.black), new EmptyTransition());
+                            //sbg.enterState(MainClass.GAME, new FadeOutTransition(Color.black), new EmptyTransition());
+                            sbg.enterState(MainClass.GAME);
                             break;
                         }
                         case 3: {
                             input.clearKeyPressedRecord();
-                            sbg.enterState(MainClass.EXIT, new FadeOutTransition(Color.black), new EmptyTransition());
+                            //sbg.enterState(MainClass.EXIT, new FadeOutTransition(Color.black), new EmptyTransition());
+                            sbg.enterState(MainClass.EXIT);
                             break;
                         }
                     }
@@ -128,12 +130,14 @@ public class GameMainMenu extends BasicGameState {
 
         if (input.isKeyPressed(Input.KEY_SPACE)) {
             input.clearKeyPressedRecord();
-            sbg.enterState(MainClass.GAME, new FadeOutTransition(Color.black), new EmptyTransition());
+            //sbg.enterState(MainClass.GAME, new FadeOutTransition(Color.black), new EmptyTransition());
+            sbg.enterState(MainClass.GAME);
         }
 
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
             input.clearKeyPressedRecord();
-            sbg.enterState(MainClass.EXIT, new FadeOutTransition(Color.black), new EmptyTransition());
+            //sbg.enterState(MainClass.EXIT, new FadeOutTransition(Color.black), new EmptyTransition());
+            sbg.enterState(MainClass.EXIT);
         }
 
 //        if (input.isKeyPressed(Input.KEY_ENTER)) {
@@ -166,10 +170,6 @@ public class GameMainMenu extends BasicGameState {
 
         background.draw(0, 0, windowWidth, windowHeight);
         titleFont.draw("For Fold and Sweetrolls", 70, 50);
-
-        //titleFont.draw("AĄBCĆDEĘFGHIJKLŁMNŃOÓPRSŚTUWXYZŻŹ", 5, 5);
-        //titleFont.draw("aąbcćdeęfghijklłmnńoóprsśtuwxyzżź", 5, 40);
-        //titleFont.draw("1234567890~!@#$%^&*()_+-=][{}'|?/;:,.", 5, 80);
 
         for(MainMenuButton m: menuButtons) {
             m.render(gc, sbg, g, 0 ,0);
