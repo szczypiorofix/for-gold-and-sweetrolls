@@ -20,7 +20,7 @@ public class LevelManager {
                 3,
                 4,
                 0.4f,
-                8);
+                10);
         System.out.println(" done.");
         return levelGenerator.getTileMap();
     }

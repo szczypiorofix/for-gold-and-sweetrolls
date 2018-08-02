@@ -21,6 +21,7 @@ public class LevelGenerator {
     private int emptyFieldGid;
     private int wallFieldGid;
     private int simulationSteps = 5;
+    private int playerX, playerY;
 
     public LevelGenerator(TileMap tileMap, int levelWidth, int levelHeight, String name, int emptyFieldGid, int wallFieldGid) {
         this.tileMap = tileMap;
@@ -65,20 +66,7 @@ public class LevelGenerator {
                 608,
                 image
         ));
-        ObjectGroup objectGroup = new ObjectGroup("player");
-        TileObject tileObject = new TileObject(
-                1,
-                "",
-                "player spawn",
-                (int) (levelWidth * TILEWIDTH ) / 2,
-                (int) (levelHeight * TILEHEIGHT) / 2,
-                TILEWIDTH,
-                TILEHEIGHT,
-                tileMap.getTileSets()
-        );
-        tileObject.addProperty(new Property("name", "string", "PGarvey"));
-        objectGroup.addObject(tileObject);
-        tileMap.addObjectGroup(objectGroup);
+
         Layer layer = new Layer("ground", levelWidth, levelHeight);
 
         int[][] map = randomMap();
@@ -87,8 +75,25 @@ public class LevelGenerator {
             map = doSimulationStep(map);
         }
 
+        placeTreasure(map);
+
         layer.setData(map);
         tileMap.addLayer(layer);
+
+        ObjectGroup objectGroup = new ObjectGroup("player");
+        TileObject tileObject = new TileObject(
+                1,
+                "",
+                "player spawn",
+                playerX,
+                playerY,
+                TILEWIDTH,
+                TILEHEIGHT,
+                tileMap.getTileSets()
+        );
+        tileObject.addProperty(new Property("name", "string", "PGarvey"));
+        objectGroup.addObject(tileObject);
+        tileMap.addObjectGroup(objectGroup);
     }
 
     public int countAliveNeighbours(int[][] map, int x, int y){
@@ -152,6 +157,22 @@ public class LevelGenerator {
         return newMap;
     }
 
+    public void placeTreasure(int[][] world){
+        //How hidden does a spot need to be for treasure?
+        //I find 5 or 6 is good. 6 for very rare treasure.
+        int treasureHiddenLimit = 5;
+        for (int x = 0; x < levelWidth; x++){
+            for (int y = 0; y < levelHeight; y++){
+                if(world[x][y] == emptyFieldGid){
+                    int nbs = countAliveNeighbours(world, x, y);
+                    if(nbs >= treasureHiddenLimit){
+                        playerX = x * TILEWIDTH;
+                        playerY = y * TILEHEIGHT;
+                    }
+                }
+            }
+        }
+    }
 
     private int[][] randomMap() {
 
@@ -166,7 +187,6 @@ public class LevelGenerator {
                 if (i == 0 || j == 0 || i == levelWidth-1 || j == levelHeight-1) {
                     tile = wallFieldGid;
                 }
-
                 map[i][j] = tile;
             }
         }
