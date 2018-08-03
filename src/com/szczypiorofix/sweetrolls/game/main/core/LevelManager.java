@@ -10,27 +10,20 @@ public class LevelManager {
     public LevelManager() {}
 
     public TileMap loadGeneratedLevel(String name) {
-        System.out.print("Generating level...");
-        LevelGenerator levelGenerator = new LevelGenerator(
+        return new LevelGenerator(
                 name,
                 100,
                 100,
                 31,
                 6,
-                3,
                 4,
-                0.4f,
-                10);
-        System.out.println(" done.");
-        return levelGenerator.getTileMap();
+                4,
+                0.47f,
+                8).getTileMap();
     }
 
     public TileMap loadLevel(String levelName) {
-        TileMap tilemap;
-        System.out.print("Loading data from "+levelName +" file ...");
-        tilemap = new Level(levelName).getTileMap();
-        System.out.println(" done.");
-        return tilemap;
+        return new TileMap(levelName);
     }
 
 }

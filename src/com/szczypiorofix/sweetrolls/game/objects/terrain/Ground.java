@@ -10,24 +10,30 @@ public class Ground extends GameObject {
     private Image image;
     private Color highlighColor = new Color(1f, 1f, 1f, 0.65f);
 
-    public Ground(String name, float x, float y, float width, float height, ObjectType objectType, Image image) {
+    public Ground(String name, int x, int y, int width, int height, ObjectType objectType, Image image, boolean visible) {
+        super(name, x, y, width, height, objectType);
+        this.image = image;
+        this.visible = visible;
+    }
+
+    public Ground(String name, int x, int y, int width, int height, ObjectType objectType, Image image) {
         super(name, x, y, width, height, objectType);
         this.image = image;
     }
 
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) {
+    public void update(GameContainer gc, StateBasedGame sbg, int delta, int offsetX, int offsetY) {
         hover = false;
     }
 
     @Override
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) {
-        //g.drawImage(image, - offsetX + x, - offsetY + y);
-        if (hover) {
-            //g.drawRect(- offsetX + x - 1, - offsetY + y - 1, width - 2, height - 2);
-            g.drawImage(image, - offsetX + x, - offsetY + y, highlighColor);
-        } else
-        g.drawImage(image, - offsetX + x, - offsetY + y);
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, int offsetX, int offsetY) {
+        if (visible) {
+            if (hover) {
+                g.drawImage(image, - offsetX + x, - offsetY + y, highlighColor);
+            } else
+                g.drawImage(image, - offsetX + x, - offsetY + y);
+        }
     }
 
     @Override

@@ -69,19 +69,29 @@ public class LevelGenerator {
 
         Layer layer = new Layer("ground", levelWidth, levelHeight);
 
-        int[][] map = randomMap();
+        TileObject[][] map = randomMap();
         //map = generateMap(map);
         for (int i = 0; i < simulationSteps; i++) {
             map = doSimulationStep(map);
         }
 
-        placeTreasure(map);
+        placePlayerOnMap(map);
+
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[0].length; j++) {
+
+                if (map[i][j].getGid() == wallFieldGid) {
+                    map[i][j].setCollisionObject(new CollisionObject(i, j, TILEWIDTH, TILEHEIGHT));
+                }
+
+            }
+        }
 
         layer.setData(map);
         tileMap.addLayer(layer);
 
         ObjectGroup objectGroup = new ObjectGroup("player");
-        TileObject tileObject = new TileObject(
+        ObjectGroupObject objectGroupObject = new ObjectGroupObject(
                 1,
                 "",
                 "player spawn",
@@ -91,12 +101,12 @@ public class LevelGenerator {
                 TILEHEIGHT,
                 tileMap.getTileSets()
         );
-        tileObject.addProperty(new Property("name", "string", "PGarvey"));
-        objectGroup.addObject(tileObject);
+        objectGroupObject.addProperty(new Property("name", "string", "PGarvey"));
+        objectGroup.addObject(objectGroupObject);
         tileMap.addObjectGroup(objectGroup);
     }
 
-    public int countAliveNeighbours(int[][] map, int x, int y){
+    public int countAliveNeighbours(TileObject[][] map, int x, int y){
         int count = 0;
         for(int i = -1; i < 2; i++){
             for(int j = -1; j < 2; j++){
@@ -111,7 +121,7 @@ public class LevelGenerator {
                     count = count + 1;
                 }
                 //Otherwise, a normal check of the neighbour
-                else if (map[neighbour_x][neighbour_y] == wallFieldGid){ // true
+                else if (map[neighbour_x][neighbour_y].getGid() == wallFieldGid){ // true
                     count = count + 1;
                 }
             }
@@ -119,28 +129,28 @@ public class LevelGenerator {
         return count;
     }
 
-    public int[][] doSimulationStep(int[][] oldMap){
-        int[][] newMap = new int[levelWidth][levelHeight];
+    public TileObject[][] doSimulationStep(TileObject[][] oldMap){
+        TileObject[][] newMap = new TileObject[levelWidth][levelHeight];
         //Loop over each row and column of the map
         for(int x = 0; x < oldMap.length; x++){
             for(int y = 0; y < oldMap[0].length; y++){
                 int nbs = countAliveNeighbours(oldMap, x, y);
                 //The new value is based on our simulation rules
                 //First, if a cell is alive but has too few neighbours, kill it.
-                if (oldMap[x][y] == wallFieldGid) { // true
+                if (oldMap[x][y].getGid() == wallFieldGid) { // true
                     if(nbs < deathLimit){
-                        newMap[x][y] = emptyFieldGid; // false
+                        newMap[x][y] = new TileObject(emptyFieldGid); // false
                     }
                     else {
-                        newMap[x][y] = wallFieldGid; // true
+                        newMap[x][y] = new TileObject(wallFieldGid); // true
                     }
                 } //Otherwise, if the cell is dead now, check if it has the right number of neighbours to be 'born'
                 else{
                     if (nbs > birthLimit) {
-                        newMap[x][y] = wallFieldGid; // true
+                        newMap[x][y] = new TileObject(wallFieldGid); // true
                     }
                     else {
-                        newMap[x][y] = emptyFieldGid; // false
+                        newMap[x][y] = new TileObject(emptyFieldGid); // false
                     }
                 }
             }
@@ -157,13 +167,13 @@ public class LevelGenerator {
         return newMap;
     }
 
-    public void placeTreasure(int[][] world){
+    public void placePlayerOnMap(TileObject[][] world){
         //How hidden does a spot need to be for treasure?
         //I find 5 or 6 is good. 6 for very rare treasure.
         int treasureHiddenLimit = 5;
         for (int x = 0; x < levelWidth; x++){
             for (int y = 0; y < levelHeight; y++){
-                if(world[x][y] == emptyFieldGid){
+                if(world[x][y].getGid() == emptyFieldGid){
                     int nbs = countAliveNeighbours(world, x, y);
                     if(nbs >= treasureHiddenLimit){
                         playerX = x * TILEWIDTH;
@@ -174,9 +184,9 @@ public class LevelGenerator {
         }
     }
 
-    private int[][] randomMap() {
+    private TileObject[][] randomMap() {
 
-        int[][] map = new int[levelWidth][levelHeight];
+        TileObject[][] map = new TileObject[levelWidth][levelHeight];
         // fill map
         for (int i = 0; i < levelWidth; i++) {
             for (int j = 0; j < levelHeight; j++) {
@@ -187,7 +197,8 @@ public class LevelGenerator {
                 if (i == 0 || j == 0 || i == levelWidth-1 || j == levelHeight-1) {
                     tile = wallFieldGid;
                 }
-                map[i][j] = tile;
+
+                map[i][j] = new TileObject(tile);
             }
         }
 

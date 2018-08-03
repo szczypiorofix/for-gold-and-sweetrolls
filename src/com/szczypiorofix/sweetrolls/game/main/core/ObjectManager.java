@@ -8,8 +8,9 @@ import com.szczypiorofix.sweetrolls.game.objects.characters.NPC;
 import com.szczypiorofix.sweetrolls.game.objects.item.Place;
 import com.szczypiorofix.sweetrolls.game.objects.terrain.Ground;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
+import com.szczypiorofix.sweetrolls.game.tilemap.CollisionObject;
 import com.szczypiorofix.sweetrolls.game.tilemap.TileMap;
-import com.szczypiorofix.sweetrolls.game.tilemap.TileObject;
+import com.szczypiorofix.sweetrolls.game.tilemap.ObjectGroupObject;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -55,7 +56,7 @@ public class ObjectManager {
             if (tileMap.getObjectGroups().get(objectGroups).getName().equals("player")) {
 
                 // Nie może być więcej niż 1 player!
-                TileObject playerObject = tileMap.getObjectGroups().get(objectGroups).getObjects().get(0);
+                ObjectGroupObject playerObject = tileMap.getObjectGroups().get(objectGroups).getObjects().get(0);
                 if (player == null) {
                     player = new Player(
                             playerObject.getStringProperty("name"),
@@ -81,7 +82,7 @@ public class ObjectManager {
                 int tileSet;
                 for (int item = 0; item < tileMap.getObjectGroups().get(objectGroups).getObjects().size(); item++) {
 
-                    TileObject currentItem = tileMap.getObjectGroups().get(objectGroups).getObjects().get(item);
+                    ObjectGroupObject currentItem = tileMap.getObjectGroups().get(objectGroups).getObjects().get(item);
                     tileSet = 0;
                     while (currentItem.getGid() >
                             tileMap.getTileSets().get(tileSet).getFirstGid() + tileMap.getTileSets().get(tileSet).getTileCount() - (tileSet + 1)
@@ -115,7 +116,7 @@ public class ObjectManager {
                 int tileSet;
                 for (int npcs = 0; npcs < tileMap.getObjectGroups().get(objectGroups).getObjects().size(); npcs++) {
 
-                    TileObject currentItem = tileMap.getObjectGroups().get(objectGroups).getObjects().get(npcs);
+                    ObjectGroupObject currentItem = tileMap.getObjectGroups().get(objectGroups).getObjects().get(npcs);
                     tileSet = 0;
                     while (currentItem.getGid() >
                             tileMap.getTileSets().get(tileSet).getFirstGid() + tileMap.getTileSets().get(tileSet).getTileCount() - (tileSet + 1)
@@ -155,15 +156,15 @@ public class ObjectManager {
 
                     // ###### BACKGROUND
                     if (layers == 0) {
-                        if (tileMap.getLayers().get(layers).getTileData(i, j) > 0) {
+                        if (tileMap.getLayers().get(layers).getTile(i, j).getGid() > 0) {
                             tileSet = 0;
-                            while (tileMap.getLayers().get(layers).getTileData(i, j) >
+                            while (tileMap.getLayers().get(layers).getTile(i, j).getGid() >
                                     tileMap.getTileSets().get(tileSet).getFirstGid() + tileMap.getTileSets().get(tileSet).getTileCount() - (tileSet + 1) ) {
                                 tileSet++;
                             }
 
                             ObjectType type = ObjectType.DEFAULT;
-                            int terrain = tileMap.getLayers().get(layers).getTileData(i, j)
+                            int terrain = tileMap.getLayers().get(layers).getTile(i, j).getGid()
                                     - tileMap.getTileSets().get(tileSet).getFirstGid();
 
                             if (terrain == 9 || terrain == 10 || terrain == 11) {
@@ -175,7 +176,7 @@ public class ObjectManager {
                             if (terrain >= 54 && terrain <= 62) {
                                 type = ObjectType.FOREST;
                             }
-                            grounds[i][j] = new Ground(
+                            Ground tempGround = new Ground(
                                     "Ground",
                                     i * tileMap.getTileWidth(),
                                     j * tileMap.getTileHeight(),
@@ -183,9 +184,19 @@ public class ObjectManager {
                                     tileMap.getTileHeight(),
                                     type,
                                     tileMap.getTileSets().get(tileSet).getImageSprite(
-                                            tileMap.getLayers().get(layers).getTileData(i, j)
-                                                    - tileMap.getTileSets().get(tileSet).getFirstGid())
+                                            tileMap.getLayers().get(layers).getTile(i, j).getGid()
+                                                    - tileMap.getTileSets().get(tileSet).getFirstGid()),
+                                    tileMap.getLayers().get(layers).isVisible()
                             );
+
+                            tempGround.setCollisions(new CollisionObject(
+                                    i * tileMap.getTileWidth(),
+                                    j * tileMap.getTileHeight(),
+                                    tileMap.getLayers().get(layers).getTile(i, j).getCollisionObject().getWidth(),
+                                    tileMap.getLayers().get(layers).getTile(i, j).getCollisionObject().getHeight()
+                            ));
+
+                            grounds[i][j] = tempGround;
                         } else {
                             grounds[i][j] = null;
                         }
@@ -221,11 +232,12 @@ public class ObjectManager {
             player.setY(player.getWorldMapTileY() * tileMap.getTileHeight());
         }
 
+        //System.out.println(player.getTileX());
         // SET PLAYER'S INITIAL GROUND TILE
         player.setTerrainType(grounds[player.getTileX()][player.getTileY()].getObjectType());
     }
 
-    private void iterateUpdate(GameContainer gc, StateBasedGame sbg, int delta, GameObject[][] list, MouseCursor mouseCursor, float offsetX, float offsetY) throws SlickException {
+    private void iterateUpdate(GameContainer gc, StateBasedGame sbg, int delta, GameObject[][] list, MouseCursor mouseCursor, int offsetX, int offsetY) throws SlickException {
         for (int x = tilesToWest; x < tilesToEast; x++) {
             for (int y = tilesToNorth; y < tilesToSouth; y++) {
                 if (player.getTileX(x) >= 0
@@ -241,7 +253,7 @@ public class ObjectManager {
         }
     }
 
-    private void iterateRender(GameContainer gc, StateBasedGame sbg, Graphics g, GameObject[][] list, float offsetX, float offsetY) throws SlickException {
+    private void iterateRender(GameContainer gc, StateBasedGame sbg, Graphics g, GameObject[][] list, int offsetX, int offsetY) throws SlickException {
 
         int tW = tilesToWest;
         int tE = tilesToEast;
@@ -304,17 +316,21 @@ public class ObjectManager {
         player.setTerrainType(grounds[player.getTileX()][player.getTileY()].getObjectType());
     }
 
-    public void update(GameContainer gc, StateBasedGame sbg, int delta, MouseCursor mouseCursor, float offsetX, float offsetY) throws SlickException {
+    public void update(GameContainer gc, StateBasedGame sbg, int delta, MouseCursor mouseCursor, int offsetX, int offsetY) throws SlickException {
         iterateUpdate(gc, sbg, delta, grounds, mouseCursor, offsetX, offsetY);
         iterateUpdate(gc, sbg, delta, places, mouseCursor, offsetX, offsetY);
         iterateUpdate(gc, sbg, delta, npcs, mouseCursor, offsetX, offsetY);
     }
 
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) throws SlickException {
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, int offsetX, int offsetY) throws SlickException {
         iterateRender(gc, sbg, g, grounds, offsetX, offsetY);
         iterateRender(gc, sbg, g, places, offsetX, offsetY);
         iterateRender(gc, sbg, g, npcs, offsetX, offsetY);
      }
+
+    public HashMap<String, LevelMap> getLevelMaps() {
+        return levelMaps;
+    }
 
     Player getPlayer() {
         return player;

@@ -2,6 +2,7 @@ package com.szczypiorofix.sweetrolls.game.objects;
 
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.main.core.Registry;
+import com.szczypiorofix.sweetrolls.game.tilemap.CollisionObject;
 import com.szczypiorofix.sweetrolls.game.tilemap.Property;
 import com.szczypiorofix.sweetrolls.game.tilemap.PropertyType;
 import org.newdawn.slick.GameContainer;
@@ -15,19 +16,20 @@ abstract public class GameObject {
 
     protected final long id;
     protected String name;
-    protected float x = 0f;
-    protected float y = 0f;
-    protected float width = 0f;
-    protected float height = 0f;
+    protected int x = 0;
+    protected int y = 0;
+    protected int width = 0;
+    protected int height = 0;
     protected boolean moving = false;
     protected boolean moveable = false;
     protected boolean living = false;
     protected boolean dynamic = false;
-    protected boolean visible = false;
+    protected boolean visible = true;
     protected boolean passable = true;
     protected boolean hover = false;
     protected ObjectType objectType;
     protected ArrayList<Property> properties;
+    protected CollisionObject collisions;
 
 
     protected GameObject() {
@@ -38,6 +40,7 @@ abstract public class GameObject {
         this();
         this.name = name;
         this.objectType = ObjectType.DEFAULT;
+        collisions = new CollisionObject();
     }
 
     protected GameObject(String name, ObjectType objectType) {
@@ -48,30 +51,30 @@ abstract public class GameObject {
         this.properties = new ArrayList<>();
     }
 
-    protected GameObject(String name, float x, float y) {
+    protected GameObject(String name, int x, int y) {
         this(name);
         this.x = x;
         this.y = y;
     }
 
-    protected GameObject(String name, float x, float y, float width, float height) {
+    protected GameObject(String name, int x, int y, int width, int height) {
         this(name, x, y);
         this.width = width;
         this.height = height;
     }
 
-    protected GameObject(String name, float x, float y, ObjectType objectType) {
+    protected GameObject(String name, int x, int y, ObjectType objectType) {
         this(name, x, y);
         this.objectType = objectType;
     }
 
-    protected GameObject(String name, float x, float y, float width, float height, ObjectType objectType) {
+    protected GameObject(String name, int x, int y, int width, int height, ObjectType objectType) {
         this(name, x, y, objectType);
         this.width = width;
         this.height = height;
     }
 
-    protected GameObject(String name, float x, float y, float width, float height, ObjectType objectType, ArrayList<Property> properties) {
+    protected GameObject(String name, int x, int y, int width, int height, ObjectType objectType, ArrayList<Property> properties) {
         this(name, x, y, objectType);
         this.width = width;
         this.height = height;
@@ -80,9 +83,9 @@ abstract public class GameObject {
 
 
     // ########## ABSTRACT METHODS ##########
-    public abstract void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) throws SlickException;
+    public abstract void update(GameContainer gc, StateBasedGame sbg, int delta, int offsetX, int offsetY) throws SlickException;
 
-    public abstract void render(GameContainer gc, StateBasedGame sbg,  Graphics g, float offsetX, float offsetY) throws SlickException;
+    public abstract void render(GameContainer gc, StateBasedGame sbg,  Graphics g, int offsetX, int offsetY) throws SlickException;
 
     public abstract void turn();
 
@@ -93,13 +96,22 @@ abstract public class GameObject {
                 x > gameObject.x && x < gameObject.x + gameObject.width && y > gameObject.y && y < gameObject.y + gameObject.height);
     }
 
-    public boolean intersects(float x, float y, float width, float height) {
+    public boolean intersects(int x, int y, int width, int height) {
         return (
                 this.x > x && this.x < x + width && this.y > y && this.y < y + height);
     }
 
     // #############################################
     // GETTERS & SETTERS
+
+
+    public CollisionObject getCollisions() {
+        return collisions;
+    }
+
+    public void setCollisions(CollisionObject collisions) {
+        this.collisions = collisions;
+    }
 
     public long getId() {
         return id;
@@ -113,35 +125,35 @@ abstract public class GameObject {
         this.name = name;
     }
 
-    public float getX() {
+    public int getX() {
         return x;
     }
 
-    public float getY() {
+    public int getY() {
         return y;
     }
 
-    public void setX(float x) {
+    public void setX(int x) {
         this.x = x;
     }
 
-    public void setY(float y) {
+    public void setY(int y) {
         this.y = y;
     }
 
-    public float getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    public void setWidth(float width) {
+    public void setWidth(int width) {
         this.width = width;
     }
 
-    public float getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(float height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 
@@ -259,18 +271,22 @@ abstract public class GameObject {
     }
 
     public int getTileX(int offset) {
-        return (int) ((x + (width / 2)) / width) +offset;
+        //return ((x + (width / 2)) / width) +offset;
+        return ((x + 16) / width) +offset;
     }
 
     public int getTileY(int offset) {
-        return (int) ((y + (height / 2)) / height) + offset;
+        //return ((y + (height / 2)) / height) + offset;
+        return ((y + 16) / height) +offset;
     }
 
     public int getTileX() {
-        return ((int) ((x + (width / 2)) / width) > 0) ? (int) ((x + (width / 2)) / width) : 0;
+        //return ((x + (width / 2)) / width) > 0 ? (x + (width / 2) / width) : 0;
+        return ((x + 16) / width) > 0 ? (x / width) : 0;
     }
 
     public int getTileY() {
-        return ((int) ((y + (height / 2)) / height) > 0) ? (int) ((y + (height / 2)) / height) : 0;
+        //return ((y + (height / 2)) / height) > 0 ? (y + (height / 2) / height) : 0;
+        return ((y + 16) / height) > 0 ? (y / height) : 0;
     }
 }

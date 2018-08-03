@@ -8,13 +8,31 @@ public class Layer {
     private String name;
     private int width;
     private int height;
+    private boolean locked = false;
+    private boolean visible = true;
     private int[] dataCSV;
-    private int[][] data;
+    private TileObject[][] tileObjects;
 
     public Layer(String name, int width, int height) {
         this.name = name;
         this.width = width;
         this.height = height;
+    }
+
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 
     public int getWidth() {
@@ -45,21 +63,21 @@ public class Layer {
         return dataCSV;
     }
 
-    public int[][] getData() {
-        return data;
+    public TileObject[][] getData() {
+        return tileObjects;
     }
 
-    public int getTileData(int x, int y) {
-        return data[x][y];
+    public TileObject getTile(int x, int y) {
+        return tileObjects[x][y];
     }
 
-    public void setData(int[][] data) {
-        this.data = data;
+    public void setData(TileObject[][] tileObjects) {
+        this.tileObjects = tileObjects;
     }
 
-    public int getTileData(int tile) {
-        return dataCSV[tile];
-    }
+//    public TileObject getTileData(int tile) {
+//        return dataCSV[tile];
+//    }
 
     public void setDataCSV(int[] dataCSV) {
         this.dataCSV = dataCSV;
@@ -68,10 +86,10 @@ public class Layer {
     public void setDataCSVFromString(String dataCSV) {
         String[] data = dataCSV.replace("\n", "").replace("\r", "").trim().split(",");
         this.dataCSV = Arrays.stream(data).mapToInt(Integer::parseInt).toArray();
-        this.data = new int[width][height];
+        this.tileObjects = new TileObject[width][height];
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                this.data[j][i] = this.dataCSV[i * width + j];
+                this.tileObjects[j][i] = new TileObject(this.dataCSV[i * width + j]);
             }
         }
     }

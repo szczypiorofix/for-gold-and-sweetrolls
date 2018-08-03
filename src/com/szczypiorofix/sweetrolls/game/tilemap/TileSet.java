@@ -16,6 +16,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class TileSet {
@@ -31,18 +32,22 @@ public class TileSet {
     private int sourceWidth;
     private int sourceHeight;
     private SpriteSheet image;
+    private ArrayList<CollisionObject> collisions;
+
 
     public TileSet(int firstGid, String sourceFile) {
         this.firstGid = firstGid;
         this.sourceFile = sourceFile;
+        collisions = new ArrayList<>();
+
         try {
             File inputFile = new File(MainClass.RES + "map/" + sourceFile);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
             doc.getDocumentElement().normalize();
-            NodeList tilesetList = doc.getElementsByTagName("tileset");
 
+            NodeList tilesetList = doc.getElementsByTagName("tileset");
             for (int tileset = 0; tileset < tilesetList.getLength(); tileset++) {
                 Node tilesetNode = tilesetList.item(tileset);
 
@@ -71,10 +76,40 @@ public class TileSet {
                             e.printStackTrace();
                         }
                     }
+
+
+                    NodeList tileList = tilesetElement.getElementsByTagName("tile");
+                    for (int i = 0; i < tileList.getLength(); i++) {
+                        Node tileNode = tileList.item(i);
+                        if (tilesetNode.getNodeType() == Node.ELEMENT_NODE) {
+                            Element tileElement = (Element) tileNode;
+
+                            CollisionObject collisionObject = new CollisionObject(Integer.parseInt(tileElement.getAttribute("id")));
+
+                            NodeList tileObjectGroupList = tileElement.getElementsByTagName("objectgroup");
+                            Node tileObjectGroupNode = tileObjectGroupList.item(0);
+                            if (imageNode.getNodeType() == Node.ELEMENT_NODE) {
+                                Element tileObjectGroupElement = (Element) tileObjectGroupNode;
+
+                                NodeList tileObjectList = tileObjectGroupElement.getElementsByTagName("object");
+                                Node objectNode = tileObjectList.item(0);
+                                if (objectNode.getNodeType() == Node.ELEMENT_NODE) {
+                                    Element objectElement = (Element) objectNode;
+
+                                    collisionObject.setName(objectElement.getAttribute("name"));
+                                    collisionObject.setType(objectElement.getAttribute("type"));
+                                    collisionObject.setX(Integer.parseInt(objectElement.getAttribute("x")));
+                                    collisionObject.setY(Integer.parseInt(objectElement.getAttribute("y")));
+                                    collisionObject.setWidth(Integer.parseInt(objectElement.getAttribute("width")));
+                                    collisionObject.setHeight(Integer.parseInt(objectElement.getAttribute("height")));
+                                }
+                            }
+                            collisions.add(collisionObject);
+                            //System.out.println("Dodano CollisionObject: "+collisionObject.getName()+", "+collisionObject.getId());
+                        }
+                    }
                 }
             }
-
-
         } catch (ParserConfigurationException | IOException | SAXException e) {
             e.printStackTrace();
         }
@@ -92,6 +127,15 @@ public class TileSet {
         this.sourceHeight = sourceHeight;
         this.image = image;
         this.sourceFile = "";
+        collisions = new ArrayList<>();
+    }
+
+    public ArrayList<CollisionObject> getCollisions() {
+        return collisions;
+    }
+
+    public void setCollisions(ArrayList<CollisionObject> collisions) {
+        this.collisions = collisions;
     }
 
     public String getImageSource() {

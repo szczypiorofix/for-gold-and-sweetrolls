@@ -13,7 +13,7 @@ public class MouseCursor extends GameObject {
     private int tileX, tileY;
     private Input input;
 
-    public MouseCursor(String name, float x, float y, float width, float height, ObjectType objectType, Input input) {
+    public MouseCursor(String name, int x, int y, int width, int height, ObjectType objectType, Input input) {
         super(name, x, y, width, height, objectType);
         this.input = input;
     }
@@ -42,17 +42,17 @@ public class MouseCursor extends GameObject {
     }
 
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) {
-        x = gc.getInput().getMouseX();
-        y = gc.getInput().getMouseY();
+    public void update(GameContainer gc, StateBasedGame sbg, int delta, int offsetX, int offsetY) {
+        x = input.getMouseX();
+        y = input.getMouseY();
         this.offsetX = offsetX;
         this.offsetY = offsetY;
-        this.tileX = ((int) ((x / width) + (offsetX / width)) >= 0) ? (int) ((x / width) + (offsetX / width)) : 0;
-        this.tileY = ((int) ((y / height) + (offsetY / height)) >= 0) ? (int) ((y / height) + (offsetY / height)) : 0;
+        this.tileX = ((x / width) + (offsetX / width) >= 0) ? ((x + (width/2)) / width) + (offsetX / width) : 0;
+        this.tileY = ((y / height) + (offsetY / height) >= 0) ? ((y + (height/2)) / height) + (offsetY / height) : 0;
     }
 
     @Override
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) {
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, int offsetX, int offsetY) {
 
     }
 

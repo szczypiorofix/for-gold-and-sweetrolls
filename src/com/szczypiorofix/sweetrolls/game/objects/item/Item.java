@@ -12,11 +12,11 @@ abstract public class Item extends GameObject {
 
     protected Image image;
 
-    Item(String name, float x, float y, float width, float height, ObjectType objectType, ArrayList<Property> properties) {
+    Item(String name, int x, int y, int width, int height, ObjectType objectType, ArrayList<Property> properties) {
         super(name, x, y, width, height, objectType, properties);
     }
 
-    Item(String name, float x, float y, float width, float height, Image image, ObjectType objectType, ArrayList<Property> properties) {
+    Item(String name, int x, int y, int width, int height, Image image, ObjectType objectType, ArrayList<Property> properties) {
         super(name, x, y, width, height, objectType, properties);
         this.image = image;
     }

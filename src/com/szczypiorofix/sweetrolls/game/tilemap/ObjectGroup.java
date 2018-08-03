@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class ObjectGroup {
 
     private String name;
-    private ArrayList<TileObject> objects;
+    private ArrayList<ObjectGroupObject> objects;
 
     public ObjectGroup(String name) {
         this.name = name;
@@ -20,15 +20,15 @@ public class ObjectGroup {
         this.name = name;
     }
 
-    public ArrayList<TileObject> getObjects() {
+    public ArrayList<ObjectGroupObject> getObjects() {
         return objects;
     }
 
-    public void setObjects(ArrayList<TileObject> objects) {
+    public void setObjects(ArrayList<ObjectGroupObject> objects) {
         this.objects = objects;
     }
 
-    public void addObject(TileObject object) {
+    public void addObject(ObjectGroupObject object) {
         objects.add(object);
     }
 

@@ -28,7 +28,7 @@ public class NPC extends Character {
     private String displayName;
 
 
-    public NPC(String name, float x, float y, float width, float height, Image image, ArrayList<Property> properties) {
+    public NPC(String name, int x, int y, int width, int height, Image image, ArrayList<Property> properties) {
         super(name, x, y, width, height, ObjectType.NPC, properties);
         if (image == null) {
             npcImage = Textures.getInstance().classm32.getSprite(0, 0);
@@ -51,7 +51,7 @@ public class NPC extends Character {
     }
 
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) {
+    public void update(GameContainer gc, StateBasedGame sbg, int delta, int offsetX, int offsetY) {
         hover = false;
 
         if (playerKnow) displayName = name;
@@ -67,7 +67,7 @@ public class NPC extends Character {
     }
 
     @Override
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) {
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, int offsetX, int offsetY) {
         npcImage.draw(- offsetX + x, - offsetY + y);
         if (hover) {
             font.draw(displayName, - offsetX + x, - offsetY + y - 22);

@@ -16,19 +16,19 @@ public class Place extends Item {
 
     private BitMapFont font;
 
-    public Place(String name, float x, float y, float width, float height, Image image, ArrayList<Property> properties) {
+    public Place(String name, int x, int y, int width, int height, Image image, ArrayList<Property> properties) {
         super(name, x, y, width, height, image, ObjectType.PLACE, properties);
         font = FontParser.getFont("Immortal HUD Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
         font.setSize(4.5f);
     }
 
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) throws SlickException {
+    public void update(GameContainer gc, StateBasedGame sbg, int delta, int offsetX, int offsetY) throws SlickException {
         hover = false;
     }
 
     @Override
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) throws SlickException {
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, int offsetX, int offsetY) throws SlickException {
         image.draw(- offsetX + x, - offsetY + y);
         if (hover) {
             font.draw(name, - offsetX + x, - offsetY + y - 20);

@@ -19,7 +19,7 @@ public class MainMenuButton extends GameObject {
     private BitMapFont font;
 
 
-    public MainMenuButton(String name, float x, float y, float width, float height) {
+    public MainMenuButton(String name, int x, int y, int width, int height) {
         super(name, x, y, width, height, ObjectType.GUI);
         this.name = name;
         image = Textures.getInstance().mainMenuMainButtons.getSprite(0, 0);
@@ -30,11 +30,11 @@ public class MainMenuButton extends GameObject {
     }
 
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) {
+    public void update(GameContainer gc, StateBasedGame sbg, int delta, int offsetX, int offsetY) {
     }
 
     @Override
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) {
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, int offsetX, int offsetY) {
 
         if (hover) {
             imagePressed.draw(x, y);

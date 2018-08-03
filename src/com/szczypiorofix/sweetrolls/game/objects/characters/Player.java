@@ -23,10 +23,10 @@ public class Player extends Character {
     private int worldMapTileY = 0;
     private String currentLevelName;
     private PlayerAction playerAction;
-    private float offsetX, offsetY;
+    private int offsetX, offsetY;
     private TimeCounter timeCounter;
 
-    public Player(String name, float x, float y, float width, float height, ArrayList<Property> properties) {
+    public Player(String name, int x, int y, int width, int height, ArrayList<Property> properties) {
         super(name, x, y, width, height, ObjectType.PLAYER, properties);
         this.name = name;
         this.living = true;
@@ -52,14 +52,14 @@ public class Player extends Character {
 
 
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) {
+    public void update(GameContainer gc, StateBasedGame sbg, int delta, int offsetX, int offsetY) {
         hover = false;
         this.offsetX = offsetX;
         this.offsetY = offsetY;
     }
 
     @Override
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) {
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, int offsetX, int offsetY) {
         image.draw( - offsetX + x, - offsetY + y);
         if (playerAction == PlayerAction.TALK) {
             g.drawString("Zagadaj?", - offsetX + x, - offsetY + y - 15);
@@ -88,11 +88,11 @@ public class Player extends Character {
         return timeCounter;
     }
 
-    public float getOffsetX() {
+    public int getOffsetX() {
         return offsetX;
     }
 
-    public float getOffsetY() {
+    public int getOffsetY() {
         return offsetY;
     }
 
@@ -110,6 +110,22 @@ public class Player extends Character {
 
     public void moveEast(int offset) {
         x += offset;
+    }
+
+    public void moveNorth() {
+        y -= 32;
+    }
+
+    public void moveSouth() {
+        y += 32;
+    }
+
+    public void moveWest() {
+        x -= 32;
+    }
+
+    public void moveEast() {
+        x += 32;
     }
 
     public int getPlayerTurn() {

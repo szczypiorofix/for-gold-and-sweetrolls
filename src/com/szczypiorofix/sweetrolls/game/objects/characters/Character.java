@@ -22,7 +22,7 @@ public abstract class Character extends GameObject {
     public int shortTalkCounerMax = 120;
 
 
-    Character(String name, float x, float y, float width, float height, ObjectType objectType, ArrayList<Property> properties) {
+    Character(String name, int x, int y, int width, int height, ObjectType objectType, ArrayList<Property> properties) {
         super(name, x, y, width, height, objectType, properties);
         statistics = new Statistics();
     }

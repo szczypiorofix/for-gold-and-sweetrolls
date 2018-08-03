@@ -18,7 +18,7 @@ public class DialogueButton extends GameObject {
     private float x, y, width, height;
     private int nextDialogueState;
 
-    public DialogueButton(String name, float x, float y, float width, float height, boolean endButton, int nextDialogueState) {
+    public DialogueButton(String name, int x, int y, int width, int height, boolean endButton, int nextDialogueState) {
         super(name, x, y, width, height, ObjectType.GUI);
         this.name = name;
         this.x = x;
@@ -33,12 +33,12 @@ public class DialogueButton extends GameObject {
 
 
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) throws SlickException {
+    public void update(GameContainer gc, StateBasedGame sbg, int delta, int offsetX, int offsetY) throws SlickException {
 
      }
 
     @Override
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) throws SlickException {
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, int offsetX, int offsetY) throws SlickException {
 
         //if (visible) {
             //image.draw(x, y);
