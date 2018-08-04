@@ -23,10 +23,10 @@ public class Player extends Character {
     private int worldMapTileY = 0;
     private String currentLevelName;
     private PlayerAction playerAction;
-    private int offsetX, offsetY;
+    private float offsetX, offsetY;
     private TimeCounter timeCounter;
 
-    public Player(String name, int x, int y, int width, int height, ArrayList<Property> properties) {
+    public Player(String name, float x, float y, float width, float height, ArrayList<Property> properties) {
         super(name, x, y, width, height, ObjectType.PLAYER, properties);
         this.name = name;
         this.living = true;
@@ -52,14 +52,14 @@ public class Player extends Character {
 
 
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta, int offsetX, int offsetY) {
+    public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) {
         hover = false;
         this.offsetX = offsetX;
         this.offsetY = offsetY;
     }
 
     @Override
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, int offsetX, int offsetY) {
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) {
         image.draw( - offsetX + x, - offsetY + y);
         if (playerAction == PlayerAction.TALK) {
             g.drawString("Zagadaj?", - offsetX + x, - offsetY + y - 15);
@@ -88,11 +88,11 @@ public class Player extends Character {
         return timeCounter;
     }
 
-    public int getOffsetX() {
+    public float getOffsetX() {
         return offsetX;
     }
 
-    public int getOffsetY() {
+    public float getOffsetY() {
         return offsetY;
     }
 

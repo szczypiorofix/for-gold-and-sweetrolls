@@ -237,7 +237,7 @@ public class ObjectManager {
         player.setTerrainType(grounds[player.getTileX()][player.getTileY()].getObjectType());
     }
 
-    private void iterateUpdate(GameContainer gc, StateBasedGame sbg, int delta, GameObject[][] list, MouseCursor mouseCursor, int offsetX, int offsetY) throws SlickException {
+    private void iterateUpdate(GameContainer gc, StateBasedGame sbg, int delta, GameObject[][] list, MouseCursor mouseCursor, float offsetX, float offsetY) throws SlickException {
         for (int x = tilesToWest; x < tilesToEast; x++) {
             for (int y = tilesToNorth; y < tilesToSouth; y++) {
                 if (player.getTileX(x) >= 0
@@ -253,7 +253,7 @@ public class ObjectManager {
         }
     }
 
-    private void iterateRender(GameContainer gc, StateBasedGame sbg, Graphics g, GameObject[][] list, int offsetX, int offsetY) throws SlickException {
+    private void iterateRender(GameContainer gc, StateBasedGame sbg, Graphics g, GameObject[][] list, float offsetX, float offsetY) throws SlickException {
 
         int tW = tilesToWest;
         int tE = tilesToEast;
@@ -316,13 +316,13 @@ public class ObjectManager {
         player.setTerrainType(grounds[player.getTileX()][player.getTileY()].getObjectType());
     }
 
-    public void update(GameContainer gc, StateBasedGame sbg, int delta, MouseCursor mouseCursor, int offsetX, int offsetY) throws SlickException {
+    public void update(GameContainer gc, StateBasedGame sbg, int delta, MouseCursor mouseCursor, float offsetX, float offsetY) throws SlickException {
         iterateUpdate(gc, sbg, delta, grounds, mouseCursor, offsetX, offsetY);
         iterateUpdate(gc, sbg, delta, places, mouseCursor, offsetX, offsetY);
         iterateUpdate(gc, sbg, delta, npcs, mouseCursor, offsetX, offsetY);
     }
 
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, int offsetX, int offsetY) throws SlickException {
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) throws SlickException {
         iterateRender(gc, sbg, g, grounds, offsetX, offsetY);
         iterateRender(gc, sbg, g, places, offsetX, offsetY);
         iterateRender(gc, sbg, g, npcs, offsetX, offsetY);

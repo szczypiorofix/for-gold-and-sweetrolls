@@ -16,10 +16,10 @@ abstract public class GameObject {
 
     protected final long id;
     protected String name;
-    protected int x = 0;
-    protected int y = 0;
-    protected int width = 0;
-    protected int height = 0;
+    protected float x = 0f;
+    protected float y = 0f;
+    protected float width = 0f;
+    protected float height = 0f;
     protected boolean moving = false;
     protected boolean moveable = false;
     protected boolean living = false;
@@ -46,35 +46,35 @@ abstract public class GameObject {
     protected GameObject(String name, ObjectType objectType) {
         this(name);
         this.objectType = objectType;
-        this.x = 0;
-        this.y = 0;
+        this.x = 0f;
+        this.y = 0f;
         this.properties = new ArrayList<>();
     }
 
-    protected GameObject(String name, int x, int y) {
+    protected GameObject(String name, float x, float y) {
         this(name);
         this.x = x;
         this.y = y;
     }
 
-    protected GameObject(String name, int x, int y, int width, int height) {
+    protected GameObject(String name, float x, float y, float width, float height) {
         this(name, x, y);
         this.width = width;
         this.height = height;
     }
 
-    protected GameObject(String name, int x, int y, ObjectType objectType) {
+    protected GameObject(String name, float x, float y, ObjectType objectType) {
         this(name, x, y);
         this.objectType = objectType;
     }
 
-    protected GameObject(String name, int x, int y, int width, int height, ObjectType objectType) {
+    protected GameObject(String name, float x, float y, float width, float height, ObjectType objectType) {
         this(name, x, y, objectType);
         this.width = width;
         this.height = height;
     }
 
-    protected GameObject(String name, int x, int y, int width, int height, ObjectType objectType, ArrayList<Property> properties) {
+    protected GameObject(String name, float x, float y, float width, float height, ObjectType objectType, ArrayList<Property> properties) {
         this(name, x, y, objectType);
         this.width = width;
         this.height = height;
@@ -83,9 +83,9 @@ abstract public class GameObject {
 
 
     // ########## ABSTRACT METHODS ##########
-    public abstract void update(GameContainer gc, StateBasedGame sbg, int delta, int offsetX, int offsetY) throws SlickException;
+    public abstract void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) throws SlickException;
 
-    public abstract void render(GameContainer gc, StateBasedGame sbg,  Graphics g, int offsetX, int offsetY) throws SlickException;
+    public abstract void render(GameContainer gc, StateBasedGame sbg,  Graphics g, float offsetX, float offsetY) throws SlickException;
 
     public abstract void turn();
 
@@ -96,7 +96,7 @@ abstract public class GameObject {
                 x > gameObject.x && x < gameObject.x + gameObject.width && y > gameObject.y && y < gameObject.y + gameObject.height);
     }
 
-    public boolean intersects(int x, int y, int width, int height) {
+    public boolean intersects(float x, float y, float width, float height) {
         return (
                 this.x > x && this.x < x + width && this.y > y && this.y < y + height);
     }
@@ -125,35 +125,35 @@ abstract public class GameObject {
         this.name = name;
     }
 
-    public int getX() {
+    public float getX() {
         return x;
     }
 
-    public int getY() {
+    public float getY() {
         return y;
     }
 
-    public void setX(int x) {
+    public void setX(float x) {
         this.x = x;
     }
 
-    public void setY(int y) {
+    public void setY(float y) {
         this.y = y;
     }
 
-    public int getWidth() {
+    public float getWidth() {
         return width;
     }
 
-    public void setWidth(int width) {
+    public void setWidth(float width) {
         this.width = width;
     }
 
-    public int getHeight() {
+    public float getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(float height) {
         this.height = height;
     }
 
@@ -271,22 +271,18 @@ abstract public class GameObject {
     }
 
     public int getTileX(int offset) {
-        //return ((x + (width / 2)) / width) +offset;
-        return ((x + 16) / width) +offset;
+        return (int) ((x + (width / 2)) / width) +offset;
     }
 
     public int getTileY(int offset) {
-        //return ((y + (height / 2)) / height) + offset;
-        return ((y + 16) / height) +offset;
+        return (int) ((y + (height / 2)) / height) + offset;
     }
 
     public int getTileX() {
-        //return ((x + (width / 2)) / width) > 0 ? (x + (width / 2) / width) : 0;
-        return ((x + 16) / width) > 0 ? (x / width) : 0;
+        return ((int) ((x + (width / 2)) / width) > 0) ? (int) ((x + (width / 2)) / width) : 0;
     }
 
     public int getTileY() {
-        //return ((y + (height / 2)) / height) > 0 ? (y + (height / 2) / height) : 0;
-        return ((y + 16) / height) > 0 ? (y / height) : 0;
+        return ((int) ((y + (height / 2)) / height) > 0) ? (int) ((y + (height / 2)) / height) : 0;
     }
 }

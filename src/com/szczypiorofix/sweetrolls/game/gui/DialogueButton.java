@@ -33,12 +33,12 @@ public class DialogueButton extends GameObject {
 
 
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta, int offsetX, int offsetY) throws SlickException {
+    public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) throws SlickException {
 
      }
 
     @Override
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, int offsetX, int offsetY) throws SlickException {
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) throws SlickException {
 
         //if (visible) {
             //image.draw(x, y);

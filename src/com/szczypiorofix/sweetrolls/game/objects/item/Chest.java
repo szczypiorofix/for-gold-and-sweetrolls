@@ -12,17 +12,17 @@ public class Chest extends Item {
 
     private final Image chestImage;
 
-    public Chest(String name, int x, int y, int width, int height, Image image, ArrayList<Property> properties) {
+    public Chest(String name, float x, float y, float width, float height, Image image, ArrayList<Property> properties) {
         super(name, x, y, width, height, ObjectType.ITEM, properties);
         chestImage = image;
     }
 
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta, int offsetX, int offsetY) {
+    public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) {
     }
 
     @Override
-    public void render(GameContainer gc, StateBasedGame sbg,  Graphics g, int offsetX, int offsetY) {
+    public void render(GameContainer gc, StateBasedGame sbg,  Graphics g, float offsetX, float offsetY) {
         chestImage.draw(- offsetX + x, - offsetY + y);
         if (hover) {
             g.drawString(name, - offsetX + x, - offsetY + y - 15);

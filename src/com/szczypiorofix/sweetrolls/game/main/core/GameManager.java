@@ -31,7 +31,7 @@ public class GameManager {
     private final HashMap<String, TileMap> levels = new HashMap<>();
     private final boolean collisionsEnabled = false;
 
-    private int offsetX, offsetY;
+    private float offsetX, offsetY;
     private int tileWidth, tileHeight;
     private int mapWidth, mapHeight;
     private int gameWidth, gameHeight;
@@ -300,7 +300,7 @@ public class GameManager {
 
         Color c = g.getColor();
         g.setColor(player.getTimeCounter().getDayNightEffect());
-        g.fillRect(0, 0, gameWidth - 240, gameHeight);
+        g.fillRect(0, 0, gameWidth - 230, gameHeight);
         g.setColor(c);
 
         dialogueFrame.render(gc, sgb, g);
