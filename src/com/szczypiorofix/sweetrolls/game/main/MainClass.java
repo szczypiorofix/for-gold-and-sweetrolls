@@ -50,15 +50,18 @@ public final class MainClass {
     private void applicationStart() {
 
         /* Obtain display modes. */
+        logging(false,  Level.INFO, "Pobieranie danych o DisplayModes");
         DisplayMode[] modes = null;
         try {
             modes = Display.getAvailableDisplayModes();
-        } catch (LWJGLException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            //e.printStackTrace();
+            logging(true,  Level.WARNING, getStackTrace(e));
             System.exit(-1);
         }
 
         try {
+            logging(false,  Level.INFO, "Uruchamianie instancji GameStatesContainer");
             GameStatesContainer gameStatesContainer = new GameStatesContainer(modes, "For Gold and Sweetrolls");
             ForGoldAndSweetrolls fgas = new ForGoldAndSweetrolls(gameStatesContainer, 800, 600, true);
 
@@ -78,8 +81,9 @@ public final class MainClass {
             app.setShowFPS(false);
             app.setUpdateOnlyWhenVisible(true);
             app.start();
-        } catch (SlickException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            //e.printStackTrace();
+            logging(true,  Level.WARNING, getStackTrace(e));
         }
     }
 
@@ -95,7 +99,7 @@ public final class MainClass {
                 System.exit(-1);
             }
 
-            //LOGGER.setUseParentHandlers(false); // WYŚWIETLANIE LOGÓW W KONSOLI
+            LOGGER.setUseParentHandlers(true); // WYŚWIETLANIE LOGÓW W KONSOLI
 
             fileHandler.setFormatter(new SimpleFormatter());
             fileHandler.setLevel(Level.INFO);
@@ -122,12 +126,12 @@ public final class MainClass {
     }
 
 
-//    public static String getStackTrace(final Throwable throwable) {
-//        final StringWriter sw = new StringWriter();
-//        final PrintWriter pw = new PrintWriter(sw, true);
-//        throwable.printStackTrace(pw);
-//        return sw.getBuffer().toString();
-//    }
+    public static String getStackTrace(final Throwable throwable) {
+        final StringWriter sw = new StringWriter();
+        final PrintWriter pw = new PrintWriter(sw, true);
+        throwable.printStackTrace(pw);
+        return sw.getBuffer().toString();
+    }
 
     /**
      * public static void main - this method starts all the pretty stuff ;)

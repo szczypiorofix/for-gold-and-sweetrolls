@@ -17,6 +17,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 
 public class TileSet {
@@ -72,8 +73,9 @@ public class TileSet {
 
                         try {
                             image = new SpriteSheet(MainClass.RES +"map/" +imageSource, tileWidth, tileHeight);
-                        } catch (SlickException e) {
-                            e.printStackTrace();
+                        } catch (Exception e) {
+                            //e.printStackTrace();
+                            MainClass.logging(true, Level.WARNING, MainClass.getStackTrace(e));
                         }
                     }
 
@@ -81,10 +83,10 @@ public class TileSet {
                     NodeList tileList = tilesetElement.getElementsByTagName("tile");
                     for (int i = 0; i < tileList.getLength(); i++) {
                         Node tileNode = tileList.item(i);
-                        if (tilesetNode.getNodeType() == Node.ELEMENT_NODE) {
+                        if (tileNode.getNodeType() == Node.ELEMENT_NODE) {
                             Element tileElement = (Element) tileNode;
 
-                            CollisionObject collisionObject = new CollisionObject(Integer.parseInt(tileElement.getAttribute("id")));
+                            CollisionObject collisionObject = new CollisionObject(Integer.parseInt(tileElement.getAttribute("id")) + firstGid);
 
                             NodeList tileObjectGroupList = tileElement.getElementsByTagName("objectgroup");
                             Node tileObjectGroupNode = tileObjectGroupList.item(0);
@@ -97,21 +99,27 @@ public class TileSet {
                                     Element objectElement = (Element) objectNode;
 
                                     collisionObject.setName(objectElement.getAttribute("name"));
-                                    collisionObject.setType(objectElement.getAttribute("type"));
+                                    collisionObject.setTypeName(objectElement.getAttribute("type"));
                                     collisionObject.setX(Integer.parseInt(objectElement.getAttribute("x")));
                                     collisionObject.setY(Integer.parseInt(objectElement.getAttribute("y")));
-                                    collisionObject.setWidth(Integer.parseInt(objectElement.getAttribute("width")));
-                                    collisionObject.setHeight(Integer.parseInt(objectElement.getAttribute("height")));
+                                    if (!objectElement.getAttribute("width").equals(""))
+                                        collisionObject.setWidth(Integer.parseInt(objectElement.getAttribute("width")));
+                                    if (!objectElement.getAttribute("height").equals(""))
+                                        collisionObject.setHeight(Integer.parseInt(objectElement.getAttribute("height")));
+
+                                    if (!objectElement.getAttribute("template").equals("")) {
+                                        collisionObject.setTemplate(objectElement.getAttribute("template"));
+                                    }
                                 }
                             }
                             collisions.add(collisionObject);
-                            //System.out.println("Dodano CollisionObject: "+collisionObject.getName()+", "+collisionObject.getId());
                         }
                     }
                 }
             }
         } catch (ParserConfigurationException | IOException | SAXException e) {
             e.printStackTrace();
+            MainClass.logging(true, Level.WARNING, MainClass.getStackTrace(e));
         }
     }
 

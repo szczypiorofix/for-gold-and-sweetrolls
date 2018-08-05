@@ -60,7 +60,12 @@ public class Player extends Character {
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) {
+
+        //g.setDrawMode(Graphics.MODE_ADD);
         image.draw( - offsetX + x, - offsetY + y);
+        //g.setDrawMode(Graphics.MODE_NORMAL);
+
+
         if (playerAction == PlayerAction.TALK) {
             g.drawString("Zagadaj?", - offsetX + x, - offsetY + y - 15);
         }

@@ -262,7 +262,6 @@ public class TileMap {
     }
 
     private void calculateCollisions() {
-        //ObjectGroup collisions = new ObjectGroup("collisions");
 
         for (int i = 0; i < tileSets.size(); i++) {
 
@@ -275,7 +274,6 @@ public class TileMap {
                         for (int x = 0; x < width; x++) {
                             for (int y = 0; y < height; y++) {
                                 if (tileSets.get(i).getCollisions().get(c).getId() == layers.get(j).getTile(x, y).getGid()) {
-                                    //System.out.println("Setting collisions for tile : "+tileSets.get(i).getCollisions().get(c).getId() +", with: "+tileSets.get(i).getCollisions().get(c).getWidth());
                                     layers.get(j).getTile(x, y).setCollisionObject(
                                             new CollisionObject(
                                             tileSets.get(i).getCollisions().get(c).getX(),

@@ -4,7 +4,9 @@ import com.szczypiorofix.sweetrolls.game.enums.PlayerState;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import org.newdawn.slick.Color;
 
-public class TimeCounter {
+import java.io.Serializable;
+
+public class TimeCounter implements Serializable {
 
     private Player player;
 

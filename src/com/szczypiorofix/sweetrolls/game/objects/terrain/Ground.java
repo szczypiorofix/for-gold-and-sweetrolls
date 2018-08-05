@@ -5,6 +5,7 @@ import com.szczypiorofix.sweetrolls.game.objects.GameObject;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 
+
 public class Ground extends GameObject {
 
     private Image image;

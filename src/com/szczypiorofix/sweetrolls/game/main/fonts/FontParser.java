@@ -20,7 +20,7 @@ public class FontParser {
     private FontParser(String fontName, String xmlFontName, String pngFontName) {
         bitMapFont = new BitMapFont(fontName);
         bitMapFont.setFontImage(pngFontName);
-        System.out.println("Creating font "+fontName +" ...");
+
         try {
             File inputFile = new File(MainClass.RES + "fonts/" + xmlFontName);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();

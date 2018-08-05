@@ -1,6 +1,8 @@
 package com.szczypiorofix.sweetrolls.game.objects;
 
-public class Statistics {
+import java.io.Serializable;
+
+public class Statistics implements Serializable {
 
     public int strength;
     public int dexterity;

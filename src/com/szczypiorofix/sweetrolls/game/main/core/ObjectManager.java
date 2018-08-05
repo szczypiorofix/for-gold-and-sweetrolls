@@ -11,6 +11,7 @@ import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import com.szczypiorofix.sweetrolls.game.tilemap.CollisionObject;
 import com.szczypiorofix.sweetrolls.game.tilemap.TileMap;
 import com.szczypiorofix.sweetrolls.game.tilemap.ObjectGroupObject;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -193,7 +194,8 @@ public class ObjectManager {
                                     i * tileMap.getTileWidth(),
                                     j * tileMap.getTileHeight(),
                                     tileMap.getLayers().get(layers).getTile(i, j).getCollisionObject().getWidth(),
-                                    tileMap.getLayers().get(layers).getTile(i, j).getCollisionObject().getHeight()
+                                    tileMap.getLayers().get(layers).getTile(i, j).getCollisionObject().getHeight(),
+                                    tileMap.getLayers().get(layers).getTile(i, j).getCollisionObject().getCollisionType()
                             ));
 
                             grounds[i][j] = tempGround;

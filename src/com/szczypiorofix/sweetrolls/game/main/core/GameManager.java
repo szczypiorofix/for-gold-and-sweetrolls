@@ -7,14 +7,17 @@ import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import com.szczypiorofix.sweetrolls.game.objects.characters.NPC;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
+import com.szczypiorofix.sweetrolls.game.tilemap.CollisionObject;
 import com.szczypiorofix.sweetrolls.game.tilemap.TileMap;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.state.transition.EmptyTransition;
-import org.newdawn.slick.state.transition.FadeOutTransition;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
+import java.util.logging.Level;
 
 import static com.szczypiorofix.sweetrolls.game.enums.PlayerAction.MOVE;
 import static com.szczypiorofix.sweetrolls.game.enums.PlayerAction.TALK;
@@ -29,7 +32,7 @@ public class GameManager {
 
     private final LevelManager levelManager = new LevelManager();
     private final HashMap<String, TileMap> levels = new HashMap<>();
-    private final boolean collisionsEnabled = false;
+    private final boolean collisionsEnabled = true;
 
     private float offsetX, offsetY;
     private int tileWidth, tileHeight;
@@ -45,26 +48,48 @@ public class GameManager {
     private String currentLevelName;
     private DialogueFrame dialogueFrame;
 
+    private enum LevelType {
+        CREATED,
+        GENERATED
+    }
+
     public GameManager() {
         offsetX = 0;
         offsetY = 0;
         dialogueFrame = new DialogueFrame();
     }
 
-    private void changeLevel(String levelName) {
+    private void changeLevel(String levelName, LevelType levelType) {
         this.currentLevelName = levelName;
         TileMap levelMap;
-        if (!levels.containsKey(levelName)) {
-            if (levelName.equalsIgnoreCase("generate")) {
+
+        if (levelType == LevelType.GENERATED) {
+            levelName = levelName+player.getTileX()+"x"+player.getTileY();
+
+            if (!levels.containsKey(levelName)) {
+                MainClass.logging(false, Level.INFO, "Generowanie nowego losowego poziomu: "+levelName);
                 levelMap = levelManager.loadGeneratedLevel(levelName);
+                levels.put(levelName, levelMap);
+                objectManager.generateLevel(levelMap, levelName);
+                player = objectManager.getPlayer();
             } else {
-                levelMap = levelManager.loadLevel(levelName);
+                MainClass.logging(false, Level.INFO, "Pobieranie danych o losowym poziomie z listy: "+levelName);
+                levelMap = levels.get(levelName);
             }
-            levels.put(levelName, levelMap);
-            objectManager.generateLevel(levelMap, levelName);
-            player = objectManager.getPlayer();
+
         } else {
-            levelMap = levels.get(levelName);
+
+            if (!levels.containsKey(levelName)) {
+                MainClass.logging(false, Level.INFO, "Wczytywanie danych zdefiniowanego poziomu: "+levelName);
+                levelMap = levelManager.loadLevel(levelName);
+                levels.put(levelName, levelMap);
+                objectManager.generateLevel(levelMap, levelName);
+                player = objectManager.getPlayer();
+            } else {
+                MainClass.logging(false, Level.INFO, "Pobieranie danych o zdefiniowanym poziomie z listy: "+levelName);
+                levelMap = levels.get(levelName);
+            }
+
         }
 
         tileWidth = levelMap.getTileWidth();
@@ -87,7 +112,7 @@ public class GameManager {
         objectManager = new ObjectManager(gameWidth, gameHeight);
 
         // INITIAL WORLD MAP
-        changeLevel(WORLD_MAP_NAME);
+        changeLevel(WORLD_MAP_NAME, LevelType.CREATED);
         calculateOffset();
 
         mouseCursor = new MouseCursor("Mouse Cursor Game", input.getMouseX(), input.getMouseY(), 32, 32, ObjectType.MOUSECURSOR, input);
@@ -114,11 +139,48 @@ public class GameManager {
         // PLAYER CONTROLS
         if (player.getPlayerState() == MOVING_WORLD_MAP || player.getPlayerState() == MOVING_INNER_LOCATION) {
 
+            if (input.isKeyPressed(Input.KEY_T)) {
+                FileOutputStream fout = null;
+                ObjectOutputStream oos = null;
+
+                try {
+
+                    fout = new FileOutputStream("player.sav");
+                    oos = new ObjectOutputStream(fout);
+                    oos.writeObject(player);
+
+                    System.out.println("Object player saved !");
+
+                } catch (Exception ex) {
+
+                    ex.printStackTrace();
+
+                } finally {
+
+                    if (fout != null) {
+                        try {
+                            fout.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    if (oos != null) {
+                        try {
+                            oos.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+            }
+
             if (input.isKeyPressed(Input.KEY_RIGHT) || gc.getInput().isKeyPressed(Input.KEY_D)) {
 
                 if (player.getPlayerAction() == MOVE && player.getTileX() < objectManager.getLevel().getWidth()-1) {
 
-                    if (objectManager.getGround(player.getTileX() + 1, player.getTileY()).getCollisions().getWidth() == 0 || !collisionsEnabled) {
+                    if (objectManager.getGround(player.getTileX() + 1, player.getTileY()).getCollisions().getCollisionType() == CollisionObject.CollisionType.PASSABLE || !collisionsEnabled) {
                         player.moveEast();
                         setNextRound = true;
                     }
@@ -128,7 +190,7 @@ public class GameManager {
 
             if (input.isKeyPressed((Input.KEY_LEFT)) || gc.getInput().isKeyPressed(Input.KEY_A)) {
                 if (player.getPlayerAction() == MOVE && player.getTileX() > 0) {
-                    if (objectManager.getGround(player.getTileX() - 1, player.getTileY()).getCollisions().getWidth() == 0 || !collisionsEnabled) {
+                    if (objectManager.getGround(player.getTileX() - 1, player.getTileY()).getCollisions().getCollisionType() == CollisionObject.CollisionType.PASSABLE || !collisionsEnabled) {
                         player.moveWest();
                         setNextRound = true;
                     }
@@ -138,7 +200,7 @@ public class GameManager {
 
             if (input.isKeyPressed(Input.KEY_UP) || gc.getInput().isKeyPressed(Input.KEY_W)) {
                 if (player.getPlayerAction() == MOVE && player.getTileY() > 0) {
-                    if (objectManager.getGround(player.getTileX(), player.getTileY() - 1).getCollisions().getWidth() == 0 || !collisionsEnabled) {
+                    if (objectManager.getGround(player.getTileX(), player.getTileY() - 1).getCollisions().getCollisionType() == CollisionObject.CollisionType.PASSABLE || !collisionsEnabled) {
                         player.moveNorth();
                         setNextRound = true;
                     }
@@ -148,7 +210,7 @@ public class GameManager {
 
             if (input.isKeyPressed((Input.KEY_DOWN)) || gc.getInput().isKeyPressed(Input.KEY_S)) {
                 if (player.getPlayerAction() == MOVE && player.getTileY() < objectManager.getLevel().getHeight()-1) {
-                    if (objectManager.getGround(player.getTileX(), player.getTileY() + 1).getCollisions().getWidth() == 0 || !collisionsEnabled) {
+                    if (objectManager.getGround(player.getTileX(), player.getTileY() + 1).getCollisions().getCollisionType() == CollisionObject.CollisionType.PASSABLE || !collisionsEnabled) {
                         player.moveSouth();
                         setNextRound = true;
                     }
@@ -161,14 +223,17 @@ public class GameManager {
                 // ENTERING INNER MAP FROM WORLD MAP
                 if (player.getPlayerState() == MOVING_WORLD_MAP) {
                     if (objectManager.getPlace(player.getTileX(), player.getTileY()) != null) {
-                        System.out.println("Entering: "+objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("name")+".");
+
+                        //System.out.println("Entering: "+objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("name")+".");
+                        MainClass.logging(false, Level.INFO, "Przejście do lokacji: "+objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("name")+".");
+
                         player.setPlayerState(MOVING_INNER_LOCATION);
                         mouseCursor.setPositionTile(0, 0);
-                        changeLevel(objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("filename"));
+                        changeLevel(objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("filename"), LevelType.CREATED);
                     } else {
                         player.setPlayerState(MOVING_INNER_LOCATION);
                         mouseCursor.setPositionTile(0, 0);
-                        changeLevel("generate");
+                        changeLevel("generate", LevelType.GENERATED);
                     }
                 } else {
                     // EXIT FROM INNER MAP
@@ -178,9 +243,11 @@ public class GameManager {
                             || player.getTileY() >= mapHeight-1
                             ) {
 
-                        System.out.println("Exiting to world map.");
+                        //System.out.println("Exiting to world map.");
+                        MainClass.logging(false, Level.INFO, "Powrót do mapy głównej.");
+
                         player.setPlayerState(MOVING_WORLD_MAP);
-                        changeLevel(WORLD_MAP_NAME);
+                        changeLevel(WORLD_MAP_NAME, LevelType.CREATED);
                     }
                 }
                 calculateOffset();
@@ -287,10 +354,6 @@ public class GameManager {
 //            }
 //        }
 
-        if (dialogueFrame.isShowDialog()) {
-            //dialogueFrame.getNpc().getCurrentDialogueState()
-        }
-
     }
 
     public void render(GameContainer gc, StateBasedGame sgb, Graphics g) throws SlickException {
@@ -305,6 +368,7 @@ public class GameManager {
 
         dialogueFrame.render(gc, sgb, g);
         hud.render(gc, sgb, g);
+
     }
 
 }

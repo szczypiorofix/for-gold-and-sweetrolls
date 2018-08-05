@@ -4,7 +4,9 @@ import com.szczypiorofix.sweetrolls.game.objects.characters.NPC;
 import com.szczypiorofix.sweetrolls.game.objects.item.Place;
 import com.szczypiorofix.sweetrolls.game.objects.terrain.Ground;
 
-public class LevelMap {
+import java.io.Serializable;
+
+public class LevelMap implements Serializable {
 
     private Ground[][] ground;
     private Place[][] places;
