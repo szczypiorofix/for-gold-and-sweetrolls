@@ -2,11 +2,9 @@ package com.szczypiorofix.sweetrolls.game.main;
 
 import com.szczypiorofix.sweetrolls.game.main.core.ForGoldAndSweetrolls;
 import com.szczypiorofix.sweetrolls.game.main.states.GameStatesContainer;
-import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.SlickException;
 
 import java.io.*;
 import java.util.Random;
@@ -67,12 +65,12 @@ public final class MainClass {
 
             AppGameContainer app = new AppGameContainer(fgas);
             String[] icons = {
-                    RES+"icon16x16.png",
-                    RES+"icon24x24.png",
-                    RES+"icon32x32.png",
-                    RES+"icon64x64.png",
-                    RES+"icon96x96.png",
-                    RES+"icon128x128.png"
+                    "icon16x16.png",
+                    "icon24x24.png",
+                    "icon32x32.png",
+                    "icon64x64.png",
+                    "icon96x96.png",
+                    "icon128x128.png"
             };
             app.setIcons(icons);
             app.setDisplayMode(800, 600, false);

@@ -8,10 +8,11 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import sun.misc.IOUtils;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 
 
@@ -79,11 +80,12 @@ public class TileMap {
      * @param fileName (String) TiledMap Editor map filename.
      */
     private void loadFromTiledMap(String fileName) {
+
         try {
-            File inputFile = new File(MainClass.RES + "map/" + fileName);
+            InputStream in = getClass().getResourceAsStream("/map/"+fileName);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(inputFile);
+            Document doc = dBuilder.parse(in);
             doc.getDocumentElement().normalize();
             NodeList mapList = doc.getElementsByTagName("map");
 

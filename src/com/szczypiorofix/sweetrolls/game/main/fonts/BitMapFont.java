@@ -41,7 +41,7 @@ public class BitMapFont {
 
     public void setFontImage(String name) {
         try {
-            fontImage = new Image(MainClass.RES + "fonts/" +name);
+            fontImage = new Image("fonts/" +name);
         } catch (SlickException e) {
             e.printStackTrace();
         }

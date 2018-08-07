@@ -9,6 +9,7 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.io.InputStream;
 import java.util.HashSet;
 
 
@@ -22,10 +23,11 @@ public class FontParser {
         bitMapFont.setFontImage(pngFontName);
 
         try {
-            File inputFile = new File(MainClass.RES + "fonts/" + xmlFontName);
+            InputStream in = getClass().getResourceAsStream("/fonts/"+xmlFontName);
+            //File inputFile = new File(MainClass.RES + "fonts/" + xmlFontName);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(inputFile);
+            Document doc = dBuilder.parse(in);
             doc.getDocumentElement().normalize();
             NodeList fontList = doc.getElementsByTagName("font");
             for (int font = 0; font < fontList.getLength(); font++) {

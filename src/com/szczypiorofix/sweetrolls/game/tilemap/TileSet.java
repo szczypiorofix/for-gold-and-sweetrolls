@@ -16,6 +16,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
@@ -42,7 +43,8 @@ public class TileSet {
         collisions = new ArrayList<>();
 
         try {
-            File inputFile = new File(MainClass.RES + "map/" + sourceFile);
+            InputStream inputFile = getClass().getResourceAsStream("/map/"+sourceFile);
+            //File inputFile = new File( "map/" + sourceFile);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
@@ -72,9 +74,9 @@ public class TileSet {
                         image = null;
 
                         try {
-                            image = new SpriteSheet(MainClass.RES +"map/" +imageSource, tileWidth, tileHeight);
+                            image = new SpriteSheet("map/" +imageSource, tileWidth, tileHeight);
                         } catch (Exception e) {
-                            //e.printStackTrace();
+                            e.printStackTrace();
                             MainClass.logging(true, Level.WARNING, MainClass.getStackTrace(e));
                         }
                     }

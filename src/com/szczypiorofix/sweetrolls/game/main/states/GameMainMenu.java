@@ -15,6 +15,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.EmptyTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 
@@ -68,7 +69,8 @@ public class GameMainMenu extends BasicGameState {
             }
         }
 
-        background = new Image(MainClass.RES+"background.png");
+        //InputStream in = getClass().getResourceAsStream(MainClass.RES+"background.png");
+        background = new Image("background.png");
 
         //sfx1 = new SFX("sword-unsheathe.ogg");
 
@@ -96,7 +98,7 @@ public class GameMainMenu extends BasicGameState {
         input = gc.getInput();
 
         // https://opengameart.org/content/dwarven-cursor
-        gc.setMouseCursor(new Image(MainClass.RES + "mouse_cursor.png"), 0, 0);
+        gc.setMouseCursor(new Image("mouse_cursor.png"), 0, 0);
         mouseCursor = new MouseCursor("Mouse Cursor Main Menu", input.getMouseX(), input.getMouseY(), 1, 1, ObjectType.MOUSECURSOR, input);
     }
 

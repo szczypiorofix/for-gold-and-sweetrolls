@@ -12,6 +12,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 
@@ -42,7 +43,9 @@ public class ObjectGroupObject {
         if (!template.equalsIgnoreCase("")) {
             isTemplate = true;
             try {
-                File inputFile = new File(MainClass.RES + "map/" + template);
+                System.out.println(template);
+                InputStream inputFile = getClass().getResourceAsStream("/map/" + template);
+                //File inputFile = new File(MainClass.RES + "map/" + template);
                 DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
                 Document doc = dBuilder.parse(inputFile);

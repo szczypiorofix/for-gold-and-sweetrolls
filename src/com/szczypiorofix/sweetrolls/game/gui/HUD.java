@@ -18,7 +18,7 @@ public class HUD {
         this.player = player;
         this.mouseCursor = mouseCursor;
         try {
-            image = new Image(MainClass.RES + "assets/hud.png");
+            image = new Image("assets/hud.png");
         } catch (SlickException e) {
             e.printStackTrace();
         }

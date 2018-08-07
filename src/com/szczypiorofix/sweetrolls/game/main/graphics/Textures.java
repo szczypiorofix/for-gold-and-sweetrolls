@@ -18,9 +18,9 @@ public class Textures {
     private Textures() {
         MainClass.logging(false, Level.INFO, "Ładowanie tekstur i obrazów...");
         try {
-            miscItems = new SpriteSheet(MainClass.RES + "map/dg_misc32.png", 32, 32);
-            classm32 = new SpriteSheet(MainClass.RES + "map/dg_classm32.png", 32, 32);
-            mainMenuMainButtons = new SpriteSheet(MainClass.RES + "assets/mm-gui.png", 128, 32);
+            miscItems = new SpriteSheet("map/dg_misc32.png", 32, 32);
+            classm32 = new SpriteSheet("map/dg_classm32.png", 32, 32);
+            mainMenuMainButtons = new SpriteSheet("assets/mm-gui.png", 128, 32);
             MainClass.logging(false, Level.INFO, "Tekstury i obrazy załadowane");
         } catch (Exception e) {
             e.printStackTrace();

@@ -23,7 +23,7 @@ public class Inventory {
         this.mouseCursor = mouseCursor;
 
         try {
-            image = new Image(MainClass.RES + "assets/inventory.png");
+            image = new Image("assets/inventory.png");
         } catch (SlickException e) {
             e.printStackTrace();
         }

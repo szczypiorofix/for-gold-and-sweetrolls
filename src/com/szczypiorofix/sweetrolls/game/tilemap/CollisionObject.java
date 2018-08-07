@@ -11,6 +11,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.logging.Level;
 
 public class CollisionObject {
@@ -43,7 +44,8 @@ public class CollisionObject {
 
     public void setTemplate(String templateFileName) {
         try {
-            File inputFile = new File(MainClass.RES + "map/" + templateFileName);
+            InputStream inputFile = getClass().getResourceAsStream("/map/" + templateFileName);
+            //File inputFile = new File(MainClass.RES + "map/" + templateFileName);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);

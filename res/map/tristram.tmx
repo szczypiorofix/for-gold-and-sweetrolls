@@ -48,7 +48,7 @@
     <property name="name" value="Todd Howard"/>
    </properties>
   </object>
-  <object id="3" template="NPC.tx" name="Pete" gid="357" x="480" y="256">
+  <object id="3" template="npc.tx" name="Pete" gid="357" x="480" y="256">
    <properties>
     <property name="commonname" value="Mieszkaniec"/>
     <property name="name" value="Pete Hines"/>

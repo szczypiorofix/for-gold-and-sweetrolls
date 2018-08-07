@@ -49,9 +49,9 @@ public class LevelGenerator {
         SpriteSheet image3 = null;
 
         try {
-            image1 = new SpriteSheet(MainClass.RES +"map/dg_grounds32.png", TILEWIDTH, TILEHEIGHT);
-            image2 = new SpriteSheet(MainClass.RES +"map/dg_town332.png", TILEWIDTH, TILEHEIGHT);
-            image3 = new SpriteSheet(MainClass.RES +"map/dg_weapons32.png", TILEWIDTH, TILEHEIGHT);
+            image1 = new SpriteSheet("map/dg_grounds32.png", TILEWIDTH, TILEHEIGHT);
+            image2 = new SpriteSheet("map/dg_town332.png", TILEWIDTH, TILEHEIGHT);
+            image3 = new SpriteSheet("map/dg_weapons32.png", TILEWIDTH, TILEHEIGHT);
         } catch (SlickException e) {
             e.printStackTrace();
         }
