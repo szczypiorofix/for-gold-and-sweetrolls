@@ -1,6 +1,5 @@
 package com.szczypiorofix.sweetrolls.game.quests.articy;
 
-import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import com.szczypiorofix.sweetrolls.game.quests.articy.content.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -9,7 +8,7 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
+import java.io.InputStream;
 import java.util.*;
 
 public class ArticyXMLParser {
@@ -44,7 +43,7 @@ public class ArticyXMLParser {
         dialoguesFragmens = new HashMap<>();
 
         try {
-            File inputFile = new File(MainClass.RES + "quests/" + name);
+            InputStream inputFile = getClass().getResourceAsStream("/quests/"+name);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);

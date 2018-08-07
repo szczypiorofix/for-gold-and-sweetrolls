@@ -12,10 +12,7 @@ import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.state.transition.EmptyTransition;
-import org.newdawn.slick.state.transition.FadeOutTransition;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 
 
@@ -69,13 +66,12 @@ public class GameMainMenu extends BasicGameState {
             }
         }
 
-        //InputStream in = getClass().getResourceAsStream(MainClass.RES+"background.png");
         background = new Image("background.png");
 
         //sfx1 = new SFX("sword-unsheathe.ogg");
 
         // https://opengameart.org/content/heroic-minority
-//        Music mainMenuMusic = new Music(MainClass.RES+"music/menu-music.ogg");
+//        Music mainMenuMusic = new Music("music/menu-music.ogg");
 //        mainMenuMusic.play();
 
 

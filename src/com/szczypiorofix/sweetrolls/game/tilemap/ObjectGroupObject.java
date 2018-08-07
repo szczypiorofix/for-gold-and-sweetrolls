@@ -45,7 +45,6 @@ public class ObjectGroupObject {
             try {
                 System.out.println(template);
                 InputStream inputFile = getClass().getResourceAsStream("/map/" + template);
-                //File inputFile = new File(MainClass.RES + "map/" + template);
                 DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
                 Document doc = dBuilder.parse(inputFile);
@@ -84,7 +83,6 @@ public class ObjectGroupObject {
                                         gid = !objectElement.getAttribute("gid").equalsIgnoreCase("")
                                                 ? Integer.parseInt(objectElement.getAttribute("gid")) + tileSets.get(i).getFirstGid()-1
                                                 : -1;
-                                        //System.out.print(gid+ " : ");
                                         break;
                                     }
                                 }

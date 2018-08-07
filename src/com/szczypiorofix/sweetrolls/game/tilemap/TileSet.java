@@ -44,7 +44,6 @@ public class TileSet {
 
         try {
             InputStream inputFile = getClass().getResourceAsStream("/map/"+sourceFile);
-            //File inputFile = new File( "map/" + sourceFile);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);

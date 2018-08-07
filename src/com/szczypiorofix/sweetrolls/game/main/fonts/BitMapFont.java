@@ -1,16 +1,12 @@
 package com.szczypiorofix.sweetrolls.game.main.fonts;
 
-import com.szczypiorofix.sweetrolls.game.main.MainClass;
-import org.lwjgl.Sys;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
-public class BitMapFont {
 
+public class BitMapFont {
 
     private final float DEFAULT_FONT_SIZE = 1f;
     private int fontWidth, fontHeight, fontSpace;

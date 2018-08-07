@@ -45,7 +45,6 @@ public class CollisionObject {
     public void setTemplate(String templateFileName) {
         try {
             InputStream inputFile = getClass().getResourceAsStream("/map/" + templateFileName);
-            //File inputFile = new File(MainClass.RES + "map/" + templateFileName);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);

@@ -1,14 +1,12 @@
 package com.szczypiorofix.sweetrolls.game.tilemap;
 
 
-import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import sun.misc.IOUtils;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -161,7 +159,7 @@ public class TileMap {
                                     SpriteSheet image = null;
 
                                     try {
-                                        image = new SpriteSheet(MainClass.RES +"map/" +imageSource, tileWidth, tileHeight);
+                                        image = new SpriteSheet("map/" +imageSource, tileWidth, tileHeight);
                                     } catch (SlickException e) {
                                         e.printStackTrace();
                                     }

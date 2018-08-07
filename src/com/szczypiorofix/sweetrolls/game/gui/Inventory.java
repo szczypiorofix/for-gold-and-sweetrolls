@@ -1,6 +1,5 @@
 package com.szczypiorofix.sweetrolls.game.gui;
 
-import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
 import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;

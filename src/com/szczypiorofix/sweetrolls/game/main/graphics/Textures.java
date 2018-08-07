@@ -1,7 +1,6 @@
 package com.szczypiorofix.sweetrolls.game.main.graphics;
 
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 import java.util.logging.Level;
