@@ -48,6 +48,14 @@ public class Player extends Character {
         statistics.foodUsagePerHour = 0.1f;
         statistics.water = 20;
         statistics.watetUsagePerHour = 0.1f;
+        statistics.strength = 10;
+        statistics.dexterity = 10;
+        statistics.constitution = 10;
+        statistics.intelligence = 10;
+
+        statistics.maxHealth = (statistics.constitution * 10) + 50;
+        statistics.health = statistics.maxHealth;
+
         playerTurn = 0;
 
         setWorldMapTileX(getTileX());
@@ -71,10 +79,6 @@ public class Player extends Character {
         image.draw( - offsetX + x, - offsetY + y);
         //g.setDrawMode(Graphics.MODE_NORMAL);
 
-
-        if (playerAction == PlayerAction.TALK) {
-            g.drawString("Zagadaj?", - offsetX + x, - offsetY + y - 15);
-        }
         if (hover) {
             g.drawString(this.name, - offsetX + x, - offsetY + y - 15);
             g.drawString("w: "+width +", h: "+height, - offsetX + x, - offsetY + y - 30);

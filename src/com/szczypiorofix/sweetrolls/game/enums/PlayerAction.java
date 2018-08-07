@@ -4,9 +4,7 @@ public enum PlayerAction {
 
     MOVE,
 
-    FIGHT,
-
-    TALK
+    INVENTORY
 
 
 }

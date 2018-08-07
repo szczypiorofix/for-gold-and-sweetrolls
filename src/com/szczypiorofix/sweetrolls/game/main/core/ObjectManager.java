@@ -116,7 +116,7 @@ public class ObjectManager {
                 }
             }
 
-            // ######## DUNGEON EXIT
+            // ######## ITEMS
             if (tileMap.getObjectGroups().get(objectGroups).getName().equals("items")) {
                 int tileSet;
                 for (int item = 0; item < tileMap.getObjectGroups().get(objectGroups).getObjects().size(); item++) {
@@ -128,7 +128,6 @@ public class ObjectManager {
                             ) {
                         tileSet++;
                     }
-                    //System.out.println(tileMap.getTileSets().get(2).getName());
                     items[currentItem.getX() / tileMap.getTileWidth()]
                             [currentItem.getY() / tileMap.getTileHeight()] =
                             new Chest(
@@ -140,7 +139,7 @@ public class ObjectManager {
                                     currentItem.getWidth(),
                                     currentItem.getHeight(),
                                     currentItem.getGid() >= 0 ?
-                                            tileMap.getTileSets().get(2).getImageSprite(
+                                            tileMap.getTileSets().get(tileSet).getImageSprite(
                                                     currentItem.getGid()
                                                             - tileMap.getTileSets().get(tileSet).getFirstGid()
                                             )
@@ -430,6 +429,10 @@ public class ObjectManager {
 
     public GameObject getNpc(int x, int y) {
         return npcs[x][y];
+    }
+
+    public GameObject getItems(int x, int y) {
+        return items[x][y];
     }
 
     public Place[][] getPlaces() {

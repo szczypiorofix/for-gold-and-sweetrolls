@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="2018.07.13" orientation="orthogonal" renderorder="left-up" width="25" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="5">
+<map version="1.0" tiledversion="2018.07.13" orientation="orthogonal" renderorder="left-up" width="25" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="6">
  <tileset firstgid="1" source="dg_grounds32.tsx"/>
  <tileset firstgid="172" source="dg_town332.tsx"/>
  <tileset firstgid="208" source="dg_extra132.tsx"/>
- <tileset firstgid="352" source="dg_features32.tsx"/>
- <tileset firstgid="469" source="dg_people32.tsx"/>
- <tileset firstgid="481" source="dg_weapons32.tsx"/>
- <tileset firstgid="581" source="dg_misc32.tsx"/>
+ <tileset firstgid="352" source="dg_people32.tsx"/>
+ <tileset firstgid="364" source="dg_misc32.tsx"/>
  <layer id="4" name="ground" width="25" height="25">
   <data encoding="csv">
 313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,7,7,7,7,7,
@@ -44,13 +42,13 @@
   </object>
  </objectgroup>
  <objectgroup id="3" name="npc" offsetx="0" offsety="32">
-  <object id="2" template="npc.tx" name="Todd" gid="470" x="224" y="320">
+  <object id="2" template="npc.tx" name="Todd" gid="353" x="224" y="320">
    <properties>
     <property name="commonname" value="Dziwna postać"/>
     <property name="name" value="Todd Howard"/>
    </properties>
   </object>
-  <object id="3" template="NPC.tx" name="Pete" gid="474" x="480" y="256">
+  <object id="3" template="NPC.tx" name="Pete" gid="357" x="480" y="256">
    <properties>
     <property name="commonname" value="Mieszkaniec"/>
     <property name="name" value="Pete Hines"/>
@@ -58,6 +56,10 @@
   </object>
  </objectgroup>
  <objectgroup id="5" name="items" offsetx="0" offsety="32">
-  <object id="4" template="item.tx" x="384" y="352"/>
+  <object id="5" template="item.tx" gid="373" x="352" y="320">
+   <properties>
+    <property name="name" value="Złoto"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

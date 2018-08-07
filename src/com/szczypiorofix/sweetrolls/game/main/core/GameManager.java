@@ -3,6 +3,7 @@ package com.szczypiorofix.sweetrolls.game.main.core;
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.gui.DialogueFrame;
 import com.szczypiorofix.sweetrolls.game.gui.HUD;
+import com.szczypiorofix.sweetrolls.game.gui.Inventory;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import com.szczypiorofix.sweetrolls.game.objects.characters.NPC;
@@ -10,7 +11,6 @@ import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import com.szczypiorofix.sweetrolls.game.tilemap.CollisionObject;
 import com.szczypiorofix.sweetrolls.game.tilemap.TileMap;
 
-import org.lwjgl.Sys;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 
 import static com.szczypiorofix.sweetrolls.game.enums.PlayerAction.MOVE;
-import static com.szczypiorofix.sweetrolls.game.enums.PlayerAction.TALK;
+import static com.szczypiorofix.sweetrolls.game.enums.PlayerAction.INVENTORY;
 import static com.szczypiorofix.sweetrolls.game.enums.PlayerState.MOVING_INNER_LOCATION;
 import static com.szczypiorofix.sweetrolls.game.enums.PlayerState.MOVING_WORLD_MAP;
 
@@ -43,6 +43,7 @@ public class GameManager {
     private Input input;
     private Player player;
     private HUD hud;
+    private Inventory inventory;
     private ObjectManager objectManager;
     private MouseCursor mouseCursor;
     private String currentLevelName;
@@ -69,7 +70,7 @@ public class GameManager {
 
             if (!levels.containsKey(levelName)) {
                 MainClass.logging(false, Level.INFO, "Generowanie nowego losowego poziomu: "+levelName);
-                levelMap = levelManager.loadGeneratedLevel(levelName);
+                levelMap = levelManager.loadGeneratedLevel(levelName, objectManager.getGround(player.getTileX(), player.getTileY()).getCollisions().getTypeName());
                 levels.put(levelName, levelMap);
                 objectManager.generateLevel(levelMap, levelName);
                 player = objectManager.getPlayer();
@@ -120,6 +121,7 @@ public class GameManager {
 
         player.setCurrentLevelName(currentLevelName);
         hud = new HUD(player, mouseCursor);
+        inventory = new Inventory(player, mouseCursor);
     }
 
 
@@ -132,54 +134,26 @@ public class GameManager {
                 input.clearKeyPressedRecord();
                 //sgb.enterState(MainClass.MAINMENU, new FadeOutTransition(Color.black), new EmptyTransition());
                 sgb.enterState(MainClass.MAINMENU);
-            } else if (player.getPlayerAction() == TALK) {
+            } else if (player.getPlayerAction() == INVENTORY) {
                 player.setPlayerAction(MOVE);
+                inventory.setShow(false);
             }
         }
 
-        // PLAYER CONTROLS
-        if (player.getPlayerState() == MOVING_WORLD_MAP || player.getPlayerState() == MOVING_INNER_LOCATION) {
+        // INVENTORY
+        if (input.isKeyPressed(Input.KEY_I)) {
+            inventory.setShow(!inventory.isShow());
+            if (inventory.isShow()) {
+                player.setPlayerAction(INVENTORY);
+            } else player.setPlayerAction(MOVE);
+        }
 
-            if (input.isKeyPressed(Input.KEY_T)) {
-                FileOutputStream fout = null;
-                ObjectOutputStream oos = null;
-
-                try {
-
-                    fout = new FileOutputStream("player.sav");
-                    oos = new ObjectOutputStream(fout);
-                    oos.writeObject(player);
-
-                    System.out.println("Object player saved !");
-
-                } catch (Exception ex) {
-
-                    ex.printStackTrace();
-
-                } finally {
-
-                    if (fout != null) {
-                        try {
-                            fout.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    if (oos != null) {
-                        try {
-                            oos.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                }
-            }
+        // PLAYER CONTROLS ON MOVE
+        if (player.getPlayerAction() == MOVE) {
 
             if (input.isKeyPressed(Input.KEY_RIGHT) || gc.getInput().isKeyPressed(Input.KEY_D)) {
 
-                if (player.getPlayerAction() == MOVE && player.getTileX() < objectManager.getLevel().getWidth()-1) {
+                if (player.getTileX() < objectManager.getLevel().getWidth()-1) {
 
                     if (objectManager.getGround(player.getTileX() + 1, player.getTileY()).getCollisions().getCollisionType() == CollisionObject.CollisionType.PASSABLE || !collisionsEnabled) {
                         player.moveEast();
@@ -190,7 +164,7 @@ public class GameManager {
             }
 
             if (input.isKeyPressed((Input.KEY_LEFT)) || gc.getInput().isKeyPressed(Input.KEY_A)) {
-                if (player.getPlayerAction() == MOVE && player.getTileX() > 0) {
+                if (player.getTileX() > 0) {
                     if (objectManager.getGround(player.getTileX() - 1, player.getTileY()).getCollisions().getCollisionType() == CollisionObject.CollisionType.PASSABLE || !collisionsEnabled) {
                         player.moveWest();
                         setNextRound = true;
@@ -200,7 +174,7 @@ public class GameManager {
             }
 
             if (input.isKeyPressed(Input.KEY_UP) || gc.getInput().isKeyPressed(Input.KEY_W)) {
-                if (player.getPlayerAction() == MOVE && player.getTileY() > 0) {
+                if (player.getTileY() > 0) {
                     if (objectManager.getGround(player.getTileX(), player.getTileY() - 1).getCollisions().getCollisionType() == CollisionObject.CollisionType.PASSABLE || !collisionsEnabled) {
                         player.moveNorth();
                         setNextRound = true;
@@ -210,7 +184,7 @@ public class GameManager {
             }
 
             if (input.isKeyPressed((Input.KEY_DOWN)) || gc.getInput().isKeyPressed(Input.KEY_S)) {
-                if (player.getPlayerAction() == MOVE && player.getTileY() < objectManager.getLevel().getHeight()-1) {
+                if (player.getTileY() < objectManager.getLevel().getHeight()-1) {
                     if (objectManager.getGround(player.getTileX(), player.getTileY() + 1).getCollisions().getCollisionType() == CollisionObject.CollisionType.PASSABLE || !collisionsEnabled) {
                         player.moveSouth();
                         setNextRound = true;
@@ -225,7 +199,6 @@ public class GameManager {
                 if (player.getPlayerState() == MOVING_WORLD_MAP) {
                     if (objectManager.getPlace(player.getTileX(), player.getTileY()) != null) {
 
-                        //System.out.println("Entering: "+objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("name")+".");
                         MainClass.logging(false, Level.INFO, "Przejście do lokacji: "+objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("name")+".");
 
                         player.setPlayerState(MOVING_INNER_LOCATION);
@@ -245,7 +218,6 @@ public class GameManager {
                             || objectManager.getPlace(player.getTileX(), player.getTileY()) != null
                             ) {
 
-                        //System.out.println("Exiting to world map.");
                         MainClass.logging(false, Level.INFO, "Powrót do mapy głównej.");
 
                         player.setPlayerState(MOVING_WORLD_MAP);
@@ -262,7 +234,7 @@ public class GameManager {
         }
 
 
-
+        input.clearKeyPressedRecord();
     }
 
     private void calculateOffset() {
@@ -303,58 +275,64 @@ public class GameManager {
 //            player.setHover(true);
 //        }
 //
-        if (player.getTileX() >= mouseCursor.getTileX() - 1
-                && player.getTileX() <= mouseCursor.getTileX() + 1
-                && player.getTileY() >= mouseCursor.getTileY() - 1
-                && player.getTileY() <= mouseCursor.getTileY() + 1
-                ) {
-            if (objectManager.getGround(mouseCursor.getTileX(), mouseCursor.getTileY()) != null) {
-                for (int i = -1; i < 2; i++) {
-                    for (int j = -1; j < 2; j++) {
-                        if (!(i == 0 && j == 0)
-                                && player.getTileX(i) > 0
-                                && player.getTileY(j) > 0
-                                && player.getTileX(i) < objectManager.getLevel().getWidth()-1
-                                && player.getTileY(j) < objectManager.getLevel().getHeight()-1) {
+        // ON MOVE
+        if (player.getPlayerAction() == MOVE) {
 
-                            //objectManager.getGround(player.getTileX(i), player.getTileY(j)).setHover(true);
+            if (player.getTileX() >= mouseCursor.getTileX() - 1
+                    && player.getTileX() <= mouseCursor.getTileX() + 1
+                    && player.getTileY() >= mouseCursor.getTileY() - 1
+                    && player.getTileY() <= mouseCursor.getTileY() + 1
+                    ) {
+                if (objectManager.getGround(mouseCursor.getTileX(), mouseCursor.getTileY()) != null) {
+                    for (int i = -1; i < 2; i++) {
+                        for (int j = -1; j < 2; j++) {
+                            if (!(i == 0 && j == 0)
+                                    && player.getTileX(i) > 0
+                                    && player.getTileY(j) > 0
+                                    && player.getTileX(i) < objectManager.getLevel().getWidth()-1
+                                    && player.getTileY(j) < objectManager.getLevel().getHeight()-1) {
 
-                            objectManager.getGround(mouseCursor.getTileX(), mouseCursor.getTileY()).setHover(true);
-                            if (objectManager.getNpc(player.getTileX(i), player.getTileY(j)) != null
-                                    && objectManager.getNpc(player.getTileX(i), player.getTileY(j)).getTileX() == mouseCursor.getTileX()
-                                    && objectManager.getNpc(player.getTileX(i), player.getTileY(j)).getTileY() == mouseCursor.getTileY()
-                                    ) {
+                                //objectManager.getGround(player.getTileX(i), player.getTileY(j)).setHover(true);
 
-                                objectManager.getNpc(player.getTileX(i), player.getTileY(j)).setHover(true);
+                                objectManager.getGround(mouseCursor.getTileX(), mouseCursor.getTileY()).setHover(true);
+                                if (objectManager.getNpc(player.getTileX(i), player.getTileY(j)) != null
+                                        && objectManager.getNpc(player.getTileX(i), player.getTileY(j)).getTileX() == mouseCursor.getTileX()
+                                        && objectManager.getNpc(player.getTileX(i), player.getTileY(j)).getTileY() == mouseCursor.getTileY()
+                                        ) {
 
-                                if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-                                    NPC npc = (NPC) objectManager.getNpc(player.getTileX(i), player.getTileY(j));
-                                    if (!npc.isShortTalk()) {
-                                        //npc.setShortTalk(true);
-                                        dialogueFrame = new DialogueFrame(player, npc, mouseCursor);
-                                        dialogueFrame.setShowDialog(true);
+                                    objectManager.getNpc(player.getTileX(i), player.getTileY(j)).setHover(true);
+
+                                    if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+                                        NPC npc = (NPC) objectManager.getNpc(player.getTileX(i), player.getTileY(j));
+                                        if (!npc.isShortTalk()) {
+                                            //npc.setShortTalk(true);
+                                            dialogueFrame = new DialogueFrame(player, npc, mouseCursor);
+                                            dialogueFrame.setShowDialog(true);
+                                        }
+
                                     }
-
                                 }
                             }
                         }
                     }
                 }
             }
-        }
 
-        // MOUSE HOVER ON OBJECTS
-        if (player.getPlayerState() == MOVING_WORLD_MAP) {
-            if (objectManager.getPlace(mouseCursor.getTileX(), mouseCursor.getTileY()) != null) {
-                objectManager.getPlace(mouseCursor.getTileX(), mouseCursor.getTileY()).setHover(true);
+            // MOUSE HOVER ON OBJECTS
+            if (player.getPlayerState() == MOVING_WORLD_MAP) {
+                if (objectManager.getPlace(mouseCursor.getTileX(), mouseCursor.getTileY()) != null) {
+                    objectManager.getPlace(mouseCursor.getTileX(), mouseCursor.getTileY()).setHover(true);
+                }
             }
-        }
 
-//        if (player.getPlayerState() == MOVING_INNER_LOCATION) {
-//            if (objectManager.getNpc(mouseCursor.getTileX(), mouseCursor.getTileY()) != null) {
-//                objectManager.getNpc(mouseCursor.getTileX(), mouseCursor.getTileY()).setHover(true);
-//            }
-//        }
+            // MOUSE HOVER ON ITEMS
+            if (player.getPlayerState() == MOVING_INNER_LOCATION) {
+                if (objectManager.getItems(mouseCursor.getTileX(), mouseCursor.getTileY()) != null) {
+                    objectManager.getItems(mouseCursor.getTileX(), mouseCursor.getTileY()).setHover(true);
+                }
+            }
+
+        }
 
     }
 
@@ -363,13 +341,17 @@ public class GameManager {
         objectManager.render(gc, sgb, g, offsetX, offsetY);
         player.render(gc, sgb, g, offsetX, offsetY);
 
+
         Color c = g.getColor();
         g.setColor(player.getTimeCounter().getDayNightEffect());
         g.fillRect(0, 0, gameWidth - 230, gameHeight);
         g.setColor(c);
 
+
         dialogueFrame.render(gc, sgb, g);
         hud.render(gc, sgb, g);
+        inventory.render(gc, sgb, g);
+
 
         if (objectManager.getGround(player.getTileX(), player.getTileY()).getCollisions() != null) {
             g.drawString(objectManager.getGround(player.getTileX(), player.getTileY()).getCollisions().getTypeName(), 20, 50);

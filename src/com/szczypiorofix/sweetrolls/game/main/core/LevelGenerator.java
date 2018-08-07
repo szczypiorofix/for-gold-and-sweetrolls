@@ -22,21 +22,13 @@ public class LevelGenerator {
     private int emptyFieldGid;
     private int wallFieldGid;
     private int simulationSteps = 5;
+    private boolean wallsCollidable;
     private Vector playerVector;
     private Vector exitVector;
     private Vector itemVector;
 
 
-    public LevelGenerator(TileMap tileMap, int levelWidth, int levelHeight, String name, int emptyFieldGid, int wallFieldGid) {
-        this.tileMap = tileMap;
-        this.levelWidth = levelWidth;
-        this.levelHeight = levelHeight;
-        this.name = name;
-        this.emptyFieldGid = emptyFieldGid;
-        this.wallFieldGid = wallFieldGid;
-    }
-
-    public LevelGenerator(String name, int levelWidth, int levelHeight, int wallFieldGid, int emptyFieldGid, int deathLimit, int birthLimit, float chanceToStartAlive, int simulationSteps) {
+    public LevelGenerator(String name, int levelWidth, int levelHeight, int wallFieldGid, int emptyFieldGid, int deathLimit, int birthLimit, float chanceToStartAlive, int simulationSteps, boolean wallsCollidable) {
         this.name = name;
         this.levelWidth = levelWidth;
         this.levelHeight = levelHeight;
@@ -46,6 +38,7 @@ public class LevelGenerator {
         this.birthLimit = birthLimit;
         this.chanceToStartAlive = chanceToStartAlive;
         this.simulationSteps = simulationSteps;
+        this.wallsCollidable = wallsCollidable;
         createTileMap();
     }
 
@@ -125,21 +118,23 @@ public class LevelGenerator {
         exitVector.x = playerVector.x;
         exitVector.y = playerVector.y;
 
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[0].length; j++) {
+        if (wallsCollidable) {
+            for (int i = 0; i < map.length; i++) {
+                for (int j = 0; j < map[0].length; j++) {
 
-                if (map[i][j].getGid() == wallFieldGid) {
-                    map[i][j].setCollisionObject(new CollisionObject(
-                            map[i][j].getGid(),
-                            "dungeonwall",
-                            i,
-                            j,
-                            TILEWIDTH,
-                            TILEHEIGHT));
+                    if (map[i][j].getGid() == wallFieldGid) {
+                        map[i][j].setCollisionObject(new CollisionObject(
+                                map[i][j].getGid(),
+                                "dungeonwall",
+                                i,
+                                j,
+                                TILEWIDTH,
+                                TILEHEIGHT));
+                    }
                 }
-
             }
         }
+
 
 
         layer.setData(map);
@@ -189,7 +184,7 @@ public class LevelGenerator {
                 TILEHEIGHT,
                 tileMap.getTileSets()
         );
-        itemObject.setGid(100); // ITEM GID  0 - 100
+        itemObject.setGid(208); // ITEM GID  208 - 308
         itemsObjectGroup.addObject(itemObject);
         tileMap.addObjectGroup(itemsObjectGroup);
     }
@@ -292,10 +287,11 @@ public class LevelGenerator {
                 if ((float) MainClass.RANDOM.nextInt(1001) / 1000  < this.chanceToStartAlive) {
                     tile = wallFieldGid; // true
                 }
-                if (i == 0 || j == 0 || i == levelWidth-1 || j == levelHeight-1) {
-                    tile = wallFieldGid;
+                if (wallsCollidable) {
+                    if (i == 0 || j == 0 || i == levelWidth-1 || j == levelHeight-1) {
+                        tile = wallFieldGid;
+                    }
                 }
-
                 map[i][j] = new TileObject(tile);
             }
         }
