@@ -51,6 +51,9 @@ public class HUD {
         font.draw("Player : " +player.getWidth()+":"+player.getHeight(), 590, 260);
         font.draw("Player offset: " +player.getOffsetX()+":"+player.getOffsetY(), 590, 280);
 
+        font.draw("Food: " +player.statistics.foodRations, 590, 300);
+        font.draw("Water: " +player.statistics.water, 590, 320);
+
     }
 
 }

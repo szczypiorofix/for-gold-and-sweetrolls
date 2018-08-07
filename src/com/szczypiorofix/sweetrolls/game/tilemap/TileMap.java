@@ -14,9 +14,10 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.util.ArrayList;
 
+
 public class TileMap {
 
-    private ArrayList<Layer> layers;
+    private ArrayList<TileLayer> tileLayers;
     private ArrayList<TileSet> tileSets;
     private ArrayList<ObjectGroup> objectGroups;
     private String fileName;
@@ -26,8 +27,9 @@ public class TileMap {
     private int height;
     private int nextObjectId;
 
+
     private TileMap() {
-        layers = new ArrayList<>();
+        tileLayers = new ArrayList<>();
         tileSets = new ArrayList<>();
         objectGroups = new ArrayList<>();
     }
@@ -71,6 +73,7 @@ public class TileMap {
         return r;
     }
 
+
     /**
      * Parsing TiledMap Editor map file (.tmx)
      * @param fileName (String) TiledMap Editor map filename.
@@ -101,19 +104,23 @@ public class TileMap {
                         Node layersNode = layersList.item(i);
                         if (layersNode.getNodeType() == Node.ELEMENT_NODE) {
                             Element layerElement = (Element) layersNode;
-                            Layer layer = new Layer(
+                            TileLayer tileLayer = new TileLayer(
                                     layerElement.getAttribute("name"),
                                     Integer.parseInt(layerElement.getAttribute("width")),
                                     Integer.parseInt(layerElement.getAttribute("height"))
                             );
-                            layer.setDataCSVFromString(layerElement.getElementsByTagName("data").item(0).getTextContent());
+
+                            tileLayer.setDataCSVFromString(layerElement.getElementsByTagName("data").item(0).getTextContent());
                             if (layerElement.getAttribute("locked").equals("1")) {
-                                layer.setLocked(true);
+                                tileLayer.setLocked(true);
                             }
                             if (layerElement.getAttribute("visible").equals("0")) {
-                                layer.setVisible(false);
+                                tileLayer.setVisible(false);
                             }
-                            layers.add(layer);
+                            tileLayers.add(tileLayer);
+
+
+                            // #################### NEW
                         }
                     }
 
@@ -169,21 +176,6 @@ public class TileMap {
                                             image)
                                     );
                                 }
-
-                                // Tile element in TileSet
-                                NodeList tileList = tilesetElement.getElementsByTagName("tile");
-                                for (int t = 0; t < tileList.getLength(); t++) {
-
-                                    //
-                                    //
-                                    //
-                                    //
-                                    //
-                                    //
-
-                                }
-
-
                             }
                         }
                     }
@@ -197,6 +189,7 @@ public class TileMap {
                             if (objectGroupElement.getTagName().equalsIgnoreCase("objectgroup")) {
 
                                 ObjectGroup objectGroup = new ObjectGroup(objectGroupElement.getAttribute("name"));
+
                                 NodeList objectsList = objectGroupElement.getElementsByTagName("object");
                                 for (int j = 0; j < objectsList.getLength(); j++) {
                                     Node objectsNode = objectsList.item(j);
@@ -261,11 +254,14 @@ public class TileMap {
         calculateCollisions();
     }
 
+
+
+
     private void calculateCollisions() {
 
         for (int i = 0; i < tileSets.size(); i++) {
 
-            for (int j = 0; j < layers.size(); j++) {
+            for (int j = 0; j < tileLayers.size(); j++) {
 
                 if (tileSets.get(i).getCollisions().size() > 0) {
 
@@ -273,13 +269,15 @@ public class TileMap {
 
                         for (int x = 0; x < width; x++) {
                             for (int y = 0; y < height; y++) {
-                                if (tileSets.get(i).getCollisions().get(c).getId() == layers.get(j).getTile(x, y).getGid()) {
-                                    layers.get(j).getTile(x, y).setCollisionObject(
+                                if (tileSets.get(i).getCollisions().get(c).getId() == tileLayers.get(j).getTile(x, y).getGid()) {
+                                    tileLayers.get(j).getTile(x, y).setCollisionObject(
                                             new CollisionObject(
-                                            tileSets.get(i).getCollisions().get(c).getX(),
-                                            tileSets.get(i).getCollisions().get(c).getY(),
-                                            tileSets.get(i).getCollisions().get(c).getWidth(),
-                                            tileSets.get(i).getCollisions().get(c).getHeight())
+                                                    tileSets.get(i).getCollisions().get(c).getId(),
+                                                    tileSets.get(i).getCollisions().get(c).getTypeName(),
+                                                    tileSets.get(i).getCollisions().get(c).getX(),
+                                                    tileSets.get(i).getCollisions().get(c).getY(),
+                                                    tileSets.get(i).getCollisions().get(c).getWidth(),
+                                                    tileSets.get(i).getCollisions().get(c).getHeight())
                                     );
                                 }
                             }
@@ -298,8 +296,8 @@ public class TileMap {
         return null;
     }
 
-    public void addLayer(Layer layer) {
-        this.layers.add(layer);
+    public void addLayer(TileLayer layer) {
+        this.tileLayers.add(layer);
     }
 
     public int getTileWidth() {
@@ -366,20 +364,20 @@ public class TileMap {
         this.tileSets = tileSets;
     }
 
-    public ArrayList<Layer> getLayers() {
-        return layers;
+    public ArrayList<TileLayer> getTileLayers() {
+        return tileLayers;
     }
 
     @Override
     public String toString() {
-        StringBuilder r = new StringBuilder("\nTILEMAP size " + width + ":" + height + ", tiles: " + tileWidth + ":" + tileHeight + ", layers: " + layers.size() + "\n");
+        StringBuilder r = new StringBuilder("\nTILEMAP size " + width + ":" + height + ", tiles: " + tileWidth + ":" + tileHeight + ", layers: " + tileLayers.size() + "\n");
 
         for(TileSet t : tileSets) {
             r.append("TILESET firstgrid: ").append(t.getFirstGid()).append(", source: ").append(t.getImageSource()).append(", tilecount: ").append(t.getTileCount()).append(", columns: ").append(t.getColumns()).append("\n");
         }
 
-        for (int i = 0; i < layers.size(); i++) {
-            r.append("\nLayer ").append(i).append(": ").append(layers.get(i).getName()).append(" size: ").append(layers.get(i).getDataCSV().length).append("\n");
+        for (int i = 0; i < tileLayers.size(); i++) {
+            r.append("\nLayer ").append(i).append(": ").append(tileLayers.get(i).getName()).append(" size: ").append(tileLayers.get(i).getData().length).append("\n");
 //            for (int j = 0; j < layers.get(i).getDataCSV().length; j++) {
 //                r.append(layers.get(i).getTileData(j)).append(",");
 //            }

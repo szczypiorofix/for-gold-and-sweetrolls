@@ -1,38 +1,32 @@
 package com.szczypiorofix.sweetrolls.game.tilemap;
 
 
+import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
+import com.szczypiorofix.sweetrolls.game.objects.GameObject;
+import com.szczypiorofix.sweetrolls.game.objects.terrain.Ground;
+
 import java.util.Arrays;
 
 public class Layer {
 
+    private int id;
+    private int width, height;
+    private int tileWidth, tileHeight;
+    private int offsetX, offsetY;
     private String name;
-    private int width;
-    private int height;
-    private boolean locked = false;
-    private boolean visible = true;
-    private int[] dataCSV;
-    private TileObject[][] tileObjects;
+    private GameObject[][] tiles;
 
-    public Layer(String name, int width, int height) {
-        this.name = name;
-        this.width = width;
-        this.height = height;
+
+    public Layer(int id) {
+        this.id = id;
     }
 
-    public boolean isLocked() {
-        return locked;
+    public int getId() {
+        return id;
     }
 
-    public void setLocked(boolean locked) {
-        this.locked = locked;
-    }
-
-    public boolean isVisible() {
-        return visible;
-    }
-
-    public void setVisible(boolean visible) {
-        this.visible = visible;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getWidth() {
@@ -51,6 +45,22 @@ public class Layer {
         this.height = height;
     }
 
+    public int getOffsetX() {
+        return offsetX;
+    }
+
+    public void setOffsetX(int offsetX) {
+        this.offsetX = offsetX;
+    }
+
+    public int getOffsetY() {
+        return offsetY;
+    }
+
+    public void setOffsetY(int offsetY) {
+        this.offsetY = offsetY;
+    }
+
     public String getName() {
         return name;
     }
@@ -59,39 +69,22 @@ public class Layer {
         this.name = name;
     }
 
-    public int[] getDataCSV() {
-        return dataCSV;
+    public GameObject[][] getTiles() {
+        return tiles;
     }
 
-    public TileObject[][] getData() {
-        return tileObjects;
+    public void setTiles(GameObject[][] tiles) {
+        this.tiles = tiles;
     }
 
-    public TileObject getTile(int x, int y) {
-        return tileObjects[x][y];
-    }
-
-    public void setData(TileObject[][] tileObjects) {
-        this.tileObjects = tileObjects;
-    }
-
-//    public TileObject getTileData(int tile) {
-//        return dataCSV[tile];
-//    }
-
-    public void setDataCSV(int[] dataCSV) {
-        this.dataCSV = dataCSV;
-    }
-
-    public void setDataCSVFromString(String dataCSV) {
-        String[] data = dataCSV.replace("\n", "").replace("\r", "").trim().split(",");
-        this.dataCSV = Arrays.stream(data).mapToInt(Integer::parseInt).toArray();
-        this.tileObjects = new TileObject[width][height];
+    public void setDataCSVFromString(String stringDataCSV) {
+        String[] data = stringDataCSV.replace("\n", "").replace("\r", "").trim().split(",");
+        int[] dataCSV = Arrays.stream(data).mapToInt(Integer::parseInt).toArray();
+        tiles = new GameObject[width][height];
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                this.tileObjects[j][i] = new TileObject(this.dataCSV[i * width + j]);
+
             }
         }
     }
-
 }

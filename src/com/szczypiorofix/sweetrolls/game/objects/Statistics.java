@@ -14,4 +14,12 @@ public class Statistics implements Serializable {
     public int currentLevelBar;
     public int currentLevelMaxBar;
 
+    public float foodRations;
+    public float foodUsagePerHour;
+
+    public float water;
+    public float watetUsagePerHour;
+
+
+
 }

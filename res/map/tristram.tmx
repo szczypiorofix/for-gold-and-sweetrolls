@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="2018.07.13" orientation="orthogonal" renderorder="left-up" width="25" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="4">
+<map version="1.0" tiledversion="2018.07.13" orientation="orthogonal" renderorder="left-up" width="25" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="5">
  <tileset firstgid="1" source="dg_grounds32.tsx"/>
  <tileset firstgid="172" source="dg_town332.tsx"/>
  <tileset firstgid="208" source="dg_extra132.tsx"/>
  <tileset firstgid="352" source="dg_features32.tsx"/>
  <tileset firstgid="469" source="dg_people32.tsx"/>
+ <tileset firstgid="481" source="dg_weapons32.tsx"/>
+ <tileset firstgid="581" source="dg_misc32.tsx"/>
  <layer id="4" name="ground" width="25" height="25">
   <data encoding="csv">
 313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,7,7,7,7,7,
@@ -54,5 +56,8 @@
     <property name="name" value="Pete Hines"/>
    </properties>
   </object>
+ </objectgroup>
+ <objectgroup id="5" name="items" offsetx="0" offsety="32">
+  <object id="4" template="item.tx" x="384" y="352"/>
  </objectgroup>
 </map>

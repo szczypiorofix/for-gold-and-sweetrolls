@@ -26,31 +26,22 @@ public class CollisionObject {
     private int x, y;
     private int width, height;
 
-    public CollisionObject() {
-    }
 
     public CollisionObject(int id) {
         this.id = id;
+        setTypeName("default");
     }
 
-    public CollisionObject(int x, int y, int width, int height) {
+    public CollisionObject(int id, String type, int x, int y, int width, int height) {
+        this.id = id;
+        setTypeName(type);
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.collisionType = CollisionType.PASSABLE;
-    }
-
-    public CollisionObject(int x, int y, int width, int height, CollisionType collisionType) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.collisionType = collisionType;
     }
 
     public void setTemplate(String templateFileName) {
-
         try {
             File inputFile = new File(MainClass.RES + "map/" + templateFileName);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -71,12 +62,8 @@ public class CollisionObject {
                             Element objectsElement = (Element) objectsNode;
                             this.width = Integer.parseInt(objectsElement.getAttribute("width"));
                             this.height = Integer.parseInt(objectsElement.getAttribute("height"));
-                            this.typeName = objectsElement.getAttribute("type");
+                            setTypeName(objectsElement.getAttribute("type"));
                             this.name = objectsElement.getAttribute("name");
-
-                            if (this.typeName.equalsIgnoreCase("collisions")) {
-                                this.collisionType = CollisionType.COLLISION;
-                            } else this.collisionType = CollisionType.PASSABLE;
                         }
                     }
                 }
@@ -93,6 +80,10 @@ public class CollisionObject {
 
     public void setTypeName(String typeName) {
         this.typeName = typeName;
+        this.collisionType = CollisionType.PASSABLE;
+        if (this.typeName.equalsIgnoreCase("water") || this.typeName.equalsIgnoreCase("dungeonwall")) {
+            this.collisionType = CollisionType.COLLISION;
+        }
     }
 
     public String getName() {

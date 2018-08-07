@@ -12,13 +12,13 @@ public class LevelManager {
     public TileMap loadGeneratedLevel(String name) {
         return new LevelGenerator(
                 name,
-                100,
-                100,
+                50,
+                50,
                 31,
                 6,
                 4,
                 4,
-                0.47f,
+                0.43f,
                 8).getTileMap();
     }
 

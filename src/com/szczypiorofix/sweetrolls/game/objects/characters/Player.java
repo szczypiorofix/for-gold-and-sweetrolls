@@ -15,15 +15,17 @@ import java.util.ArrayList;
 
 public class Player extends Character {
 
-    private Image image;
+
     private int playerTurn;
-    private ObjectType terrainType;
-    private PlayerState playerState;
+    private float offsetX, offsetY;
     private int worldMapTileX = 0;
     private int worldMapTileY = 0;
     private String currentLevelName;
+
+    private Image image;
+    private ObjectType terrainType;
+    private PlayerState playerState;
     private PlayerAction playerAction;
-    private float offsetX, offsetY;
     private TimeCounter timeCounter;
 
     public Player(String name, float x, float y, float width, float height, ArrayList<Property> properties) {
@@ -42,6 +44,10 @@ public class Player extends Character {
         statistics.level = 1;
         statistics.currentLevelBar = 1;
         statistics.currentLevelMaxBar = 8;
+        statistics.foodRations = 20;
+        statistics.foodUsagePerHour = 0.1f;
+        statistics.water = 20;
+        statistics.watetUsagePerHour = 0.1f;
         playerTurn = 0;
 
         setWorldMapTileX(getTileX());
@@ -87,6 +93,12 @@ public class Player extends Character {
             worldMapTileY = getTileY();
         }
 
+
+    }
+
+    public void calculateSurvival() {
+        statistics.foodRations -= statistics.foodUsagePerHour;
+        statistics.water -= statistics.watetUsagePerHour;
     }
 
     public TimeCounter getTimeCounter() {

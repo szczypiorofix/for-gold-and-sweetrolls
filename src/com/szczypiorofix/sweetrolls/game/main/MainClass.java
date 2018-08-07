@@ -55,7 +55,7 @@ public final class MainClass {
         try {
             modes = Display.getAvailableDisplayModes();
         } catch (Exception e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             logging(true,  Level.WARNING, getStackTrace(e));
             System.exit(-1);
         }
@@ -82,7 +82,7 @@ public final class MainClass {
             app.setUpdateOnlyWhenVisible(true);
             app.start();
         } catch (Exception e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             logging(true,  Level.WARNING, getStackTrace(e));
         }
     }

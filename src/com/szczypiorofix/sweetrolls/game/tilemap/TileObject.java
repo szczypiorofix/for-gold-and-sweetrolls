@@ -12,7 +12,7 @@ public class TileObject {
 
     public TileObject(int gid) {
         this.gid = gid;
-        collisionObject = new CollisionObject();
+        collisionObject = new CollisionObject(gid);
     }
 
 

@@ -1,6 +1,7 @@
 package com.szczypiorofix.sweetrolls.game.main.core;
 
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
+import com.szczypiorofix.sweetrolls.game.objects.Vector;
 import com.szczypiorofix.sweetrolls.game.tilemap.*;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
@@ -21,7 +22,10 @@ public class LevelGenerator {
     private int emptyFieldGid;
     private int wallFieldGid;
     private int simulationSteps = 5;
-    private int playerX, playerY;
+    private Vector playerVector;
+    private Vector exitVector;
+    private Vector itemVector;
+
 
     public LevelGenerator(TileMap tileMap, int levelWidth, int levelHeight, String name, int emptyFieldGid, int wallFieldGid) {
         this.tileMap = tileMap;
@@ -47,10 +51,14 @@ public class LevelGenerator {
 
     private void createTileMap() {
         tileMap = new TileMap(levelWidth, levelHeight, TILEWIDTH,TILEHEIGHT);
-        SpriteSheet image = null;
+        SpriteSheet image1 = null;
+        SpriteSheet image2 = null;
+        SpriteSheet image3 = null;
 
         try {
-            image = new SpriteSheet(MainClass.RES +"map/dg_grounds32.png", TILEWIDTH, TILEHEIGHT);
+            image1 = new SpriteSheet(MainClass.RES +"map/dg_grounds32.png", TILEWIDTH, TILEHEIGHT);
+            image2 = new SpriteSheet(MainClass.RES +"map/dg_town332.png", TILEWIDTH, TILEHEIGHT);
+            image3 = new SpriteSheet(MainClass.RES +"map/dg_weapons32.png", TILEWIDTH, TILEHEIGHT);
         } catch (SlickException e) {
             e.printStackTrace();
         }
@@ -64,10 +72,39 @@ public class LevelGenerator {
                 9,
                 288,
                 608,
-                image
+                image1
+        ));
+        tileMap.addTileSet(new TileSet(
+                172,
+                "dg_town332",
+                "dg_town332.png",
+                TILEWIDTH,
+                TILEHEIGHT,
+                36,
+                9,
+                288,
+                128,
+                image2
+        ));
+        tileMap.addTileSet(new TileSet(
+                208,
+                "dg_weapons32",
+                "dg_weapons32.png",
+                TILEWIDTH,
+                TILEHEIGHT,
+                100,
+                10,
+                320,
+                320,
+                image3
         ));
 
-        Layer layer = new Layer("ground", levelWidth, levelHeight);
+
+//        for (int i = 0; i < tileMap.getTileSets().size(); i++) {
+//            System.out.println(tileMap.getTileSets().get(i).getFirstGid()+", "+tileMap.getTileSets().get(i).getName());
+//        }
+
+        TileLayer layer = new TileLayer("ground", levelWidth, levelHeight);
 
         TileObject[][] map = randomMap();
         //map = generateMap(map);
@@ -75,35 +112,98 @@ public class LevelGenerator {
             map = doSimulationStep(map);
         }
 
-        placePlayerOnMap(map);
+        playerVector = new Vector();
+        exitVector = new Vector();
+        itemVector = new Vector();
+
+        //placePlayerOnMap(map);
+        playerVector = placeOnMap(map);
+
+        itemVector = placeOnMap(map);
+        System.out.println(itemVector.x / TILEWIDTH+":"+itemVector.y / TILEHEIGHT);
+
+        exitVector.x = playerVector.x;
+        exitVector.y = playerVector.y;
 
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[0].length; j++) {
 
                 if (map[i][j].getGid() == wallFieldGid) {
-                    map[i][j].setCollisionObject(new CollisionObject(i, j, TILEWIDTH, TILEHEIGHT));
+                    map[i][j].setCollisionObject(new CollisionObject(
+                            map[i][j].getGid(),
+                            "dungeonwall",
+                            i,
+                            j,
+                            TILEWIDTH,
+                            TILEHEIGHT));
                 }
 
             }
         }
 
+
         layer.setData(map);
         tileMap.addLayer(layer);
 
-        ObjectGroup objectGroup = new ObjectGroup("player");
-        ObjectGroupObject objectGroupObject = new ObjectGroupObject(
+        // ########### PLAYER
+        ObjectGroup playerObjectGroup = new ObjectGroup("player");
+        ObjectGroupObject playerObject = new ObjectGroupObject(
                 1,
                 "",
                 "player spawn",
-                playerX,
-                playerY,
+                playerVector.x,
+                playerVector.y,
                 TILEWIDTH,
                 TILEHEIGHT,
                 tileMap.getTileSets()
         );
-        objectGroupObject.addProperty(new Property("name", "string", "PGarvey"));
-        objectGroup.addObject(objectGroupObject);
-        tileMap.addObjectGroup(objectGroup);
+        playerObject.addProperty(new Property("name", "string", "PGarvey"));
+        playerObjectGroup.addObject(playerObject);
+        tileMap.addObjectGroup(playerObjectGroup);
+
+        // ############# EXIT
+        ObjectGroup exitObjectGroup = new ObjectGroup("dungeonexit");
+        ObjectGroupObject exitObject = new ObjectGroupObject(
+                2,
+                "",
+                "exit",
+                exitVector.x,
+                exitVector.y,
+                TILEWIDTH,
+                TILEHEIGHT,
+                tileMap.getTileSets()
+        );
+        exitObject.setGid(200); // EXIT GID
+        exitObjectGroup.addObject(exitObject);
+        tileMap.addObjectGroup(exitObjectGroup);
+
+        // ############# ITEM
+        ObjectGroup itemsObjectGroup = new ObjectGroup("items");
+        ObjectGroupObject itemObject = new ObjectGroupObject(
+                3,
+                "item.tx",
+                "item",
+                itemVector.x,
+                itemVector.y,
+                TILEWIDTH,
+                TILEHEIGHT,
+                tileMap.getTileSets()
+        );
+        itemObject.setGid(100); // ITEM GID  0 - 100
+        itemsObjectGroup.addObject(itemObject);
+        tileMap.addObjectGroup(itemsObjectGroup);
+    }
+
+    private Vector placeOnMap(TileObject[][] map) {
+        Vector v = new Vector();
+        boolean exitSet = false;
+        do {
+            v.x = MainClass.RANDOM.nextInt(map.length);
+            v.y = MainClass.RANDOM.nextInt(map[0].length);
+            if (map[v.x][v.y].getGid() == emptyFieldGid) exitSet = true;
+        } while(!exitSet);
+        v.multiply(TILEWIDTH, TILEHEIGHT);
+        return v;
     }
 
     public int countAliveNeighbours(TileObject[][] map, int x, int y){
@@ -168,16 +268,14 @@ public class LevelGenerator {
     }
 
     public void placePlayerOnMap(TileObject[][] world){
-        //How hidden does a spot need to be for treasure?
-        //I find 5 or 6 is good. 6 for very rare treasure.
         int treasureHiddenLimit = 5;
         for (int x = 0; x < levelWidth; x++){
             for (int y = 0; y < levelHeight; y++){
                 if(world[x][y].getGid() == emptyFieldGid){
                     int nbs = countAliveNeighbours(world, x, y);
                     if(nbs >= treasureHiddenLimit){
-                        playerX = x * TILEWIDTH;
-                        playerY = y * TILEHEIGHT;
+                        playerVector.x = x * TILEWIDTH;
+                        playerVector.y = y * TILEHEIGHT;
                     }
                 }
             }

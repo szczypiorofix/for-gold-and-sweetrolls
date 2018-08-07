@@ -36,15 +36,9 @@ abstract public class GameObject {
         id = Registry.getInstance().register(this);
     }
 
-    protected GameObject(String name) {
+    protected GameObject(String name, ObjectType objectType) {
         this();
         this.name = name;
-        this.objectType = ObjectType.DEFAULT;
-        collisions = new CollisionObject();
-    }
-
-    protected GameObject(String name, ObjectType objectType) {
-        this(name);
         this.objectType = objectType;
         this.x = 0f;
         this.y = 0f;
@@ -52,7 +46,8 @@ abstract public class GameObject {
     }
 
     protected GameObject(String name, float x, float y) {
-        this(name);
+        this();
+        this.name = name;
         this.x = x;
         this.y = y;
     }

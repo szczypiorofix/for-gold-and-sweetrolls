@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template>
- <object name="water" type="water" width="32" height="32"/>
+ <object name="forest" type="forest" width="32" height="32"/>
 </template>

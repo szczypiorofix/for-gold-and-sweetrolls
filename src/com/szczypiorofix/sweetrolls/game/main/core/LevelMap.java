@@ -1,6 +1,7 @@
 package com.szczypiorofix.sweetrolls.game.main.core;
 
 import com.szczypiorofix.sweetrolls.game.objects.characters.NPC;
+import com.szczypiorofix.sweetrolls.game.objects.item.Item;
 import com.szczypiorofix.sweetrolls.game.objects.item.Place;
 import com.szczypiorofix.sweetrolls.game.objects.terrain.Ground;
 
@@ -11,12 +12,14 @@ public class LevelMap implements Serializable {
     private Ground[][] ground;
     private Place[][] places;
     private NPC[][] npc;
+    private Item[][] items;
     private int playerSpawnX, playerSpawnY;
 
-    public LevelMap(Ground[][] ground, Place[][] places, NPC[][] npc, int playerSpawnX, int playerSpawnY) {
+    public LevelMap(Ground[][] ground, Place[][] places, NPC[][] npc, Item[][] items, int playerSpawnX, int playerSpawnY) {
         this.ground = ground;
         this.places = places;
         this.npc = npc;
+        this.items = items;
         this.playerSpawnX = playerSpawnX;
         this.playerSpawnY = playerSpawnY;
     }
@@ -59,5 +62,13 @@ public class LevelMap implements Serializable {
 
     public void setPlayerSpawnY(int playerSpawnY) {
         this.playerSpawnY = playerSpawnY;
+    }
+
+    public Item[][] getItems() {
+        return items;
+    }
+
+    public void setItems(Item[][] items) {
+        this.items = items;
     }
 }

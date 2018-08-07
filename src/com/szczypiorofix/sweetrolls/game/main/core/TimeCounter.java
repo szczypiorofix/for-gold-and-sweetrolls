@@ -51,12 +51,14 @@ public class TimeCounter implements Serializable {
             hourCounter++;
             minuteCounter = Math.abs(MINUTES_IN_HOUR - minuteCounter);
             calculateDarkness();
+            player.calculateSurvival();
         }
 
         if (hourCounter >= HOURS_IN_DAY) {
             dayCounter++;
             hourCounter = Math.abs(HOURS_IN_DAY - hourCounter);
             calculateDarkness();
+            player.calculateSurvival();
         }
 
     }

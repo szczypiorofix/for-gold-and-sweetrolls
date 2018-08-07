@@ -10,6 +10,7 @@ import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import com.szczypiorofix.sweetrolls.game.tilemap.CollisionObject;
 import com.szczypiorofix.sweetrolls.game.tilemap.TileMap;
 
+import org.lwjgl.Sys;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -28,7 +29,6 @@ import static com.szczypiorofix.sweetrolls.game.enums.PlayerState.MOVING_WORLD_M
 public class GameManager {
 
     public static final String WORLD_MAP_NAME = "worldmap.tmx";
-    //public static final Random random = new Random();
 
     private final LevelManager levelManager = new LevelManager();
     private final HashMap<String, TileMap> levels = new HashMap<>();
@@ -47,6 +47,7 @@ public class GameManager {
     private MouseCursor mouseCursor;
     private String currentLevelName;
     private DialogueFrame dialogueFrame;
+
 
     private enum LevelType {
         CREATED,
@@ -241,6 +242,7 @@ public class GameManager {
                             || player.getTileY() <= 0
                             || player.getTileX() >= mapWidth-1
                             || player.getTileY() >= mapHeight-1
+                            || objectManager.getPlace(player.getTileX(), player.getTileY()) != null
                             ) {
 
                         //System.out.println("Exiting to world map.");
@@ -300,7 +302,7 @@ public class GameManager {
 //        if (mouseCursor.intersects(player.getX() - offsetX, player.getY() - offsetY, player.getWidth(), player.getHeight())) {
 //            player.setHover(true);
 //        }
-
+//
         if (player.getTileX() >= mouseCursor.getTileX() - 1
                 && player.getTileX() <= mouseCursor.getTileX() + 1
                 && player.getTileY() >= mouseCursor.getTileY() - 1
@@ -368,6 +370,11 @@ public class GameManager {
 
         dialogueFrame.render(gc, sgb, g);
         hud.render(gc, sgb, g);
+
+        if (objectManager.getGround(player.getTileX(), player.getTileY()).getCollisions() != null) {
+            g.drawString(objectManager.getGround(player.getTileX(), player.getTileY()).getCollisions().getTypeName(), 20, 50);
+        }
+
 
     }
 
