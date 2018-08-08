@@ -6,17 +6,14 @@ import com.szczypiorofix.sweetrolls.game.gui.HUD;
 import com.szczypiorofix.sweetrolls.game.gui.Inventory;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
-import com.szczypiorofix.sweetrolls.game.objects.characters.NPC;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
+import com.szczypiorofix.sweetrolls.game.objects.item.Item;
 import com.szczypiorofix.sweetrolls.game.tilemap.CollisionObject;
 import com.szczypiorofix.sweetrolls.game.tilemap.TileMap;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.logging.Level;
 
@@ -70,7 +67,11 @@ public class GameManager {
 
             if (!levels.containsKey(levelName)) {
                 MainClass.logging(false, Level.INFO, "Generowanie nowego losowego poziomu: "+levelName);
-                levelMap = levelManager.loadGeneratedLevel(levelName, objectManager.getGround(player.getTileX(), player.getTileY()).getCollisions().getTypeName());
+                levelMap = levelManager.loadGeneratedLevel(
+                        levelName,
+                        objectManager.getGround(player.getTileX(), player.getTileY()).getCollisions().getTypeName(),
+                        player
+                );
                 levels.put(levelName, levelMap);
                 objectManager.generateLevel(levelMap, levelName);
                 player = objectManager.getPlayer();
@@ -202,6 +203,7 @@ public class GameManager {
                         MainClass.logging(false, Level.INFO, "Przejście do lokacji: "+objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("name")+".");
 
                         player.setPlayerState(MOVING_INNER_LOCATION);
+                        player.getActionHistory().addValue("Wchodzisz do: "+objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("name"));
                         mouseCursor.setPositionTile(0, 0);
                         changeLevel(objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("filename"), LevelType.CREATED);
                     } else {
@@ -219,7 +221,7 @@ public class GameManager {
                             ) {
 
                         MainClass.logging(false, Level.INFO, "Powrót do mapy głównej.");
-
+                        player.getActionHistory().addValue("Powrót na mapę główną");
                         player.setPlayerState(MOVING_WORLD_MAP);
                         changeLevel(WORLD_MAP_NAME, LevelType.CREATED);
                     }
@@ -295,6 +297,8 @@ public class GameManager {
                                 //objectManager.getGround(player.getTileX(i), player.getTileY(j)).setHover(true);
 
                                 objectManager.getGround(mouseCursor.getTileX(), mouseCursor.getTileY()).setHover(true);
+
+                                // NPCs
                                 if (objectManager.getNpc(player.getTileX(i), player.getTileY(j)) != null
                                         && objectManager.getNpc(player.getTileX(i), player.getTileY(j)).getTileX() == mouseCursor.getTileX()
                                         && objectManager.getNpc(player.getTileX(i), player.getTileY(j)).getTileY() == mouseCursor.getTileY()
@@ -303,13 +307,44 @@ public class GameManager {
                                     objectManager.getNpc(player.getTileX(i), player.getTileY(j)).setHover(true);
 
                                     if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-                                        NPC npc = (NPC) objectManager.getNpc(player.getTileX(i), player.getTileY(j));
-                                        if (!npc.isShortTalk()) {
+                                        if (!objectManager.getNpc(player.getTileX(i), player.getTileY(j)).isShortTalk()) {
                                             //npc.setShortTalk(true);
-                                            dialogueFrame = new DialogueFrame(player, npc, mouseCursor);
+                                            dialogueFrame = new DialogueFrame(player, objectManager.getNpc(player.getTileX(i), player.getTileY(j)), mouseCursor);
                                             dialogueFrame.setShowDialog(true);
                                         }
+                                    }
+                                }
 
+                                //Items
+                                if (objectManager.getItems(player.getTileX(i), player.getTileY(j)) != null
+                                        && objectManager.getItems(player.getTileX(i), player.getTileY(j)).getTileX() == mouseCursor.getTileX()
+                                        && objectManager.getItems(player.getTileX(i), player.getTileY(j)).getTileY() == mouseCursor.getTileY()
+                                ) {
+
+                                    objectManager.getItems(player.getTileX(i), player.getTileY(j)).setHover(true);
+
+                                    if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+                                        Item currentItem = objectManager.getItems(player.getTileX(i), player.getTileY(j));
+                                        if (currentItem.isPickable()) {
+
+                                            // ######################## UT IN INVENTORY
+
+                                            // GOLD
+                                            if (currentItem.getStringProperty("type").equalsIgnoreCase("gold")) {
+                                                int goldGained = currentItem.getIntegerProperty("value");
+                                                player.getActionHistory().addValue("Znaleziono złoto: "+goldGained);
+                                                player.statistics.gold += goldGained;
+                                            }
+
+                                            // SWORD
+                                            if (currentItem.getStringProperty("type").equalsIgnoreCase("sword")) {
+                                                player.getActionHistory().addValue("Podniesiono: "+currentItem.getStringProperty("name"));
+                                                inventory.putToInventory(currentItem);
+                                            }
+
+                                            objectManager.getItems()[player.getTileX(i)][player.getTileY(j)] = null;
+
+                                        }
                                     }
                                 }
                             }
@@ -324,14 +359,6 @@ public class GameManager {
                     objectManager.getPlace(mouseCursor.getTileX(), mouseCursor.getTileY()).setHover(true);
                 }
             }
-
-            // MOUSE HOVER ON ITEMS
-            if (player.getPlayerState() == MOVING_INNER_LOCATION) {
-                if (objectManager.getItems(mouseCursor.getTileX(), mouseCursor.getTileY()) != null) {
-                    objectManager.getItems(mouseCursor.getTileX(), mouseCursor.getTileY()).setHover(true);
-                }
-            }
-
         }
 
     }
@@ -353,9 +380,9 @@ public class GameManager {
         inventory.render(gc, sgb, g);
 
 
-        if (objectManager.getGround(player.getTileX(), player.getTileY()).getCollisions() != null) {
-            g.drawString(objectManager.getGround(player.getTileX(), player.getTileY()).getCollisions().getTypeName(), 20, 50);
-        }
+//        if (objectManager.getGround(player.getTileX(), player.getTileY()).getCollisions() != null) {
+//            g.drawString(objectManager.getGround(player.getTileX(), player.getTileY()).getCollisions().getTypeName(), 20, 50);
+//        }
 
 
     }

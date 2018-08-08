@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class Statistics implements Serializable {
 
+    public int gold;
+
     public int strength;
     public int dexterity;
     public int constitution;

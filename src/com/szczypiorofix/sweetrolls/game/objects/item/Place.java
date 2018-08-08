@@ -16,8 +16,8 @@ public class Place extends Item {
 
     private BitMapFont font;
 
-    public Place(String name, int x, int y, int width, int height, Image image, ArrayList<Property> properties) {
-        super(name, x, y, width, height, image, ObjectType.PLACE, properties);
+    public Place(String name, int x, int y, int width, int height, Image image, String type, ArrayList<Property> properties) {
+        super(name, x, y, width, height, image, ObjectType.PLACE, type, properties);
         font = FontParser.getFont("Immortal HUD Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
         font.setSize(4.5f);
     }

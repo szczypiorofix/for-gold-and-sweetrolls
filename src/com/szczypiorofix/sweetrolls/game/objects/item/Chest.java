@@ -19,6 +19,7 @@ public class Chest extends Item {
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) {
+        hover = false;
     }
 
     @Override

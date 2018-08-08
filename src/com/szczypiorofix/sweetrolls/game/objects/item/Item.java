@@ -18,16 +18,20 @@ public class Item extends GameObject {
 
     protected Image image;
     private BitMapFont font;
+    private boolean pickable = false;
+    private String type;
 
-    Item(String name, float x, float y, float width, float height, ObjectType objectType, ArrayList<Property> properties) {
+    public Item(String name, float x, float y, float width, float height, ObjectType objectType, ArrayList<Property> properties) {
         super(name, x, y, width, height, objectType, properties);
     }
 
-    Item(String name, float x, float y, float width, float height, Image image, ObjectType objectType, ArrayList<Property> properties) {
+    public Item(String name, float x, float y, float width, float height, Image image, ObjectType objectType, String type, ArrayList<Property> properties) {
         super(name, x, y, width, height, objectType, properties);
         this.image = image;
+        this.type = type;
         font = FontParser.getFont("Immortal HUD Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
         font.setSize(4.5f);
+        this.pickable = getBooleanProperty("pickable");
     }
 
     @Override
@@ -37,6 +41,7 @@ public class Item extends GameObject {
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) throws SlickException {
+        image.draw(- offsetX + x, - offsetY + y);
         if (hover) {
             font.draw(name, - offsetX + x, - offsetY + y - 20);
         }
@@ -47,4 +52,28 @@ public class Item extends GameObject {
 
     }
 
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public boolean isPickable() {
+        return pickable;
+    }
+
+    public void setPickable(boolean pickable) {
+        this.pickable = pickable;
+    }
 }

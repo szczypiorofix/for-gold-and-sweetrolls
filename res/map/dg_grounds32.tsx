@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset name="dg_grounds32" tilewidth="32" tileheight="32" tilecount="171" columns="9">
  <image source="dg_grounds32.png" width="288" height="608"/>
+ <tile id="2">
+  <objectgroup draworder="index">
+   <object id="2" template="dungeonwall.tx" x="0" y="0"/>
+  </objectgroup>
+ </tile>
  <tile id="5">
   <objectgroup draworder="index">
    <object id="1" template="dungeonfloor.tx" x="0" y="0"/>
@@ -39,6 +44,11 @@
  <tile id="30">
   <objectgroup draworder="index">
    <object id="1" template="dungeonwall.tx" x="0" y="0"/>
+  </objectgroup>
+ </tile>
+ <tile id="49">
+  <objectgroup draworder="index">
+   <object id="2" template="dungeonfloor.tx" x="0" y="0"/>
   </objectgroup>
  </tile>
  <tile id="54">

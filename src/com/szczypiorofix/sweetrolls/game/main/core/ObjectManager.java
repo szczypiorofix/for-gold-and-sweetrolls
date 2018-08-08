@@ -111,6 +111,7 @@ public class ObjectManager {
                                                             - tileMap.getTileSets().get(tileSet).getFirstGid()
                                             )
                                             : null,
+                                    currentItem.getType(),
                                     currentItem.getProperties()
                             );
                 }
@@ -130,7 +131,7 @@ public class ObjectManager {
                     }
                     items[currentItem.getX() / tileMap.getTileWidth()]
                             [currentItem.getY() / tileMap.getTileHeight()] =
-                            new Chest(
+                            new Item(
                                     currentItem.getStringProperty("name").equalsIgnoreCase("null")
                                             ? currentItem.getName()
                                             : currentItem.getStringProperty("name"),
@@ -144,6 +145,8 @@ public class ObjectManager {
                                                             - tileMap.getTileSets().get(tileSet).getFirstGid()
                                             )
                                             : null,
+                                    ObjectType.ITEM,
+                                    currentItem.getType(),
                                     currentItem.getProperties()
                             );
                 }
@@ -177,6 +180,7 @@ public class ObjectManager {
                                                     currentItem.getGid()
                                                             - tileMap.getTileSets().get(tileSet).getFirstGid())
                                             : null,
+                                    currentItem.getType(),
                                     currentItem.getProperties()
                             );
                 }
@@ -307,7 +311,6 @@ public class ObjectManager {
             player.setY(player.getWorldMapTileY() * tileMap.getTileHeight());
         }
 
-        //System.out.println(player.getTileX());
         // SET PLAYER'S INITIAL GROUND TILE
         player.setTerrainType(grounds[player.getTileX()][player.getTileY()].getObjectType());
     }
@@ -419,19 +422,19 @@ public class ObjectManager {
         return level;
     }
 
-    public GameObject getPlace(int x, int y) {
+    public Place getPlace(int x, int y) {
         return places[x][y];
     }
 
-    public GameObject getGround(int x, int y) {
+    public Ground getGround(int x, int y) {
         return grounds[x][y];
     }
 
-    public GameObject getNpc(int x, int y) {
+    public NPC getNpc(int x, int y) {
         return npcs[x][y];
     }
 
-    public GameObject getItems(int x, int y) {
+    public Item getItems(int x, int y) {
         return items[x][y];
     }
 
@@ -445,6 +448,10 @@ public class ObjectManager {
 
     public NPC[][] getNpcs() {
         return npcs;
+    }
+
+    public Item[][] getItems() {
+        return items;
     }
 
     public int getTilesToWest() {

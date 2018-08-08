@@ -3,6 +3,7 @@ package com.szczypiorofix.sweetrolls.game.objects.characters;
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.enums.PlayerAction;
 import com.szczypiorofix.sweetrolls.game.enums.PlayerState;
+import com.szczypiorofix.sweetrolls.game.gui.ActionHistory;
 import com.szczypiorofix.sweetrolls.game.main.core.TimeCounter;
 import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
 import com.szczypiorofix.sweetrolls.game.tilemap.Property;
@@ -12,6 +13,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.state.StateBasedGame;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Player extends Character {
 
@@ -28,6 +30,8 @@ public class Player extends Character {
     private PlayerAction playerAction;
     private TimeCounter timeCounter;
 
+    private ActionHistory actionHistory;
+
     public Player(String name, float x, float y, float width, float height, ArrayList<Property> properties) {
         super(name, x, y, width, height, ObjectType.PLAYER, properties);
         this.name = name;
@@ -41,6 +45,7 @@ public class Player extends Character {
 
         image = Textures.getInstance().classm32.getSprite(3, 0);
 
+        statistics.gold = 0;
         statistics.level = 1;
         statistics.currentLevelBar = 1;
         statistics.currentLevelMaxBar = 8;
@@ -60,6 +65,8 @@ public class Player extends Character {
 
         setWorldMapTileX(getTileX());
         setWorldMapTileY(getTileY());
+
+        actionHistory = new ActionHistory();
 
         timeCounter = new TimeCounter(this);
     }
@@ -97,12 +104,15 @@ public class Player extends Character {
             worldMapTileY = getTileY();
         }
 
-
     }
 
     public void calculateSurvival() {
         statistics.foodRations -= statistics.foodUsagePerHour;
         statistics.water -= statistics.watetUsagePerHour;
+    }
+
+    public ActionHistory getActionHistory() {
+        return actionHistory;
     }
 
     public TimeCounter getTimeCounter() {
@@ -119,34 +129,42 @@ public class Player extends Character {
 
     public void moveNorth(int offset) {
         y -= offset;
+        actionHistory.addValue("Kierunek: północ");
     }
 
     public void moveSouth(int offset) {
         y += offset;
+        actionHistory.addValue("Kierunek: południe");
     }
 
     public void moveWest(int offset) {
         x -= offset;
+        actionHistory.addValue("Kierunek: zachód");
     }
 
     public void moveEast(int offset) {
         x += offset;
+        actionHistory.addValue("Kierunek: wschód");
     }
 
     public void moveNorth() {
         y -= 32;
+        actionHistory.addValue("Kierunek: północ");
     }
 
     public void moveSouth() {
         y += 32;
+        actionHistory.addValue("Kierunek: południe");
     }
 
     public void moveWest() {
         x -= 32;
+        actionHistory.addValue("Kierunek: zachód");
     }
 
     public void moveEast() {
         x += 32;
+        actionHistory.addValue("Kierunek: wschód");
     }
 
     public int getPlayerTurn() {

@@ -3,7 +3,11 @@
  <tileset firstgid="1" source="dg_misc32.tsx"/>
  <object name="item" type="item" gid="2" width="32" height="32">
   <properties>
+   <property name="itemId" type="int" value="0"/>
    <property name="name" value="Item_name"/>
+   <property name="pickable" type="bool" value="false"/>
+   <property name="type" value=""/>
+   <property name="value" type="int" value="0"/>
   </properties>
  </object>
 </template>

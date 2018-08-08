@@ -157,20 +157,22 @@ public class LevelGenerator {
         tileMap.addObjectGroup(playerObjectGroup);
 
         // ############# EXIT
-        ObjectGroup exitObjectGroup = new ObjectGroup("dungeonexit");
-        ObjectGroupObject exitObject = new ObjectGroupObject(
-                2,
-                "",
-                "exit",
-                exitVector.x,
-                exitVector.y,
-                TILEWIDTH,
-                TILEHEIGHT,
-                tileMap.getTileSets()
-        );
-        exitObject.setGid(200); // EXIT GID
-        exitObjectGroup.addObject(exitObject);
-        tileMap.addObjectGroup(exitObjectGroup);
+        if (wallsCollidable) {
+            ObjectGroup exitObjectGroup = new ObjectGroup("dungeonexit");
+            ObjectGroupObject exitObject = new ObjectGroupObject(
+                    2,
+                    "",
+                    "exit",
+                    exitVector.x,
+                    exitVector.y,
+                    TILEWIDTH,
+                    TILEHEIGHT,
+                    tileMap.getTileSets()
+            );
+            exitObject.setGid(200); // EXIT GID
+            exitObjectGroup.addObject(exitObject);
+            tileMap.addObjectGroup(exitObjectGroup);
+        }
 
         // ############# ITEM
         ObjectGroup itemsObjectGroup = new ObjectGroup("items");
