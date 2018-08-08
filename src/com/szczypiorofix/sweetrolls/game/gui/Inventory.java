@@ -74,6 +74,7 @@ public class Inventory {
         int c = 0;
         int r = 0;
         do {
+            if (c >= cols) return false;
             if (items[c][r].getItem() == null) {
                 items[c][r].setItem(item);
                 done = true;
@@ -82,7 +83,6 @@ public class Inventory {
             if (r >= rows) {
                 r = 0;
                 c++;
-                if (c >= cols) return false;
             }
         } while(!done);
         return true;

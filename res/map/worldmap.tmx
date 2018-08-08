@@ -322,7 +322,7 @@
     <property name="name" value="Isengard"/>
    </properties>
   </object>
-  <object id="109" template="place.tx" name="Moria" gid="440" x="1280" y="1536">
+  <object id="109" template="place.tx" name="Moria" gid="440" x="832" y="2144">
    <properties>
     <property name="filename" value="moria.tmx"/>
     <property name="name" value="Moria"/>

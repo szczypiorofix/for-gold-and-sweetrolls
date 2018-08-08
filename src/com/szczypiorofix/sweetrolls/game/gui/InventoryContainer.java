@@ -21,7 +21,7 @@ public class InventoryContainer {
             if (item.getImage() != null)
                 item.getImage().draw(x, y);
         }
-        //g.drawString(id+"", x, y);
+        g.drawString(id+"", x, y);
     }
 
     public int getX() {
