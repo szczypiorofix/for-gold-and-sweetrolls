@@ -45,7 +45,7 @@ public class Inventory {
             for (int x = 0; x < items.length; x++) {
                 for (int y = 0; y < items[0].length; y++) {
                     if (items[x][y] != null) {
-                        items[x][y].getImage().draw(200, 100);
+                        items[x][y].getImage().draw(200, 300 + (y * 33));
                     }
                 }
             }
@@ -62,6 +62,13 @@ public class Inventory {
     }
 
     public void putToInventory(Item item) {
-        items[0][0] = item;
+        for (int x = 0; x < items.length; x++) {
+            for (int y = 0; y < items[0].length; y++) {
+                if (items[x][y] == null) {
+                    items[x][y] = item;
+                    return;
+                }
+            }
+        } 
     }
 }
