@@ -17,7 +17,9 @@ public class Inventory {
     private BitMapFont font;
     private Image image;
     private boolean show;
-    private Item[][] items = new Item[8][5];
+    private int rows = 8;
+    private int cols = 5;
+    private InventoryContainer[][] items = new InventoryContainer[cols][rows];
 
     public Inventory(Player player, MouseCursor mouseCursor) {
         this.player = player;
@@ -31,11 +33,17 @@ public class Inventory {
 
         font = FontParser.getFont("Immortal HUD Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
         font.setSize(4.5f);
-        for (int x = 0; x < items.length; x++) {
-            for (int y = 0; y < items[0].length; y++) {
-                items[x][y] = null;
+        int id = 0;
+        for (int y = 0; y < cols; y++) {
+            for (int x = 0; x < rows; x++) {
+                items[y][x] = new InventoryContainer(id, 170 + x * 34, 360 + y * 34, null);
+                id++;
             }
         }
+    }
+
+    public void update(GameContainer gc, StateBasedGame sgb, int delta) {
+
     }
 
     public void render(GameContainer gc, StateBasedGame sgb, Graphics g) {
@@ -45,7 +53,7 @@ public class Inventory {
             for (int x = 0; x < items.length; x++) {
                 for (int y = 0; y < items[0].length; y++) {
                     if (items[x][y] != null) {
-                        items[x][y].getImage().draw(200, 300 + (y * 33));
+                        items[x][y].draw(g);
                     }
                 }
             }
@@ -61,14 +69,22 @@ public class Inventory {
         this.show = show;
     }
 
-    public void putToInventory(Item item) {
-        for (int x = 0; x < items.length; x++) {
-            for (int y = 0; y < items[0].length; y++) {
-                if (items[x][y] == null) {
-                    items[x][y] = item;
-                    return;
-                }
+    public boolean putToInventory(Item item) {
+        boolean done = false;
+        int c = 0;
+        int r = 0;
+        do {
+            if (items[c][r].getItem() == null) {
+                items[c][r].setItem(item);
+                done = true;
             }
-        } 
+            r++;
+            if (r >= rows) {
+                r = 0;
+                c++;
+                if (c >= cols) return false;
+            }
+        } while(!done);
+        return true;
     }
 }

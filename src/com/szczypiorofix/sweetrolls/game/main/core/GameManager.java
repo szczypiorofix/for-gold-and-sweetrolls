@@ -235,6 +235,10 @@ public class GameManager {
             }
         }
 
+        if (player.getPlayerAction() == INVENTORY) {
+            inventory.update(gc, sgb, delta);
+        }
+
 
         input.clearKeyPressedRecord();
     }
@@ -334,15 +338,20 @@ public class GameManager {
                                                 int goldGained = currentItem.getIntegerProperty("value");
                                                 player.getActionHistory().addValue("Znaleziono złoto: "+goldGained);
                                                 player.statistics.gold += goldGained;
+                                                objectManager.getItems()[player.getTileX(i)][player.getTileY(j)] = null;
                                             }
 
                                             // SWORD
                                             if (currentItem.getStringProperty("type").equalsIgnoreCase("sword")) {
                                                 player.getActionHistory().addValue("Podniesiono: "+currentItem.getStringProperty("name"));
-                                                inventory.putToInventory(currentItem);
+                                                if (inventory.putToInventory(currentItem)) {
+                                                    objectManager.getItems()[player.getTileX(i)][player.getTileY(j)] = null;
+                                                } else {
+                                                    player.getActionHistory().addValue("Plecak jest pełny !!!");
+                                                }
                                             }
 
-                                            objectManager.getItems()[player.getTileX(i)][player.getTileY(j)] = null;
+
 
                                         }
                                     }
@@ -374,7 +383,6 @@ public class GameManager {
         g.fillRect(0, 0, gameWidth - 230, gameHeight);
         g.setColor(c);
 
-
         dialogueFrame.render(gc, sgb, g);
         hud.render(gc, sgb, g);
         inventory.render(gc, sgb, g);
@@ -383,7 +391,6 @@ public class GameManager {
 //        if (objectManager.getGround(player.getTileX(), player.getTileY()).getCollisions() != null) {
 //            g.drawString(objectManager.getGround(player.getTileX(), player.getTileY()).getCollisions().getTypeName(), 20, 50);
 //        }
-
 
     }
 
