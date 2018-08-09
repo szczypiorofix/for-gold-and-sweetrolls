@@ -110,7 +110,7 @@ public class TileMap {
                                     Integer.parseInt(layerElement.getAttribute("height"))
                             );
 
-                            tileLayer.setDataCSVFromString(layerElement.getElementsByTagName("data").item(0).getTextContent());
+                            tileLayer.setDataCSVFromString(layerElement.getElementsByTagName("data").item(0).getFirstChild().getNodeValue());
                             if (layerElement.getAttribute("locked").equals("1")) {
                                 tileLayer.setLocked(true);
                             }
@@ -118,9 +118,6 @@ public class TileMap {
                                 tileLayer.setVisible(false);
                             }
                             tileLayers.add(tileLayer);
-
-
-                            // #################### NEW
                         }
                     }
 

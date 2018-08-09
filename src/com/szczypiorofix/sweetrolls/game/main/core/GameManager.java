@@ -126,7 +126,7 @@ public class GameManager {
     }
 
 
-    public void handleInputs(GameContainer gc, StateBasedGame sgb, int delta) {
+    public void handleInputs(GameContainer gc, StateBasedGame sgb, int delta) throws SlickException {
 
         mouseCursor.update(gc, sgb, delta, offsetX, offsetY);
 

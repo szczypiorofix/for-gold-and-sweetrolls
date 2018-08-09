@@ -28,7 +28,8 @@ public enum ObjectType {
 
     // ###### GUI
     GUI("gui"),
-    MOUSECURSOR("kursor myszy");
+    MOUSECURSOR("kursor myszy"),
+    INVENTORY_CONTAINER("kontener inwentarza");
 
 
     private String name;

@@ -135,6 +135,7 @@ public final class MainClass {
      * @param args String - params e.g. "-debug" to enable debigging mode.
      */
     public static void main(String[] args) {
+
         if (args.length > 0) {
             DEBUG_MODE = args[0].equalsIgnoreCase("-debug");
         }

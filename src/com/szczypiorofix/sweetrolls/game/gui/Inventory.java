@@ -36,24 +36,34 @@ public class Inventory {
         int id = 0;
         for (int y = 0; y < cols; y++) {
             for (int x = 0; x < rows; x++) {
-                items[y][x] = new InventoryContainer(id, 170 + x * 34, 360 + y * 34, null);
+                items[y][x] = new InventoryContainer(id, 167 + x * 34, 359 + y * 34, null);
                 id++;
             }
         }
     }
 
-    public void update(GameContainer gc, StateBasedGame sgb, int delta) {
+    public void update(GameContainer gc, StateBasedGame sgb, int delta) throws SlickException {
 
+        for (int x = 0; x < cols; x++) {
+            for (int y = 0; y < rows; y++) {
+                items[x][y].update(gc, sgb, delta, 0 , 0);
+                if (items[x][y].getItem() != null) {
+                    if (mouseCursor.intersects(items[x][y])) {
+                        items[x][y].setHover(true);
+                    }
+                }
+            }
+        }
     }
 
-    public void render(GameContainer gc, StateBasedGame sgb, Graphics g) {
+    public void render(GameContainer gc, StateBasedGame sgb, Graphics g) throws SlickException {
         if (show) {
             image.draw(150, 90);
 
-            for (int x = 0; x < items.length; x++) {
-                for (int y = 0; y < items[0].length; y++) {
+            for (int x = 0; x < cols; x++) {
+                for (int y = 0; y < rows; y++) {
                     if (items[x][y] != null) {
-                        items[x][y].draw(g);
+                        items[x][y].render(gc, sgb, g, 0, 0);
                     }
                 }
             }
@@ -84,7 +94,7 @@ public class Inventory {
                 r = 0;
                 c++;
             }
-        } while(!done);
+        } while (!done);
         return true;
     }
 }

@@ -13,10 +13,15 @@
       <root url="jar://C:/Java Libraries/Slick2D/lib/natives-mac.jar!/" />
       <root url="jar://C:/Java Libraries/Slick2D/lib/natives-windows.jar!/" />
       <root url="jar://C:/Java Libraries/Slick2D/lib/slick-examples.jar!/" />
+      <root url="jar://C:/Java Libraries/Slick2D/lib/slick-util.jar!/" />
       <root url="jar://C:/Java Libraries/Slick2D/lib/slick.jar!/" />
       <root url="jar://C:/Java Libraries/Slick2D/lib/tinylinepp.jar!/" />
     </CLASSES>
-    <JAVADOC />
-    <SOURCES />
+    <JAVADOC>
+      <root url="file://C:/Java Libraries/Slick2D/javadoc" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="file://C:/Java Libraries/Slick2D/tools" />
+    </SOURCES>
   </library>
 </component>
