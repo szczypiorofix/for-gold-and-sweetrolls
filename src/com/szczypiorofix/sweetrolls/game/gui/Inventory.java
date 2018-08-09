@@ -4,10 +4,7 @@ import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
 import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import com.szczypiorofix.sweetrolls.game.objects.item.Item;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Inventory {
@@ -20,6 +17,12 @@ public class Inventory {
     private int rows = 8;
     private int cols = 5;
     private InventoryContainer[][] items = new InventoryContainer[cols][rows];
+    private Item dragItem, itemForDrop;
+    private InventoryContainer currentContainer;
+    private int dropX, dropY;
+    private int dragOriginX, dragOriginY;
+    private boolean dropping;
+    private boolean drag;
 
     public Inventory(Player player, MouseCursor mouseCursor) {
         this.player = player;
@@ -47,10 +50,51 @@ public class Inventory {
         for (int x = 0; x < cols; x++) {
             for (int y = 0; y < rows; y++) {
                 items[x][y].update(gc, sgb, delta, 0 , 0);
-                if (items[x][y].getItem() != null) {
-                    if (mouseCursor.intersects(items[x][y])) {
-                        items[x][y].setHover(true);
+                currentContainer = items[x][y];
+
+                if (mouseCursor.intersects(currentContainer)) {
+                    currentContainer.setHover(true);
+
+                    // DROP
+                    if (currentContainer.getItem() != null) {
+                        if (mouseCursor.getInput().isMousePressed(Input.MOUSE_RIGHT_BUTTON)) {
+                            itemForDrop = currentContainer.getItem();
+                            dropX = x;
+                            dropY = y;
+                            dropping = true;
+                        }
                     }
+
+
+                    // DRAG
+                    if (mouseCursor.getInput().isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+                        if (!drag) {
+                            if (items[x][y].getItem() != null && !drag) {
+                                dragItem = items[x][y].getItem();
+                                dragOriginX = x;
+                                dragOriginY = y;
+                                drag = true;
+                            }
+                        } else {
+                            currentContainer.setHover(true);
+                            //items[x][y].setItem(currentItem);
+                            //items[x][y].getItem().setX(currentItem.getX());
+                            //items[x][y].getItem().setY(currentItem.getY());
+                            dragItem.setX(mouseCursor.getX() - 16);
+                            dragItem.setY(mouseCursor.getY() - 16);
+                        }
+                    } else {
+                        if (drag) {
+                            currentContainer.item = dragItem;
+                            currentContainer.item.setX(currentContainer.getX());
+                            currentContainer.item.setY(currentContainer.getY());
+                            dragItem = null;
+                            items[dragOriginX][dragOriginY].item = null;
+                        }
+                        drag = false;
+
+                    }
+
                 }
             }
         }
@@ -79,6 +123,22 @@ public class Inventory {
         this.show = show;
     }
 
+    public Item dropFromInventory() {
+        return itemForDrop;
+    }
+
+    public void removeItem() {
+        items[dropX][dropY].item = null;
+    }
+
+    public boolean isDropping() {
+        return dropping;
+    }
+
+    public void setDropping(boolean dropping) {
+        this.dropping = dropping;
+    }
+
     public boolean putToInventory(Item item) {
         boolean done = false;
         int c = 0;
@@ -96,5 +156,9 @@ public class Inventory {
             }
         } while (!done);
         return true;
+    }
+
+    public boolean isDrag() {
+        return drag;
     }
 }

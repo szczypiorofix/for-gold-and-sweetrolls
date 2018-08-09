@@ -12,7 +12,7 @@ public class InventoryContainer extends GameObject {
 
     private int id;
     private int x, y;
-    private Item item;
+    public Item item;
 
     public InventoryContainer(int id, int x, int y, Item item) {
         super("Inventory container", x, y, 32, 32, ObjectType.INVENTORY_CONTAINER);
@@ -32,17 +32,15 @@ public class InventoryContainer extends GameObject {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) throws SlickException {
         if (item != null) {
             if (item.getImage() != null)
-                item.getImage().draw(x, y);
+                item.getImage().draw(item.getX(), item.getY());
+            //g.drawString(id+"", x, y);
         }
         if (hover)
             g.drawRect(x-1, y, width-3, height-2);
-        //g.drawString(id+"", x, y);
     }
 
     @Override
-    public void turn() {
-
-    }
+    public void turn() {}
 
     public Item getItem() {
         return item;

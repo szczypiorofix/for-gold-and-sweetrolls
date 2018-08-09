@@ -59,8 +59,6 @@ public class HUD {
 //        font.draw("Mouse tile: " +mouseCursor.getTileX()+":"+mouseCursor.getTileY(), 590, 300);
 //        font.draw("Player : " +player.getWidth()+":"+player.getHeight(), 590, 320);
 //        font.draw("Player offset: " +player.getOffsetX()+":"+player.getOffsetY(), 590, 340);
-        font.draw("Mouse tile: " +mouseCursor.getX()+":"+mouseCursor.getY(), 590, 300);
-
     }
 
 }

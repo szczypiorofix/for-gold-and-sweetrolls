@@ -370,6 +370,17 @@ public class GameManager {
             }
         }
 
+        if (player.getPlayerAction() == INVENTORY) {
+            if (inventory.isDropping()) {
+                if (objectManager.getItems()[player.getTileX()][player.getTileY()] == null) {
+                    objectManager.getItems()[player.getTileX()][player.getTileY()] = inventory.dropFromInventory();
+                    objectManager.getItems()[player.getTileX()][player.getTileY()].setX(player.getX());
+                    objectManager.getItems()[player.getTileX()][player.getTileY()].setY(player.getY());
+                    inventory.removeItem();
+                } else player.getActionHistory().addValue("Brak miejsca na ziemi!");
+                inventory.setDropping(false);
+            }
+        }
     }
 
     public void render(GameContainer gc, StateBasedGame sgb, Graphics g) throws SlickException {
@@ -387,6 +398,7 @@ public class GameManager {
         hud.render(gc, sgb, g);
         inventory.render(gc, sgb, g);
 
+        g.drawString(inventory.isDrag()+"", 20, 50);
 
 //        if (objectManager.getGround(player.getTileX(), player.getTileY()).getCollisions() != null) {
 //            g.drawString(objectManager.getGround(player.getTileX(), player.getTileY()).getCollisions().getTypeName(), 20, 50);
