@@ -59,6 +59,9 @@ public class HUD {
 //        font.draw("Mouse tile: " +mouseCursor.getTileX()+":"+mouseCursor.getTileY(), 590, 300);
 //        font.draw("Player : " +player.getWidth()+":"+player.getHeight(), 590, 320);
 //        font.draw("Player offset: " +player.getOffsetX()+":"+player.getOffsetY(), 590, 340);
+
+        font.draw("Armor : " +player.statistics.armorClass, 590, 320);
+        font.draw("Damage: " +player.statistics.damage, 590, 340);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.szczypiorofix.sweetrolls.game.gui;
 
+import com.szczypiorofix.sweetrolls.game.enums.InventorySlotType;
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.objects.GameObject;
 import com.szczypiorofix.sweetrolls.game.objects.item.Item;
@@ -10,13 +11,15 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class InventoryContainer extends GameObject {
 
-    private int id;
     private int x, y;
+    private int c;
+    private InventorySlotType inventorySlotType;
     public Item item;
 
-    public InventoryContainer(int id, int x, int y, Item item) {
+    public InventoryContainer(int c, InventorySlotType inventorySlotType, int x, int y, Item item) {
         super("Inventory container", x, y, 32, 32, ObjectType.INVENTORY_CONTAINER);
-        this.id = id;
+        this.c = c;
+        this.inventorySlotType = inventorySlotType;
         this.x = x;
         this.y = y;
         this.item = item;
@@ -33,10 +36,10 @@ public class InventoryContainer extends GameObject {
         if (item != null) {
             if (item.getImage() != null)
                 item.getImage().draw(item.getX(), item.getY());
-            //g.drawString(id+"", x, y);
         }
         if (hover)
-            g.drawRect(x-1, y, width-3, height-2);
+            g.drawRect(x-1, y, width-2, height-2);
+        //g.drawString(c+"", x, y);
     }
 
     @Override
@@ -50,5 +53,9 @@ public class InventoryContainer extends GameObject {
         this.item = item;
         this.item.setX(this.x);
         this.item.setY(this.y);
+    }
+
+    public InventorySlotType getInventorySlotType() {
+        return inventorySlotType;
     }
 }

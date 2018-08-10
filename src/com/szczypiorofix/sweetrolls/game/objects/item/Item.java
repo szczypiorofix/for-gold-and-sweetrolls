@@ -20,6 +20,8 @@ public class Item extends GameObject {
     private BitMapFont font;
     private boolean pickable = false;
     private String type;
+    private int armorRatio;
+    private int damageRatio;
 
     public Item(String name, float x, float y, float width, float height, ObjectType objectType, ArrayList<Property> properties) {
         super(name, x, y, width, height, objectType, properties);
@@ -32,6 +34,8 @@ public class Item extends GameObject {
         font = FontParser.getFont("Immortal HUD Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
         font.setSize(4.5f);
         this.pickable = getBooleanProperty("pickable");
+        armorRatio = 1;
+        damageRatio = 1;
     }
 
     @Override
@@ -75,5 +79,13 @@ public class Item extends GameObject {
 
     public void setPickable(boolean pickable) {
         this.pickable = pickable;
+    }
+
+    public int getArmorRatio() {
+        return armorRatio;
+    }
+
+    public int getDamageRatio() {
+        return damageRatio;
     }
 }

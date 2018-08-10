@@ -398,8 +398,6 @@ public class GameManager {
         hud.render(gc, sgb, g);
         inventory.render(gc, sgb, g);
 
-        g.drawString(inventory.isDrag()+"", 20, 50);
-
 //        if (objectManager.getGround(player.getTileX(), player.getTileY()).getCollisions() != null) {
 //            g.drawString(objectManager.getGround(player.getTileX(), player.getTileY()).getCollisions().getTypeName(), 20, 50);
 //        }

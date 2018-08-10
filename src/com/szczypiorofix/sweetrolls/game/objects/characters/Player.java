@@ -58,6 +58,9 @@ public class Player extends Character {
         statistics.constitution = 10;
         statistics.intelligence = 10;
 
+        statistics.armorClass = 0;
+        statistics.damage = 1;
+
         statistics.maxHealth = (statistics.constitution * 10) + 50;
         statistics.health = statistics.maxHealth;
 
