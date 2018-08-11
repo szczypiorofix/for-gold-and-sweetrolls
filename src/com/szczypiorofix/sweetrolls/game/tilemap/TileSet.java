@@ -43,7 +43,8 @@ public class TileSet {
         collisions = new ArrayList<>();
 
         try {
-            InputStream inputFile = getClass().getResourceAsStream("/map/"+sourceFile);
+            //InputStream inputFile = getClass().getResourceAsStream("/map/"+sourceFile);
+            File inputFile = new File(MainClass.RES + "map/" + sourceFile);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="2018.07.13" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="56">
+<map version="1.0" tiledversion="2018.07.13" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="63">
  <tileset firstgid="1" source="dg_grounds32.tsx"/>
- <tileset firstgid="172" source="dg_features32.tsx"/>
- <tileset firstgid="289" source="dg_misc32.tsx"/>
- <tileset firstgid="408" source="dg_weapons32.tsx"/>
- <tileset firstgid="508" source="dg_armor32.tsx"/>
+ <tileset firstgid="172" source="dg_misc32.tsx"/>
+ <tileset firstgid="291" source="dg_weapons32.tsx"/>
+ <tileset firstgid="391" source="dg_armor32.tsx"/>
  <layer id="1" name="background" width="100" height="100">
   <data encoding="csv">
 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
@@ -118,430 +117,58 @@
   </object>
  </objectgroup>
  <objectgroup id="3" name="items" offsetx="0" offsety="32">
-  <object id="2" template="item.tx" gid="298" x="384" y="256">
+  <object id="56" template="item.tx" gid="432" x="256" y="288">
    <properties>
-    <property name="name" value="złoto"/>
+    <property name="itemId" type="int" value="1"/>
+    <property name="name" value="Napiersnik"/>
+    <property name="pickable" type="bool" value="true"/>
+    <property name="type" value="armor"/>
+    <property name="value" type="int" value="250"/>
+   </properties>
+  </object>
+  <object id="58" template="item.tx" gid="304" x="160" y="384">
+   <properties>
+    <property name="itemId" type="int" value="1"/>
+    <property name="name" value="Długi miecz"/>
+    <property name="pickable" type="bool" value="true"/>
+    <property name="type" value="sword"/>
+    <property name="value" type="int" value="100"/>
+   </properties>
+  </object>
+  <object id="59" template="item.tx" gid="181" x="288" y="160">
+   <properties>
+    <property name="name" value="Złoto"/>
     <property name="pickable" type="bool" value="true"/>
     <property name="type" value="gold"/>
-    <property name="value" type="int" value="20"/>
+    <property name="value" type="int" value="30"/>
    </properties>
   </object>
-  <object id="3" template="item.tx" gid="298" x="512" y="448">
+  <object id="60" template="item.tx" gid="481" x="352" y="256">
    <properties>
-    <property name="name" value="złoto"/>
+    <property name="itemId" type="int" value="1"/>
+    <property name="name" value="Tarcza"/>
     <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="gold"/>
-    <property name="value" type="int" value="20"/>
+    <property name="type" value="shield"/>
+    <property name="value" type="int" value="250"/>
    </properties>
   </object>
-  <object id="4" template="item.tx" gid="298" x="320" y="576">
+  <object id="61" template="item.tx" gid="401" x="352" y="352">
    <properties>
-    <property name="name" value="złoto"/>
+    <property name="itemId" type="int" value="1"/>
+    <property name="name" value="Hełm"/>
     <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="gold"/>
-    <property name="value" type="int" value="20"/>
+    <property name="type" value="helmet"/>
+    <property name="value" type="int" value="250"/>
    </properties>
   </object>
-  <object id="5" template="item.tx" name="sword" gid="408" x="256" y="224">
+  <object id="62" template="item.tx" gid="411" x="448" y="288">
    <properties>
-    <property name="name" value="krótki miecz"/>
+    <property name="itemId" type="int" value="1"/>
+    <property name="name" value="Buty"/>
     <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="100"/>
+    <property name="type" value="shoes"/>
+    <property name="value" type="int" value="250"/>
    </properties>
   </object>
-  <object id="6" template="item.tx" gid="544" x="160" y="224">
-   <properties>
-    <property name="name" value="Kosa"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="150"/>
-   </properties>
-  </object>
-  <object id="7" template="item.tx" gid="579" x="160" y="320">
-   <properties>
-    <property name="name" value="Kosa"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="150"/>
-   </properties>
-  </object>
-  <object id="8" template="item.tx" name="sword" gid="419" x="288" y="320">
-   <properties>
-    <property name="name" value="krótki miecz"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="9" template="item.tx" name="sword" gid="570" x="224" y="352">
-   <properties>
-    <property name="name" value="krótki miecz"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="10" template="item.tx" name="sword" gid="425" x="320" y="160">
-   <properties>
-    <property name="name" value="krótki miecz"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="11" template="item.tx" name="sword" gid="522" x="256" y="96">
-   <properties>
-    <property name="name" value="krótki miecz"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="12" template="item.tx" name="sword" gid="469" x="320" y="224">
-   <properties>
-    <property name="name" value="krótki miecz"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="13" template="item.tx" name="sword" gid="468" x="224" y="288">
-   <properties>
-    <property name="name" value="krótki miecz"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="14" template="item.tx" name="sword" gid="451" x="256" y="160">
-   <properties>
-    <property name="name" value="krótki miecz"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="15" template="item.tx" name="sword" gid="419" x="352" y="352">
-   <properties>
-    <property name="name" value="krótki miecz"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="16" template="item.tx" gid="450" x="96" y="256">
-   <properties>
-    <property name="name" value="Kosa"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="150"/>
-   </properties>
-  </object>
-  <object id="17" template="item.tx" gid="450" x="96" y="160">
-   <properties>
-    <property name="name" value="Kosa"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="150"/>
-   </properties>
-  </object>
-  <object id="18" template="item.tx" gid="450" x="160" y="96">
-   <properties>
-    <property name="name" value="Kosa"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="150"/>
-   </properties>
-  </object>
-  <object id="19" template="item.tx" name="sword" gid="419" x="416" y="320">
-   <properties>
-    <property name="name" value="krótki miecz"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="20" template="item.tx" name="sword" gid="419" x="448" y="256">
-   <properties>
-    <property name="name" value="krótki miecz"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="21" template="item.tx" name="sword" gid="419" x="416" y="160">
-   <properties>
-    <property name="name" value="krótki miecz"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="22" template="item.tx" name="sword" gid="425" x="352" y="448">
-   <properties>
-    <property name="name" value="krótki miecz"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="23" template="item.tx" name="sword" gid="430" x="448" y="384">
-   <properties>
-    <property name="name" value="krótki miecz"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="24" template="item.tx" name="sword" gid="468" x="224" y="416">
-   <properties>
-    <property name="name" value="krótki miecz"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="25" template="item.tx" gid="450" x="128" y="384">
-   <properties>
-    <property name="name" value="Kosa"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="150"/>
-   </properties>
-  </object>
-  <object id="26" template="item.tx" gid="471" x="288" y="384">
-   <properties>
-    <property name="name" value="Kosa"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="150"/>
-   </properties>
-  </object>
-  <object id="27" template="item.tx" gid="471" x="320" y="96">
-   <properties>
-    <property name="name" value="Kosa"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="150"/>
-   </properties>
-  </object>
-  <object id="28" template="item.tx" name="sword" gid="425" x="384" y="96">
-   <properties>
-    <property name="name" value="krótki miecz"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="29" template="item.tx" gid="471" x="96" y="320">
-   <properties>
-    <property name="name" value="Kosa"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="150"/>
-   </properties>
-  </object>
-  <object id="30" template="item.tx" gid="450" x="64" y="288">
-   <properties>
-    <property name="name" value="Kosa"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="150"/>
-   </properties>
-  </object>
-  <object id="31" template="item.tx" gid="530" x="320" y="288">
-   <properties>
-    <property name="name" value="Kosa"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="150"/>
-   </properties>
-  </object>
-  <object id="32" template="item.tx" name="sword" gid="468" x="480" y="288">
-   <properties>
-    <property name="name" value="krótki miecz"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="33" template="item.tx" name="sword" gid="468" x="512" y="352">
-   <properties>
-    <property name="name" value="krótki miecz"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="34" template="item.tx" name="sword" gid="593" x="448" y="448">
-   <properties>
-    <property name="name" value="krótki miecz"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="35" template="item.tx" name="sword" gid="468" x="416" y="512">
-   <properties>
-    <property name="name" value="krótki miecz"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="36" template="item.tx" name="sword" gid="425" x="288" y="480">
-   <properties>
-    <property name="name" value="krótki miecz"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="37" template="item.tx" name="sword" gid="468" x="160" y="448">
-   <properties>
-    <property name="name" value="krótki miecz"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="38" template="item.tx" name="sword" gid="468" x="224" y="480">
-   <properties>
-    <property name="name" value="krótki miecz"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="100"/>
-   </properties>
-  </object>
-  <object id="39" template="item.tx" gid="471" x="224" y="544">
-   <properties>
-    <property name="name" value="Kosa"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="150"/>
-   </properties>
-  </object>
-  <object id="40" template="item.tx" gid="471" x="384" y="576">
-   <properties>
-    <property name="name" value="Kosa"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="150"/>
-   </properties>
-  </object>
-  <object id="41" template="item.tx" gid="471" x="448" y="576">
-   <properties>
-    <property name="name" value="Kosa"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="150"/>
-   </properties>
-  </object>
-  <object id="42" template="item.tx" gid="471" x="512" y="544">
-   <properties>
-    <property name="name" value="Kosa"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="150"/>
-   </properties>
-  </object>
-  <object id="43" template="item.tx" gid="471" x="576" y="480">
-   <properties>
-    <property name="name" value="Kosa"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="150"/>
-   </properties>
-  </object>
-  <object id="44" template="item.tx" gid="471" x="608" y="416">
-   <properties>
-    <property name="name" value="Kosa"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="150"/>
-   </properties>
-  </object>
-  <object id="45" template="item.tx" gid="416" x="608" y="544">
-   <properties>
-    <property name="name" value="Kosa"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="150"/>
-   </properties>
-  </object>
-  <object id="46" template="item.tx" gid="416" x="544" y="608">
-   <properties>
-    <property name="name" value="Kosa"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="150"/>
-   </properties>
-  </object>
-  <object id="47" template="item.tx" gid="464" x="448" y="640">
-   <properties>
-    <property name="name" value="Kosa"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="150"/>
-   </properties>
-  </object>
-  <object id="48" template="item.tx" gid="464" x="384" y="640">
-   <properties>
-    <property name="name" value="Kosa"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="150"/>
-   </properties>
-  </object>
-  <object id="49" template="item.tx" gid="464" x="320" y="640">
-   <properties>
-    <property name="name" value="Kosa"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="150"/>
-   </properties>
-  </object>
-  <object id="50" template="item.tx" gid="464" x="256" y="608">
-   <properties>
-    <property name="name" value="Kosa"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="150"/>
-   </properties>
-  </object>
-  <object id="51" template="item.tx" gid="598" x="288" y="544">
-   <properties>
-    <property name="name" value="Kosa"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="150"/>
-   </properties>
-  </object>
-  <object id="52" template="item.tx" gid="416" x="544" y="672">
-   <properties>
-    <property name="name" value="Kosa"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="150"/>
-   </properties>
-  </object>
-  <object id="53" template="item.tx" gid="416" x="608" y="608">
-   <properties>
-    <property name="name" value="Kosa"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="150"/>
-   </properties>
-  </object>
-  <object id="54" template="item.tx" gid="416" x="608" y="672">
-   <properties>
-    <property name="name" value="Kosa"/>
-    <property name="pickable" type="bool" value="true"/>
-    <property name="type" value="sword"/>
-    <property name="value" type="int" value="150"/>
-   </properties>
-  </object>
-  <object id="55" template="item.tx" gid="509" x="512" y="192"/>
  </objectgroup>
 </map>

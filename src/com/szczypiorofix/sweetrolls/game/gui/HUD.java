@@ -33,7 +33,7 @@ public class HUD {
 
         image.draw(0, 0);
 
-        font.draw("D: " +player.getTimeCounter().getDayCounter()+", H: "+player.getTimeCounter().getHourCounter()+":" + (
+        font.draw("Dzień: " +player.getTimeCounter().getDayCounter()+", godz: "+player.getTimeCounter().getHourCounter()+":" + (
                 player.getTimeCounter().getMinuteCounter() < 10 ? player.getTimeCounter().getMinuteCounter()+"0"
                         : player.getTimeCounter().getMinuteCounter()
         ), 590, 15);
@@ -60,8 +60,8 @@ public class HUD {
 //        font.draw("Player : " +player.getWidth()+":"+player.getHeight(), 590, 320);
 //        font.draw("Player offset: " +player.getOffsetX()+":"+player.getOffsetY(), 590, 340);
 
-        font.draw("Armor : " +player.statistics.armorClass, 590, 320);
-        font.draw("Damage: " +player.statistics.damage, 590, 340);
+        font.draw("Pancerz : " +player.statistics.armorClass, 590, 320);
+        font.draw("Atak: " +player.statistics.damage, 590, 340);
     }
 
 }

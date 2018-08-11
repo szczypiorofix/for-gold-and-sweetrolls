@@ -155,8 +155,15 @@ public class GameManager {
             if (input.isKeyPressed(Input.KEY_RIGHT) || gc.getInput().isKeyPressed(Input.KEY_D)) {
 
                 if (player.getTileX() < objectManager.getLevel().getWidth()-1) {
+                    boolean pass = false;
 
-                    if (objectManager.getGround(player.getTileX() + 1, player.getTileY()).getCollisions().getCollisionType() == CollisionObject.CollisionType.PASSABLE || !collisionsEnabled) {
+                    if (objectManager.getGround(player.getTileX(1), player.getTileY()).getCollisions().getCollisionType() == CollisionObject.CollisionType.PASSABLE
+                            || !collisionsEnabled) pass = true;
+
+                    if (objectManager.getNpcs()[player.getTileX(1)][player.getTileY()] != null)
+                        if (objectManager.getNpcs()[player.getTileX(1)][player.getTileY()].getCollisions().getCollisionType() == CollisionObject.CollisionType.COLLISION) pass = false;
+
+                    if (pass) {
                         player.moveEast();
                         setNextRound = true;
                     }
@@ -166,7 +173,15 @@ public class GameManager {
 
             if (input.isKeyPressed((Input.KEY_LEFT)) || gc.getInput().isKeyPressed(Input.KEY_A)) {
                 if (player.getTileX() > 0) {
-                    if (objectManager.getGround(player.getTileX() - 1, player.getTileY()).getCollisions().getCollisionType() == CollisionObject.CollisionType.PASSABLE || !collisionsEnabled) {
+                    boolean pass = false;
+
+                    if (objectManager.getGround(player.getTileX(-1), player.getTileY()).getCollisions().getCollisionType() == CollisionObject.CollisionType.PASSABLE
+                            || !collisionsEnabled) pass = true;
+
+                    if (objectManager.getNpcs()[player.getTileX(-1)][player.getTileY()] != null)
+                        if (objectManager.getNpcs()[player.getTileX(-1)][player.getTileY()].getCollisions().getCollisionType() == CollisionObject.CollisionType.COLLISION) pass = false;
+
+                    if (pass) {
                         player.moveWest();
                         setNextRound = true;
                     }
@@ -176,7 +191,15 @@ public class GameManager {
 
             if (input.isKeyPressed(Input.KEY_UP) || gc.getInput().isKeyPressed(Input.KEY_W)) {
                 if (player.getTileY() > 0) {
-                    if (objectManager.getGround(player.getTileX(), player.getTileY() - 1).getCollisions().getCollisionType() == CollisionObject.CollisionType.PASSABLE || !collisionsEnabled) {
+                    boolean pass = false;
+
+                    if (objectManager.getGround(player.getTileX(), player.getTileY(-1)).getCollisions().getCollisionType() == CollisionObject.CollisionType.PASSABLE
+                            || !collisionsEnabled) pass = true;
+
+                    if (objectManager.getNpcs()[player.getTileX()][player.getTileY(-1)] != null)
+                        if (objectManager.getNpcs()[player.getTileX()][player.getTileY(-1)].getCollisions().getCollisionType() == CollisionObject.CollisionType.COLLISION) pass = false;
+
+                    if (pass) {
                         player.moveNorth();
                         setNextRound = true;
                     }
@@ -186,7 +209,15 @@ public class GameManager {
 
             if (input.isKeyPressed((Input.KEY_DOWN)) || gc.getInput().isKeyPressed(Input.KEY_S)) {
                 if (player.getTileY() < objectManager.getLevel().getHeight()-1) {
-                    if (objectManager.getGround(player.getTileX(), player.getTileY() + 1).getCollisions().getCollisionType() == CollisionObject.CollisionType.PASSABLE || !collisionsEnabled) {
+                    boolean pass = false;
+
+                    if (objectManager.getGround(player.getTileX(), player.getTileY(1)).getCollisions().getCollisionType() == CollisionObject.CollisionType.PASSABLE
+                            || !collisionsEnabled) pass = true;
+
+                    if (objectManager.getNpcs()[player.getTileX()][player.getTileY(1)] != null)
+                        if (objectManager.getNpcs()[player.getTileX()][player.getTileY(1)].getCollisions().getCollisionType() == CollisionObject.CollisionType.COLLISION) pass = false;
+
+                    if (pass) {
                         player.moveSouth();
                         setNextRound = true;
                     }
@@ -312,9 +343,12 @@ public class GameManager {
 
                                     if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
                                         if (!objectManager.getNpc(player.getTileX(i), player.getTileY(j)).isShortTalk()) {
-                                            //npc.setShortTalk(true);
-                                            dialogueFrame = new DialogueFrame(player, objectManager.getNpc(player.getTileX(i), player.getTileY(j)), mouseCursor);
-                                            dialogueFrame.setShowDialog(true);
+                                            if (objectManager.getNpc(player.getTileX(i), player.getTileY(j)).isLondTalk()) {
+                                                dialogueFrame = new DialogueFrame(player, objectManager.getNpc(player.getTileX(i), player.getTileY(j)), mouseCursor);
+                                                dialogueFrame.setShowDialog(true);
+                                            } else {
+                                                objectManager.getNpc(player.getTileX(i), player.getTileY(j)).setShortTalk(true);
+                                            }
                                         }
                                     }
                                 }
@@ -339,10 +373,8 @@ public class GameManager {
                                                 player.getActionHistory().addValue("Znaleziono złoto: "+goldGained);
                                                 player.statistics.gold += goldGained;
                                                 objectManager.getItems()[player.getTileX(i)][player.getTileY(j)] = null;
-                                            }
-
-                                            // SWORD
-                                            if (currentItem.getStringProperty("type").equalsIgnoreCase("sword")) {
+                                            } // Złoto nie pojawia się w ekwipunku.
+                                            else {
                                                 player.getActionHistory().addValue("Podniesiono: "+currentItem.getStringProperty("name"));
                                                 if (inventory.putToInventory(currentItem)) {
                                                     objectManager.getItems()[player.getTileX(i)][player.getTileY(j)] = null;
@@ -350,9 +382,6 @@ public class GameManager {
                                                     player.getActionHistory().addValue("Plecak jest pełny !!!");
                                                 }
                                             }
-
-
-
                                         }
                                     }
                                 }

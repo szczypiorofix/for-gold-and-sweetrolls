@@ -43,7 +43,8 @@ public class ObjectGroupObject {
         if (!template.equalsIgnoreCase("")) {
             isTemplate = true;
             try {
-                InputStream inputFile = getClass().getResourceAsStream("/map/" + template);
+                File inputFile = new File(MainClass.RES + "map/" + template);
+                //InputStream inputFile = getClass().getResourceAsStream("/map/" + template);
                 DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
                 Document doc = dBuilder.parse(inputFile);

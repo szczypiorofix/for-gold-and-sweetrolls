@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
-<Export Version="3.1" CreatorTool="articy:draft" CreatorVersion="3.1.16" CreatedOn="2018-08-11T19:28:05Z">
+<Export Version="3.1" CreatorTool="articy:draft" CreatorVersion="3.1.16" CreatedOn="2018-08-11T21:09:40Z">
   <Settings>
     <ExportMarkup>0</ExportMarkup>
     <ExportQueries>0</ExportQueries>
@@ -344,7 +344,7 @@
       <ShortId>0xB75F3E53</ShortId>
       <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037928716</Url>
       <Features Count="1">
-        <Feature Name="Imi" IdRef="0x0100000000000316">
+        <Feature Name="main_features" IdRef="0x0100000000000316">
           <Properties Count="4">
             <String Name="Imie">Todd</String>
             <String Name="Nazwisko">Howard</String>
@@ -355,12 +355,33 @@
       </Features>
       <References Count="0"/>
     </Entity>
+    <Entity Id="0x01000000000003BC" ObjectTemplateReference="0x0100000000000307" ObjectTemplateReferenceName="NPC">
+      <DisplayName Count="1">
+        <LocalizedString Lang="">Pete</LocalizedString>
+      </DisplayName>
+      <Color>#C4BD97</Color>
+      <TechnicalName>Ntt_8843B99A</TechnicalName>
+      <ExternalId/>
+      <ShortId>0x8843B99A</ShortId>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037928892</Url>
+      <Features Count="1">
+        <Feature Name="main_features" IdRef="0x0100000000000316">
+          <Properties Count="4">
+            <String Name="Imie">Pete</String>
+            <String Name="Nazwisko">Hines</String>
+            <Number Name="Poziom">1</Number>
+            <String Name="Opis">To jest Pete Hines.</String>
+          </Properties>
+        </Feature>
+      </Features>
+      <References Count="0"/>
+    </Entity>
     <FeatureDefinition Id="0x0100000000000316">
       <DisplayName Count="1">
-        <LocalizedString Lang="">Cechy główne postaci</LocalizedString>
+        <LocalizedString Lang="">main features</LocalizedString>
       </DisplayName>
       <Color>#C8E2E7</Color>
-      <TechnicalName>Imi</TechnicalName>
+      <TechnicalName>main_features</TechnicalName>
       <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037928726</Url>
       <PropertyDefinitions Count="4">
         <PropertyDefinitionRef IdRef="0x010000000000038F"/>
@@ -463,6 +484,7 @@
       <Node IdRef="0x030000003140D3AC" Type="Locations"/>
       <Node IdRef="0x03000000AC61A2B3" Type="Entities">
         <Node IdRef="0x010000000000030C" Type="Entity"/>
+        <Node IdRef="0x01000000000003BC" Type="Entity"/>
       </Node>
       <Node IdRef="0x030000004C3DAF54" Type="Assets"/>
       <Node IdRef="0x0300000029CF057C" Type="ObjectTemplates">

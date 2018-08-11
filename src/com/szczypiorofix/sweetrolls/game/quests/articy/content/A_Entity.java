@@ -3,6 +3,7 @@ package com.szczypiorofix.sweetrolls.game.quests.articy.content;
 public class A_Entity extends A_Object {
 
 
+
     public A_Entity(String id) {
         super(id);
     }

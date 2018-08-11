@@ -55,6 +55,8 @@ public class ArticyXMLParser {
                 if (exportNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element exportElement = (Element) exportNode;
 
+
+                    // ####################### Content
                     NodeList contentList = exportElement.getElementsByTagName("Content");
                     for (int content = 0; content < contentList.getLength(); content++) {
                         Node contentNode = exportList.item(content);
@@ -343,6 +345,19 @@ public class ArticyXMLParser {
 
                         }
                     }
+
+
+                    // ###################################  Hierarchy
+                    NodeList hierarchyList = exportElement.getElementsByTagName("Hierarchy");
+                    for (int i = 0; i < hierarchyList.getLength(); i++) {
+                        Node hierarchyListNode = hierarchyList.item(i);
+                        if (hierarchyListNode.getNodeType() == Node.ELEMENT_NODE) {
+                            Element hierarchyListElement = (Element) hierarchyListNode;
+                            System.out.println(hierarchyListElement.getTagName());
+                        }
+                    }
+
+
                 }
             }
 
@@ -362,6 +377,9 @@ public class ArticyXMLParser {
         System.out.println(flowFragment);
         System.out.println();
 
+        // #############################
+        System.exit(0);
+        // #############################
 
         System.out.println("Connections: ");
         connections.forEach((key, value)
@@ -382,6 +400,11 @@ public class ArticyXMLParser {
         dialoguesFragmens.forEach((key, value)
                 -> System.out.println(key + " => " + value.text +", menu text: "+value.menuText));
         System.out.println();
+
+
+
+
+
 
 
         System.out.println();

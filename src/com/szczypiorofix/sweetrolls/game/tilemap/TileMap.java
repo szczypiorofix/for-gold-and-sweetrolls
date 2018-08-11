@@ -1,6 +1,7 @@
 package com.szczypiorofix.sweetrolls.game.tilemap;
 
 
+import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.w3c.dom.Document;
@@ -80,10 +81,11 @@ public class TileMap {
     private void loadFromTiledMap(String fileName) {
 
         try {
-            InputStream in = getClass().getResourceAsStream("/map/"+fileName);
+            //InputStream inputFile = getClass().getResourceAsStream("/map/"+fileName);
+            File inputFile = new File(MainClass.RES + "map/" + fileName);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(in);
+            Document doc = dBuilder.parse(inputFile);
             doc.getDocumentElement().normalize();
             NodeList mapList = doc.getElementsByTagName("map");
 

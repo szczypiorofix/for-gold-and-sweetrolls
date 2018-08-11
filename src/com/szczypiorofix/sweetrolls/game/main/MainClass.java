@@ -22,6 +22,7 @@ import java.util.logging.SimpleFormatter;
 public final class MainClass {
 
     public static final Random RANDOM = new Random();
+    public static final String RES = "res/";
 
     public static final int MAINMENU = 1;
     public static final int GAME = 2;

@@ -44,7 +44,8 @@ public class CollisionObject {
 
     public void setTemplate(String templateFileName) {
         try {
-            InputStream inputFile = getClass().getResourceAsStream("/map/" + templateFileName);
+            //InputStream inputFile = getClass().getResourceAsStream("/map/" + templateFileName);
+            File inputFile = new File(MainClass.RES + "map/" + templateFileName);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
@@ -82,7 +83,10 @@ public class CollisionObject {
     public void setTypeName(String typeName) {
         this.typeName = typeName;
         this.collisionType = CollisionType.PASSABLE;
-        if (this.typeName.equalsIgnoreCase("water") || this.typeName.equalsIgnoreCase("dungeonwall")) {
+        if (this.typeName.equalsIgnoreCase("water")
+                || this.typeName.equalsIgnoreCase("dungeonwall")
+                || this.typeName.equalsIgnoreCase("npc")
+        ) {
             this.collisionType = CollisionType.COLLISION;
         }
     }
