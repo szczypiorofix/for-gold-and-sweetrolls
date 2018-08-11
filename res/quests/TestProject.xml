@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
-<Export Version="3.1" CreatorTool="articy:draft" CreatorVersion="3.1.16" CreatedOn="2018-08-10T06:15:21Z">
+<Export Version="3.1" CreatorTool="articy:draft" CreatorVersion="3.1.16" CreatedOn="2018-08-11T19:28:05Z">
   <Settings>
     <ExportMarkup>0</ExportMarkup>
     <ExportQueries>0</ExportQueries>
@@ -276,7 +276,7 @@
           <Expression/>
         </Pin>
       </Pins>
-      <Position X="192" Y="175"/>
+      <Position X="192" Y="200"/>
       <Size Width="266" Height="175"/>
       <ZIndex>0</ZIndex>
     </Dialogue>

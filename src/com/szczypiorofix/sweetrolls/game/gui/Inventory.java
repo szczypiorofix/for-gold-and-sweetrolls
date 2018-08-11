@@ -120,11 +120,9 @@ public class Inventory {
                                     }
 
                                     if (currentContainer.getInventorySlotType() == InventorySlotType.INVENTORY) {
-                                        //if (dragItem.getType().equalsIgnoreCase())
                                         player.statistics.armorClass -= dragItem.getArmorRatio();
                                         player.statistics.damage -= dragItem.getDamageRatio();
                                     }
-
 
                                 }
                                 dragItem = null;
