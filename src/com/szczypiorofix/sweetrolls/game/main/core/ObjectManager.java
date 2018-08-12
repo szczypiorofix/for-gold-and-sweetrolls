@@ -315,7 +315,7 @@ public class ObjectManager {
         player.setTerrainType(grounds[player.getTileX()][player.getTileY()].getObjectType());
     }
 
-    private void iterateUpdate(GameContainer gc, StateBasedGame sbg, int delta, GameObject[][] list, MouseCursor mouseCursor, float offsetX, float offsetY) throws SlickException {
+    private void iterateUpdate(int delta, GameObject[][] list, MouseCursor mouseCursor, float offsetX, float offsetY) throws SlickException {
         for (int x = tilesToWest; x < tilesToEast; x++) {
             for (int y = tilesToNorth; y < tilesToSouth; y++) {
                 if (player.getTileX(x) >= 0
@@ -324,14 +324,14 @@ public class ObjectManager {
                         && player.getTileY(y) < level.getHeight()
                         ) {
                     if (list[player.getTileX() + x][player.getTileY() + y] != null) {
-                        list[player.getTileX() + x][player.getTileY() + y].update(gc, sbg, delta, offsetX, offsetY);
+                        list[player.getTileX() + x][player.getTileY() + y].update(delta, offsetX, offsetY);
                     }
                 }
             }
         }
     }
 
-    private void iterateRender(GameContainer gc, StateBasedGame sbg, Graphics g, GameObject[][] list, float offsetX, float offsetY) throws SlickException {
+    private void iterateRender(Graphics g, GameObject[][] list, float offsetX, float offsetY) throws SlickException {
 
         int tW = tilesToWest;
         int tE = tilesToEast;
@@ -369,7 +369,7 @@ public class ObjectManager {
 
                     if (list[player.getTileX() + sx][player.getTileY() + sy] != null) {
 
-                        list[player.getTileX() + sx][player.getTileY() + sy].render(gc, sbg, g, offsetX, offsetY);
+                        list[player.getTileX() + sx][player.getTileY() + sy].render(g, offsetX, offsetY);
 
                     }
                 }
@@ -378,7 +378,6 @@ public class ObjectManager {
     }
 
     private void iterateTurn(GameObject[][] list) {
-
         for (int x = 0; x < list.length; x++) {
             for (int y = 0; y < list[0].length; y++) {
                 if (list[x][y] != null) {
@@ -396,18 +395,18 @@ public class ObjectManager {
         player.setTerrainType(grounds[player.getTileX()][player.getTileY()].getObjectType());
     }
 
-    public void update(GameContainer gc, StateBasedGame sbg, int delta, MouseCursor mouseCursor, float offsetX, float offsetY) throws SlickException {
-        iterateUpdate(gc, sbg, delta, grounds, mouseCursor, offsetX, offsetY);
-        iterateUpdate(gc, sbg, delta, places, mouseCursor, offsetX, offsetY);
-        iterateUpdate(gc, sbg, delta, npcs, mouseCursor, offsetX, offsetY);
-        iterateUpdate(gc, sbg, delta, items, mouseCursor, offsetX, offsetY);
+    public void update(int delta, MouseCursor mouseCursor, float offsetX, float offsetY) throws SlickException {
+        iterateUpdate(delta, grounds, mouseCursor, offsetX, offsetY);
+        iterateUpdate(delta, places, mouseCursor, offsetX, offsetY);
+        iterateUpdate(delta, npcs, mouseCursor, offsetX, offsetY);
+        iterateUpdate(delta, items, mouseCursor, offsetX, offsetY);
     }
 
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) throws SlickException {
-        iterateRender(gc, sbg, g, grounds, offsetX, offsetY);
-        iterateRender(gc, sbg, g, places, offsetX, offsetY);
-        iterateRender(gc, sbg, g, npcs, offsetX, offsetY);
-        iterateRender(gc, sbg, g, items, offsetX, offsetY);
+    public void render(Graphics g, float offsetX, float offsetY) throws SlickException {
+        iterateRender(g, grounds, offsetX, offsetY);
+        iterateRender(g, places, offsetX, offsetY);
+        iterateRender(g, npcs, offsetX, offsetY);
+        iterateRender(g, items, offsetX, offsetY);
      }
 
     public HashMap<String, LevelMap> getLevelMaps() {

@@ -6,7 +6,6 @@ import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
 import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
 import com.szczypiorofix.sweetrolls.game.objects.GameObject;
 import org.newdawn.slick.*;
-import org.newdawn.slick.state.StateBasedGame;
 
 public class MainMenuButton extends GameObject {
 
@@ -23,24 +22,23 @@ public class MainMenuButton extends GameObject {
         super(name, x, y, width, height, ObjectType.GUI);
         this.name = name;
         image = Textures.getInstance().mainMenuMainButtons.getSprite(0, 0);
-        imagePressed = Textures.getInstance().mainMenuMainButtons.getSprite(1, 0);
+        imagePressed = Textures.getInstance().mainMenuMainButtons.getSprite(0, 1);
         font = FontParser.getFont("Immortal Menu Button Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
         font.setSize(4f);
         nameX = x + (width / 2) - (font.getStringLength(name) / 2);
     }
 
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) {
+    public void update(int delta, float offsetX, float offsetY) {
     }
 
     @Override
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) {
+    public void render(Graphics g, float offsetX, float offsetY) {
 
         if (hover) {
             imagePressed.draw(x, y);
             font.draw(name, (int) (nameX + offsetX), (int) (y + 8 + offsetY));
-        }
-        else {
+        } else {
             image.draw(x, y);
             font.draw(name, (int) (nameX + offsetX), (int) (y + 5 + offsetY));
         }
@@ -48,9 +46,7 @@ public class MainMenuButton extends GameObject {
     }
 
     @Override
-    public void turn() {
-
-    }
+    public void turn() {}
 
     public void setHover(boolean hover) {
         this.hover = hover;

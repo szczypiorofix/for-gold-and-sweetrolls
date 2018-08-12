@@ -1,7 +1,7 @@
 package com.szczypiorofix.sweetrolls.game.main;
 
 import com.szczypiorofix.sweetrolls.game.main.core.ForGoldAndSweetrolls;
-import com.szczypiorofix.sweetrolls.game.main.states.GameStatesContainer;
+import com.szczypiorofix.sweetrolls.game.main.states.MainGame;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.AppGameContainer;
@@ -23,10 +23,6 @@ public final class MainClass {
 
     public static final Random RANDOM = new Random();
     public static final String RES = "res/";
-
-    public static final int MAINMENU = 1;
-    public static final int GAME = 2;
-    public static final int EXIT = 0;
 
     private static boolean DEBUG_MODE;
     private final static Logger LOGGER = Logger.getLogger(MainClass.class.getName());
@@ -60,8 +56,8 @@ public final class MainClass {
 
         try {
             logging(false,  Level.INFO, "Uruchamianie instancji GameStatesContainer");
-            GameStatesContainer gameStatesContainer = new GameStatesContainer(modes, "For Gold and Sweetrolls");
-            ForGoldAndSweetrolls fgas = new ForGoldAndSweetrolls(gameStatesContainer, 800, 600, true);
+            //GameStatesContainer gameStatesContainer = new GameStatesContainer(modes, "For Gold and Sweetrolls");
+            ForGoldAndSweetrolls fgas = new ForGoldAndSweetrolls(new MainGame("For Gold and Sweetrolls", modes), 800, 600, true);
 
             AppGameContainer app = new AppGameContainer(fgas);
             String[] icons = {

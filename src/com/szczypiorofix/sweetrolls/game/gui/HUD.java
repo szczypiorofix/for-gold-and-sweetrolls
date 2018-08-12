@@ -4,7 +4,6 @@ import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
 import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import org.newdawn.slick.*;
-import org.newdawn.slick.state.StateBasedGame;
 
 
 public class HUD {
@@ -26,7 +25,7 @@ public class HUD {
         font.setSize(4.5f);
     }
 
-    public void render(GameContainer gc, StateBasedGame sgb, Graphics g) {
+    public void render(GameContainer gc, Graphics g) {
         int levelMaxContainer = 156;
         int currentLevel = (int) (player.statistics.currentLevelBar * levelMaxContainer) / player.statistics.currentLevelMaxBar;
         if (currentLevel > levelMaxContainer) currentLevel = levelMaxContainer;

@@ -76,14 +76,14 @@ public class Player extends Character {
 
 
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) {
+    public void update(int delta, float offsetX, float offsetY) {
         hover = false;
         this.offsetX = offsetX;
         this.offsetY = offsetY;
     }
 
     @Override
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) {
+    public void render(Graphics g, float offsetX, float offsetY) {
 
         //g.setDrawMode(Graphics.MODE_ADD);
         image.draw( - offsetX + x, - offsetY + y);

@@ -8,8 +8,6 @@ import com.szczypiorofix.sweetrolls.game.objects.item.Item;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class Inventory {
 
@@ -60,13 +58,13 @@ public class Inventory {
         inventoryContainers[6][rows] = new InventoryContainer(id+6, InventorySlotType.RIGHT_RING, 350, 247, null);
     }
 
-    public void update(GameContainer gc, StateBasedGame sgb, int delta) throws SlickException {
+    public void update(GameContainer gc, int delta) throws SlickException {
 
         for (int x = 0; x < inventoryContainers.length; x++) {
             for (int y = 0; y < inventoryContainers[0].length; y++) {
 
                 if (inventoryContainers[x][y] != null) {
-                    inventoryContainers[x][y].update(gc, sgb, delta, 0 , 0);
+                    inventoryContainers[x][y].update(delta, 0 , 0);
                     currentContainer = inventoryContainers[x][y];
 
                     if (mouseCursor.intersects(currentContainer)) {
@@ -124,6 +122,8 @@ public class Inventory {
                                         player.statistics.damage -= dragItem.getDamageRatio();
                                     }
 
+
+
                                 }
                                 dragItem = null;
                                 drag = false;
@@ -135,13 +135,13 @@ public class Inventory {
         }
     }
 
-    public void render(GameContainer gc, StateBasedGame sgb, Graphics g) throws SlickException {
+    public void render(Graphics g) throws SlickException {
         if (show) {
             image.draw(150, 90);
             for (int x = 0; x < inventoryContainers.length; x++) {
                 for (int y = 0; y < inventoryContainers[0].length; y++) {
                     if (inventoryContainers[x][y] != null) {
-                        inventoryContainers[x][y].render(gc, sgb, g, 0, 0);
+                        inventoryContainers[x][y].render(g, 0, 0);
                     }
                 }
             }

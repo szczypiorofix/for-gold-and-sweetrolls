@@ -28,7 +28,7 @@ public class DialogueFrame {
         fontL.setSize(5.5f);
     }
 
-    public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) throws SlickException {
+    public void update(GameContainer gc, int delta, float offsetX, float offsetY) throws SlickException {
         if (npc != null && showDialog) {
             for (int i = 0; i < npc.getDialogue().getDialogues().get(npc.getDialogue().getCurrentDialogueState()).getButtons().size(); i++) {
 
@@ -54,7 +54,7 @@ public class DialogueFrame {
 
     }
 
-    public void render(GameContainer gc, StateBasedGame sgb, Graphics g) throws SlickException {
+    public void render(Graphics g) throws SlickException {
         if (showDialog) {
             Color c = g.getColor();
             g.setColor(new Color(0.1f, 0.1f, 0.1f, 0.9f));
@@ -66,7 +66,7 @@ public class DialogueFrame {
                             npc.getDialogue().getCurrentDialogueState()
                     ).getName(), 30, 345);
             for (int i = 0; i < npc.getDialogue().getDialogues().get(npc.getDialogue().getCurrentDialogueState()).getButtons().size(); i++) {
-                npc.getDialogue().getDialogues().get(npc.getDialogue().getCurrentDialogueState()).getButtons().get(i).render(gc, sgb, g, 0, 0);
+                npc.getDialogue().getDialogues().get(npc.getDialogue().getCurrentDialogueState()).getButtons().get(i).render(g, 0, 0);
             }
 
             g.setColor(c);

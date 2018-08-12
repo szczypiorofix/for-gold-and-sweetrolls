@@ -4,11 +4,9 @@ import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
 import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
 import com.szczypiorofix.sweetrolls.game.tilemap.Property;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.StateBasedGame;
 
 import java.util.ArrayList;
 
@@ -23,12 +21,12 @@ public class Place extends Item {
     }
 
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) throws SlickException {
+    public void update(int delta, float offsetX, float offsetY) throws SlickException {
         hover = false;
     }
 
     @Override
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) throws SlickException {
+    public void render(Graphics g, float offsetX, float offsetY) throws SlickException {
         image.draw(- offsetX + x, - offsetY + y);
         if (hover) {
             font.draw(name, - offsetX + x, - offsetY + y - 20);

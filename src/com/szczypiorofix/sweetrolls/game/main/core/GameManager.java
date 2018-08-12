@@ -1,18 +1,18 @@
 package com.szczypiorofix.sweetrolls.game.main.core;
 
-import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
+import com.szczypiorofix.sweetrolls.game.enums.GameState;
 import com.szczypiorofix.sweetrolls.game.gui.DialogueFrame;
 import com.szczypiorofix.sweetrolls.game.gui.HUD;
 import com.szczypiorofix.sweetrolls.game.gui.Inventory;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
+import com.szczypiorofix.sweetrolls.game.main.states.MainGame;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import com.szczypiorofix.sweetrolls.game.objects.item.Item;
 import com.szczypiorofix.sweetrolls.game.tilemap.CollisionObject;
 import com.szczypiorofix.sweetrolls.game.tilemap.TileMap;
 
 import org.newdawn.slick.*;
-import org.newdawn.slick.state.StateBasedGame;
 
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -36,7 +36,9 @@ public class GameManager {
     private int mapWidth, mapHeight;
     private int gameWidth, gameHeight;
     private boolean setNextRound;
+    private boolean showMap;
 
+    private Image worldMapImage;
     private Input input;
     private Player player;
     private HUD hud;
@@ -45,14 +47,15 @@ public class GameManager {
     private MouseCursor mouseCursor;
     private String currentLevelName;
     private DialogueFrame dialogueFrame;
-
+    private MainGame mainGame;
 
     private enum LevelType {
         CREATED,
         GENERATED
     }
 
-    public GameManager() {
+    public GameManager(MainGame mainGame) {
+        this.mainGame = mainGame;
         offsetX = 0;
         offsetY = 0;
         dialogueFrame = new DialogueFrame();
@@ -105,12 +108,12 @@ public class GameManager {
         offsetY = 0;
     }
 
-    public void init(GameContainer gc) {
+    public void init(GameContainer gc, Input input, MouseCursor mouseCursor) {
 
         gameWidth = gc.getWidth();
         gameHeight = gc.getHeight();
 
-        input = gc.getInput();
+        this.input = input;
 
         objectManager = new ObjectManager(gameWidth, gameHeight);
 
@@ -118,23 +121,28 @@ public class GameManager {
         changeLevel(WORLD_MAP_NAME, LevelType.CREATED);
         calculateOffset();
 
-        mouseCursor = new MouseCursor("Mouse Cursor Game", input.getMouseX(), input.getMouseY(), 32, 32, ObjectType.MOUSECURSOR, input);
+        this.mouseCursor = mouseCursor;
 
         player.setCurrentLevelName(currentLevelName);
         hud = new HUD(player, mouseCursor);
         inventory = new Inventory(player, mouseCursor);
+
+        try {
+            worldMapImage = new Image("res/map/worldmap.png");
+        } catch (SlickException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
-    public void handleInputs(GameContainer gc, StateBasedGame sgb, int delta) throws SlickException {
+    public void handleInputs(GameContainer gc, int delta) throws SlickException {
 
-        mouseCursor.update(gc, sgb, delta, offsetX, offsetY);
+        mouseCursor.update(delta, offsetX, offsetY);
 
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
             if (player.getPlayerAction() == MOVE) {
-                input.clearKeyPressedRecord();
-                //sgb.enterState(MainClass.MAINMENU, new FadeOutTransition(Color.black), new EmptyTransition());
-                sgb.enterState(MainClass.MAINMENU);
+                mainGame.setGameState(GameState.MAIN_MENU);
             } else if (player.getPlayerAction() == INVENTORY) {
                 player.setPlayerAction(MOVE);
                 inventory.setShow(false);
@@ -151,6 +159,10 @@ public class GameManager {
 
         // PLAYER CONTROLS ON MOVE
         if (player.getPlayerAction() == MOVE) {
+
+            if (input.isKeyPressed(Input.KEY_M)) {
+                showMap = !showMap;
+            }
 
             if (input.isKeyPressed(Input.KEY_RIGHT) || gc.getInput().isKeyPressed(Input.KEY_D)) {
 
@@ -267,11 +279,9 @@ public class GameManager {
         }
 
         if (player.getPlayerAction() == INVENTORY) {
-            inventory.update(gc, sgb, delta);
+            inventory.update(gc, delta);
         }
 
-
-        input.clearKeyPressedRecord();
     }
 
     private void calculateOffset() {
@@ -293,12 +303,12 @@ public class GameManager {
     }
 
 
-    public void handleLogic(GameContainer gc, StateBasedGame sgb, int delta) throws SlickException {
+    public void handleLogic(GameContainer gc, int delta) throws SlickException {
 
-        objectManager.update(gc, sgb, delta, mouseCursor, offsetX, offsetY);
-        player.update(gc, sgb, delta, offsetX, offsetY);
+        objectManager.update(delta, mouseCursor, offsetX, offsetY);
+        player.update(delta, offsetX, offsetY);
 
-        dialogueFrame.update(gc, sgb, delta, offsetX, offsetY);
+        dialogueFrame.update(gc, delta, offsetX, offsetY);
 
         if (setNextRound) {
             objectManager.turn();
@@ -412,10 +422,10 @@ public class GameManager {
         }
     }
 
-    public void render(GameContainer gc, StateBasedGame sgb, Graphics g) throws SlickException {
+    public void render(GameContainer gc, Graphics g) throws SlickException {
 
-        objectManager.render(gc, sgb, g, offsetX, offsetY);
-        player.render(gc, sgb, g, offsetX, offsetY);
+        objectManager.render(g, offsetX, offsetY);
+        player.render(g, offsetX, offsetY);
 
 
         Color c = g.getColor();
@@ -423,9 +433,15 @@ public class GameManager {
         g.fillRect(0, 0, gameWidth - 230, gameHeight);
         g.setColor(c);
 
-        dialogueFrame.render(gc, sgb, g);
-        hud.render(gc, sgb, g);
-        inventory.render(gc, sgb, g);
+        dialogueFrame.render(g);
+        hud.render(gc, g);
+        inventory.render(g);
+
+        if (showMap) {
+            worldMapImage.draw(60, 50, 450, 450);
+            g.drawRect(59, 49, 451, 451);
+
+        }
 
 //        if (objectManager.getGround(player.getTileX(), player.getTileY()).getCollisions() != null) {
 //            g.drawString(objectManager.getGround(player.getTileX(), player.getTileY()).getCollisions().getTypeName(), 20, 50);

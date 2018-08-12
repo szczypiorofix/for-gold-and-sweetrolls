@@ -2,10 +2,9 @@ package com.szczypiorofix.sweetrolls.game.gui;
 
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.objects.GameObject;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
-import org.newdawn.slick.state.StateBasedGame;
+
 
 public class MouseCursor extends GameObject {
 
@@ -23,26 +22,18 @@ public class MouseCursor extends GameObject {
         return tileX;
     }
 
-    public void setPositionTile(int tileX, int tileY) {
-        this.tileX = tileX;
-        this.tileY = tileY;
-    }
-
-    public void setTileX(int tileX) {
-        this.tileX = tileX;
-    }
-
-    public void setTileY(int tileY) {
-        this.tileY = tileY;
-    }
-
     @Override
     public int getTileY() {
         return tileY;
     }
 
+    public void setPositionTile(int tileX, int tileY) {
+        this.tileX = tileX;
+        this.tileY = tileY;
+    }
+
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) {
+    public void update(int delta, float offsetX, float offsetY) {
         x = input.getMouseX();
         y = input.getMouseY();
         this.offsetX = offsetX;
@@ -52,9 +43,7 @@ public class MouseCursor extends GameObject {
     }
 
     @Override
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) {
-
-    }
+    public void render(Graphics g, float offsetX, float offsetY) {}
 
     @Override
     public void turn() {}

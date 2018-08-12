@@ -16,12 +16,12 @@ public class OtherCharacter extends Character {
     }
 
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) {
+    public void update(int delta, float offsetX, float offsetY) {
 
     }
 
     @Override
-    public void render(GameContainer gc, StateBasedGame sbg, Graphics g, float offsetX, float offsetY) {
+    public void render(Graphics g, float offsetX, float offsetY) {
 
     }
 

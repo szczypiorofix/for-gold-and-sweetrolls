@@ -18,12 +18,12 @@ public class Chest extends Item {
     }
 
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) {
+    public void update(int delta, float offsetX, float offsetY) {
         hover = false;
     }
 
     @Override
-    public void render(GameContainer gc, StateBasedGame sbg,  Graphics g, float offsetX, float offsetY) {
+    public void render(Graphics g, float offsetX, float offsetY) {
         chestImage.draw(- offsetX + x, - offsetY + y);
         if (hover) {
             g.drawString(name, - offsetX + x, - offsetY + y - 15);

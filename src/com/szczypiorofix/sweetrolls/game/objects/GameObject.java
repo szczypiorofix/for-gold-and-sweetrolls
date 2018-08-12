@@ -5,16 +5,14 @@ import com.szczypiorofix.sweetrolls.game.main.core.Registry;
 import com.szczypiorofix.sweetrolls.game.tilemap.CollisionObject;
 import com.szczypiorofix.sweetrolls.game.tilemap.Property;
 import com.szczypiorofix.sweetrolls.game.tilemap.PropertyType;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.StateBasedGame;
 
 import java.util.ArrayList;
 
 abstract public class GameObject {
 
-    protected final long id;
+    protected long id;
     protected String name;
     protected float x = 0f;
     protected float y = 0f;
@@ -33,7 +31,7 @@ abstract public class GameObject {
 
 
     protected GameObject() {
-        id = Registry.getInstance().register(this);
+        //id = Registry.getInstance().register(this);
     }
 
     protected GameObject(String name, ObjectType objectType) {
@@ -78,9 +76,9 @@ abstract public class GameObject {
 
 
     // ########## ABSTRACT METHODS ##########
-    public abstract void update(GameContainer gc, StateBasedGame sbg, int delta, float offsetX, float offsetY) throws SlickException;
+    public abstract void update(int delta, float offsetX, float offsetY) throws SlickException;
 
-    public abstract void render(GameContainer gc, StateBasedGame sbg,  Graphics g, float offsetX, float offsetY) throws SlickException;
+    public abstract void render(Graphics g, float offsetX, float offsetY) throws SlickException;
 
     public abstract void turn();
 
@@ -280,4 +278,6 @@ abstract public class GameObject {
     public int getTileY() {
         return ((int) ((y + (height / 2)) / height) > 0) ? (int) ((y + (height / 2)) / height) : 0;
     }
+
+
 }

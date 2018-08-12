@@ -19,7 +19,7 @@ public class Textures {
         try {
             miscItems = new SpriteSheet("map/dg_misc32.png", 32, 32);
             classm32 = new SpriteSheet("map/dg_classm32.png", 32, 32);
-            mainMenuMainButtons = new SpriteSheet("assets/mm-gui.png", 128, 32);
+            mainMenuMainButtons = new SpriteSheet("assets/mm-gui-button.png", 128, 32);
             MainClass.logging(false, Level.INFO, "Tekstury i obrazy załadowane");
         } catch (Exception e) {
             e.printStackTrace();
