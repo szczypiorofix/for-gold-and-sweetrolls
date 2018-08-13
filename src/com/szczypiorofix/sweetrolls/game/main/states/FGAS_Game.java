@@ -1,4 +1,4 @@
-package com.szczypiorofix.sweetrolls.game.main.core;
+package com.szczypiorofix.sweetrolls.game.main.states;
 
 import com.szczypiorofix.sweetrolls.game.enums.GameState;
 import com.szczypiorofix.sweetrolls.game.gui.DialogueFrame;
@@ -6,13 +6,17 @@ import com.szczypiorofix.sweetrolls.game.gui.HUD;
 import com.szczypiorofix.sweetrolls.game.gui.Inventory;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
-import com.szczypiorofix.sweetrolls.game.main.states.MainGame;
+import com.szczypiorofix.sweetrolls.game.main.core.LevelManager;
+import com.szczypiorofix.sweetrolls.game.main.core.ObjectManager;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import com.szczypiorofix.sweetrolls.game.objects.item.Item;
 import com.szczypiorofix.sweetrolls.game.tilemap.CollisionObject;
 import com.szczypiorofix.sweetrolls.game.tilemap.TileMap;
 
 import org.newdawn.slick.*;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -23,7 +27,7 @@ import static com.szczypiorofix.sweetrolls.game.enums.PlayerState.MOVING_INNER_L
 import static com.szczypiorofix.sweetrolls.game.enums.PlayerState.MOVING_WORLD_MAP;
 
 
-public class GameManager {
+public class FGAS_Game {
 
     public static final String WORLD_MAP_NAME = "worldmap.tmx";
 
@@ -47,15 +51,15 @@ public class GameManager {
     private MouseCursor mouseCursor;
     private String currentLevelName;
     private DialogueFrame dialogueFrame;
-    private MainGame mainGame;
+    private ForGoldAndSweetrolls forGoldAndSweetrolls;
 
     private enum LevelType {
         CREATED,
         GENERATED
     }
 
-    public GameManager(MainGame mainGame) {
-        this.mainGame = mainGame;
+    public FGAS_Game(ForGoldAndSweetrolls forGoldAndSweetrolls) {
+        this.forGoldAndSweetrolls = forGoldAndSweetrolls;
         offsetX = 0;
         offsetY = 0;
         dialogueFrame = new DialogueFrame();
@@ -128,8 +132,32 @@ public class GameManager {
         inventory = new Inventory(player, mouseCursor);
 
         try {
+
             worldMapImage = new Image("res/map/worldmap.png");
-        } catch (SlickException e) {
+
+            int imgWidth = worldMapImage.getWidth();
+            int imgHeight = worldMapImage.getHeight();
+
+            imgWidth = 300;
+            imgHeight = 300;
+
+            ImageBuffer ib = new ImageBuffer(imgWidth, imgHeight);
+
+            for (int i = 0; i < imgWidth; i++) {
+                for (int j = 0; j < imgHeight; j++) {
+                    ib.setRGBA(i,
+                            j,
+                            objectManager.getGrounds()[i][j].getMiniMapColor().getRed(),
+                            objectManager.getGrounds()[i][j].getMiniMapColor().getGreen(),
+                            objectManager.getGrounds()[i][j].getMiniMapColor().getBlue(),
+                            objectManager.getGrounds()[i][j].getMiniMapColor().getAlpha()
+                            );
+                }
+            }
+
+            worldMapImage = ib.getImage();
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -142,7 +170,7 @@ public class GameManager {
 
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
             if (player.getPlayerAction() == MOVE) {
-                mainGame.setGameState(GameState.MAIN_MENU);
+                forGoldAndSweetrolls.setGameState(GameState.MAIN_MENU);
             } else if (player.getPlayerAction() == INVENTORY) {
                 player.setPlayerAction(MOVE);
                 inventory.setShow(false);
@@ -268,6 +296,32 @@ public class GameManager {
                         player.setPlayerState(MOVING_WORLD_MAP);
                         changeLevel(WORLD_MAP_NAME, LevelType.CREATED);
                     }
+
+                    // ######## Podnoszenie przedmiotów za pomocą "E"
+                    if (objectManager.getItems(player.getTileX(), player.getTileY()) != null) {
+                        Item currentItem = objectManager.getItems(player.getTileX(), player.getTileY());
+                        if (currentItem.isPickable()) {
+
+                            // ######################## UT IN INVENTORY
+
+                            // GOLD
+                            if (currentItem.getStringProperty("type").equalsIgnoreCase("gold")) {
+                                int goldGained = currentItem.getIntegerProperty("value");
+                                player.getActionHistory().addValue("Znaleziono złoto: "+goldGained);
+                                player.statistics.gold += goldGained;
+                                objectManager.getItems()[player.getTileX()][player.getTileY()] = null;
+                            } // Złoto nie pojawia się w ekwipunku.
+                            else {
+                                player.getActionHistory().addValue("Podniesiono: "+currentItem.getStringProperty("name"));
+                                if (inventory.putToInventory(currentItem)) {
+                                    objectManager.getItems()[player.getTileX()][player.getTileY()] = null;
+                                } else {
+                                    player.getActionHistory().addValue("Plecak jest pełny !!!");
+                                }
+                            }
+                        }
+                    }
+
                 }
                 calculateOffset();
             }
@@ -305,7 +359,7 @@ public class GameManager {
 
     public void handleLogic(GameContainer gc, int delta) throws SlickException {
 
-        objectManager.update(delta, mouseCursor, offsetX, offsetY);
+        objectManager.update(delta, offsetX, offsetY);
         player.update(delta, offsetX, offsetY);
 
         dialogueFrame.update(gc, delta, offsetX, offsetY);
@@ -427,7 +481,6 @@ public class GameManager {
         objectManager.render(g, offsetX, offsetY);
         player.render(g, offsetX, offsetY);
 
-
         Color c = g.getColor();
         g.setColor(player.getTimeCounter().getDayNightEffect());
         g.fillRect(0, 0, gameWidth - 230, gameHeight);
@@ -440,7 +493,7 @@ public class GameManager {
         if (showMap) {
             worldMapImage.draw(60, 50, 450, 450);
             g.drawRect(59, 49, 451, 451);
-
+            g.drawRect(60 + ((player.getTileX() * 450)/300), 50 + ((player.getTileY() * 450)/300), 1, 1);
         }
 
 //        if (objectManager.getGround(player.getTileX(), player.getTileY()).getCollisions() != null) {

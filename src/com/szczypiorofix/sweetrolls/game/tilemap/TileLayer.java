@@ -1,17 +1,8 @@
 package com.szczypiorofix.sweetrolls.game.tilemap;
 
 
-import org.apache.commons.codec.binary.Base64;
-import org.newdawn.slick.SlickException;
-import sun.text.normalizer.UTF16;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
-import java.nio.IntBuffer;
 import java.util.Arrays;
-import java.util.zip.GZIPInputStream;
 
 public class TileLayer {
 
@@ -69,10 +60,6 @@ public class TileLayer {
     public void setName(String name) {
         this.name = name;
     }
-
-//    public int[] getDataCSV() {
-//        return dataCSV;
-//    }
 
     public TileObject[][] getData() {
         return tileObjects;

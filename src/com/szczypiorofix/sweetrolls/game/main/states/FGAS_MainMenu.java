@@ -12,20 +12,21 @@ import org.newdawn.slick.*;
 
 
 
-public class GameMainMenu {
+public class FGAS_MainMenu {
 
     private Input input;
     private Image mainMenuBackground;
+    private Image optionsGui;
     private MainMenuButton[] menuButtons;
     private MouseCursor mouseCursor;
     private BitMapFont titleFont;
-    private MainGame mainGame;
+    private ForGoldAndSweetrolls forGoldAndSweetrolls;
     private int windowWidth, windowHeight;
     private boolean showSettings = false;
 
 
-    GameMainMenu(MainGame mainGame) {
-        this.mainGame = mainGame;
+    FGAS_MainMenu(ForGoldAndSweetrolls forGoldAndSweetrolls) {
+        this.forGoldAndSweetrolls = forGoldAndSweetrolls;
     }
 
 
@@ -45,6 +46,7 @@ public class GameMainMenu {
 
 
         mainMenuBackground = new Image("assets/mm-gui-background.png");
+        optionsGui = new Image("assets/mm-gui-options.png");
         titleFont = FontParser.getFont("Immortal Bitmap Title Font", "immortal-bitmap.xml", "immortal-bitmap.png");
         titleFont.setSize(15f);
 
@@ -68,33 +70,44 @@ public class GameMainMenu {
 
         mouseCursor.update(delta, 0, 0);
 
-        for(int i = 0; i < menuButtons.length; i++) {
-            if (mouseCursor.intersects(menuButtons[i])) {
-                menuButtons[i].setHover(true);
-                if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-                    menuButtons[i].setActive(true);
-                    switch (i) {
-                        case 0: {
-                            input.clearKeyPressedRecord();
-                            mainGame.setGameState(GameState.GAME);
-                            break;
+        if (!showSettings) {
+            for(int i = 0; i < menuButtons.length; i++) {
+                if (mouseCursor.intersects(menuButtons[i])) {
+                    menuButtons[i].setHover(true);
+                    if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+                        menuButtons[i].setActive(true);
+                        switch (i) {
+                            case 0: {
+                                input.clearKeyPressedRecord();
+                                forGoldAndSweetrolls.setGameState(GameState.GAME);
+                                break;
+                            }
+                            case 1: {
+                                showSettings = true;
+                                break;
+                            }
+                            case 3: {
+                                input.clearKeyPressedRecord();
+                                forGoldAndSweetrolls.setGameState(GameState.EXIT);
+                                break;
+                            }
                         }
-                        case 3: {
-                            input.clearKeyPressedRecord();
-                            mainGame.setGameState(GameState.EXIT);
-                            break;
-                        }
-                    }
-                } else menuButtons[i].setActive(false);
-            } else menuButtons[i].setHover(false);
+                    } else menuButtons[i].setActive(false);
+                } else menuButtons[i].setHover(false);
+            }
         }
 
         if (input.isKeyPressed(Input.KEY_SPACE)) {
-            mainGame.setGameState(GameState.GAME);
+            forGoldAndSweetrolls.setGameState(GameState.GAME);
         }
 
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-            mainGame.setGameState(GameState.EXIT);
+            if (!showSettings) {
+                forGoldAndSweetrolls.setGameState(GameState.EXIT);
+            } else {
+                showSettings = false;
+            }
+
         }
 
 //        if (input.isKeyPressed(Input.KEY_ENTER)) {
@@ -114,7 +127,7 @@ public class GameMainMenu {
         }
 
         if (showSettings) {
-
+            optionsGui.draw(250, 150);
         }
     }
 

@@ -1,10 +1,10 @@
 package com.szczypiorofix.sweetrolls.game.main;
 
-import com.szczypiorofix.sweetrolls.game.main.core.ForGoldAndSweetrolls;
-import com.szczypiorofix.sweetrolls.game.main.states.MainGame;
+import com.szczypiorofix.sweetrolls.game.main.states.ForGoldAndSweetrolls;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.ScalableGame;
 
 import java.io.*;
 import java.util.Random;
@@ -56,8 +56,7 @@ public final class MainClass {
 
         try {
             logging(false,  Level.INFO, "Uruchamianie instancji GameStatesContainer");
-            //GameStatesContainer gameStatesContainer = new GameStatesContainer(modes, "For Gold and Sweetrolls");
-            ForGoldAndSweetrolls fgas = new ForGoldAndSweetrolls(new MainGame("For Gold and Sweetrolls", modes), 800, 600, true);
+            ScalableGame fgas = new ScalableGame(new ForGoldAndSweetrolls("For Gold and Sweetrolls", modes), 800, 600, true);
 
             AppGameContainer app = new AppGameContainer(fgas);
             String[] icons = {

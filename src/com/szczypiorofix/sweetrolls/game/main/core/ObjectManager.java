@@ -2,10 +2,9 @@ package com.szczypiorofix.sweetrolls.game.main.core;
 
 
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
-import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
+import com.szczypiorofix.sweetrolls.game.main.states.FGAS_Game;
 import com.szczypiorofix.sweetrolls.game.objects.GameObject;
 import com.szczypiorofix.sweetrolls.game.objects.characters.NPC;
-import com.szczypiorofix.sweetrolls.game.objects.item.Chest;
 import com.szczypiorofix.sweetrolls.game.objects.item.Item;
 import com.szczypiorofix.sweetrolls.game.objects.item.Place;
 import com.szczypiorofix.sweetrolls.game.objects.terrain.Ground;
@@ -14,10 +13,8 @@ import com.szczypiorofix.sweetrolls.game.tilemap.CollisionObject;
 import com.szczypiorofix.sweetrolls.game.tilemap.TileMap;
 import com.szczypiorofix.sweetrolls.game.tilemap.ObjectGroupObject;
 
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.StateBasedGame;
 
 import java.util.HashMap;
 
@@ -40,13 +37,13 @@ public class ObjectManager {
 
     private int tilesToWest, tilesToEast, tilesToNorth, tilesToSouth;
 
-    ObjectManager(int width, int height) {
+    public ObjectManager(int width, int height) {
         gameWidth = width;
         gameHeight = height;
         levelMaps = new HashMap<>();
     }
 
-    void generateLevel(TileMap tileMap, String levelName) {
+    public void generateLevel(TileMap tileMap, String levelName) {
         this.level = tileMap;
 
         grounds = new Ground[level.getWidth()][level.getHeight()];
@@ -72,7 +69,7 @@ public class ObjectManager {
                             playerObject.getProperties());
 
                 } else {
-                    if (levelName.equalsIgnoreCase(GameManager.WORLD_MAP_NAME)) {
+                    if (levelName.equalsIgnoreCase(FGAS_Game.WORLD_MAP_NAME)) {
                         player.setX(player.getWorldMapTileX() * level.getTileWidth());
                         player.setY(player.getWorldMapTileY() * level.getTileWidth());
                     } else {
@@ -239,26 +236,12 @@ public class ObjectManager {
                                 tileSet++;
                             }
 
-                            ObjectType type = ObjectType.DEFAULT;
-                            int terrain = tileMap.getTileLayers().get(layers).getTile(i, j).getGid()
-                                    - tileMap.getTileSets().get(tileSet).getFirstGid();
-
-                            if (terrain == 9 || terrain == 10 || terrain == 11) {
-                                type = ObjectType.PLAINS;
-                            }
-                            if (terrain == 18 || terrain == 19 || terrain == 20) {
-                                type = ObjectType.WATER;
-                            }
-                            if (terrain >= 54 && terrain <= 62) {
-                                type = ObjectType.FOREST;
-                            }
                             Ground tempGround = new Ground(
                                     "Ground",
                                     i * tileMap.getTileWidth(),
                                     j * tileMap.getTileHeight(),
                                     tileMap.getTileWidth(),
                                     tileMap.getTileHeight(),
-                                    type,
                                     tileMap.getTileSets().get(tileSet).getImageSprite(
                                             tileMap.getTileLayers().get(layers).getTile(i, j).getGid()
                                                     - tileMap.getTileSets().get(tileSet).getFirstGid()),
@@ -286,7 +269,7 @@ public class ObjectManager {
         levelMaps.put(levelName, new LevelMap(grounds, places, npcs, items, (int) player.getX(), (int) player.getY()));
     }
 
-    void setLevel(TileMap tileMap, String levelName) {
+    public void setLevel(TileMap tileMap, String levelName) {
 
         this.level = tileMap;
 
@@ -303,7 +286,7 @@ public class ObjectManager {
         npcs = levelMaps.get(levelName).getNpc();
         items = levelMaps.get(levelName).getItems();
 
-        if (!levelName.equalsIgnoreCase(GameManager.WORLD_MAP_NAME)) {
+        if (!levelName.equalsIgnoreCase(FGAS_Game.WORLD_MAP_NAME)) {
             player.setX(levelMaps.get(levelName).getPlayerSpawnX());
             player.setY(levelMaps.get(levelName).getPlayerSpawnY());
         } else {
@@ -315,7 +298,7 @@ public class ObjectManager {
         player.setTerrainType(grounds[player.getTileX()][player.getTileY()].getObjectType());
     }
 
-    private void iterateUpdate(int delta, GameObject[][] list, MouseCursor mouseCursor, float offsetX, float offsetY) throws SlickException {
+    private void iterateUpdate(int delta, GameObject[][] list, float offsetX, float offsetY) throws SlickException {
         for (int x = tilesToWest; x < tilesToEast; x++) {
             for (int y = tilesToNorth; y < tilesToSouth; y++) {
                 if (player.getTileX(x) >= 0
@@ -387,7 +370,7 @@ public class ObjectManager {
         }
     }
 
-    void turn() {
+    public void turn() {
         iterateTurn(grounds);
         iterateTurn(places);
         iterateTurn(npcs);
@@ -395,11 +378,11 @@ public class ObjectManager {
         player.setTerrainType(grounds[player.getTileX()][player.getTileY()].getObjectType());
     }
 
-    public void update(int delta, MouseCursor mouseCursor, float offsetX, float offsetY) throws SlickException {
-        iterateUpdate(delta, grounds, mouseCursor, offsetX, offsetY);
-        iterateUpdate(delta, places, mouseCursor, offsetX, offsetY);
-        iterateUpdate(delta, npcs, mouseCursor, offsetX, offsetY);
-        iterateUpdate(delta, items, mouseCursor, offsetX, offsetY);
+    public void update(int delta, float offsetX, float offsetY) throws SlickException {
+        iterateUpdate(delta, grounds,  offsetX, offsetY);
+        iterateUpdate(delta, places,  offsetX, offsetY);
+        iterateUpdate(delta, npcs,  offsetX, offsetY);
+        iterateUpdate(delta, items,  offsetX, offsetY);
     }
 
     public void render(Graphics g, float offsetX, float offsetY) throws SlickException {
@@ -413,7 +396,7 @@ public class ObjectManager {
         return levelMaps;
     }
 
-    Player getPlayer() {
+    public Player getPlayer() {
         return player;
     }
 

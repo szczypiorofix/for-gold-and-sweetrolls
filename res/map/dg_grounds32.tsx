@@ -1,129 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset name="dg_grounds32" tilewidth="32" tileheight="32" tilecount="171" columns="9">
  <image source="dg_grounds32.png" width="288" height="608"/>
- <tile id="2">
-  <objectgroup draworder="index">
-   <object id="2" template="dungeonwall.tx" x="0" y="0"/>
-  </objectgroup>
- </tile>
- <tile id="5">
-  <objectgroup draworder="index">
-   <object id="1" template="dungeonfloor.tx" x="0" y="0"/>
-  </objectgroup>
- </tile>
- <tile id="9">
-  <objectgroup draworder="index">
-   <object id="1" template="plains.tx" x="0" y="0"/>
-  </objectgroup>
- </tile>
- <tile id="10">
-  <objectgroup draworder="index">
-   <object id="1" template="plains.tx" x="0" y="0"/>
-  </objectgroup>
- </tile>
- <tile id="11">
-  <objectgroup draworder="index">
-   <object id="1" template="plains.tx" x="0" y="0"/>
-  </objectgroup>
- </tile>
- <tile id="18">
-  <objectgroup draworder="index">
-   <object id="1" template="collisions.tx" x="0" y="0"/>
-  </objectgroup>
- </tile>
- <tile id="19">
-  <objectgroup draworder="index">
-   <object id="1" template="collisions.tx" x="0" y="0"/>
-  </objectgroup>
- </tile>
- <tile id="20">
-  <objectgroup draworder="index">
-   <object id="1" template="collisions.tx" x="0" y="0"/>
-  </objectgroup>
- </tile>
- <tile id="30">
-  <objectgroup draworder="index">
-   <object id="1" template="dungeonwall.tx" x="0" y="0"/>
-  </objectgroup>
- </tile>
- <tile id="49">
-  <objectgroup draworder="index">
-   <object id="2" template="dungeonfloor.tx" x="0" y="0"/>
-  </objectgroup>
- </tile>
- <tile id="54">
-  <objectgroup draworder="index">
-   <object id="1" template="forest.tx" x="0" y="0"/>
-  </objectgroup>
- </tile>
- <tile id="55">
-  <objectgroup draworder="index">
-   <object id="1" template="forest.tx" x="0" y="0"/>
-  </objectgroup>
- </tile>
- <tile id="56">
-  <objectgroup draworder="index">
-   <object id="1" template="forest.tx" x="0" y="0"/>
-  </objectgroup>
- </tile>
- <tile id="57">
-  <objectgroup draworder="index">
-   <object id="1" template="forest.tx" x="0" y="0"/>
-  </objectgroup>
- </tile>
- <tile id="58">
-  <objectgroup draworder="index">
-   <object id="1" template="forest.tx" x="0" y="0"/>
-  </objectgroup>
- </tile>
- <tile id="59">
-  <objectgroup draworder="index">
-   <object id="1" template="forest.tx" x="0" y="0"/>
-  </objectgroup>
- </tile>
- <tile id="60">
-  <objectgroup draworder="index">
-   <object id="1" template="forest.tx" x="0" y="0"/>
-  </objectgroup>
- </tile>
- <tile id="61">
-  <objectgroup draworder="index">
-   <object id="1" template="forest.tx" x="0" y="0"/>
-  </objectgroup>
- </tile>
- <tile id="62">
-  <objectgroup draworder="index">
-   <object id="1" template="forest.tx" x="0" y="0"/>
-  </objectgroup>
- </tile>
- <tile id="117">
-  <objectgroup draworder="index">
-   <object id="3" template="mountains.tx" x="0" y="0"/>
-  </objectgroup>
- </tile>
- <tile id="118">
-  <objectgroup draworder="index">
-   <object id="1" template="mountains.tx" x="0" y="0"/>
-  </objectgroup>
- </tile>
- <tile id="119">
-  <objectgroup draworder="index">
-   <object id="1" template="mountains.tx" x="0" y="0"/>
-  </objectgroup>
- </tile>
- <tile id="120">
-  <objectgroup draworder="index">
-   <object id="1" template="mountains.tx" x="0" y="0"/>
-  </objectgroup>
- </tile>
- <tile id="121">
-  <objectgroup draworder="index">
-   <object id="1" template="mountains.tx" x="0" y="0"/>
-  </objectgroup>
- </tile>
- <tile id="122">
-  <objectgroup draworder="index">
-   <object id="1" template="mountains.tx" x="0" y="0"/>
-  </objectgroup>
- </tile>
+ <tile id="2" type="dungeonwall"/>
+ <tile id="5" type="dungeonfloor"/>
+ <tile id="9" type="plains"/>
+ <tile id="10" type="plains"/>
+ <tile id="11" type="plains"/>
+ <tile id="12" type="desert"/>
+ <tile id="13" type="desert"/>
+ <tile id="14" type="desert"/>
+ <tile id="15" type="water"/>
+ <tile id="16" type="water"/>
+ <tile id="17" type="water"/>
+ <tile id="18" type="water"/>
+ <tile id="19" type="water"/>
+ <tile id="20" type="water"/>
+ <tile id="21" type="swamp"/>
+ <tile id="22" type="swamp"/>
+ <tile id="23" type="swamp"/>
+ <tile id="30" type="dungeonwall"/>
+ <tile id="49" type="dungeonfloor"/>
+ <tile id="54" type="forest"/>
+ <tile id="55" type="forest"/>
+ <tile id="56" type="forest"/>
+ <tile id="57" type="forest"/>
+ <tile id="58" type="forest"/>
+ <tile id="59" type="forest"/>
+ <tile id="60" type="forest"/>
+ <tile id="61" type="forest"/>
+ <tile id="62" type="forest"/>
+ <tile id="63" type="swamptree"/>
+ <tile id="64" type="swamptree"/>
+ <tile id="65" type="swamptree"/>
+ <tile id="69" type="deserttree"/>
+ <tile id="70" type="deserttree"/>
+ <tile id="71" type="deserttree"/>
+ <tile id="72" type="water"/>
+ <tile id="73" type="water"/>
+ <tile id="74" type="water"/>
+ <tile id="108" type="water"/>
+ <tile id="109" type="water"/>
+ <tile id="110" type="water"/>
+ <tile id="111" type="water"/>
+ <tile id="112" type="water"/>
+ <tile id="113" type="water"/>
+ <tile id="117" type="mountains"/>
+ <tile id="118" type="mountains"/>
+ <tile id="119" type="mountains"/>
+ <tile id="120" type="mountains"/>
+ <tile id="121" type="mountains"/>
+ <tile id="122" type="mountains"/>
+ <tile id="141" type="forest"/>
+ <tile id="142" type="forest"/>
+ <tile id="143" type="forest"/>
+ <tile id="144" type="deserttree"/>
+ <tile id="145" type="deserttree"/>
+ <tile id="146" type="deserttree"/>
+ <tile id="147" type="deserttree"/>
+ <tile id="148" type="deserttree"/>
+ <tile id="149" type="deserttree"/>
+ <tile id="150" type="desert"/>
+ <tile id="151" type="desert"/>
+ <tile id="152" type="desert"/>
+ <tile id="153" type="swamp"/>
+ <tile id="154" type="swamp"/>
+ <tile id="155" type="swamp"/>
 </tileset>

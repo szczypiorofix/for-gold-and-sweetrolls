@@ -104,6 +104,60 @@ abstract public class GameObject {
 
     public void setCollisions(CollisionObject collisions) {
         this.collisions = collisions;
+        switch (collisions.getTypeName()) {
+            case "water": {
+                objectType = ObjectType.WATER;
+                break;
+            }
+            case "wall": {
+                objectType = ObjectType.WALL;
+                break;
+            }
+            case "plains": {
+                objectType = ObjectType.PLAINS;
+                break;
+            }
+            case "place": {
+                objectType = ObjectType.PLACE;
+                break;
+            }
+            case "hills": {
+                objectType = ObjectType.HILLS;
+                break;
+            }
+            case "swamp": {
+                objectType = ObjectType.SWAMP;
+                break;
+            }
+            case "forest": {
+                objectType = ObjectType.FOREST;
+                break;
+            }
+            case "mountains": {
+                objectType = ObjectType.MOUNTAINS;
+                break;
+            }
+            case "desert": {
+                objectType = ObjectType.DESERT;
+                break;
+            }
+            case "deserttree": {
+                objectType = ObjectType.DESERT_TREE;
+                break;
+            }
+            case "swamptree": {
+                objectType = ObjectType.SWAMP_TREE;
+                break;
+            }
+            case "settlement": {
+                objectType = ObjectType.SETTLEMENT;
+                break;
+            }
+            default: {
+                objectType = ObjectType.DEFAULT;
+                break;
+            }
+        }
     }
 
     public long getId() {

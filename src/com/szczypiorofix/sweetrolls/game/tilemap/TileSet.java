@@ -89,31 +89,31 @@ public class TileSet {
                             Element tileElement = (Element) tileNode;
 
                             CollisionObject collisionObject = new CollisionObject(Integer.parseInt(tileElement.getAttribute("id")) + firstGid);
-
-                            NodeList tileObjectGroupList = tileElement.getElementsByTagName("objectgroup");
-                            Node tileObjectGroupNode = tileObjectGroupList.item(0);
-                            if (imageNode.getNodeType() == Node.ELEMENT_NODE) {
-                                Element tileObjectGroupElement = (Element) tileObjectGroupNode;
-
-                                NodeList tileObjectList = tileObjectGroupElement.getElementsByTagName("object");
-                                Node objectNode = tileObjectList.item(0);
-                                if (objectNode.getNodeType() == Node.ELEMENT_NODE) {
-                                    Element objectElement = (Element) objectNode;
-
-                                    collisionObject.setName(objectElement.getAttribute("name"));
-                                    collisionObject.setTypeName(objectElement.getAttribute("type"));
-                                    collisionObject.setX(Integer.parseInt(objectElement.getAttribute("x")));
-                                    collisionObject.setY(Integer.parseInt(objectElement.getAttribute("y")));
-                                    if (!objectElement.getAttribute("width").equals(""))
-                                        collisionObject.setWidth(Integer.parseInt(objectElement.getAttribute("width")));
-                                    if (!objectElement.getAttribute("height").equals(""))
-                                        collisionObject.setHeight(Integer.parseInt(objectElement.getAttribute("height")));
-
-                                    if (!objectElement.getAttribute("template").equals("")) {
-                                        collisionObject.setTemplate(objectElement.getAttribute("template"));
-                                    }
-                                }
-                            }
+                            collisionObject.setTypeName(tileElement.getAttribute("type"));
+//                            NodeList tileObjectGroupList = tileElement.getElementsByTagName("objectgroup");
+//                            Node tileObjectGroupNode = tileObjectGroupList.item(0);
+//                            if (imageNode.getNodeType() == Node.ELEMENT_NODE) {
+//                                Element tileObjectGroupElement = (Element) tileObjectGroupNode;
+//
+//                                NodeList tileObjectList = tileObjectGroupElement.getElementsByTagName("object");
+//                                Node objectNode = tileObjectList.item(0);
+//                                if (objectNode.getNodeType() == Node.ELEMENT_NODE) {
+//                                    Element objectElement = (Element) objectNode;
+//
+//                                    collisionObject.setName(objectElement.getAttribute("name"));
+//                                    collisionObject.setTypeName(objectElement.getAttribute("type"));
+//                                    collisionObject.setX(Integer.parseInt(objectElement.getAttribute("x")));
+//                                    collisionObject.setY(Integer.parseInt(objectElement.getAttribute("y")));
+//                                    if (!objectElement.getAttribute("width").equals(""))
+//                                        collisionObject.setWidth(Integer.parseInt(objectElement.getAttribute("width")));
+//                                    if (!objectElement.getAttribute("height").equals(""))
+//                                        collisionObject.setHeight(Integer.parseInt(objectElement.getAttribute("height")));
+//
+//                                    if (!objectElement.getAttribute("template").equals("")) {
+//                                        collisionObject.setTemplate(objectElement.getAttribute("template"));
+//                                    }
+//                                }
+//                            }
                             collisions.add(collisionObject);
                         }
                     }

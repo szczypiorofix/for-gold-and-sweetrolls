@@ -86,6 +86,7 @@ public class CollisionObject {
         if (this.typeName.equalsIgnoreCase("water")
                 || this.typeName.equalsIgnoreCase("dungeonwall")
                 || this.typeName.equalsIgnoreCase("npc")
+                || this.typeName.equalsIgnoreCase("wall")
         ) {
             this.collisionType = CollisionType.COLLISION;
         }

@@ -18,6 +18,11 @@ public enum ObjectType {
     FOREST("lasy"),
     MOUNTAINS("góry"),
     SETTLEMENT("osada"),
+    SWAMP("bagna"),
+    SWAMP_TREE("las na bagnach"),
+    DESERT("pustynia"),
+    DESERT_TREE("drzewka na pustyni"),
+    WALL("ściana"),
 
     // ###### ITEMS
     ITEM("przedmiot"),
@@ -29,8 +34,7 @@ public enum ObjectType {
     // ###### GUI
     GUI("gui"),
     MOUSECURSOR("kursor myszy"),
-    INVENTORY_CONTAINER("kontener inwentarza"),
-    INVENTORY_SLOT("slot inwentarza");
+    INVENTORY_CONTAINER("kontener inwentarza");
 
 
     private String name;

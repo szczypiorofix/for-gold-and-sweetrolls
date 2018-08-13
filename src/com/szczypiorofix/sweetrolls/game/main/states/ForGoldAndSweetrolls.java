@@ -5,7 +5,6 @@ import com.szczypiorofix.sweetrolls.game.enums.GameState;
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.gui.MainMenuButton;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
-import com.szczypiorofix.sweetrolls.game.main.core.GameManager;
 import com.szczypiorofix.sweetrolls.game.main.core.Resolution;
 import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
 import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
@@ -15,43 +14,40 @@ import org.newdawn.slick.*;
 import java.util.ArrayList;
 
 
-public final class MainGame extends BasicGame {
+public final class ForGoldAndSweetrolls extends BasicGame {
 
     private final DisplayMode[] modes;
     private Input input;
-    private GameManager gameManager;
+    private FGAS_Game FGASGame;
     private ArrayList<Resolution> resolutions;
     private MouseCursor mouseCursor;
     private Image mainMenuBackground;
     private MainMenuButton[] menuButtons;
     private BitMapFont titleFont;
-    private GameMainMenu gameMainMenu;
+    private FGAS_MainMenu FGASMainMenu;
 
     private int windowWidth, windowHeight;
     private GameState gameState;
     private int resolutionIndex = 0;
     private boolean fullScreen = false;
 
-    public MainGame(String title, DisplayMode[] modes) {
+    public ForGoldAndSweetrolls(String title, DisplayMode[] modes) {
         super(title);
         this.modes = modes;
-        gameMainMenu = new GameMainMenu(this);
-        gameManager = new GameManager(this);
+        FGASMainMenu = new FGAS_MainMenu(this);
+        FGASGame = new FGAS_Game(this);
         gameState = GameState.MAIN_MENU;
     }
 
 
     @Override
     public void init(GameContainer gc) throws SlickException {
-        //gc.setVSync(false);
-        //gc.setTargetFrameRate(0);
-
         input = gc.getInput();
         windowWidth = gc.getWidth();
         windowHeight = gc.getHeight();
         fullScreen = gc.isFullscreen();
 
-        resolutions = new ArrayList<>(1);
+        resolutions = new ArrayList<>();
         int c = 0;
         for(DisplayMode d: modes) {
             if (d.getFrequency() == 60 && d.getBitsPerPixel() == 32) {
@@ -63,7 +59,7 @@ public final class MainGame extends BasicGame {
             }
         }
 
-        gameMainMenu.init(gc, input);
+        FGASMainMenu.init(gc, input);
 
         mainMenuBackground = new Image("assets/mm-gui-background.png");
         titleFont = FontParser.getFont("Immortal Bitmap Title Font", "immortal-bitmap.xml", "immortal-bitmap.png");
@@ -85,19 +81,19 @@ public final class MainGame extends BasicGame {
         gc.setMouseCursor(new Image("mouse_cursor.png"), 0, 0);
         mouseCursor = new MouseCursor("Mouse Cursor Main Menu", input.getMouseX(), input.getMouseY(), 32, 32, ObjectType.MOUSECURSOR, input);
 
-        gameManager.init(gc, input, mouseCursor);
+        FGASGame.init(gc, input, mouseCursor);
     }
 
     @Override
     public void update(GameContainer gc, int delta) throws SlickException {
 
         if (gameState == GameState.MAIN_MENU) {
-            gameMainMenu.update(gc, delta);
+            FGASMainMenu.update(gc, delta);
         }
 
         if (gameState == GameState.GAME) {
-            gameManager.handleInputs(gc, delta);
-            gameManager.handleLogic(gc, delta);
+            FGASGame.handleInputs(gc, delta);
+            FGASGame.handleLogic(gc, delta);
         }
 
         if (gameState == GameState.EXIT) {
@@ -131,10 +127,10 @@ public final class MainGame extends BasicGame {
     @Override
     public void render(GameContainer gc, Graphics g) throws SlickException {
         if (gameState == GameState.MAIN_MENU) {
-            gameMainMenu.render(gc, g);
+            FGASMainMenu.render(gc, g);
         }
         if (gameState == GameState.GAME) {
-            gameManager.render(gc, g);
+            FGASGame.render(gc, g);
         }
 
     }
