@@ -311,16 +311,16 @@
  </layer>
  <objectgroup id="15" name="items" offsetx="0" offsety="32"/>
  <objectgroup id="7" name="places" offsetx="0" offsety="32">
-  <object id="106" template="place.tx" name="Tristram" gid="206" x="8832" y="2656">
+  <object id="106" template="place.tx" name="Croydon" gid="206" x="8864" y="2592">
    <properties>
-    <property name="filename" value="tristram.tmx"/>
-    <property name="name" value="Tristram"/>
+    <property name="filename" value="croydon.tmx"/>
+    <property name="name" value="Croydon"/>
    </properties>
   </object>
-  <object id="107" template="place.tx" name="Isengard" x="8768" y="2528">
+  <object id="107" template="place.tx" name="Kineallen" x="8768" y="2528">
    <properties>
-    <property name="filename" value="isengard.tmx"/>
-    <property name="name" value="Isengard"/>
+    <property name="filename" value="kineallen.tmx"/>
+    <property name="name" value="Kineallen"/>
    </properties>
   </object>
   <object id="109" template="place.tx" name="Moria" gid="440" x="8928" y="2528">
@@ -333,8 +333,7 @@
  <objectgroup id="4" name="player">
   <object id="71" name="player spawn" type="player" x="8928" y="2688" width="32" height="32">
    <properties>
-    <property name="age" type="int" value="21"/>
-    <property name="name" value="PGarvey"/>
+    <property name="name" value="Player"/>
    </properties>
   </object>
  </objectgroup>

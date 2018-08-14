@@ -7,7 +7,6 @@ public enum ObjectType {
     // ###### CHARACTERS
     PLAYER("gracz"),
     NPC("npc"),
-    TODD("todd :)"),
     MONSTER("wróg"),
 
     // ###### TERRAINS

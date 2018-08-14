@@ -10,11 +10,14 @@ public class Statistics implements Serializable {
     public int dexterity;
     public int constitution;
     public int intelligence;
+
     public int health;
     public int maxHealth;
+
     public int armorClass = 0;
     public int damage = 1;
     public float chanceToHit = 0.5f; // 0 - 1
+
     public int level;
     public int currentLevelBar;
     public int currentLevelMaxBar;

@@ -19,12 +19,11 @@ public class MainMenuControlls extends GameObject {
         TEXT
     }
     private ControlType controlType;
-    private Image image;
+    private Image imageDefault, imageHover, imageActive;
     private boolean hover = false;
     private boolean active = false;
     private boolean checked;
     private boolean defaultChecked;
-    private Image imagePressed;
     private BitMapFont font;
     private String text;
     private String defaultText;
@@ -43,28 +42,33 @@ public class MainMenuControlls extends GameObject {
 
         switch (controlType) {
             case OK: {
-                image = Textures.getInstance().mainMenuControlls.getSprite(1, 0);
-                imagePressed = Textures.getInstance().mainMenuControlls.getSprite(1, 1);
+                imageDefault = Textures.getInstance().mainMenuControlls.getSprite(0, 1);
+                imageHover = Textures.getInstance().mainMenuControlls.getSprite(1, 1);
+                imageActive = Textures.getInstance().mainMenuControlls.getSprite(2, 1);
                 break;
             }
             case LEF_ARROW: {
-                image = Textures.getInstance().mainMenuControlls.getSprite(0, 2);
-                imagePressed = Textures.getInstance().mainMenuControlls.getSprite(0, 3);
+                imageDefault = Textures.getInstance().mainMenuControlls.getSprite(0, 2);
+                imageHover = Textures.getInstance().mainMenuControlls.getSprite(1, 2);
+                imageActive = Textures.getInstance().mainMenuControlls.getSprite(2, 2);
                 break;
             }
             case RIGHT_ARROW: {
-                image = Textures.getInstance().mainMenuControlls.getSprite(1, 2);
-                imagePressed = Textures.getInstance().mainMenuControlls.getSprite(1, 3);
+                imageDefault = Textures.getInstance().mainMenuControlls.getSprite(0, 3);
+                imageHover = Textures.getInstance().mainMenuControlls.getSprite(1, 3);
+                imageActive = Textures.getInstance().mainMenuControlls.getSprite(2, 3);
                 break;
             }
             case CHECK_BOX: {
-                image = Textures.getInstance().mainMenuControlls.getSprite(0, 4);
-                imagePressed = Textures.getInstance().mainMenuControlls.getSprite(1, 4);
+                imageDefault = Textures.getInstance().mainMenuControlls.getSprite(0, 4);
+                imageHover = Textures.getInstance().mainMenuControlls.getSprite(1, 4);
+                imageActive = Textures.getInstance().mainMenuControlls.getSprite(2, 4);
                 break;
             }
             default: {
-                image = Textures.getInstance().mainMenuControlls.getSprite(0, 0);
-                imagePressed = Textures.getInstance().mainMenuControlls.getSprite(0, 1);
+                imageDefault = Textures.getInstance().mainMenuControlls.getSprite(0, 0);
+                imageHover = Textures.getInstance().mainMenuControlls.getSprite(1, 0);
+                imageActive = Textures.getInstance().mainMenuControlls.getSprite(2, 0);
                 break;
             }
         }
@@ -83,13 +87,11 @@ public class MainMenuControlls extends GameObject {
         if (textBased) {
             font.draw(text, x, y);
         } else {
-            if (checked) {
-                imagePressed.draw(x, y);
-            } else {
-
-                image.draw(x, y);
-
-            }
+            if (active || checked) {
+                imageActive.draw(x, y);
+            } else if (hover) {
+                imageHover.draw(x, y);
+            } else imageDefault.draw(x, y);
         }
     }
 

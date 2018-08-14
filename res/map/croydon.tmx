@@ -36,7 +36,7 @@
  <objectgroup id="2" name="player">
   <object id="1" name="player spawn" type="player" x="32" y="320" width="32" height="32">
    <properties>
-    <property name="name" value="PGarvey"/>
+    <property name="name" value="Player"/>
    </properties>
   </object>
  </objectgroup>
@@ -53,14 +53,14 @@
     <property name="name" value="Pete Hines"/>
    </properties>
   </object>
-  <object id="8" template="npc.tx" name="Strażnik" gid="349" x="64" y="256">
+  <object id="8" template="npc.tx" name="Strażnik" type="guard" gid="349" x="64" y="256">
    <properties>
     <property name="commonname" value="Strażnik"/>
     <property name="longTalk" type="bool" value="false"/>
     <property name="name" value="Strażnik"/>
    </properties>
   </object>
-  <object id="9" template="npc.tx" name="Strażnik" gid="349" x="64" y="384">
+  <object id="9" template="npc.tx" name="Strażnik" type="guard" gid="349" x="64" y="384">
    <properties>
     <property name="commonname" value="Strażnik"/>
     <property name="longTalk" type="bool" value="false"/>

@@ -129,13 +129,8 @@ public class FGAS_Game {
 
         try {
 
-            worldMapImage = new Image("res/map/worldmap.png");
-
-            int imgWidth = worldMapImage.getWidth();
-            int imgHeight = worldMapImage.getHeight();
-
-            imgWidth = 300;
-            imgHeight = 300;
+            int imgWidth = 300;
+            int imgHeight = 300;
 
             ImageBuffer ib = new ImageBuffer(imgWidth, imgHeight);
 
@@ -498,4 +493,11 @@ public class FGAS_Game {
 
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
+    public ObjectManager getObjectManager() {
+        return objectManager;
+    }
 }

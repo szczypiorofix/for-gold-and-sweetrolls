@@ -49,10 +49,12 @@ public final class MainClass {
     }
 
 
+    /**
+     *
+     */
     private void checkConfig() {
         configManager = new ConfigManager();
         config = configManager.loadSettings();
-        System.out.println(config);
     }
 
     /**

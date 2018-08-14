@@ -7,6 +7,7 @@ import com.szczypiorofix.sweetrolls.game.gui.MainMenuControlls;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
 import com.szczypiorofix.sweetrolls.game.main.core.ConfigManager;
 import com.szczypiorofix.sweetrolls.game.main.core.Configuration;
+import com.szczypiorofix.sweetrolls.game.main.core.ObjectManager;
 import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
 import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
 import org.lwjgl.opengl.DisplayMode;
@@ -37,6 +38,12 @@ public class FGAS_MainMenu {
     private ArrayList<DisplayMode> modes;
     private int selectedMode = 0;
     private boolean settingsLoaded = false;
+    private ObjectManager objectManager;
+    private float offsetX, offsetY;
+    private final float initialOffsetX = 700f;
+    private final float initialOffsetY = 700f;
+    private final float maxOffsetX = 6000f;
+    private final float maxOffsetY = 6000f;
 
 
     FGAS_MainMenu(ForGoldAndSweetrolls forGoldAndSweetrolls, Configuration config, ArrayList<DisplayMode> modes) {
@@ -50,14 +57,14 @@ public class FGAS_MainMenu {
         selectedVSync = config.vsync;
         selectedMusicVolume = config.musicVolume;
 
-        //System.out.println("Modes length: "+modes.size());
         for(int i = 0; i < modes.size(); i++) {
-            //System.out.println(modes.get(i).getWidth()+"x"+modes.get(i).getHeight());
             if (modes.get(i).getWidth() == selectedGameWidth && modes.get(i).getHeight() == selectedGameHeight) {
                 selectedMode = i;
                 break;
             }
         }
+        offsetX = initialOffsetX;
+        offsetY = initialOffsetY;
     }
 
     public void init(GameContainer gc, Input input) throws SlickException {
@@ -71,7 +78,6 @@ public class FGAS_MainMenu {
         // https://opengameart.org/content/heroic-minority
 //        Music mainMenuMusic = new Music("music/menu-music.ogg");
 //        mainMenuMusic.play();
-
 
 
         mainMenuBackground = new Image("assets/mm-gui-background.png");
@@ -103,7 +109,6 @@ public class FGAS_MainMenu {
         settingControlls[9] = new MainMenuControlls(MainMenuControlls.ControlType.CHECK_BOX, "V-Sync checkbox", selectedVSync, 460, 270, 32, 32);
 
 
-
         // ############ PRZYCISKI
         menuButtons[0] = new MainMenuButton("NOWA GRA", (gc.getWidth() / 2) - (128 / 2), 200, 128, 32);
         menuButtons[1] = new MainMenuButton("USTAWIENIA", (gc.getWidth() / 2) - (128 / 2), 240, 128, 32);
@@ -117,10 +122,19 @@ public class FGAS_MainMenu {
 
     public void update(GameContainer gc, int delta) throws SlickException {
 
+        if (offsetX > maxOffsetX && offsetY > maxOffsetY) {
+            offsetX = initialOffsetX;
+            offsetY = initialOffsetY;
+        }
+
+        offsetX += 0.08f * delta;
+        offsetY += 0.08f * delta;
+
         if (!settingsLoaded) {
             AppGameContainer gameContainer = (AppGameContainer) gc;
             gameContainer.setDisplayMode(selectedGameWidth, selectedGameHeight, selectedFullScreen);
             settingsLoaded = true;
+            objectManager = forGoldAndSweetrolls.getFGASGame().getObjectManager();
         }
 
         mouseCursor.update(delta, 0, 0);
@@ -133,9 +147,9 @@ public class FGAS_MainMenu {
 
             for(int i = 0; i < menuButtons.length; i++) {
                 if (mouseCursor.intersects(menuButtons[i])) {
-                    //menuButtons[i].setHover(true);
+                    menuButtons[i].setHover(true);
                     if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-                        //menuButtons[i].setActive(true);
+                        menuButtons[i].setActive(true);
                         switch (i) {
                             case 0: {
                                 input.clearKeyPressedRecord();
@@ -152,13 +166,15 @@ public class FGAS_MainMenu {
                                 break;
                             }
                         }
-                    }
-                }
+                    } else menuButtons[i].setActive(false);
+                } else menuButtons[i].setHover(false);
             }
         } else {
             for(int i = 0; i < settingControlls.length; i++) {
                 if (mouseCursor.intersects(settingControlls[i])) {
+                    settingControlls[i].setHover(true);
                     if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+                        settingControlls[i].setActive(true);
                         switch (i) {
                             case 0: {
                                 config.gameWidth = selectedGameWidth;
@@ -208,7 +224,7 @@ public class FGAS_MainMenu {
                                 break;
                             }
                         }
-                    }
+                    } settingControlls[i].setActive(false);
                 } else settingControlls[i].setHover(false);
             }
         }
@@ -233,9 +249,23 @@ public class FGAS_MainMenu {
 
     }
 
-    public void render(GameContainer gc, Graphics g) {
+    public void render(GameContainer gc, Graphics g) throws SlickException {
 
+        if (objectManager != null) {
+            for (int i = 0; i < 26; i++) {
+                for (int j = 0; j < 20; j++) {
+                    objectManager.getGrounds()[i + ((int) (offsetX / 32))][j + ((int) (offsetY / 32))].render(g, offsetX, offsetY);
+                }
+            }
+        }
+
+        // #### LITTLE SHADE ON MAP
+        Color c = g.getColor();
+        g.setColor(new Color(0.2f, 0.1f, 0.15f, 0.6f));
+        g.fillRect(0, 0, 800, 600);
+        g.setColor(c);
         mainMenuBackground.draw(0, 0);
+
         titleFont.draw("For Gold and Sweetrolls", 70, 50);
 
         for(MainMenuButton m: menuButtons) {

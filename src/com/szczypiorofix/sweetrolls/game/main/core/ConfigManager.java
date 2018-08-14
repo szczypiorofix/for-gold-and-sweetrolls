@@ -8,6 +8,7 @@ import java.util.logging.Level;
 
 public class ConfigManager {
 
+    private final String CONFIG_FILE_NAME = "fgas.cfg";
     private File configFile;
     public boolean defaultConfiguration = true;
     private Properties prop = new Properties();
@@ -17,16 +18,14 @@ public class ConfigManager {
 
     public ConfigManager() {
         cfg = new Configuration().getDefaultConfiguration();
-        System.out.println("Otwieranie pliku");
         try {
-            configFile = new File("fgas.cfg");
+            configFile = new File(CONFIG_FILE_NAME);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public boolean saveToFile(Configuration cfg) {
-        System.out.println("Zapisywanie do pliku...");
         try {
             outputStream = new FileOutputStream(configFile);
             prop.setProperty(Configuration.gameWidthName, String.valueOf(cfg.gameWidth));
@@ -55,7 +54,6 @@ public class ConfigManager {
     public Configuration loadSettings() {
         if(configFile.exists() && !configFile.isDirectory()) {
             defaultConfiguration = false;
-            System.out.println("Próba odczytu danych z pliku");
             try {
                 propStream = new FileInputStream(configFile);
                 prop.load(propStream);
@@ -79,9 +77,9 @@ public class ConfigManager {
             cfg.musicVolume = Float.valueOf(prop.getProperty(Configuration.musicVolumeName));
 
         } else {
-            System.out.println("Plik nie istnieje - tworzenie pliku z domyślnymi wartościami.");
             if (!saveToFile(cfg)) cfg = cfg.getDefaultConfiguration();
         }
         return cfg;
     }
+
 }

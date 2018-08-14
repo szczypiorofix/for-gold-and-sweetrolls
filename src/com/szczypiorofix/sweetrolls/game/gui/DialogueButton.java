@@ -39,22 +39,11 @@ public class DialogueButton extends GameObject {
 
     @Override
     public void render(Graphics g, float offsetX, float offsetY) {
-
-        //if (visible) {
-            //image.draw(x, y);
-            //Color c = g.getColor();
-            //g.setColor(Color.gray);
-            //g.drawRect(x, y, width ,height);
-            //g.setColor(c);
-
-            font.draw(name, x, y + 5);
-        //}
+        font.draw(name, x, y + 5);
     }
 
     @Override
-    public void turn() {
-
-    }
+    public void turn() {}
 
     public boolean isClicked() {
         return clicked;
@@ -103,4 +92,5 @@ public class DialogueButton extends GameObject {
     public int getNextDialogueState() {
         return nextDialogueState;
     }
+
 }

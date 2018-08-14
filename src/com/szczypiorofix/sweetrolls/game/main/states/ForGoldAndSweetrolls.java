@@ -110,6 +110,14 @@ public final class ForGoldAndSweetrolls extends BasicGame {
         this.gameState = gameState;
     }
 
+    public FGAS_Game getFGASGame() {
+        return FGASGame;
+    }
+
+    public FGAS_MainMenu getFGASMainMenu() {
+        return FGASMainMenu;
+    }
+
     public float getMusicVolume() {
         return musicVolume;
     }

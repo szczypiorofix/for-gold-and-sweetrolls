@@ -41,16 +41,11 @@ public class DialogueFrame {
                     System.out.println(npc.getDialogue().getCurrentDialogueState());
 
                     if (currentButton.isEndButton()) {
-
                         showDialog = false;
-
                     }
-
                 }
-
             }
         }
-
     }
 
     public void render(Graphics g) throws SlickException {
@@ -83,4 +78,5 @@ public class DialogueFrame {
     public NPC getNpc() {
         return npc;
     }
+
 }
