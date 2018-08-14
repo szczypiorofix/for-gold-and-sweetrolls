@@ -21,12 +21,12 @@ public class Place extends Item {
     }
 
     @Override
-    public void update(int delta, float offsetX, float offsetY) throws SlickException {
+    public void update(int delta, float offsetX, float offsetY) {
         hover = false;
     }
 
     @Override
-    public void render(Graphics g, float offsetX, float offsetY) throws SlickException {
+    public void render(Graphics g, float offsetX, float offsetY) {
         image.draw(- offsetX + x, - offsetY + y);
         if (hover) {
             font.draw(name, - offsetX + x, - offsetY + y - 20);

@@ -30,7 +30,7 @@ public class HUD {
 
     public void render(GameContainer gc, Graphics g) {
         int levelMaxContainer = 156;
-        int currentLevel = (int) (player.statistics.currentLevelBar * levelMaxContainer) / player.statistics.currentLevelMaxBar;
+        int currentLevel = (player.statistics.currentLevelBar * levelMaxContainer) / player.statistics.currentLevelMaxBar;
         if (currentLevel > levelMaxContainer) currentLevel = levelMaxContainer;
 
         image.draw(0, 0);

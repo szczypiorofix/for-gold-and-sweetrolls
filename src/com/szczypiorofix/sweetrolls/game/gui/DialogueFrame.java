@@ -27,7 +27,7 @@ public class DialogueFrame {
         fontL.setSize(5.5f);
     }
 
-    public void update(GameContainer gc, int delta, float offsetX, float offsetY) throws SlickException {
+    public void update(GameContainer gc, int delta, float offsetX, float offsetY) {
         if (npc != null && showDialog) {
             for (int i = 0; i < npc.getDialogue().getDialogues().get(npc.getDialogue().getCurrentDialogueState()).getButtons().size(); i++) {
 

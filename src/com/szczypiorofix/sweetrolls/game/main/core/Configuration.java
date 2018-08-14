@@ -6,8 +6,9 @@ public class Configuration {
     public static String gameHeightName = "GAME_HEIGHT";
     public static String refreshRateName = "REFRESH_RATE";
     public static String fullScreenName = "FULL_SCREEN";
-    public static String keepAspectRatioame = "KEEP_ASPECT_RATIO";
+    public static String keepAspectRatioName = "KEEP_ASPECT_RATIO";
     public static String vSyncName = "V_SYNC";
+    public static String musicVolumeName = "MUSIC_VOLUME";
 
     public int gameWidth;
     public int gameHeight;
@@ -15,6 +16,7 @@ public class Configuration {
     public boolean fullScreen;
     public boolean keepAspectRatio;
     public boolean vsync;
+    public float musicVolume;
 
     public Configuration() {}
 
@@ -26,6 +28,7 @@ public class Configuration {
         defaultConfiguration.gameRefreshRate = 60;
         defaultConfiguration.keepAspectRatio = true;
         defaultConfiguration.vsync = true;
+        defaultConfiguration.musicVolume = 1.0f;
 
         return defaultConfiguration;
     }
@@ -39,6 +42,7 @@ public class Configuration {
                 ", fullScreen=" + fullScreen +
                 ", keepAspectRatio=" + keepAspectRatio +
                 ", vsync=" + vsync +
+                ", musicVolume=" + musicVolume +
                 '}';
     }
 }

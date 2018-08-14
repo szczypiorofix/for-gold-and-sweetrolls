@@ -11,6 +11,7 @@ import org.newdawn.slick.ScalableGame;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -27,6 +28,9 @@ public final class MainClass {
 
     public static final Random RANDOM = new Random();
     public static final String RES = "res/";
+
+    private final int initialGameWidth = 800;
+    private final int initialGameHeight = 600;
 
     private static boolean DEBUG_MODE;
     private final static Logger LOGGER = Logger.getLogger(MainClass.class.getName());
@@ -67,9 +71,19 @@ public final class MainClass {
             System.exit(-1);
         }
 
+        ArrayList<DisplayMode> filteredModes = new ArrayList<>();
+        // Filter modes
+        for (int i = 0; i < modes.length; i++) {
+            if (modes[i].getFrequency() == 60 && modes[i].getBitsPerPixel() == 32) {
+                filteredModes.add(modes[i]);
+            }
+        }
+
         try {
             logging(false,  Level.INFO, "Uruchamianie instancji GameStatesContainer");
-            ScalableGame fgas = new ScalableGame(new ForGoldAndSweetrolls("For Gold and Sweetrolls", modes, config), 800, 600, config.keepAspectRatio);
+
+            ForGoldAndSweetrolls game = new ForGoldAndSweetrolls("For Gold and Sweetrolls", filteredModes, config);
+            ScalableGame fgas = new ScalableGame(game, initialGameWidth, initialGameHeight, config.keepAspectRatio);
 
             AppGameContainer app = new AppGameContainer(fgas);
             String[] icons = {
@@ -81,10 +95,10 @@ public final class MainClass {
                     "icon128x128.png"
             };
             app.setIcons(icons);
-            app.setDisplayMode(800, 600, config.fullScreen);
-            app.setTargetFrameRate(60);
+            app.setDisplayMode(initialGameWidth, initialGameHeight, config.fullScreen);
+            //app.setTargetFrameRate(60);
             app.setVSync(config.vsync);
-            app.setShowFPS(false);
+            app.setShowFPS(true);
             app.setUpdateOnlyWhenVisible(true);
             app.start();
         } catch (Exception e) {
@@ -144,6 +158,9 @@ public final class MainClass {
      * @param args String - params e.g. "-debug" to enable debigging mode.
      */
     public static void main(String[] args) {
+
+        // Somehow it works and there's no OpenAL Exceptions ! YAY!
+        System.setProperty("user.name","CorrectUserName");
 
         if (args.length > 0) {
             DEBUG_MODE = args[0].equalsIgnoreCase("-debug");

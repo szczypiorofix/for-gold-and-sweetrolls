@@ -32,9 +32,10 @@ public class ConfigManager {
             prop.setProperty(Configuration.gameWidthName, String.valueOf(cfg.gameWidth));
             prop.setProperty(Configuration.gameHeightName, String.valueOf(cfg.gameHeight));
             prop.setProperty(Configuration.refreshRateName, String.valueOf(cfg.gameRefreshRate));
-            prop.setProperty(Configuration.keepAspectRatioame, String.valueOf(cfg.keepAspectRatio));
+            prop.setProperty(Configuration.keepAspectRatioName, String.valueOf(cfg.keepAspectRatio));
             prop.setProperty(Configuration.fullScreenName, String.valueOf(cfg.fullScreen));
             prop.setProperty(Configuration.vSyncName, String.valueOf(cfg.vsync));
+            prop.setProperty(Configuration.musicVolumeName, String.valueOf(cfg.musicVolume));
             prop.store(outputStream, null);
         } catch (IOException io) {
             io.printStackTrace();
@@ -74,7 +75,8 @@ public class ConfigManager {
             cfg.gameRefreshRate = Integer.parseInt(prop.getProperty(Configuration.refreshRateName));
             cfg.fullScreen = Boolean.parseBoolean(prop.getProperty(Configuration.fullScreenName));
             cfg.vsync = Boolean.parseBoolean(prop.getProperty(Configuration.vSyncName));
-            cfg.keepAspectRatio = Boolean.parseBoolean(prop.getProperty(Configuration.keepAspectRatioame));
+            cfg.keepAspectRatio = Boolean.parseBoolean(prop.getProperty(Configuration.keepAspectRatioName));
+            cfg.musicVolume = Float.valueOf(prop.getProperty(Configuration.musicVolumeName));
 
         } else {
             System.out.println("Plik nie istnieje - tworzenie pliku z domyślnymi wartościami.");

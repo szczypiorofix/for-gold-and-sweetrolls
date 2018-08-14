@@ -6,6 +6,6 @@ public enum TerrainType {
     PLAIN,
     HILL,
     MOUNTAIN,
-    SWAMP;
+    SWAMP
 
 }

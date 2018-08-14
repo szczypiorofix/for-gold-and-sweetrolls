@@ -5,7 +5,6 @@ import com.szczypiorofix.sweetrolls.game.enums.GameState;
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
 import com.szczypiorofix.sweetrolls.game.main.core.Configuration;
-import com.szczypiorofix.sweetrolls.game.main.core.Resolution;
 import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
 import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
 import org.lwjgl.opengl.DisplayMode;
@@ -16,27 +15,19 @@ import java.util.ArrayList;
 
 public final class ForGoldAndSweetrolls extends BasicGame {
 
-    private final DisplayMode[] modes;
     private Input input;
     private FGAS_Game FGASGame;
-    private ArrayList<Resolution> resolutions;
     private MouseCursor mouseCursor;
-    private Image mainMenuBackground;
-    //private MainMenuButton[] menuButtons;
     private BitMapFont titleFont;
     private FGAS_MainMenu FGASMainMenu;
 
-    private int windowWidth, windowHeight;
     private GameState gameState;
-    private int resolutionIndex = 0;
-    private boolean fullScreen = false;
-    private Configuration config;
+    private Music gameMusic, mainMenuMusic;
+    private float musicVolume = 1f;
 
-    public ForGoldAndSweetrolls(String title, DisplayMode[] modes, Configuration config) {
+    public ForGoldAndSweetrolls(String title, ArrayList<DisplayMode> modes, Configuration config) {
         super(title);
-        this.modes = modes;
-        this.config = config;
-        FGASMainMenu = new FGAS_MainMenu(this, config);
+        FGASMainMenu = new FGAS_MainMenu(this, config, modes);
         FGASGame = new FGAS_Game(this);
         gameState = GameState.MAIN_MENU;
     }
@@ -45,25 +36,12 @@ public final class ForGoldAndSweetrolls extends BasicGame {
     @Override
     public void init(GameContainer gc) throws SlickException {
         input = gc.getInput();
-        windowWidth = gc.getWidth();
-        windowHeight = gc.getHeight();
-        fullScreen = gc.isFullscreen();
 
-        resolutions = new ArrayList<>();
-        int c = 0;
-        for(DisplayMode d: modes) {
-            if (d.getFrequency() == 60 && d.getBitsPerPixel() == 32) {
-                resolutions.add(new Resolution(d.getWidth(), d.getHeight()));
-                if (d.getWidth() == windowWidth && d.getHeight() == windowHeight) {
-                    resolutionIndex = c;
-                }
-                c++;
-            }
-        }
+        gameMusic = new Music("music/ex-11-towards_heaven_2017.xm");
+        mainMenuMusic = new Music("music/mm-0rigin.xm");
 
-        FGASMainMenu.init(gc, input);
+        mainMenuMusic.loop(1f, musicVolume);
 
-        mainMenuBackground = new Image("assets/mm-gui-background.png");
         titleFont = FontParser.getFont("Immortal Bitmap Title Font", "immortal-bitmap.xml", "immortal-bitmap.png");
         titleFont.setSize(4.1f);
 
@@ -73,6 +51,7 @@ public final class ForGoldAndSweetrolls extends BasicGame {
         gc.setMouseCursor(new Image("mouse_cursor.png"), 0, 0);
         mouseCursor = new MouseCursor("Mouse Cursor Main Menu", input.getMouseX(), input.getMouseY(), 32, 32, ObjectType.MOUSECURSOR, input);
 
+        FGASMainMenu.init(gc, input);
         FGASGame.init(gc, input, mouseCursor);
     }
 
@@ -90,27 +69,6 @@ public final class ForGoldAndSweetrolls extends BasicGame {
 
         if (gameState == GameState.EXIT) {
             gc.exit();
-        }
-
-
-
-        if (input.isKeyPressed(Input.KEY_F1)) {
-            AppGameContainer gameContainer = (AppGameContainer) gc;
-            if (resolutionIndex > 0) resolutionIndex--;
-            gameContainer.setDisplayMode(resolutions.get(resolutionIndex).width, resolutions.get(resolutionIndex).height, fullScreen);
-            System.out.println(resolutions.get(resolutionIndex).width+":"+resolutions.get(resolutionIndex).height);
-        }
-
-        if (input.isKeyPressed(Input.KEY_F2)) {
-            AppGameContainer gameContainer = (AppGameContainer) gc;
-            if (resolutionIndex < resolutions.size()-1) resolutionIndex++;
-            gameContainer.setDisplayMode(resolutions.get(resolutionIndex).width, resolutions.get(resolutionIndex).height, fullScreen);
-            System.out.println(resolutions.get(resolutionIndex).width+":"+resolutions.get(resolutionIndex).height);
-        }
-
-        if (input.isKeyPressed(Input.KEY_F3)) {
-            fullScreen = !fullScreen;
-            gc.setFullscreen(fullScreen);
         }
 
         input.clearKeyPressedRecord();
@@ -131,9 +89,32 @@ public final class ForGoldAndSweetrolls extends BasicGame {
         return gameState;
     }
 
-    public void setGameState(GameState gameState) {
+    public void setGameState(GameState gameState){
+        switch (gameState) {
+            case MAIN_MENU: {
+                gameMusic.stop();
+                mainMenuMusic.loop(1f, musicVolume);
+                break;
+            }
+            case GAME: {
+                mainMenuMusic.stop();
+                gameMusic.loop(1f, musicVolume);
+                break;
+            }
+            default: {
+                gameMusic.stop();
+                mainMenuMusic.stop();
+                break;
+            }
+        }
         this.gameState = gameState;
     }
 
+    public float getMusicVolume() {
+        return musicVolume;
+    }
 
+    public void setMusicVolume(float musicVolume) {
+        this.musicVolume = musicVolume;
+    }
 }

@@ -25,12 +25,12 @@ public class InventoryContainer extends GameObject {
 
 
     @Override
-    public void update(int delta, float offsetX, float offsetY) throws SlickException {
+    public void update(int delta, float offsetX, float offsetY) {
         hover = false;
     }
 
     @Override
-    public void render(Graphics g, float offsetX, float offsetY) throws SlickException {
+    public void render(Graphics g, float offsetX, float offsetY) {
         if (item != null) {
             if (item.getImage() != null)
                 item.getImage().draw(item.getX(), item.getY());

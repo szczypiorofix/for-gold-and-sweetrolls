@@ -15,25 +15,31 @@ public class MainMenuControlls extends GameObject {
         CANCEL,
         LEF_ARROW,
         RIGHT_ARROW,
+        CHECK_BOX,
         TEXT
     }
     private ControlType controlType;
     private Image image;
     private boolean hover = false;
     private boolean active = false;
+    private boolean checked;
+    private boolean defaultChecked;
     private Image imagePressed;
     private BitMapFont font;
     private String text;
+    private String defaultText;
     private boolean textBased;
 
 
-    public MainMenuControlls(ControlType controlType, String text, float x, float y, float width, float height) {
+    public MainMenuControlls(ControlType controlType, String text, Boolean checked, float x, float y, float width, float height) {
         super(text, x, y, width, height, ObjectType.GUI);
         this.text = text;
+        this.defaultText = text;
+        this.checked = checked;
+        this.defaultChecked = checked;
         this.controlType = controlType;
 
-        if (text.equalsIgnoreCase("")) textBased = false;
-        else textBased = true;
+        textBased = controlType == ControlType.TEXT;
 
         switch (controlType) {
             case OK: {
@@ -42,13 +48,18 @@ public class MainMenuControlls extends GameObject {
                 break;
             }
             case LEF_ARROW: {
-                image = Textures.getInstance().mainMenuControlls.getSprite(2, 0);
-                imagePressed = Textures.getInstance().mainMenuControlls.getSprite(2, 1);
+                image = Textures.getInstance().mainMenuControlls.getSprite(0, 2);
+                imagePressed = Textures.getInstance().mainMenuControlls.getSprite(0, 3);
                 break;
             }
             case RIGHT_ARROW: {
-                image = Textures.getInstance().mainMenuControlls.getSprite(3, 0);
-                imagePressed = Textures.getInstance().mainMenuControlls.getSprite(3, 1);
+                image = Textures.getInstance().mainMenuControlls.getSprite(1, 2);
+                imagePressed = Textures.getInstance().mainMenuControlls.getSprite(1, 3);
+                break;
+            }
+            case CHECK_BOX: {
+                image = Textures.getInstance().mainMenuControlls.getSprite(0, 4);
+                imagePressed = Textures.getInstance().mainMenuControlls.getSprite(1, 4);
                 break;
             }
             default: {
@@ -72,12 +83,19 @@ public class MainMenuControlls extends GameObject {
         if (textBased) {
             font.draw(text, x, y);
         } else {
-            if (hover) {
+            if (checked) {
                 imagePressed.draw(x, y);
             } else {
+
                 image.draw(x, y);
+
             }
         }
+    }
+
+    public void reset() {
+        checked = defaultChecked;
+        text = defaultText;
     }
 
     @Override
@@ -99,5 +117,28 @@ public class MainMenuControlls extends GameObject {
         this.active = active;
     }
 
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public boolean isDefaultChecked() {
+        return defaultChecked;
+    }
+
+    public String getDefaultText() {
+        return defaultText;
+    }
 }
 

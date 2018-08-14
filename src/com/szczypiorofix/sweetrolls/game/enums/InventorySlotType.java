@@ -9,6 +9,6 @@ public enum InventorySlotType {
     RIGHT_HAND,
     LEFT_RING,
     RIGHT_RING,
-    INVENTORY;
+    INVENTORY
 
 }
