@@ -5,6 +5,7 @@ import com.szczypiorofix.sweetrolls.game.enums.GameState;
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.gui.MainMenuButton;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
+import com.szczypiorofix.sweetrolls.game.main.core.Configuration;
 import com.szczypiorofix.sweetrolls.game.main.core.Resolution;
 import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
 import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
@@ -22,7 +23,7 @@ public final class ForGoldAndSweetrolls extends BasicGame {
     private ArrayList<Resolution> resolutions;
     private MouseCursor mouseCursor;
     private Image mainMenuBackground;
-    private MainMenuButton[] menuButtons;
+    //private MainMenuButton[] menuButtons;
     private BitMapFont titleFont;
     private FGAS_MainMenu FGASMainMenu;
 
@@ -30,11 +31,13 @@ public final class ForGoldAndSweetrolls extends BasicGame {
     private GameState gameState;
     private int resolutionIndex = 0;
     private boolean fullScreen = false;
+    private Configuration config;
 
-    public ForGoldAndSweetrolls(String title, DisplayMode[] modes) {
+    public ForGoldAndSweetrolls(String title, DisplayMode[] modes, Configuration config) {
         super(title);
         this.modes = modes;
-        FGASMainMenu = new FGAS_MainMenu(this);
+        this.config = config;
+        FGASMainMenu = new FGAS_MainMenu(this, config);
         FGASGame = new FGAS_Game(this);
         gameState = GameState.MAIN_MENU;
     }
@@ -63,20 +66,10 @@ public final class ForGoldAndSweetrolls extends BasicGame {
 
         mainMenuBackground = new Image("assets/mm-gui-background.png");
         titleFont = FontParser.getFont("Immortal Bitmap Title Font", "immortal-bitmap.xml", "immortal-bitmap.png");
-        titleFont.setSize(15f);
-
-        menuButtons = new MainMenuButton[4];
+        titleFont.setSize(4.1f);
 
         // ##################### FONT #####################
         // https://www.fontsquirrel.com/fonts/Immortal
-
-
-        menuButtons[0] = new MainMenuButton("NOWA GRA", (gc.getWidth() / 2) - (128 / 2), 200, 128, 32);
-        menuButtons[1] = new MainMenuButton("USTAWIENIA", (gc.getWidth() / 2) - (128 / 2), 240, 128, 32);
-        menuButtons[2] = new MainMenuButton("POMOC", (gc.getWidth() / 2) - (128 / 2), 280, 128, 32);
-        menuButtons[3] = new MainMenuButton("KONIEC", (gc.getWidth() / 2) - (128 / 2), 320, 128, 32);
-
-
 
         gc.setMouseCursor(new Image("mouse_cursor.png"), 0, 0);
         mouseCursor = new MouseCursor("Mouse Cursor Main Menu", input.getMouseX(), input.getMouseY(), 32, 32, ObjectType.MOUSECURSOR, input);

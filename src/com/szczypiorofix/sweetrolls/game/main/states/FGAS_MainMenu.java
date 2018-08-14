@@ -3,8 +3,10 @@ package com.szczypiorofix.sweetrolls.game.main.states;
 import com.szczypiorofix.sweetrolls.game.enums.GameState;
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.gui.MainMenuButton;
+import com.szczypiorofix.sweetrolls.game.gui.MainMenuControlls;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
 
+import com.szczypiorofix.sweetrolls.game.main.core.Configuration;
 import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
 import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
 
@@ -18,15 +20,20 @@ public class FGAS_MainMenu {
     private Image mainMenuBackground;
     private Image optionsGui;
     private MainMenuButton[] menuButtons;
+    private MainMenuControlls[] settingControlls;
     private MouseCursor mouseCursor;
     private BitMapFont titleFont;
     private ForGoldAndSweetrolls forGoldAndSweetrolls;
     private int windowWidth, windowHeight;
+    private int selectedGameWidth, selectedGameHeight;
+    private boolean selectedFullScreen;
     private boolean showSettings = false;
+    private Configuration config;
 
 
-    FGAS_MainMenu(ForGoldAndSweetrolls forGoldAndSweetrolls) {
+    FGAS_MainMenu(ForGoldAndSweetrolls forGoldAndSweetrolls, Configuration config) {
         this.forGoldAndSweetrolls = forGoldAndSweetrolls;
+        this.config = config;
     }
 
 
@@ -56,6 +63,19 @@ public class FGAS_MainMenu {
         // https://www.fontsquirrel.com/fonts/Immortal
 
 
+        // ############ USTAWIENIA
+        settingControlls = new MainMenuControlls[6];
+
+        settingControlls[0] = new MainMenuControlls(MainMenuControlls.ControlType.OK, "", 365, 350, 32, 32);
+        settingControlls[1] = new MainMenuControlls(MainMenuControlls.ControlType.CANCEL, "", 410, 350, 32, 32);
+        settingControlls[2] = new MainMenuControlls(MainMenuControlls.ControlType.LEF_ARROW,  "",300, 190, 32, 32);
+        settingControlls[3] = new MainMenuControlls(MainMenuControlls.ControlType.RIGHT_ARROW, "", 480, 190, 32, 32);
+        settingControlls[4] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Rozdzielczość", 345, 170, 32, 32);
+        settingControlls[5] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "800x600", 360, 195, 32, 32);
+
+
+
+        // ############ PRZYCISKI
         menuButtons[0] = new MainMenuButton("NOWA GRA", (gc.getWidth() / 2) - (128 / 2), 200, 128, 32);
         menuButtons[1] = new MainMenuButton("USTAWIENIA", (gc.getWidth() / 2) - (128 / 2), 240, 128, 32);
         menuButtons[2] = new MainMenuButton("POMOC", (gc.getWidth() / 2) - (128 / 2), 280, 128, 32);
@@ -71,6 +91,11 @@ public class FGAS_MainMenu {
         mouseCursor.update(delta, 0, 0);
 
         if (!showSettings) {
+
+            selectedFullScreen = config.fullScreen;
+            selectedGameWidth = config.gameWidth;
+            selectedGameHeight = config.gameHeight;
+
             for(int i = 0; i < menuButtons.length; i++) {
                 if (mouseCursor.intersects(menuButtons[i])) {
                     menuButtons[i].setHover(true);
@@ -94,6 +119,29 @@ public class FGAS_MainMenu {
                         }
                     } else menuButtons[i].setActive(false);
                 } else menuButtons[i].setHover(false);
+            }
+        } else {
+            for(int i = 0; i < settingControlls.length; i++) {
+                if (mouseCursor.intersects(settingControlls[i])) {
+                    settingControlls[i].setHover(true);
+                    if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+                        settingControlls[i].setActive(true);
+                        switch (i) {
+
+                            case 0: {
+                                AppGameContainer gameContainer = (AppGameContainer) gc;
+                                gameContainer.setDisplayMode(config.gameWidth, config.gameHeight, config.fullScreen);
+                                showSettings = false;
+                                break;
+                            }
+                            case 1: {
+                                showSettings = false;
+                                break;
+                            }
+
+                        }
+                    } else settingControlls[i].setActive(false);
+                } else settingControlls[i].setHover(false);
             }
         }
 
@@ -128,6 +176,9 @@ public class FGAS_MainMenu {
 
         if (showSettings) {
             optionsGui.draw(250, 150);
+            for(MainMenuControlls s: settingControlls) {
+                s.render(g, 0 ,0);
+            }
         }
     }
 

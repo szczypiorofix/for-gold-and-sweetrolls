@@ -10,23 +10,56 @@ import org.newdawn.slick.Image;
 
 public class MainMenuControlls extends GameObject {
 
+    public enum ControlType {
+        OK,
+        CANCEL,
+        LEF_ARROW,
+        RIGHT_ARROW,
+        TEXT
+    }
+    private ControlType controlType;
     private Image image;
-    private String name;
-    private float nameX;
     private boolean hover = false;
     private boolean active = false;
     private Image imagePressed;
     private BitMapFont font;
+    private String text;
+    private boolean textBased;
 
 
-    public MainMenuControlls(String name, float x, float y, float width, float height) {
-        super(name, x, y, width, height, ObjectType.GUI);
-        this.name = name;
-        image = Textures.getInstance().mainMenuMainButtons.getSprite(0, 0);
-        imagePressed = Textures.getInstance().mainMenuMainButtons.getSprite(0, 1);
-        font = FontParser.getFont("Immortal Menu Button Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
-        font.setSize(4f);
-        nameX = x + (width / 2) - (font.getStringLength(name) / 2);
+    public MainMenuControlls(ControlType controlType, String text, float x, float y, float width, float height) {
+        super(text, x, y, width, height, ObjectType.GUI);
+        this.text = text;
+        this.controlType = controlType;
+
+        if (text.equalsIgnoreCase("")) textBased = false;
+        else textBased = true;
+
+        switch (controlType) {
+            case OK: {
+                image = Textures.getInstance().mainMenuControlls.getSprite(1, 0);
+                imagePressed = Textures.getInstance().mainMenuControlls.getSprite(1, 1);
+                break;
+            }
+            case LEF_ARROW: {
+                image = Textures.getInstance().mainMenuControlls.getSprite(2, 0);
+                imagePressed = Textures.getInstance().mainMenuControlls.getSprite(2, 1);
+                break;
+            }
+            case RIGHT_ARROW: {
+                image = Textures.getInstance().mainMenuControlls.getSprite(3, 0);
+                imagePressed = Textures.getInstance().mainMenuControlls.getSprite(3, 1);
+                break;
+            }
+            default: {
+                image = Textures.getInstance().mainMenuControlls.getSprite(0, 0);
+                imagePressed = Textures.getInstance().mainMenuControlls.getSprite(0, 1);
+                break;
+            }
+        }
+
+        font = FontParser.getFont("Immortal Controlls Button Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
+        font.setSize(5f);
     }
 
     @Override
@@ -36,14 +69,15 @@ public class MainMenuControlls extends GameObject {
     @Override
     public void render(Graphics g, float offsetX, float offsetY) {
 
-        if (hover) {
-            imagePressed.draw(x, y);
-            font.draw(name, (int) (nameX + offsetX), (int) (y + 8 + offsetY));
+        if (textBased) {
+            font.draw(text, x, y);
         } else {
-            image.draw(x, y);
-            font.draw(name, (int) (nameX + offsetX), (int) (y + 5 + offsetY));
+            if (hover) {
+                imagePressed.draw(x, y);
+            } else {
+                image.draw(x, y);
+            }
         }
-
     }
 
     @Override

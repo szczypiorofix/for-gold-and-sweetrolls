@@ -1,5 +1,7 @@
 package com.szczypiorofix.sweetrolls.game.main;
 
+import com.szczypiorofix.sweetrolls.game.main.core.ConfigManager;
+import com.szczypiorofix.sweetrolls.game.main.core.Configuration;
 import com.szczypiorofix.sweetrolls.game.main.states.ForGoldAndSweetrolls;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -27,6 +29,8 @@ public final class MainClass {
     private static boolean DEBUG_MODE;
     private final static Logger LOGGER = Logger.getLogger(MainClass.class.getName());
     private FileHandler fileHandler = null;
+    private ConfigManager configManager;
+    private Configuration config;
 
 
     /**
@@ -34,9 +38,16 @@ public final class MainClass {
      */
     private MainClass() {
         loggerSetup();
+        checkConfig();
         applicationStart();
     }
 
+
+    private void checkConfig() {
+        configManager = new ConfigManager();
+        config = configManager.loadSettings();
+        System.out.println(config);
+    }
 
     /**
      * Initialize and start Slick AppGameContainer
@@ -56,7 +67,7 @@ public final class MainClass {
 
         try {
             logging(false,  Level.INFO, "Uruchamianie instancji GameStatesContainer");
-            ScalableGame fgas = new ScalableGame(new ForGoldAndSweetrolls("For Gold and Sweetrolls", modes), 800, 600, true);
+            ScalableGame fgas = new ScalableGame(new ForGoldAndSweetrolls("For Gold and Sweetrolls", modes, config), 800, 600, config.keepAspectRatio);
 
             AppGameContainer app = new AppGameContainer(fgas);
             String[] icons = {
@@ -68,9 +79,9 @@ public final class MainClass {
                     "icon128x128.png"
             };
             app.setIcons(icons);
-            app.setDisplayMode(800, 600, false);
+            app.setDisplayMode(800, 600, config.fullScreen);
             app.setTargetFrameRate(60);
-            app.setVSync(true);
+            app.setVSync(config.vsync);
             app.setShowFPS(false);
             app.setUpdateOnlyWhenVisible(true);
             app.start();
