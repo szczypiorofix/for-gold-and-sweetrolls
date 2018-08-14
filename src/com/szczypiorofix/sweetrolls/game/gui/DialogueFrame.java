@@ -5,7 +5,6 @@ import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
 import com.szczypiorofix.sweetrolls.game.objects.characters.NPC;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import org.newdawn.slick.*;
-import org.newdawn.slick.state.StateBasedGame;
 
 public class DialogueFrame {
 

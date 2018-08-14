@@ -1,7 +1,6 @@
 package com.szczypiorofix.sweetrolls.game.objects;
 
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
-import com.szczypiorofix.sweetrolls.game.main.core.Registry;
 import com.szczypiorofix.sweetrolls.game.tilemap.CollisionObject;
 import com.szczypiorofix.sweetrolls.game.tilemap.Property;
 import com.szczypiorofix.sweetrolls.game.tilemap.PropertyType;

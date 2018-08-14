@@ -1,10 +1,9 @@
 package com.szczypiorofix.sweetrolls.game.objects.item;
 
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
-import com.szczypiorofix.sweetrolls.game.objects.GameObject;
 import com.szczypiorofix.sweetrolls.game.tilemap.Property;
-import org.newdawn.slick.*;
-import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 
 import java.util.ArrayList;
 

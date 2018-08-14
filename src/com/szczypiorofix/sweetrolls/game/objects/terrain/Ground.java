@@ -1,7 +1,9 @@
 package com.szczypiorofix.sweetrolls.game.objects.terrain;
 
 import com.szczypiorofix.sweetrolls.game.objects.GameObject;
-import org.newdawn.slick.*;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 
 
 public class Ground extends GameObject {

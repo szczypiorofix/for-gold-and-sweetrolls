@@ -5,7 +5,6 @@ import com.szczypiorofix.sweetrolls.game.objects.GameObject;
 import com.szczypiorofix.sweetrolls.game.objects.Statistics;
 import com.szczypiorofix.sweetrolls.game.tilemap.Property;
 
-
 import java.util.ArrayList;
 
 

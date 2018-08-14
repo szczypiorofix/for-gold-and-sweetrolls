@@ -12,17 +12,13 @@ import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import com.szczypiorofix.sweetrolls.game.objects.item.Item;
 import com.szczypiorofix.sweetrolls.game.tilemap.CollisionObject;
 import com.szczypiorofix.sweetrolls.game.tilemap.TileMap;
-
 import org.newdawn.slick.*;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 
 import java.util.HashMap;
 import java.util.logging.Level;
 
-import static com.szczypiorofix.sweetrolls.game.enums.PlayerAction.MOVE;
 import static com.szczypiorofix.sweetrolls.game.enums.PlayerAction.INVENTORY;
+import static com.szczypiorofix.sweetrolls.game.enums.PlayerAction.MOVE;
 import static com.szczypiorofix.sweetrolls.game.enums.PlayerState.MOVING_INNER_LOCATION;
 import static com.szczypiorofix.sweetrolls.game.enums.PlayerState.MOVING_WORLD_MAP;
 

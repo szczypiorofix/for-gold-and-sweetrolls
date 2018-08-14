@@ -7,13 +7,10 @@ import com.szczypiorofix.sweetrolls.game.gui.ActionHistory;
 import com.szczypiorofix.sweetrolls.game.main.core.TimeCounter;
 import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
 import com.szczypiorofix.sweetrolls.game.tilemap.Property;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.state.StateBasedGame;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Player extends Character {
 

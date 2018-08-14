@@ -5,14 +5,13 @@ import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.main.states.FGAS_Game;
 import com.szczypiorofix.sweetrolls.game.objects.GameObject;
 import com.szczypiorofix.sweetrolls.game.objects.characters.NPC;
+import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import com.szczypiorofix.sweetrolls.game.objects.item.Item;
 import com.szczypiorofix.sweetrolls.game.objects.item.Place;
 import com.szczypiorofix.sweetrolls.game.objects.terrain.Ground;
-import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import com.szczypiorofix.sweetrolls.game.tilemap.CollisionObject;
-import com.szczypiorofix.sweetrolls.game.tilemap.TileMap;
 import com.szczypiorofix.sweetrolls.game.tilemap.ObjectGroupObject;
-
+import com.szczypiorofix.sweetrolls.game.tilemap.TileMap;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 

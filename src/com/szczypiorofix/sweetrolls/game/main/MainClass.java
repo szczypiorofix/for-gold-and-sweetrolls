@@ -8,7 +8,9 @@ import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.ScalableGame;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Random;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
