@@ -51,7 +51,7 @@ public final class ForGoldAndSweetrolls extends BasicGame {
         gc.setMouseCursor(new Image("mouse_cursor.png"), 0, 0);
         mouseCursor = new MouseCursor("Mouse Cursor Main Menu", input.getMouseX(), input.getMouseY(), 32, 32, ObjectType.MOUSECURSOR, input);
 
-        FGASMainMenu.init(gc, input);
+        FGASMainMenu.init(gc, input, mouseCursor);
         FGASGame.init(gc, input, mouseCursor);
     }
 

@@ -67,10 +67,11 @@ public class FGAS_MainMenu {
         offsetY = initialOffsetY;
     }
 
-    public void init(GameContainer gc, Input input) throws SlickException {
+    public void init(GameContainer gc, Input input, MouseCursor mouseCursor) throws SlickException {
         windowWidth = gc.getWidth();
         windowHeight = gc.getHeight();
 
+        this.mouseCursor = mouseCursor;
         this.input = input;
 
         //sfx1 = new SFX("sword-unsheathe.ogg");
@@ -116,8 +117,8 @@ public class FGAS_MainMenu {
         menuButtons[3] = new MainMenuButton("KONIEC", (gc.getWidth() / 2) - (128 / 2), 320, 128, 32);
 
         // https://opengameart.org/content/dwarven-cursor
-        gc.setMouseCursor(new Image("mouse_cursor.png"), 0, 0);
-        mouseCursor = new MouseCursor("Mouse Cursor Main Menu", input.getMouseX(), input.getMouseY(), 1, 1, ObjectType.MOUSECURSOR, input);
+        //gc.setMouseCursor(new Image("mouse_cursor.png"), 0, 0);
+        //mouseCursor = new MouseCursor("Mouse Cursor Main Menu", input.getMouseX(), input.getMouseY(), 32, 32, ObjectType.MOUSECURSOR, input);
     }
 
     public void update(GameContainer gc, int delta) throws SlickException {
