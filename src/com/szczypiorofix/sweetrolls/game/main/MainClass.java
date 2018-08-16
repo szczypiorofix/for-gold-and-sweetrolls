@@ -35,7 +35,6 @@ public final class MainClass {
     private static boolean DEBUG_MODE;
     private final static Logger LOGGER = Logger.getLogger(MainClass.class.getName());
     private FileHandler fileHandler = null;
-    private ConfigManager configManager;
     private Configuration config;
 
 
@@ -53,7 +52,7 @@ public final class MainClass {
      *
      */
     private void checkConfig() {
-        configManager = new ConfigManager();
+        ConfigManager configManager = new ConfigManager();
         config = configManager.loadSettings();
     }
 

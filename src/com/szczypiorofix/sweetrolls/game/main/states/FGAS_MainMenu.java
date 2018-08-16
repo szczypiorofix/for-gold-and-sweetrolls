@@ -28,17 +28,22 @@ public class FGAS_MainMenu {
     private MouseCursor mouseCursor;
     private BitMapFont titleFont;
     private ForGoldAndSweetrolls forGoldAndSweetrolls;
+    private ObjectManager objectManager;
+
     private int windowWidth, windowHeight;
     private int selectedGameWidth, selectedGameHeight;
     private float selectedMusicVolume;
     private boolean selectedFullScreen;
     private boolean selectedVSync;
+    private boolean selectedShowFPS;
+
     private boolean showSettings = false;
     private Configuration config;
     private ArrayList<DisplayMode> modes;
     private int selectedMode = 0;
+
     private boolean settingsLoaded = false;
-    private ObjectManager objectManager;
+
     private float offsetX, offsetY;
     private final float initialOffsetX = 700f;
     private final float initialOffsetY = 700f;
@@ -56,6 +61,7 @@ public class FGAS_MainMenu {
         selectedGameHeight = config.gameHeight;
         selectedVSync = config.vsync;
         selectedMusicVolume = config.musicVolume;
+        selectedShowFPS = config.showFps;
 
         for(int i = 0; i < modes.size(); i++) {
             if (modes.get(i).getWidth() == selectedGameWidth && modes.get(i).getHeight() == selectedGameHeight) {
@@ -93,7 +99,7 @@ public class FGAS_MainMenu {
 
 
         // ############ USTAWIENIA
-        settingControlls = new MainMenuControlls[10];
+        settingControlls = new MainMenuControlls[12];
 
         settingControlls[0] = new MainMenuControlls(MainMenuControlls.ControlType.OK, "OK", false,365, 350, 32, 32);
         settingControlls[1] = new MainMenuControlls(MainMenuControlls.ControlType.CANCEL, "Cancel", false,410, 350, 32, 32);
@@ -109,6 +115,9 @@ public class FGAS_MainMenu {
         settingControlls[8] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "v-sync", false, 340, 272, 32, 32);
         settingControlls[9] = new MainMenuControlls(MainMenuControlls.ControlType.CHECK_BOX, "V-Sync checkbox", selectedVSync, 460, 270, 32, 32);
 
+        settingControlls[10] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "FPS", false, 340, 312, 32, 32);
+        settingControlls[11] = new MainMenuControlls(MainMenuControlls.ControlType.CHECK_BOX, "FPS show checkbox", selectedVSync, 460, 310, 32, 32);
+
 
         // ############ PRZYCISKI
         menuButtons[0] = new MainMenuButton("NOWA GRA", (gc.getWidth() / 2) - (128 / 2), 200, 128, 32);
@@ -117,8 +126,6 @@ public class FGAS_MainMenu {
         menuButtons[3] = new MainMenuButton("KONIEC", (gc.getWidth() / 2) - (128 / 2), 320, 128, 32);
 
         // https://opengameart.org/content/dwarven-cursor
-        //gc.setMouseCursor(new Image("mouse_cursor.png"), 0, 0);
-        //mouseCursor = new MouseCursor("Mouse Cursor Main Menu", input.getMouseX(), input.getMouseY(), 32, 32, ObjectType.MOUSECURSOR, input);
     }
 
     public void update(GameContainer gc, int delta) throws SlickException {
@@ -185,6 +192,8 @@ public class FGAS_MainMenu {
                                 AppGameContainer gameContainer = (AppGameContainer) gc;
                                 gameContainer.setDisplayMode(selectedGameWidth, selectedGameHeight, selectedFullScreen);
                                 gameContainer.setVSync(selectedVSync);
+                                gameContainer.setShowFPS(selectedShowFPS);
+
                                 showSettings = false;
                                 ConfigManager configManager = new ConfigManager();
                                 configManager.saveToFile(config);
@@ -222,6 +231,11 @@ public class FGAS_MainMenu {
                             case 9: {
                                 settingControlls[i].setChecked(!settingControlls[i].isChecked());
                                 selectedVSync = settingControlls[i].isChecked();
+                                break;
+                            }
+                            case 11: {
+                                settingControlls[i].setChecked(!settingControlls[i].isChecked());
+                                selectedShowFPS = settingControlls[i].isChecked();
                                 break;
                             }
                         }
