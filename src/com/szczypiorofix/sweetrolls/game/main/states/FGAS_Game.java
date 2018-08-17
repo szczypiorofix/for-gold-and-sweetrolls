@@ -1,6 +1,7 @@
 package com.szczypiorofix.sweetrolls.game.main.states;
 
 import com.szczypiorofix.sweetrolls.game.enums.GameState;
+import com.szczypiorofix.sweetrolls.game.enums.ItemType;
 import com.szczypiorofix.sweetrolls.game.gui.DialogueFrame;
 import com.szczypiorofix.sweetrolls.game.gui.HUD;
 import com.szczypiorofix.sweetrolls.game.gui.Inventory;
@@ -15,28 +16,22 @@ import com.szczypiorofix.sweetrolls.game.tilemap.TileMap;
 import org.newdawn.slick.*;
 
 import java.util.HashMap;
-import java.util.logging.Level;
 
 import static com.szczypiorofix.sweetrolls.game.enums.PlayerAction.INVENTORY;
 import static com.szczypiorofix.sweetrolls.game.enums.PlayerAction.MOVE;
-import static com.szczypiorofix.sweetrolls.game.enums.PlayerState.MOVING_INNER_LOCATION;
 import static com.szczypiorofix.sweetrolls.game.enums.PlayerState.MOVING_WORLD_MAP;
 
 
+/**
+ * This is the main class of the game (gameplay).
+ */
 public class FGAS_Game {
 
     public static final String WORLD_MAP_NAME = "worldmap.tmx";
+    private final boolean COLLISIONS_ENABLED = true;
 
     private final LevelManager levelManager = new LevelManager();
     private final HashMap<String, TileMap> levels = new HashMap<>();
-    private final boolean collisionsEnabled = true;
-
-    private float offsetX, offsetY;
-    private int tileWidth, tileHeight;
-    private int mapWidth, mapHeight;
-    private int gameWidth, gameHeight;
-    private boolean setNextRound;
-    private boolean showMap;
 
     private Image worldMapImage;
     private Input input;
@@ -49,11 +44,27 @@ public class FGAS_Game {
     private DialogueFrame dialogueFrame;
     private ForGoldAndSweetrolls forGoldAndSweetrolls;
 
+    private float offsetX, offsetY;
+    private int tileWidth, tileHeight;
+    private int mapWidth, mapHeight;
+    private int gameWidth, gameHeight;
+    private boolean setNextRound;
+    private boolean showMap;
+
+
+    /**
+     * Level type enum - generated level or created in TiledMap Editor.
+     */
     private enum LevelType {
         CREATED,
         GENERATED
     }
 
+
+    /**
+     * Main FGAS_Game constructor.
+     * @param forGoldAndSweetrolls (ForGoldAndSweetrolls) - main class of game (starting main menu state and game state - FGAS_Game).
+     */
     public FGAS_Game(ForGoldAndSweetrolls forGoldAndSweetrolls) {
         this.forGoldAndSweetrolls = forGoldAndSweetrolls;
         offsetX = 0;
@@ -61,15 +72,18 @@ public class FGAS_Game {
         dialogueFrame = new DialogueFrame();
     }
 
+    /**
+     * Method for changing level.
+     * @param levelName (String) - level name.
+     * @param levelType (LevelType) - level type (generated or created).
+     */
     private void changeLevel(String levelName, LevelType levelType) {
         this.currentLevelName = levelName;
         TileMap levelMap;
-
         if (levelType == LevelType.GENERATED) {
             levelName = levelName+player.getTileX()+"x"+player.getTileY();
 
             if (!levels.containsKey(levelName)) {
-                MainClass.logging(false, Level.INFO, "Generowanie nowego losowego poziomu: "+levelName);
                 levelMap = levelManager.loadGeneratedLevel(
                         levelName,
                         objectManager.getGround(player.getTileX(), player.getTileY()).getCollisions().getTypeName(),
@@ -79,23 +93,26 @@ public class FGAS_Game {
                 objectManager.generateLevel(levelMap, levelName);
                 player = objectManager.getPlayer();
             } else {
-                MainClass.logging(false, Level.INFO, "Pobieranie danych o losowym poziomie z listy: "+levelName);
                 levelMap = levels.get(levelName);
             }
 
         } else {
 
             if (!levels.containsKey(levelName)) {
-                MainClass.logging(false, Level.INFO, "Wczytywanie danych zdefiniowanego poziomu: "+levelName);
+                System.out.println("Wczytywanie nowej mapy : "+levelName);
                 levelMap = levelManager.loadLevel(levelName);
                 levels.put(levelName, levelMap);
                 objectManager.generateLevel(levelMap, levelName);
                 player = objectManager.getPlayer();
             } else {
-                MainClass.logging(false, Level.INFO, "Pobieranie danych o zdefiniowanym poziomie z listy: "+levelName);
+                System.out.println("Wczytywanie mapy : "+levelName);
                 levelMap = levels.get(levelName);
             }
 
+        }
+        if (levels.containsKey(levelName) && levels.size() > 1) {
+            player.setX(objectManager.getLevelMaps().get(levelName).getPlayerLastTileX() * tileWidth);
+            player.setY(objectManager.getLevelMaps().get(levelName).getPlayerLastTileY() * tileHeight);
         }
 
         tileWidth = levelMap.getTileWidth();
@@ -126,6 +143,8 @@ public class FGAS_Game {
         player.setCurrentLevelName(currentLevelName);
         hud = new HUD(player, mouseCursor);
         inventory = new Inventory(player, mouseCursor);
+
+        //objectManager.setLevelPlayerLastXY(currentLevelName);
 
         try {
 
@@ -189,7 +208,7 @@ public class FGAS_Game {
                     boolean pass = false;
 
                     if (objectManager.getGround(player.getTileX(1), player.getTileY()).getCollisions().getCollisionType() == CollisionObject.CollisionType.PASSABLE
-                            || !collisionsEnabled) pass = true;
+                            || !COLLISIONS_ENABLED) pass = true;
 
                     if (objectManager.getNpcs()[player.getTileX(1)][player.getTileY()] != null)
                         if (objectManager.getNpcs()[player.getTileX(1)][player.getTileY()].getCollisions().getCollisionType() == CollisionObject.CollisionType.COLLISION) pass = false;
@@ -207,7 +226,7 @@ public class FGAS_Game {
                     boolean pass = false;
 
                     if (objectManager.getGround(player.getTileX(-1), player.getTileY()).getCollisions().getCollisionType() == CollisionObject.CollisionType.PASSABLE
-                            || !collisionsEnabled) pass = true;
+                            || !COLLISIONS_ENABLED) pass = true;
 
                     if (objectManager.getNpcs()[player.getTileX(-1)][player.getTileY()] != null)
                         if (objectManager.getNpcs()[player.getTileX(-1)][player.getTileY()].getCollisions().getCollisionType() == CollisionObject.CollisionType.COLLISION) pass = false;
@@ -225,7 +244,7 @@ public class FGAS_Game {
                     boolean pass = false;
 
                     if (objectManager.getGround(player.getTileX(), player.getTileY(-1)).getCollisions().getCollisionType() == CollisionObject.CollisionType.PASSABLE
-                            || !collisionsEnabled) pass = true;
+                            || !COLLISIONS_ENABLED) pass = true;
 
                     if (objectManager.getNpcs()[player.getTileX()][player.getTileY(-1)] != null)
                         if (objectManager.getNpcs()[player.getTileX()][player.getTileY(-1)].getCollisions().getCollisionType() == CollisionObject.CollisionType.COLLISION) pass = false;
@@ -243,7 +262,7 @@ public class FGAS_Game {
                     boolean pass = false;
 
                     if (objectManager.getGround(player.getTileX(), player.getTileY(1)).getCollisions().getCollisionType() == CollisionObject.CollisionType.PASSABLE
-                            || !collisionsEnabled) pass = true;
+                            || !COLLISIONS_ENABLED) pass = true;
 
                     if (objectManager.getNpcs()[player.getTileX()][player.getTileY(1)] != null)
                         if (objectManager.getNpcs()[player.getTileX()][player.getTileY(1)].getCollisions().getCollisionType() == CollisionObject.CollisionType.COLLISION) pass = false;
@@ -258,62 +277,58 @@ public class FGAS_Game {
 
             if (input.isKeyPressed(Input.KEY_E)) {
 
-                // ENTERING INNER MAP FROM WORLD MAP
-                if (player.getPlayerState() == MOVING_WORLD_MAP) {
-                    if (objectManager.getPlace(player.getTileX(), player.getTileY()) != null) {
-
-                        MainClass.logging(false, Level.INFO, "Przejście do lokacji: "+objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("name")+".");
-
-                        player.setPlayerState(MOVING_INNER_LOCATION);
-                        player.getActionHistory().addValue("Wchodzisz do: "+objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("name"));
-                        mouseCursor.setPositionTile(0, 0);
-                        changeLevel(objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("filename"), LevelType.CREATED);
-                    } else {
-                        player.setPlayerState(MOVING_INNER_LOCATION);
-                        mouseCursor.setPositionTile(0, 0);
-                        changeLevel("generate", LevelType.GENERATED);
-                    }
-                } else {
-                    // EXIT FROM INNER MAP
-                    if (player.getTileX() <= 0
-                            || player.getTileY() <= 0
-                            || player.getTileX() >= mapWidth-1
-                            || player.getTileY() >= mapHeight-1
-                            || objectManager.getPlace(player.getTileX(), player.getTileY()) != null
-                            ) {
-
-                        MainClass.logging(false, Level.INFO, "Powrót do mapy głównej.");
-                        player.getActionHistory().addValue("Powrót na mapę główną");
-                        player.setPlayerState(MOVING_WORLD_MAP);
-                        changeLevel(WORLD_MAP_NAME, LevelType.CREATED);
-                    }
-
-                    // ######## Podnoszenie przedmiotów za pomocą "E"
-                    if (objectManager.getItems(player.getTileX(), player.getTileY()) != null) {
-                        Item currentItem = objectManager.getItems(player.getTileX(), player.getTileY());
-                        if (currentItem.isPickable()) {
-
-                            // ######################## UT IN INVENTORY
-
-                            // GOLD
-                            if (currentItem.getStringProperty("type").equalsIgnoreCase("gold")) {
-                                int goldGained = currentItem.getIntegerProperty("value");
-                                player.getActionHistory().addValue("Znaleziono złoto: "+goldGained);
-                                player.statistics.gold += goldGained;
-                                objectManager.getItems()[player.getTileX()][player.getTileY()] = null;
-                            } // Złoto nie pojawia się w ekwipunku.
-                            else {
-                                player.getActionHistory().addValue("Podniesiono: "+currentItem.getStringProperty("name"));
-                                if (inventory.putToInventory(currentItem)) {
-                                    objectManager.getItems()[player.getTileX()][player.getTileY()] = null;
-                                } else {
-                                    player.getActionHistory().addValue("Plecak jest pełny !!!");
-                                }
-                            }
-                        }
-                    }
-
+                if (objectManager.getPlace(player.getTileX(), player.getTileY()) != null) {
+                    //player.setPlayerState(MOVING_INNER_LOCATION);
+                    player.getActionHistory().addValue("Wchodzisz do: "+objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("name"));
+                    mouseCursor.setPositionTile(0, 0);
+                    objectManager.setLevelPlayerLastXY(currentLevelName);
+                    changeLevel(objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("filename"), LevelType.CREATED);
                 }
+
+
+
+                // ENTERING INNER MAP FROM WORLD MAP
+//                if (player.getPlayerState() == MOVING_WORLD_MAP) {
+//                    if (objectManager.getPlace(player.getTileX(), player.getTileY()) != null) {
+//
+//                        MainClass.logging(false, Level.INFO, "Przejście do lokacji: "+objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("name")+".");
+//
+//                        player.setPlayerState(MOVING_INNER_LOCATION);
+//                        player.getActionHistory().addValue("Wchodzisz do: "+objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("name"));
+//                        mouseCursor.setPositionTile(0, 0);
+//                        changeLevel(objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("filename"), LevelType.CREATED);
+//                    } else {
+//                        player.setPlayerState(MOVING_INNER_LOCATION);
+//                        mouseCursor.setPositionTile(0, 0);
+//                        changeLevel("generate", LevelType.GENERATED);
+//                    }
+//                } else {
+//                    // EXIT FROM INNER MAP
+//                    if (player.getTileX() <= 0
+//                            || player.getTileY() <= 0
+//                            || player.getTileX() >= mapWidth-1
+//                            || player.getTileY() >= mapHeight-1
+//                            || objectManager.getPlace(player.getTileX(), player.getTileY()) != null
+//                            ) {
+//
+//                        if (objectManager.getPlace(player.getTileX(), player.getTileY()) != null) {
+//                            System.out.println(objectManager.getPlace(player.getTileX(), player.getTileY()).getType());
+//                        }
+//                        else {
+//                            MainClass.logging(false, Level.INFO, "Powrót do mapy głównej.");
+//                            player.getActionHistory().addValue("Powrót na mapę główną");
+//                            player.setPlayerState(MOVING_WORLD_MAP);
+//                            changeLevel(WORLD_MAP_NAME, LevelType.CREATED);
+//                        }
+//                    }
+//
+//                    // ######## Podnoszenie przedmiotów za pomocą "E"
+//                    if (objectManager.getItems(player.getTileX(), player.getTileY()) != null) {
+//                        Item currentItem = objectManager.getItems(player.getTileX(), player.getTileY());
+//                        pickUpItem(currentItem, 0, 0);
+//                    }
+//
+//                }
                 calculateOffset();
             }
 
@@ -418,28 +433,10 @@ public class FGAS_Game {
 
                                     if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
                                         Item currentItem = objectManager.getItems(player.getTileX(i), player.getTileY(j));
-                                        if (currentItem.isPickable()) {
-
-                                            // ######################## UT IN INVENTORY
-
-                                            // GOLD
-                                            if (currentItem.getStringProperty("type").equalsIgnoreCase("gold")) {
-                                                int goldGained = currentItem.getIntegerProperty("value");
-                                                player.getActionHistory().addValue("Znaleziono złoto: "+goldGained);
-                                                player.statistics.gold += goldGained;
-                                                objectManager.getItems()[player.getTileX(i)][player.getTileY(j)] = null;
-                                            } // Złoto nie pojawia się w ekwipunku.
-                                            else {
-                                                player.getActionHistory().addValue("Podniesiono: "+currentItem.getStringProperty("name"));
-                                                if (inventory.putToInventory(currentItem)) {
-                                                    objectManager.getItems()[player.getTileX(i)][player.getTileY(j)] = null;
-                                                } else {
-                                                    player.getActionHistory().addValue("Plecak jest pełny !!!");
-                                                }
-                                            }
-                                        }
+                                        pickUpItem(currentItem, i, j);
                                     }
                                 }
+
                             }
                         }
                     }
@@ -467,6 +464,12 @@ public class FGAS_Game {
         }
     }
 
+    /**
+     * Slick2D main render method.
+     * @param gc (GameContainer) - Slick2D GameContainer object.
+     * @param g (Graphics) - Slick2D Graphics object.
+     * @throws SlickException - Slick2D exception.
+     */
     public void render(GameContainer gc, Graphics g) throws SlickException {
 
         objectManager.render(g, offsetX, offsetY);
@@ -484,7 +487,7 @@ public class FGAS_Game {
         if (showMap) {
             worldMapImage.draw(60, 50, 450, 450);
             g.drawRect(59, 49, 451, 451);
-            g.drawRect(60 + ((player.getTileX() * 450)/300), 50 + ((player.getTileY() * 450)/300), 1, 1);
+            //g.drawRect(60 + (int) ((player.getWorldMapTileX() * 450)/300), 50 + (int) ((player.getWorldMapTileY() * 450)/300), 1, 1);
         }
 
 //        if (objectManager.getGround(player.getTileX(), player.getTileY()).getCollisions() != null) {
@@ -493,10 +496,52 @@ public class FGAS_Game {
 
     }
 
+
+    /**
+     * Method for picking up items from ground
+     * @param currentItem (Item) current object - clicked by mouse left button or in the same tile as polayer ("E" key presssed)
+     * @param i (int) offset x - used on mouse offset - 1 field around the player
+     * @param j (int) offset y - used on mouse offset - 1 field around the player
+     */
+    private void pickUpItem(Item currentItem, int i, int j) {
+        if (currentItem.isPickable()) {
+            if (currentItem.getItemType() == ItemType.GOLD) {
+                int goldGained = currentItem.getIntegerProperty("value");
+                player.getActionHistory().addValue("Znaleziono złoto: "+goldGained);
+                player.statistics.gold += goldGained;
+                objectManager.getItems()[player.getTileX(i)][player.getTileY(j)] = null;
+            } // Złoto nie pojawia się w ekwipunku.
+            else {
+                player.getActionHistory().addValue("Podniesiono: "+currentItem.getItemType().name);
+                if (inventory.putToInventory(currentItem)) {
+                    objectManager.getItems()[player.getTileX(i)][player.getTileY(j)] = null;
+                } else {
+                    player.getActionHistory().addValue("Plecak jest pełny !!!");
+                }
+            }
+        } else {
+            if (currentItem.getItemType() == ItemType.CHEST) {
+                int goldGained = MainClass.RANDOM.nextInt(currentItem.getIntegerProperty("value")) + 1;
+                player.statistics.gold += goldGained;
+                player.getActionHistory().addValue("Przeszukiwanie skrzyni...");
+                player.getActionHistory().addValue("Znaleziono: złoto: " + goldGained);
+                objectManager.getItems()[player.getTileX(i)][player.getTileY(j)] = null;
+            }
+        }
+    }
+
+    /**
+     * Returns player object.
+     * @return (Player) player object.
+     */
     public Player getPlayer() {
         return player;
     }
 
+    /**
+     * Returns ObjectManager object (for main menu and background map scrolling - mainly).
+     * @return (ObjectManager) objectManager object.
+     */
     public ObjectManager getObjectManager() {
         return objectManager;
     }

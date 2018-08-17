@@ -55,11 +55,10 @@ public class HUD {
             font.draw(player.getActionHistory().history[i], 580, 380 + (i * 20));
         }
 
-//        font.draw("Tiles c: " +player.getTileX(0)+":"+player.getTileY(0), 590, 240);
+        font.draw("Tiles c: " +player.getTileX()+":"+player.getTileY(), 590, 240);
 //        font.draw("Tiles w: " +player.getWorldMapTileX()+":"+player.getWorldMapTileY(), 590, 260);
 //        font.draw("Location: " +player.getCurrentLevelName(), 590, 280);
 //        font.draw("Mouse tile: " +mouseCursor.getTileX()+":"+mouseCursor.getTileY(), 590, 300);
-//        font.draw("Player : " +player.getWidth()+":"+player.getHeight(), 590, 320);
 //        font.draw("Player offset: " +player.getOffsetX()+":"+player.getOffsetY(), 590, 340);
 
         font.draw("Pancerz : " +player.statistics.armorClass, 590, 320);

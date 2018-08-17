@@ -2,7 +2,7 @@ package com.szczypiorofix.sweetrolls.game.main.core;
 
 import com.szczypiorofix.sweetrolls.game.objects.characters.NPC;
 import com.szczypiorofix.sweetrolls.game.objects.item.Item;
-import com.szczypiorofix.sweetrolls.game.objects.item.Place;
+import com.szczypiorofix.sweetrolls.game.objects.terrain.Place;
 import com.szczypiorofix.sweetrolls.game.objects.terrain.Ground;
 
 import java.io.Serializable;
@@ -13,15 +13,15 @@ public class LevelMap implements Serializable {
     private Place[][] places;
     private NPC[][] npc;
     private Item[][] items;
-    private int playerSpawnX, playerSpawnY;
+    private int playerLastTileX, playerLastTileY;
 
-    public LevelMap(Ground[][] ground, Place[][] places, NPC[][] npc, Item[][] items, int playerSpawnX, int playerSpawnY) {
+    public LevelMap(Ground[][] ground, Place[][] places, NPC[][] npc, Item[][] items, int playerLastTileX, int playerLastTileY) {
         this.ground = ground;
         this.places = places;
         this.npc = npc;
         this.items = items;
-        this.playerSpawnX = playerSpawnX;
-        this.playerSpawnY = playerSpawnY;
+        this.playerLastTileX = playerLastTileX;
+        this.playerLastTileY = playerLastTileY;
     }
 
     public Ground[][] getGround() {
@@ -48,20 +48,18 @@ public class LevelMap implements Serializable {
         this.npc = npc;
     }
 
-    public int getPlayerSpawnX() {
-        return playerSpawnX;
+    public int getPlayerLastTileX() {
+        return playerLastTileX;
     }
 
-    public void setPlayerSpawnX(int playerSpawnX) {
-        this.playerSpawnX = playerSpawnX;
+    public int getPlayerLastTileY() {
+        return playerLastTileY;
     }
 
-    public int getPlayerSpawnY() {
-        return playerSpawnY;
-    }
-
-    public void setPlayerSpawnY(int playerSpawnY) {
-        this.playerSpawnY = playerSpawnY;
+    public void setPlayerLastTiles(int x, int y) {
+        //System.out.println("Setting old: "+playerLastTileX+":"+playerLastTileY +" to: "+x+":"+y);
+        this.playerLastTileX = x;
+        this.playerLastTileY = y;
     }
 
     public Item[][] getItems() {

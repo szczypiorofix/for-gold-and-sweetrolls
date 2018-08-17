@@ -17,8 +17,8 @@ public class Player extends Character {
 
     private int playerTurn;
     private float offsetX, offsetY;
-    private int worldMapTileX = 0;
-    private int worldMapTileY = 0;
+    private int lastTileX = 0;
+    private int lastTileY = 0;
     private String currentLevelName;
 
     private Image image;
@@ -63,8 +63,8 @@ public class Player extends Character {
 
         playerTurn = 0;
 
-        setWorldMapTileX(getTileX());
-        setWorldMapTileY(getTileY());
+        setLastTileX(getTileX());
+        setLastTileY(getTileY());
 
         actionHistory = new ActionHistory();
 
@@ -100,8 +100,8 @@ public class Player extends Character {
         timeCounter.nextTurn();
 
         if (playerState == PlayerState.MOVING_WORLD_MAP) {
-            worldMapTileX = getTileX();
-            worldMapTileY = getTileY();
+            lastTileX = getTileX();
+            lastTileY = getTileY();
         }
 
     }
@@ -191,20 +191,20 @@ public class Player extends Character {
         this.playerState = playerState;
     }
 
-    public int getWorldMapTileX() {
-        return worldMapTileX;
+    public int getLastTileX() {
+        return lastTileX;
     }
 
-    public void setWorldMapTileX(int worldMapTileX) {
-        this.worldMapTileX = worldMapTileX;
+    public void setLastTileX(int lastTileX) {
+        this.lastTileX = lastTileX;
     }
 
-    public int getWorldMapTileY() {
-        return worldMapTileY;
+    public int getLastTileY() {
+        return lastTileY;
     }
 
-    public void setWorldMapTileY(int worldMapTileY) {
-        this.worldMapTileY = worldMapTileY;
+    public void setLastTileY(int lastTileY) {
+        this.lastTileY = lastTileY;
     }
 
     public String getCurrentLevelName() {

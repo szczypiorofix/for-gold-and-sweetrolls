@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="2018.07.13" orientation="orthogonal" renderorder="left-up" width="35" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="4">
+<map version="1.0" tiledversion="2018.08.06" orientation="orthogonal" renderorder="left-up" width="35" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="7">
  <tileset firstgid="1" source="dg_grounds32.tsx"/>
  <tileset firstgid="172" source="dg_features32.tsx"/>
  <tileset firstgid="289" source="dg_town332.tsx"/>
@@ -46,6 +46,7 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup id="7" name="items" offsetx="0" offsety="32"/>
  <objectgroup id="3" name="npc" offsetx="0" offsety="32">
   <object id="3" template="npc.tx" x="192" y="672">
    <properties>
@@ -53,6 +54,26 @@
     <property name="longTalk" type="bool" value="false"/>
     <property name="maxhealth" type="int" value="150"/>
     <property name="name" value="Strażnik"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="6" name="places" offsetx="0" offsety="32">
+  <object id="4" template="place.tx" gid="7" x="0" y="576">
+   <properties>
+    <property name="filename" value="worldmap.tmx"/>
+    <property name="name" value="Mapa główna"/>
+   </properties>
+  </object>
+  <object id="5" template="place.tx" gid="7" x="0" y="608">
+   <properties>
+    <property name="filename" value="worldmap.tmx"/>
+    <property name="name" value="Mapa główna"/>
+   </properties>
+  </object>
+  <object id="6" template="place.tx" gid="7" x="0" y="640">
+   <properties>
+    <property name="filename" value="worldmap.tmx"/>
+    <property name="name" value="Mapa główna"/>
    </properties>
   </object>
  </objectgroup>

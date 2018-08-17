@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="2018.08.06" orientation="orthogonal" renderorder="left-up" width="25" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="10">
+<map version="1.0" tiledversion="2018.08.06" orientation="orthogonal" renderorder="left-up" width="25" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="14">
  <tileset firstgid="1" source="dg_grounds32.tsx"/>
  <tileset firstgid="172" source="dg_extra132.tsx"/>
  <tileset firstgid="316" source="dg_people32.tsx"/>
  <tileset firstgid="328" source="dg_humans32.tsx"/>
+ <tileset firstgid="370" source="dg_town332.tsx"/>
+ <tileset firstgid="406" source="dg_misc32.tsx"/>
  <layer id="4" name="ground" width="25" height="25">
   <data encoding="csv">
 277,277,277,277,277,277,277,277,277,277,277,277,277,277,277,277,277,277,277,277,277,277,277,277,277,
@@ -40,33 +42,65 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup id="5" name="items" offsetx="0" offsety="32"/>
  <objectgroup id="3" name="npc" offsetx="0" offsety="32">
   <object id="2" template="npc.tx" name="Todd" gid="317" x="224" y="320">
    <properties>
-    <property name="commonname" value="Dziwna postać"/>
+    <property name="longTalk" type="bool" value="true"/>
+    <property name="maxhealth" type="int" value="150"/>
     <property name="name" value="Todd Howard"/>
+    <property name="type" value="villager"/>
    </properties>
   </object>
-  <object id="3" template="npc.tx" name="Pete" gid="321" x="576" y="320">
+  <object id="3" template="npc.tx" name="Pete" gid="321" x="544" y="608">
    <properties>
-    <property name="commonname" value="Mieszkaniec"/>
+    <property name="longTalk" type="bool" value="true"/>
+    <property name="maxhealth" type="int" value="150"/>
     <property name="name" value="Pete Hines"/>
+    <property name="type" value="villager"/>
    </properties>
   </object>
   <object id="8" template="npc.tx" name="Strażnik" type="guard" gid="349" x="64" y="256">
    <properties>
-    <property name="commonname" value="Strażnik"/>
     <property name="longTalk" type="bool" value="false"/>
+    <property name="maxhealth" type="int" value="250"/>
     <property name="name" value="Strażnik"/>
+    <property name="type" value="guard"/>
    </properties>
   </object>
   <object id="9" template="npc.tx" name="Strażnik" type="guard" gid="349" x="64" y="384">
    <properties>
-    <property name="commonname" value="Strażnik"/>
     <property name="longTalk" type="bool" value="false"/>
+    <property name="maxhealth" type="int" value="250"/>
     <property name="name" value="Strażnik"/>
+    <property name="type" value="guard"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="5" name="items" offsetx="0" offsety="32"/>
+ <objectgroup id="6" name="places" offsetx="0" offsety="32">
+  <object id="10" template="place.tx" gid="268" x="448" y="160">
+   <properties>
+    <property name="filename" value="croydon-sklep1.tmx"/>
+    <property name="name" value="Croydon-Sklep1"/>
+   </properties>
+  </object>
+  <object id="11" template="place.tx" gid="7" x="0" y="288">
+   <properties>
+    <property name="filename" value="worldmap.tmx"/>
+    <property name="name" value="Mapa główna"/>
+   </properties>
+  </object>
+  <object id="12" template="place.tx" gid="7" x="0" y="320">
+   <properties>
+    <property name="filename" value="worldmap.tmx"/>
+    <property name="name" value="Mapa główna"/>
+   </properties>
+  </object>
+  <object id="13" template="place.tx" gid="7" x="0" y="352">
+   <properties>
+    <property name="filename" value="worldmap.tmx"/>
+    <property name="name" value="Mapa główna"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

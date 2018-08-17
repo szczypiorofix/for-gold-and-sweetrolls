@@ -3,10 +3,10 @@
  <tileset firstgid="1" source="dg_people32.tsx"/>
  <object name="npc" type="npc" gid="1" width="32" height="32">
   <properties>
-   <property name="commonname" value="NPC_commonname"/>
-   <property name="longTalk" type="bool" value="true"/>
+   <property name="longTalk" type="bool" value="false"/>
    <property name="maxhealth" type="int" value="100"/>
    <property name="name" value="NPC_name"/>
+   <property name="type" value="NPC_type"/>
   </properties>
  </object>
 </template>

@@ -1,5 +1,6 @@
 package com.szczypiorofix.sweetrolls.game.objects.item;
 
+import com.szczypiorofix.sweetrolls.game.enums.ItemType;
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
 import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
@@ -19,10 +20,8 @@ public class Item extends GameObject {
     private String type;
     private int armorRatio;
     private int damageRatio;
+    private ItemType itemType;
 
-    public Item(String name, float x, float y, float width, float height, ObjectType objectType, ArrayList<Property> properties) {
-        super(name, x, y, width, height, objectType, properties);
-    }
 
     public Item(String name, float x, float y, float width, float height, Image image, ObjectType objectType, String type, ArrayList<Property> properties) {
         super(name, x, y, width, height, objectType, properties);
@@ -33,6 +32,26 @@ public class Item extends GameObject {
         this.pickable = getBooleanProperty("pickable");
         armorRatio = 1;
         damageRatio = 1;
+        this.itemType = estimateItemType(getStringProperty("type"));
+    }
+
+    private ItemType estimateItemType(String type) {
+        ItemType it = ItemType.DEFAULT;
+        if (type.equalsIgnoreCase("dagger")) it = ItemType.DAGGER;
+        else if (type.equalsIgnoreCase("sword")) it = ItemType.SWORD;
+        else if (type.equalsIgnoreCase("axe")) it = ItemType.AXE;
+        else if (type.equalsIgnoreCase("hammer")) it = ItemType.HAMMER;
+        else if (type.equalsIgnoreCase("boots")) it = ItemType.ARMOR_BOOTS;
+        else if (type.equalsIgnoreCase("armor_chest")) it = ItemType.ARMOR_CHEST;
+        else if (type.equalsIgnoreCase("armor_gloves")) it = ItemType.ARMOR_GLOVES;
+        else if (type.equalsIgnoreCase("armor_helmet")) it = ItemType.ARMOR_HELMET;
+        else if (type.equalsIgnoreCase("armor_shield")) it = ItemType.ARMOR_SHIELD;
+        else if (type.equalsIgnoreCase("robe")) it = ItemType.ROBE;
+        else if (type.equalsIgnoreCase("chest")) it = ItemType.CHEST;
+        else if (type.equalsIgnoreCase("potion")) it = ItemType.POTION;
+        else if (type.equalsIgnoreCase("gold")) it = ItemType.GOLD;
+        else if (type.equalsIgnoreCase("scroll")) it = ItemType.SCROLL;
+        return it;
     }
 
     @Override
@@ -49,14 +68,8 @@ public class Item extends GameObject {
     }
 
     @Override
-    public void turn() {
+    public void turn() {}
 
-    }
-
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
 
     public Image getImage() {
         return image;
@@ -84,5 +97,9 @@ public class Item extends GameObject {
 
     public int getDamageRatio() {
         return damageRatio;
+    }
+
+    public ItemType getItemType() {
+        return itemType;
     }
 }

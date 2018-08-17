@@ -111,9 +111,10 @@ public class LevelGenerator {
 
         //placePlayerOnMap(map);
         playerVector = placeOnMap(map);
+        System.out.println(playerVector.x / TILEWIDTH+":"+playerVector.y / TILEHEIGHT);
 
         itemVector = placeOnMap(map);
-        System.out.println(itemVector.x / TILEWIDTH+":"+itemVector.y / TILEHEIGHT);
+        //System.out.println(itemVector.x / TILEWIDTH+":"+itemVector.y / TILEHEIGHT);
 
         exitVector.x = playerVector.x;
         exitVector.y = playerVector.y;
@@ -158,7 +159,7 @@ public class LevelGenerator {
 
         // ############# EXIT
         if (wallsCollidable) {
-            ObjectGroup exitObjectGroup = new ObjectGroup("dungeonexit");
+            ObjectGroup exitObjectGroup = new ObjectGroup("exit");
             ObjectGroupObject exitObject = new ObjectGroupObject(
                     2,
                     "",
@@ -195,8 +196,9 @@ public class LevelGenerator {
         Vector v = new Vector();
         boolean exitSet = false;
         do {
-            v.x = MainClass.RANDOM.nextInt(map.length);
-            v.y = MainClass.RANDOM.nextInt(map[0].length);
+            // TODO - haxxxxx !!!!
+            v.x = MainClass.RANDOM.nextInt(map.length - 8);
+            v.y = MainClass.RANDOM.nextInt(map[0].length - 8);
             if (map[v.x][v.y].getGid() == emptyFieldGid) exitSet = true;
         } while(!exitSet);
         v.multiply(TILEWIDTH, TILEHEIGHT);

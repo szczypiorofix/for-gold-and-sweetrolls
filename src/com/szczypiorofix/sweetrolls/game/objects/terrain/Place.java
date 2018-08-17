@@ -1,23 +1,27 @@
-package com.szczypiorofix.sweetrolls.game.objects.item;
+package com.szczypiorofix.sweetrolls.game.objects.terrain;
 
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
 import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
+import com.szczypiorofix.sweetrolls.game.objects.GameObject;
 import com.szczypiorofix.sweetrolls.game.tilemap.Property;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 
 import java.util.ArrayList;
 
-public class Place extends Item {
+public class Place extends GameObject {
 
     private BitMapFont font;
+    private Image image;
+    private String type;
 
     public Place(String name, int x, int y, int width, int height, Image image, String type, ArrayList<Property> properties) {
-        super(name, x, y, width, height, image, ObjectType.PLACE, type, properties);
+        super(name, x, y, width, height, ObjectType.PLACE, properties);
         font = FontParser.getFont("Immortal HUD Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
         font.setSize(4.5f);
+        this.type = type;
+        this.image = image;
     }
 
     @Override
@@ -36,5 +40,9 @@ public class Place extends Item {
     @Override
     public void turn() {
 
+    }
+
+    public String getType() {
+        return type;
     }
 }

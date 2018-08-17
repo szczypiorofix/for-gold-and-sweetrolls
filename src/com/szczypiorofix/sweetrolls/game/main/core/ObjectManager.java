@@ -7,7 +7,7 @@ import com.szczypiorofix.sweetrolls.game.objects.GameObject;
 import com.szczypiorofix.sweetrolls.game.objects.characters.NPC;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import com.szczypiorofix.sweetrolls.game.objects.item.Item;
-import com.szczypiorofix.sweetrolls.game.objects.item.Place;
+import com.szczypiorofix.sweetrolls.game.objects.terrain.Place;
 import com.szczypiorofix.sweetrolls.game.objects.terrain.Ground;
 import com.szczypiorofix.sweetrolls.game.tilemap.CollisionObject;
 import com.szczypiorofix.sweetrolls.game.tilemap.ObjectGroupObject;
@@ -68,9 +68,9 @@ public class ObjectManager {
                             playerObject.getProperties());
 
                 } else {
-                    if (levelName.equalsIgnoreCase(FGAS_Game.WORLD_MAP_NAME)) {
-                        player.setX(player.getWorldMapTileX() * level.getTileWidth());
-                        player.setY(player.getWorldMapTileY() * level.getTileWidth());
+                    if (levelMaps.containsKey(levelName)) {
+                        player.setX(levelMaps.get(levelName).getPlayerLastTileX() * tileMap.getWidth());
+                        player.setY(levelMaps.get(levelName).getPlayerLastTileY() * tileMap.getHeight());
                     } else {
                         player.setX(playerObject.getX());
                         player.setY(playerObject.getY());
@@ -79,39 +79,39 @@ public class ObjectManager {
             }
 
             // ######## DUNGEON EXIT
-            if (tileMap.getObjectGroups().get(objectGroups).getName().equals("dungeonexit")) {
-                int tileSet;
-                for (int item = 0; item < tileMap.getObjectGroups().get(objectGroups).getObjects().size(); item++) {
-
-                    ObjectGroupObject currentItem = tileMap.getObjectGroups().get(objectGroups).getObjects().get(item);
-                    tileSet = 0;
-                    while (currentItem.getGid() >
-                            tileMap.getTileSets().get(tileSet).getFirstGid() + tileMap.getTileSets().get(tileSet).getTileCount() - (tileSet + 1)
-                            ) {
-                        tileSet++;
-                    }
-
-                    places[currentItem.getX() / tileMap.getTileWidth()]
-                            [currentItem.getY() / tileMap.getTileHeight()] =
-                            new Place(
-                                    currentItem.getStringProperty("name").equalsIgnoreCase("null")
-                                            ? currentItem.getName()
-                                            : currentItem.getStringProperty("name"),
-                                    currentItem.getX(),
-                                    currentItem.getY(),
-                                    currentItem.getWidth(),
-                                    currentItem.getHeight(),
-                                    currentItem.getGid() >= 0 ?
-                                            tileMap.getTileSets().get(tileSet).getImageSprite(
-                                                    currentItem.getGid()
-                                                            - tileMap.getTileSets().get(tileSet).getFirstGid()
-                                            )
-                                            : null,
-                                    currentItem.getType(),
-                                    currentItem.getProperties()
-                            );
-                }
-            }
+//            if (tileMap.getObjectGroups().get(objectGroups).getName().equals("exit")) {
+//                int tileSet;
+//                for (int item = 0; item < tileMap.getObjectGroups().get(objectGroups).getObjects().size(); item++) {
+//
+//                    ObjectGroupObject currentItem = tileMap.getObjectGroups().get(objectGroups).getObjects().get(item);
+//                    tileSet = 0;
+//                    while (currentItem.getGid() >
+//                            tileMap.getTileSets().get(tileSet).getFirstGid() + tileMap.getTileSets().get(tileSet).getTileCount() - (tileSet + 1)
+//                            ) {
+//                        tileSet++;
+//                    }
+//
+//                    places[currentItem.getX() / tileMap.getTileWidth()]
+//                            [currentItem.getY() / tileMap.getTileHeight()] =
+//                            new Place(
+//                                    currentItem.getStringProperty("name").equalsIgnoreCase("null")
+//                                            ? currentItem.getName()
+//                                            : currentItem.getStringProperty("name"),
+//                                    currentItem.getX(),
+//                                    currentItem.getY(),
+//                                    currentItem.getWidth(),
+//                                    currentItem.getHeight(),
+//                                    currentItem.getGid() >= 0 ?
+//                                            tileMap.getTileSets().get(tileSet).getImageSprite(
+//                                                    currentItem.getGid()
+//                                                            - tileMap.getTileSets().get(tileSet).getFirstGid()
+//                                            )
+//                                            : null,
+//                                    currentItem.getType(),
+//                                    currentItem.getProperties()
+//                            );
+//                }
+//            }
 
             // ######## ITEMS
             if (tileMap.getObjectGroups().get(objectGroups).getName().equals("items")) {
@@ -265,8 +265,14 @@ public class ObjectManager {
             }
         }
 
-        levelMaps.put(levelName, new LevelMap(grounds, places, npcs, items, (int) player.getX(), (int) player.getY()));
+        levelMaps.put(levelName, new LevelMap(grounds, places, npcs, items, player.getTileX(), player.getTileY()));
     }
+
+    public void setLevelPlayerLastXY(String levelName) {
+        this.levelMaps.get(levelName).setPlayerLastTiles(player.getTileX(), player.getLastTileY());
+        //System.out.println(levelMaps.get(levelName).getPlayerLastTileX()+":"+levelMaps.get(levelName).getPlayerLastTileY());
+    }
+
 
     public void setLevel(TileMap tileMap, String levelName) {
 
@@ -284,14 +290,6 @@ public class ObjectManager {
         places = levelMaps.get(levelName).getPlaces();
         npcs = levelMaps.get(levelName).getNpc();
         items = levelMaps.get(levelName).getItems();
-
-        if (!levelName.equalsIgnoreCase(FGAS_Game.WORLD_MAP_NAME)) {
-            player.setX(levelMaps.get(levelName).getPlayerSpawnX());
-            player.setY(levelMaps.get(levelName).getPlayerSpawnY());
-        } else {
-            player.setX(player.getWorldMapTileX() * tileMap.getTileWidth());
-            player.setY(player.getWorldMapTileY() * tileMap.getTileHeight());
-        }
 
         // SET PLAYER'S INITIAL GROUND TILE
         player.setTerrainType(grounds[player.getTileX()][player.getTileY()].getObjectType());
@@ -450,6 +448,8 @@ public class ObjectManager {
     public int getTilesToSouth() {
         return tilesToSouth;
     }
+
+
 
 
     //    private void graczSwieci(int x,  int y, int sila) {
