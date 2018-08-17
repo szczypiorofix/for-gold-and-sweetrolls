@@ -142,5 +142,9 @@ public class MainMenuControlls extends GameObject {
     public String getDefaultText() {
         return defaultText;
     }
+
+    public ControlType getControlType() {
+        return controlType;
+    }
 }
 

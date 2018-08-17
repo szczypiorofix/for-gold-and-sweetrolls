@@ -2,6 +2,7 @@ package com.szczypiorofix.sweetrolls.game.gui;
 
 import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
 import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
+import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
 import com.szczypiorofix.sweetrolls.game.objects.characters.NPC;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import org.newdawn.slick.*;
@@ -13,6 +14,7 @@ public class DialogueFrame {
     private MouseCursor mouseCursor;
     private boolean showDialog = false;
     private BitMapFont fontS, fontL;
+    private Image dialogueFrame;
 
     public DialogueFrame() {
     }
@@ -25,6 +27,7 @@ public class DialogueFrame {
         fontS.setSize(4.5f);
         fontL = FontParser.getFont("Immortal NPC L Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
         fontL.setSize(5.5f);
+        dialogueFrame = Textures.getInstance().dialogueFrame;
     }
 
     public void update(GameContainer gc, int delta, float offsetX, float offsetY) {
@@ -50,9 +53,10 @@ public class DialogueFrame {
 
     public void render(Graphics g) throws SlickException {
         if (showDialog) {
-            Color c = g.getColor();
-            g.setColor(new Color(0.1f, 0.1f, 0.1f, 0.9f));
-            g.fillRect(0, 300, 560, 290);
+//            Color c = g.getColor();
+//            g.setColor(new Color(0.1f, 0.1f, 0.1f, 0.9f));
+//            g.fillRect(0, 300, 560, 290);
+            dialogueFrame.draw(10, 300);
 
             fontS.draw(npc.getName()+" :", 30, 310);
             fontL.draw(npc.getDialogue().
@@ -63,7 +67,7 @@ public class DialogueFrame {
                 npc.getDialogue().getDialogues().get(npc.getDialogue().getCurrentDialogueState()).getButtons().get(i).render(g, 0, 0);
             }
 
-            g.setColor(c);
+            //g.setColor(c);
         }
     }
 

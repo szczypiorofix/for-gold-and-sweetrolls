@@ -1,15 +1,13 @@
 package com.szczypiorofix.sweetrolls.game.main.states;
 
 import com.szczypiorofix.sweetrolls.game.enums.GameState;
-import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.gui.MainMenuButton;
 import com.szczypiorofix.sweetrolls.game.gui.MainMenuControlls;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
 import com.szczypiorofix.sweetrolls.game.main.core.ConfigManager;
 import com.szczypiorofix.sweetrolls.game.main.core.Configuration;
 import com.szczypiorofix.sweetrolls.game.main.core.ObjectManager;
-import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
-import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
+import com.szczypiorofix.sweetrolls.game.objects.terrain.Ground;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.*;
 import org.newdawn.slick.Graphics;
@@ -22,13 +20,15 @@ public class FGAS_MainMenu {
 
     private Input input;
     private Image mainMenuBackground;
+    private Image mainMenuBackgroundShade;
     private Image optionsGui;
+    private Image logoTitle;
     private MainMenuButton[] menuButtons;
     private MainMenuControlls[] settingControlls;
     private MouseCursor mouseCursor;
-    private BitMapFont titleFont;
     private ForGoldAndSweetrolls forGoldAndSweetrolls;
     private ObjectManager objectManager;
+    private Ground[][] mainMenuMovingBackground;
 
     private int windowWidth, windowHeight;
     private int selectedGameWidth, selectedGameHeight;
@@ -56,21 +56,25 @@ public class FGAS_MainMenu {
         this.config = config;
         this.modes = modes;
 
+        setSettingsToDeclared();
+
+        offsetX = initialOffsetX;
+        offsetY = initialOffsetY;
+    }
+
+    private void setSettingsToDeclared() {
         selectedFullScreen = config.fullScreen;
         selectedGameWidth = config.gameWidth;
         selectedGameHeight = config.gameHeight;
         selectedVSync = config.vsync;
         selectedMusicVolume = config.musicVolume;
         selectedShowFPS = config.showFps;
-
         for(int i = 0; i < modes.size(); i++) {
             if (modes.get(i).getWidth() == selectedGameWidth && modes.get(i).getHeight() == selectedGameHeight) {
                 selectedMode = i;
                 break;
             }
         }
-        offsetX = initialOffsetX;
-        offsetY = initialOffsetY;
     }
 
     public void init(GameContainer gc, Input input, MouseCursor mouseCursor) throws SlickException {
@@ -80,17 +84,17 @@ public class FGAS_MainMenu {
         this.mouseCursor = mouseCursor;
         this.input = input;
 
-        //sfx1 = new SFX("sword-unsheathe.ogg");
-
         // https://opengameart.org/content/heroic-minority
 //        Music mainMenuMusic = new Music("music/menu-music.ogg");
 //        mainMenuMusic.play();
 
 
         mainMenuBackground = new Image("assets/mm-gui-background.png");
+        mainMenuBackgroundShade = new Image("assets/mm-background-shade.png");
+
+        logoTitle = new Image("assets/logo-title.png");
+
         optionsGui = new Image("assets/mm-gui-options.png");
-        titleFont = FontParser.getFont("Immortal Bitmap Title Font", "immortal-bitmap.xml", "immortal-bitmap.png");
-        titleFont.setSize(15f);
 
         menuButtons = new MainMenuButton[4];
 
@@ -101,29 +105,29 @@ public class FGAS_MainMenu {
         // ############ USTAWIENIA
         settingControlls = new MainMenuControlls[12];
 
-        settingControlls[0] = new MainMenuControlls(MainMenuControlls.ControlType.OK, "OK", false,365, 350, 32, 32);
-        settingControlls[1] = new MainMenuControlls(MainMenuControlls.ControlType.CANCEL, "Cancel", false,410, 350, 32, 32);
-        settingControlls[2] = new MainMenuControlls(MainMenuControlls.ControlType.LEF_ARROW,  "Left arrow", false,300, 190, 32, 32);
-        settingControlls[3] = new MainMenuControlls(MainMenuControlls.ControlType.RIGHT_ARROW, "Right arrow", false, 480, 190, 32, 32);
+        settingControlls[0] = new MainMenuControlls(MainMenuControlls.ControlType.OK, "OK", false,385, 400, 32, 32);
+        settingControlls[1] = new MainMenuControlls(MainMenuControlls.ControlType.CANCEL, "Cancel", false,430, 400, 32, 32);
+        settingControlls[2] = new MainMenuControlls(MainMenuControlls.ControlType.LEF_ARROW,  "Left arrow", false,310, 190, 32, 32);
+        settingControlls[3] = new MainMenuControlls(MainMenuControlls.ControlType.RIGHT_ARROW, "Right arrow", false, 490, 190, 32, 32);
 
-        settingControlls[4] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Rozdzielczość", false, 345, 170, 32, 32);
-        settingControlls[5] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, selectedGameWidth+"x"+selectedGameHeight, false, 360, 195, 32, 32);
+        settingControlls[4] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Rozdzielczość", false, 355, 170, 32, 32);
+        settingControlls[5] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, selectedGameWidth+"x"+selectedGameHeight, false, 380, 195, 32, 32);
 
-        settingControlls[6] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Full screen", false, 340, 232, 32, 32);
-        settingControlls[7] = new MainMenuControlls(MainMenuControlls.ControlType.CHECK_BOX, "Full screen checkbox", selectedFullScreen, 460, 230, 32, 32);
+        settingControlls[6] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Full screen", false, 360, 234, 32, 32);
+        settingControlls[7] = new MainMenuControlls(MainMenuControlls.ControlType.CHECK_BOX, "Full screen checkbox", selectedFullScreen, 470, 230, 32, 32);
 
-        settingControlls[8] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "v-sync", false, 340, 272, 32, 32);
-        settingControlls[9] = new MainMenuControlls(MainMenuControlls.ControlType.CHECK_BOX, "V-Sync checkbox", selectedVSync, 460, 270, 32, 32);
+        settingControlls[8] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "v-sync", false, 360, 274, 32, 32);
+        settingControlls[9] = new MainMenuControlls(MainMenuControlls.ControlType.CHECK_BOX, "V-Sync checkbox", selectedVSync, 470, 270, 32, 32);
 
-        settingControlls[10] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "FPS", false, 340, 312, 32, 32);
-        settingControlls[11] = new MainMenuControlls(MainMenuControlls.ControlType.CHECK_BOX, "FPS show checkbox", selectedVSync, 460, 310, 32, 32);
+        settingControlls[10] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "FPS", false, 360, 314, 32, 32);
+        settingControlls[11] = new MainMenuControlls(MainMenuControlls.ControlType.CHECK_BOX, "FPS show checkbox", selectedShowFPS, 470, 310, 32, 32);
 
 
         // ############ PRZYCISKI
-        menuButtons[0] = new MainMenuButton("NOWA GRA", (gc.getWidth() / 2) - (128 / 2), 200, 128, 32);
-        menuButtons[1] = new MainMenuButton("USTAWIENIA", (gc.getWidth() / 2) - (128 / 2), 240, 128, 32);
-        menuButtons[2] = new MainMenuButton("POMOC", (gc.getWidth() / 2) - (128 / 2), 280, 128, 32);
-        menuButtons[3] = new MainMenuButton("KONIEC", (gc.getWidth() / 2) - (128 / 2), 320, 128, 32);
+        menuButtons[0] = new MainMenuButton("KONTYNUUJ", 140, 520, 128, 32);
+        menuButtons[1] = new MainMenuButton("NOWA GRA", 280, 520, 128, 32);
+        menuButtons[2] = new MainMenuButton("USTAWIENIA", 420, 520, 128, 32);
+        menuButtons[3] = new MainMenuButton("KONIEC", 560, 520, 128, 32);
 
         // https://opengameart.org/content/dwarven-cursor
     }
@@ -138,21 +142,23 @@ public class FGAS_MainMenu {
         offsetX += 0.08f * delta;
         offsetY += 0.08f * delta;
 
+        // INITIAL RESOLUTION CHANGE
         if (!settingsLoaded) {
             AppGameContainer gameContainer = (AppGameContainer) gc;
             gameContainer.setDisplayMode(selectedGameWidth, selectedGameHeight, selectedFullScreen);
             settingsLoaded = true;
             objectManager = forGoldAndSweetrolls.getFGASGame().getObjectManager();
+            mainMenuMovingBackground = new Ground[objectManager.getGrounds().length][objectManager.getGrounds()[0].length];
+            for (int i = 0; i < objectManager.getGrounds().length; i++) {
+                for (int j = 0; j < objectManager.getGrounds()[0].length; j++) {
+                    mainMenuMovingBackground[i][j] = objectManager.getGrounds()[i][j];
+                }
+            }
         }
 
         mouseCursor.update(delta, 0, 0);
 
         if (!showSettings) {
-
-            selectedFullScreen = config.fullScreen;
-            selectedGameWidth = config.gameWidth;
-            selectedGameHeight = config.gameHeight;
-
             for(int i = 0; i < menuButtons.length; i++) {
                 if (mouseCursor.intersects(menuButtons[i])) {
                     menuButtons[i].setHover(true);
@@ -164,7 +170,12 @@ public class FGAS_MainMenu {
                                 forGoldAndSweetrolls.setGameState(GameState.GAME);
                                 break;
                             }
-                            case 1: {
+                            case 2: {
+                                settingControlls[5].setText(config.gameWidth+"x"+config.gameHeight);
+                                settingControlls[7].setChecked(config.fullScreen);
+                                settingControlls[9].setChecked(config.vsync);
+                                settingControlls[11].setChecked(config.showFps);
+
                                 showSettings = true;
                                 break;
                             }
@@ -189,21 +200,24 @@ public class FGAS_MainMenu {
                                 config.gameHeight = selectedGameHeight;
                                 config.fullScreen = selectedFullScreen;
                                 config.vsync = selectedVSync;
-                                AppGameContainer gameContainer = (AppGameContainer) gc;
-                                gameContainer.setDisplayMode(selectedGameWidth, selectedGameHeight, selectedFullScreen);
-                                gameContainer.setVSync(selectedVSync);
-                                gameContainer.setShowFPS(selectedShowFPS);
+                                config.showFps = selectedShowFPS;
+                                config.musicVolume = selectedMusicVolume;
 
-                                showSettings = false;
+                                AppGameContainer gameContainer = (AppGameContainer) gc;
+                                gameContainer.setDisplayMode(config.gameWidth, config.gameHeight, config.fullScreen);
+                                gameContainer.setVSync(config.vsync);
+                                gameContainer.setShowFPS(config.showFps);
+
                                 ConfigManager configManager = new ConfigManager();
                                 configManager.saveToFile(config);
+
+                                showSettings = false;
                                 break;
                             }
                             case 1: {
                                 // RESET CONTROLLS
-                                for (MainMenuControlls settingControll : settingControlls) {
-                                    settingControll.reset();
-                                }
+                                setSettingsToDeclared();
+
                                 showSettings = false;
                                 break;
                             }
@@ -257,31 +271,24 @@ public class FGAS_MainMenu {
 
         }
 
-//        if (input.isKeyPressed(Input.KEY_ENTER)) {
-//            sfx1.play();
-//        }
-
-
     }
 
     public void render(GameContainer gc, Graphics g) throws SlickException {
 
-        if (objectManager != null) {
+        if (mainMenuMovingBackground != null) {
             for (int i = 0; i < 26; i++) {
                 for (int j = 0; j < 20; j++) {
-                    objectManager.getGrounds()[i + ((int) (offsetX / 32))][j + ((int) (offsetY / 32))].render(g, offsetX, offsetY);
+                    mainMenuMovingBackground[i + ((int) (offsetX / 32))][j + ((int) (offsetY / 32))].render(g, offsetX, offsetY);
                 }
             }
         }
 
         // #### LITTLE SHADE ON MAP
-        Color c = g.getColor();
-        g.setColor(new Color(0.2f, 0.1f, 0.15f, 0.6f));
-        g.fillRect(0, 0, 800, 600);
-        g.setColor(c);
+        mainMenuBackgroundShade.draw(0, 0);
+
         mainMenuBackground.draw(0, 0);
 
-        titleFont.draw("For Gold and Sweetrolls", 70, 50);
+        logoTitle.draw(245, 60);
 
         for(MainMenuButton m: menuButtons) {
             m.render(g, 0 ,0);

@@ -1,6 +1,7 @@
 package com.szczypiorofix.sweetrolls.game.main.graphics;
 
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet;
 
 import java.util.logging.Level;
@@ -14,6 +15,7 @@ public class Textures {
 
     public SpriteSheet mainMenuMainButtons = null;
     public SpriteSheet mainMenuControlls = null;
+    public Image dialogueFrame = null;
 
     private Textures() {
         MainClass.logging(false, Level.INFO, "Ładowanie tekstur i obrazów...");
@@ -22,6 +24,7 @@ public class Textures {
             classm32 = new SpriteSheet("map/dg_classm32.png", 32, 32);
             mainMenuMainButtons = new SpriteSheet("assets/mm-gui-button.png", 128, 32);
             mainMenuControlls = new SpriteSheet("assets/mm-gui-controlls.png", 32, 32);
+            dialogueFrame = new Image("assets/dialogue-frame.png");
             MainClass.logging(false, Level.INFO, "Tekstury i obrazy załadowane");
         } catch (Exception e) {
             e.printStackTrace();

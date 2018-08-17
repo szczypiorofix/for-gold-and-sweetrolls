@@ -38,6 +38,8 @@ public final class ForGoldAndSweetrolls extends BasicGame {
         input = gc.getInput();
 
         gameMusic = new Music("music/ex-11-towards_heaven_2017.xm");
+
+        // https://modarchive.org/index.php?request=view_by_moduleid&query=59256  - 0rigin.xm
         mainMenuMusic = new Music("music/mm-0rigin.xm");
 
         mainMenuMusic.loop(1f, musicVolume);
@@ -60,9 +62,7 @@ public final class ForGoldAndSweetrolls extends BasicGame {
 
         if (gameState == GameState.MAIN_MENU) {
             FGASMainMenu.update(gc, delta);
-        }
-
-        if (gameState == GameState.GAME) {
+        } else if (gameState == GameState.GAME) {
             FGASGame.handleInputs(gc, delta);
             FGASGame.handleLogic(gc, delta);
         }

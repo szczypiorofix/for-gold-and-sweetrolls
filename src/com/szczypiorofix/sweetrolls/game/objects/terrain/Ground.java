@@ -15,8 +15,7 @@ public class Ground extends GameObject {
         super(name, x, y, width, height);
         this.image = image;
         this.visible = visible;
-        //this.image.setFilter(Image.FILTER_LINEAR);
-
+        //this.image.setFilter(Image.FILTER_NEAREST);
     }
 
 
@@ -81,4 +80,5 @@ public class Ground extends GameObject {
         }
         return c;
     }
+
 }

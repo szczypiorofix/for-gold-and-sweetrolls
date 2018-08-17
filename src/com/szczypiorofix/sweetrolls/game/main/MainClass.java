@@ -99,7 +99,7 @@ public final class MainClass {
             app.setDisplayMode(initialGameWidth, initialGameHeight, config.fullScreen);
             //app.setTargetFrameRate(60);
             app.setVSync(config.vsync);
-            app.setShowFPS(true);
+            app.setShowFPS(config.showFps);
             app.setUpdateOnlyWhenVisible(true);
             app.start();
         } catch (Exception e) {
