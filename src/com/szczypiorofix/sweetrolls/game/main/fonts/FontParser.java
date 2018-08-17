@@ -8,20 +8,23 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.InputStream;
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 
 public class FontParser {
 
-    private static BitMapFont bitMapFont;
-    private static HashSet<String> fonts;
+    private static HashMap<String, BitMapFont> fonts;
 
-    private FontParser(String fontName, String xmlFontName, String pngFontName) {
-        bitMapFont = new BitMapFont(fontName);
+
+    private static BitMapFont getBitMapFont(String fontName, String xmlFontName, String pngFontName) {
+        BitMapFont bitMapFont = new BitMapFont(fontName);
         bitMapFont.setFontImage(pngFontName);
 
+        System.out.println("Rejestracja nowego fontu: "+fontName+", "+xmlFontName);
+
         try {
-            InputStream in = getClass().getResourceAsStream("/fonts/"+xmlFontName);
+            InputStream in = FontParser.class.getResourceAsStream("/fonts/"+xmlFontName);
             //File inputFile = new File(MainClass.RES + "fonts/" + xmlFontName);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -60,17 +63,19 @@ public class FontParser {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return bitMapFont;
     }
 
     public static BitMapFont getFont(String fontName, String xmlFontName, String pngFontName) {
+        BitMapFont font;
         if (fonts == null) {
-            fonts = new HashSet<>();
+            fonts = new HashMap<>();
         }
-        if (!fonts.contains(fontName)) {
-            fonts.add(fontName);
-            new FontParser(fontName, xmlFontName, pngFontName);
-        }
-        return bitMapFont;
+        if (!fonts.containsKey(fontName)) {
+            font = getBitMapFont(fontName, xmlFontName,pngFontName);
+            fonts.put(fontName, font);
+        } else font = fonts.get(fontName);
+        return font;
     }
 
 }

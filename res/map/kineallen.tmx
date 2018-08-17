@@ -58,19 +58,19 @@
   </object>
  </objectgroup>
  <objectgroup id="6" name="places" offsetx="0" offsety="32">
-  <object id="4" template="place.tx" gid="7" x="0" y="576">
+  <object id="4" template="place.tx" gid="260" x="0" y="576">
    <properties>
     <property name="filename" value="worldmap.tmx"/>
     <property name="name" value="Mapa główna"/>
    </properties>
   </object>
-  <object id="5" template="place.tx" gid="7" x="0" y="608">
+  <object id="5" template="place.tx" gid="260" x="0" y="608">
    <properties>
     <property name="filename" value="worldmap.tmx"/>
     <property name="name" value="Mapa główna"/>
    </properties>
   </object>
-  <object id="6" template="place.tx" gid="7" x="0" y="640">
+  <object id="6" template="place.tx" gid="260" x="0" y="640">
    <properties>
     <property name="filename" value="worldmap.tmx"/>
     <property name="name" value="Mapa główna"/>

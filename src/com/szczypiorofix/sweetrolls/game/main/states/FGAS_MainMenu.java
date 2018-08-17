@@ -167,6 +167,7 @@ public class FGAS_MainMenu {
                         switch (i) {
                             case 0: {
                                 input.clearKeyPressedRecord();
+                                forGoldAndSweetrolls.resetGame();
                                 forGoldAndSweetrolls.setGameState(GameState.GAME);
                                 break;
                             }
@@ -259,6 +260,7 @@ public class FGAS_MainMenu {
         }
 
         if (input.isKeyPressed(Input.KEY_SPACE)) {
+            forGoldAndSweetrolls.resetGame();
             forGoldAndSweetrolls.setGameState(GameState.GAME);
         }
 
@@ -267,6 +269,7 @@ public class FGAS_MainMenu {
                 forGoldAndSweetrolls.setGameState(GameState.EXIT);
             } else {
                 showSettings = false;
+                input.clearKeyPressedRecord();
             }
 
         }

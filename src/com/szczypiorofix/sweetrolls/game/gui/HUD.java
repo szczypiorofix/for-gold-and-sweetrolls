@@ -24,8 +24,8 @@ public class HUD {
         } catch (SlickException e) {
             e.printStackTrace();
         }
-        font = FontParser.getFont("Immortal HUD Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
-        font.setSize(4.5f);
+        font = FontParser.getFont("HUD Font", "immortal-bitmap.xml", "immortal-bitmap.png");
+        font.setSize(4.2f);
     }
 
     public void render(GameContainer gc, Graphics g) {

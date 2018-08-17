@@ -269,7 +269,7 @@ public class ObjectManager {
     }
 
     public void setLevelPlayerLastXY(String levelName) {
-        this.levelMaps.get(levelName).setPlayerLastTiles(player.getTileX(), player.getLastTileY());
+        this.levelMaps.get(levelName).setPlayerLastTiles(player.getLastTileX(), player.getLastTileY());
         //System.out.println(levelMaps.get(levelName).getPlayerLastTileX()+":"+levelMaps.get(levelName).getPlayerLastTileY());
     }
 
@@ -290,6 +290,8 @@ public class ObjectManager {
         places = levelMaps.get(levelName).getPlaces();
         npcs = levelMaps.get(levelName).getNpc();
         items = levelMaps.get(levelName).getItems();
+
+        System.out.println("ObjectManager player tiles: " + player.getTileX() +":" +player.getTileY());
 
         // SET PLAYER'S INITIAL GROUND TILE
         player.setTerrainType(grounds[player.getTileX()][player.getTileY()].getObjectType());

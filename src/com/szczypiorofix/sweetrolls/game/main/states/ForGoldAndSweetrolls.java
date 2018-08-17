@@ -6,7 +6,6 @@ import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
 import com.szczypiorofix.sweetrolls.game.main.core.Configuration;
 import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
-import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.*;
 
@@ -18,7 +17,6 @@ public final class ForGoldAndSweetrolls extends BasicGame {
     private Input input;
     private FGAS_Game FGASGame;
     private MouseCursor mouseCursor;
-    private BitMapFont titleFont;
     private FGAS_MainMenu FGASMainMenu;
 
     private GameState gameState;
@@ -43,9 +41,6 @@ public final class ForGoldAndSweetrolls extends BasicGame {
         mainMenuMusic = new Music("music/mm-0rigin.xm");
 
         mainMenuMusic.loop(1f, musicVolume);
-
-        titleFont = FontParser.getFont("Immortal Bitmap Title Font", "immortal-bitmap.xml", "immortal-bitmap.png");
-        titleFont.setSize(4.1f);
 
         // ##################### FONT #####################
         // https://www.fontsquirrel.com/fonts/Immortal
@@ -76,6 +71,7 @@ public final class ForGoldAndSweetrolls extends BasicGame {
 
     @Override
     public void render(GameContainer gc, Graphics g) throws SlickException {
+
         if (gameState == GameState.MAIN_MENU) {
             FGASMainMenu.render(gc, g);
         }
@@ -83,6 +79,10 @@ public final class ForGoldAndSweetrolls extends BasicGame {
             FGASGame.render(gc, g);
         }
 
+    }
+
+    public void resetGame() {
+        FGASGame.restartGame();
     }
 
     public GameState getGameState() {
@@ -94,6 +94,7 @@ public final class ForGoldAndSweetrolls extends BasicGame {
             case MAIN_MENU: {
                 gameMusic.stop();
                 mainMenuMusic.loop(1f, musicVolume);
+
                 break;
             }
             case GAME: {

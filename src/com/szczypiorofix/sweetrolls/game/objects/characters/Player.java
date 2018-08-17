@@ -19,6 +19,8 @@ public class Player extends Character {
     private float offsetX, offsetY;
     private int lastTileX = 0;
     private int lastTileY = 0;
+    private int worldMapTileX = 0;
+    private int worldMapTileY = 0;
     private String currentLevelName;
 
     private Image image;
@@ -129,42 +131,42 @@ public class Player extends Character {
 
     public void moveNorth(int offset) {
         y -= offset;
-        actionHistory.addValue("Kierunek: północ");
+        //actionHistory.addValue("Kierunek: północ");
     }
 
     public void moveSouth(int offset) {
         y += offset;
-        actionHistory.addValue("Kierunek: południe");
+        //actionHistory.addValue("Kierunek: południe");
     }
 
     public void moveWest(int offset) {
         x -= offset;
-        actionHistory.addValue("Kierunek: zachód");
+        //actionHistory.addValue("Kierunek: zachód");
     }
 
     public void moveEast(int offset) {
         x += offset;
-        actionHistory.addValue("Kierunek: wschód");
+        //actionHistory.addValue("Kierunek: wschód");
     }
 
     public void moveNorth() {
         y -= 32;
-        actionHistory.addValue("Kierunek: północ");
+        //actionHistory.addValue("Kierunek: północ");
     }
 
     public void moveSouth() {
         y += 32;
-        actionHistory.addValue("Kierunek: południe");
+        //actionHistory.addValue("Kierunek: południe");
     }
 
     public void moveWest() {
         x -= 32;
-        actionHistory.addValue("Kierunek: zachód");
+        //actionHistory.addValue("Kierunek: zachód");
     }
 
     public void moveEast() {
         x += 32;
-        actionHistory.addValue("Kierunek: wschód");
+        //actionHistory.addValue("Kierunek: wschód");
     }
 
     public int getPlayerTurn() {
@@ -205,6 +207,22 @@ public class Player extends Character {
 
     public void setLastTileY(int lastTileY) {
         this.lastTileY = lastTileY;
+    }
+
+    public int getWorldMapTileX() {
+        return worldMapTileX;
+    }
+
+    public void setWorldMapTileX(int worldMapTileX) {
+        this.worldMapTileX = worldMapTileX;
+    }
+
+    public int getWorldMapTileY() {
+        return worldMapTileY;
+    }
+
+    public void setWorldMapTileY(int worldMapTileY) {
+        this.worldMapTileY = worldMapTileY;
     }
 
     public String getCurrentLevelName() {

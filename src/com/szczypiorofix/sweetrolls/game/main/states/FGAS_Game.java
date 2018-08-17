@@ -19,6 +19,7 @@ import java.util.HashMap;
 
 import static com.szczypiorofix.sweetrolls.game.enums.PlayerAction.INVENTORY;
 import static com.szczypiorofix.sweetrolls.game.enums.PlayerAction.MOVE;
+import static com.szczypiorofix.sweetrolls.game.enums.PlayerState.MOVING_INNER_LOCATION;
 import static com.szczypiorofix.sweetrolls.game.enums.PlayerState.MOVING_WORLD_MAP;
 
 
@@ -27,11 +28,12 @@ import static com.szczypiorofix.sweetrolls.game.enums.PlayerState.MOVING_WORLD_M
  */
 public class FGAS_Game {
 
-    public static final String WORLD_MAP_NAME = "worldmap.tmx";
+    private static final String WORLD_MAP_NAME = "worldmap.tmx";
     private final boolean COLLISIONS_ENABLED = true;
 
     private final LevelManager levelManager = new LevelManager();
-    private final HashMap<String, TileMap> levels = new HashMap<>();
+
+    private HashMap<String, TileMap> levels = new HashMap<>();
 
     private Image worldMapImage;
     private Input input;
@@ -46,7 +48,7 @@ public class FGAS_Game {
 
     private float offsetX, offsetY;
     private int tileWidth, tileHeight;
-    private int mapWidth, mapHeight;
+    //private int mapWidth, mapHeight;
     private int gameWidth, gameHeight;
     private boolean setNextRound;
     private boolean showMap;
@@ -77,9 +79,16 @@ public class FGAS_Game {
      * @param levelName (String) - level name.
      * @param levelType (LevelType) - level type (generated or created).
      */
-    private void changeLevel(String levelName, LevelType levelType) {
+    private void changeLevel(String levelName, String prevLevelName, LevelType levelType) {
         this.currentLevelName = levelName;
         TileMap levelMap;
+
+        if ( !prevLevelName.equalsIgnoreCase("") ) {
+            System.out.println("LEVEL: "+prevLevelName +" to "+levelName);
+            objectManager.getLevelMaps().get(prevLevelName).setPlayerLastTiles(player.getTileX(), player.getTileY());
+        }
+
+
         if (levelType == LevelType.GENERATED) {
             levelName = levelName+player.getTileX()+"x"+player.getTileY();
 
@@ -110,20 +119,37 @@ public class FGAS_Game {
             }
 
         }
-        if (levels.containsKey(levelName) && levels.size() > 1) {
-            player.setX(objectManager.getLevelMaps().get(levelName).getPlayerLastTileX() * tileWidth);
-            player.setY(objectManager.getLevelMaps().get(levelName).getPlayerLastTileY() * tileHeight);
+
+        if (!prevLevelName.equalsIgnoreCase("")) {
+            int stx = objectManager.getLevelMaps().get(levelName).getPlayerLastTileX();// * tileWidth;
+            int sty = objectManager.getLevelMaps().get(levelName).getPlayerLastTileY();// * tileHeight;
+            //System.out.println("Nowa pozycja playera: "+stx+":"+sty);
+            player.setX(stx * tileWidth);
+            player.setY(sty * tileHeight);
+
         }
 
         tileWidth = levelMap.getTileWidth();
         tileHeight = levelMap.getTileHeight();
-        mapWidth = levelMap.getWidth();
-        mapHeight = levelMap.getHeight();
+        //mapWidth = levelMap.getWidth();
+        //mapHeight = levelMap.getHeight();
         objectManager.setLevel(levelMap, levelName);
         player.setCurrentLevelName(currentLevelName);
         offsetX = 0;
         offsetY = 0;
     }
+
+
+    public void restartGame() {
+        levels = new HashMap<>();
+        objectManager = new ObjectManager(gameWidth, gameHeight);
+        changeLevel(WORLD_MAP_NAME, "", LevelType.CREATED);
+        calculateOffset();
+        player.setCurrentLevelName(currentLevelName);
+        hud = new HUD(player, mouseCursor);
+        inventory = new Inventory(player, mouseCursor);
+    }
+
 
     public void init(GameContainer gc, Input input, MouseCursor mouseCursor) {
 
@@ -135,7 +161,7 @@ public class FGAS_Game {
         objectManager = new ObjectManager(gameWidth, gameHeight);
 
         // INITIAL WORLD MAP
-        changeLevel(WORLD_MAP_NAME, LevelType.CREATED);
+        changeLevel(WORLD_MAP_NAME, "", LevelType.CREATED);
         calculateOffset();
 
         this.mouseCursor = mouseCursor;
@@ -144,15 +170,10 @@ public class FGAS_Game {
         hud = new HUD(player, mouseCursor);
         inventory = new Inventory(player, mouseCursor);
 
-        //objectManager.setLevelPlayerLastXY(currentLevelName);
-
         try {
-
             int imgWidth = 300;
             int imgHeight = 300;
-
             ImageBuffer ib = new ImageBuffer(imgWidth, imgHeight);
-
             for (int i = 0; i < imgWidth; i++) {
                 for (int j = 0; j < imgHeight; j++) {
                     ib.setRGBA(i,
@@ -164,9 +185,7 @@ public class FGAS_Game {
                             );
                 }
             }
-
             worldMapImage = ib.getImage();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -180,10 +199,12 @@ public class FGAS_Game {
 
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
             if (player.getPlayerAction() == MOVE) {
-                forGoldAndSweetrolls.setGameState(GameState.MAIN_MENU);
+                if (!showMap) forGoldAndSweetrolls.setGameState(GameState.MAIN_MENU);
+                else showMap = false;
             } else if (player.getPlayerAction() == INVENTORY) {
                 player.setPlayerAction(MOVE);
                 inventory.setShow(false);
+                showMap = false;
             }
         }
 
@@ -278,11 +299,14 @@ public class FGAS_Game {
             if (input.isKeyPressed(Input.KEY_E)) {
 
                 if (objectManager.getPlace(player.getTileX(), player.getTileY()) != null) {
-                    //player.setPlayerState(MOVING_INNER_LOCATION);
-                    player.getActionHistory().addValue("Wchodzisz do: "+objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("name"));
+
+                    if (player.getPlayerState() == MOVING_WORLD_MAP)
+                        player.setPlayerState(MOVING_INNER_LOCATION);
+                    else player.setPlayerState(MOVING_WORLD_MAP);
+
+                    player.getActionHistory().addValue(objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("name"));
                     mouseCursor.setPositionTile(0, 0);
-                    objectManager.setLevelPlayerLastXY(currentLevelName);
-                    changeLevel(objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("filename"), LevelType.CREATED);
+                    changeLevel(objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("filename"), currentLevelName, LevelType.CREATED);
                 }
 
 
@@ -336,6 +360,12 @@ public class FGAS_Game {
             if (input.isKeyPressed(Input.KEY_SPACE)) {
                 player.statistics.currentLevelBar++;
             }
+
+            if (player.getPlayerState() == MOVING_WORLD_MAP) {
+                player.setWorldMapTileX(player.getTileX());
+                player.setWorldMapTileY(player.getTileY());
+            }
+
         }
 
         if (player.getPlayerAction() == INVENTORY) {
@@ -487,7 +517,7 @@ public class FGAS_Game {
         if (showMap) {
             worldMapImage.draw(60, 50, 450, 450);
             g.drawRect(59, 49, 451, 451);
-            //g.drawRect(60 + (int) ((player.getWorldMapTileX() * 450)/300), 50 + (int) ((player.getWorldMapTileY() * 450)/300), 1, 1);
+            g.drawRect(60 + (int) ((player.getWorldMapTileX() * 450)/300), 50 + (int) ((player.getWorldMapTileY() * 450)/300), 1, 1);
         }
 
 //        if (objectManager.getGround(player.getTileX(), player.getTileY()).getCollisions() != null) {

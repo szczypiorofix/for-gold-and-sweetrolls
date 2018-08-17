@@ -57,7 +57,7 @@ public class LevelMap implements Serializable {
     }
 
     public void setPlayerLastTiles(int x, int y) {
-        //System.out.println("Setting old: "+playerLastTileX+":"+playerLastTileY +" to: "+x+":"+y);
+        System.out.println("Setting old: "+playerLastTileX+":"+playerLastTileY +" to: "+x+":"+y);
         this.playerLastTileX = x;
         this.playerLastTileY = y;
     }
