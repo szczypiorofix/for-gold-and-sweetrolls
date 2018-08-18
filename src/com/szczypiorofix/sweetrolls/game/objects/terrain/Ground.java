@@ -1,6 +1,9 @@
 package com.szczypiorofix.sweetrolls.game.objects.terrain;
 
+import com.szczypiorofix.sweetrolls.game.enums.ResourceType;
+import com.szczypiorofix.sweetrolls.game.main.core.TerrainResources;
 import com.szczypiorofix.sweetrolls.game.objects.GameObject;
+import com.szczypiorofix.sweetrolls.game.tilemap.CollisionObject;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -10,12 +13,17 @@ public class Ground extends GameObject {
 
     private Image image;
     private Color highlighColor = new Color(1f, 1f, 1f, 0.65f);
+    private TerrainResources terrainResources;
 
-    public Ground(String name, float x, float y, float width, float height, Image image, boolean visible) {
+    public Ground(String name, float x, float y, float width, float height, Image image, boolean visible, CollisionObject collisionObject) {
         super(name, x, y, width, height);
         this.image = image;
         this.visible = visible;
         //this.image.setFilter(Image.FILTER_NEAREST);
+
+        setCollisions(collisionObject);
+        terrainResources = new TerrainResources(objectType);
+
     }
 
 
@@ -31,11 +39,14 @@ public class Ground extends GameObject {
                 g.drawImage(image, - offsetX + x, - offsetY + y, highlighColor);
             } else
                 g.drawImage(image, - offsetX + x, - offsetY + y);
+            g.drawString(terrainResources.getResources().get(ResourceType.WATER).getAmount()+"", - offsetX + x, - offsetY + y + 4);
         }
     }
 
     @Override
-    public void turn() {}
+    public void turn() {
+        terrainResources.getResources().get(ResourceType.WATER).round();
+    }
 
 
     public Color getMiniMapColor() {
@@ -81,4 +92,7 @@ public class Ground extends GameObject {
         return c;
     }
 
+    public TerrainResources getTerrainResources() {
+        return terrainResources;
+    }
 }

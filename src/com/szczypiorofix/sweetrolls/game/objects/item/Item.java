@@ -16,7 +16,7 @@ public class Item extends GameObject {
 
     protected Image image;
     private BitMapFont font;
-    private boolean pickable = false;
+    private boolean pickable;
     private String type;
     private int armorRatio;
     private int damageRatio;

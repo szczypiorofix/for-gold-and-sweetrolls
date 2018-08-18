@@ -56,6 +56,7 @@ public class HUD {
         }
 
         font.draw("Tiles c: " +player.getTileX()+":"+player.getTileY(), 590, 240);
+        font.draw("PS: " +player.getPlayerState(), 590, 260);
 //        font.draw("Tiles w: " +player.getWorldMapTileX()+":"+player.getWorldMapTileY(), 590, 260);
 //        font.draw("Location: " +player.getCurrentLevelName(), 590, 280);
 //        font.draw("Mouse tile: " +mouseCursor.getTileX()+":"+mouseCursor.getTileY(), 590, 300);

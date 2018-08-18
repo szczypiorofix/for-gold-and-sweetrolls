@@ -244,17 +244,25 @@ public class ObjectManager {
                                     tileMap.getTileSets().get(tileSet).getImageSprite(
                                             tileMap.getTileLayers().get(layers).getTile(i, j).getGid()
                                                     - tileMap.getTileSets().get(tileSet).getFirstGid()),
-                                    tileMap.getTileLayers().get(layers).isVisible()
+                                    tileMap.getTileLayers().get(layers).isVisible(),
+                                    new CollisionObject(
+                                            tileMap.getTileLayers().get(layers).getTile(i, j).getCollisionObject().getId(),
+                                            tileMap.getTileLayers().get(layers).getTile(i, j).getCollisionObject().getTypeName(),
+                                            i * tileMap.getTileWidth(),
+                                            j * tileMap.getTileHeight(),
+                                            tileMap.getTileLayers().get(layers).getTile(i, j).getCollisionObject().getWidth(),
+                                            tileMap.getTileLayers().get(layers).getTile(i, j).getCollisionObject().getHeight()
+                                    )
                             );
 
-                            tempGround.setCollisions(new CollisionObject(
-                                    tileMap.getTileLayers().get(layers).getTile(i, j).getCollisionObject().getId(),
-                                    tileMap.getTileLayers().get(layers).getTile(i, j).getCollisionObject().getTypeName(),
-                                    i * tileMap.getTileWidth(),
-                                    j * tileMap.getTileHeight(),
-                                    tileMap.getTileLayers().get(layers).getTile(i, j).getCollisionObject().getWidth(),
-                                    tileMap.getTileLayers().get(layers).getTile(i, j).getCollisionObject().getHeight()
-                            ));
+//                            tempGround.setCollisions(new CollisionObject(
+//                                    tileMap.getTileLayers().get(layers).getTile(i, j).getCollisionObject().getId(),
+//                                    tileMap.getTileLayers().get(layers).getTile(i, j).getCollisionObject().getTypeName(),
+//                                    i * tileMap.getTileWidth(),
+//                                    j * tileMap.getTileHeight(),
+//                                    tileMap.getTileLayers().get(layers).getTile(i, j).getCollisionObject().getWidth(),
+//                                    tileMap.getTileLayers().get(layers).getTile(i, j).getCollisionObject().getHeight()
+//                            ));
 
                             grounds[i][j] = tempGround;
                         } else {

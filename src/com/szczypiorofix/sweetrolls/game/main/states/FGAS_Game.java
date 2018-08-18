@@ -2,6 +2,7 @@ package com.szczypiorofix.sweetrolls.game.main.states;
 
 import com.szczypiorofix.sweetrolls.game.enums.GameState;
 import com.szczypiorofix.sweetrolls.game.enums.ItemType;
+import com.szczypiorofix.sweetrolls.game.enums.ResourceType;
 import com.szczypiorofix.sweetrolls.game.gui.DialogueFrame;
 import com.szczypiorofix.sweetrolls.game.gui.HUD;
 import com.szczypiorofix.sweetrolls.game.gui.Inventory;
@@ -88,7 +89,6 @@ public class FGAS_Game {
             objectManager.getLevelMaps().get(prevLevelName).setPlayerLastTiles(player.getTileX(), player.getTileY());
         }
 
-
         if (levelType == LevelType.GENERATED) {
             levelName = levelName+player.getTileX()+"x"+player.getTileY();
 
@@ -126,8 +126,11 @@ public class FGAS_Game {
             //System.out.println("Nowa pozycja playera: "+stx+":"+sty);
             player.setX(stx * tileWidth);
             player.setY(sty * tileHeight);
-
         }
+
+        if (!levelName.equalsIgnoreCase(WORLD_MAP_NAME))
+            player.setPlayerState(MOVING_INNER_LOCATION);
+        else player.setPlayerState(MOVING_WORLD_MAP);
 
         tileWidth = levelMap.getTileWidth();
         tileHeight = levelMap.getTileHeight();
@@ -300,10 +303,6 @@ public class FGAS_Game {
 
                 if (objectManager.getPlace(player.getTileX(), player.getTileY()) != null) {
 
-                    if (player.getPlayerState() == MOVING_WORLD_MAP)
-                        player.setPlayerState(MOVING_INNER_LOCATION);
-                    else player.setPlayerState(MOVING_WORLD_MAP);
-
                     player.getActionHistory().addValue(objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("name"));
                     mouseCursor.setPositionTile(0, 0);
                     changeLevel(objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("filename"), currentLevelName, LevelType.CREATED);
@@ -356,6 +355,12 @@ public class FGAS_Game {
                 calculateOffset();
             }
 
+            if (input.isKeyPressed(Input.KEY_R)) {
+                player.getActionHistory().addValue("Szukanie zasobów...");
+                int water = objectManager.getGround(player.getTileX(), player.getTileY()).getTerrainResources().getResources().get(ResourceType.WATER).collect();
+                if (water > 0) player.getActionHistory().addValue("Zasoby woda: "+ water);
+                else player.getActionHistory().addValue("Brak wody");
+            }
 
             if (input.isKeyPressed(Input.KEY_SPACE)) {
                 player.statistics.currentLevelBar++;
