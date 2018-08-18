@@ -8,6 +8,7 @@ public enum ItemType {
     HAMMER("młot", ItemGroup.WEAPON),
 
     POTION("eliksir", ItemGroup.USABLE),
+    FOOD("jedzenie", ItemGroup.USABLE),
     SCROLL("zwój", ItemGroup.USABLE),
 
     GOLD("złoto", ItemGroup.STATIC),

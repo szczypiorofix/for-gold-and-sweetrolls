@@ -41,7 +41,7 @@ public class Item extends GameObject {
         else if (type.equalsIgnoreCase("sword")) it = ItemType.SWORD;
         else if (type.equalsIgnoreCase("axe")) it = ItemType.AXE;
         else if (type.equalsIgnoreCase("hammer")) it = ItemType.HAMMER;
-        else if (type.equalsIgnoreCase("boots")) it = ItemType.ARMOR_BOOTS;
+        else if (type.equalsIgnoreCase("armor_boots")) it = ItemType.ARMOR_BOOTS;
         else if (type.equalsIgnoreCase("armor_chest")) it = ItemType.ARMOR_CHEST;
         else if (type.equalsIgnoreCase("armor_gloves")) it = ItemType.ARMOR_GLOVES;
         else if (type.equalsIgnoreCase("armor_helmet")) it = ItemType.ARMOR_HELMET;
@@ -51,6 +51,7 @@ public class Item extends GameObject {
         else if (type.equalsIgnoreCase("potion")) it = ItemType.POTION;
         else if (type.equalsIgnoreCase("gold")) it = ItemType.GOLD;
         else if (type.equalsIgnoreCase("scroll")) it = ItemType.SCROLL;
+        else if (type.equalsIgnoreCase("food")) it = ItemType.FOOD;
         return it;
     }
 

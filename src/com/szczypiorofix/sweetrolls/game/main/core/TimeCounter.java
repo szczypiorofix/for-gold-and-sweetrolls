@@ -13,8 +13,8 @@ public class TimeCounter implements Serializable {
     private int dayCounter;
     private int hourCounter;
     private int minuteCounter;
-    private final int WORLD_MAP_MINUTE_COUNTER = 30;
-    private final int INNER_MAP_MINUTE_COUNTER = 1;
+    private final int WORLD_MAP_MINUTE_COUNTER = 60;
+    private final int INNER_MAP_MINUTE_COUNTER = 10;
     private final int HOURS_IN_DAY = 24;
     private final int MINUTES_IN_HOUR = 60;
     private Color dayNightEffect;
@@ -61,6 +61,14 @@ public class TimeCounter implements Serializable {
             player.calculateSurvival();
         }
 
+    }
+
+    public int getCurrentTurnTime() {
+        if (player.getPlayerState() == PlayerState.MOVING_WORLD_MAP) {
+            return WORLD_MAP_MINUTE_COUNTER;
+        } else {
+            return INNER_MAP_MINUTE_COUNTER;
+        }
     }
 
     public Color getDayNightEffect() {

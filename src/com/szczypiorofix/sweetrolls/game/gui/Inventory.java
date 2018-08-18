@@ -1,11 +1,16 @@
 package com.szczypiorofix.sweetrolls.game.gui;
 
 import com.szczypiorofix.sweetrolls.game.enums.InventorySlotType;
+import com.szczypiorofix.sweetrolls.game.enums.ItemType;
+import com.szczypiorofix.sweetrolls.game.interfaces.ConsumableListener;
+import com.szczypiorofix.sweetrolls.game.interfaces.DroppableListener;
 import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
 import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import com.szczypiorofix.sweetrolls.game.objects.item.Item;
 import org.newdawn.slick.*;
+
+import java.util.ArrayList;
 
 
 public class Inventory {
@@ -22,9 +27,14 @@ public class Inventory {
     private InventoryContainer currentContainer;
     private int dropX, dropY;
     private int dragOriginX, dragOriginY;
-    private boolean dropping;
+    //private boolean dropping;
     private boolean drag;
     private boolean using;
+    private DroppableListener droppableListener;
+    private ConsumableListener consumableListener;
+    private ArrayList<InventoryOptionsButton> optionsFrameButtons = new ArrayList<>();
+    private boolean showOptionsFrame = false;
+    private int lockedX, lockedY;
 
     public Inventory(Player player, MouseCursor mouseCursor) {
         this.player = player;
@@ -57,14 +67,49 @@ public class Inventory {
         inventoryContainers[6][rows] = new InventoryContainer(id+6, InventorySlotType.RIGHT_RING, 350, 247, null);
     }
 
+    public void setDroppableListener(DroppableListener droppableListener) {
+        this.droppableListener = droppableListener;
+    }
+
+    public void setConsumableListener(ConsumableListener consumableListener) {
+        this.consumableListener = consumableListener;
+    }
+
+
     public void update(GameContainer gc, int delta) throws SlickException {
+
 
         for (int x = 0; x < inventoryContainers.length; x++) {
             for (int y = 0; y < inventoryContainers[0].length; y++) {
 
-                if (inventoryContainers[x][y] != null) {
+                if (showOptionsFrame && mouseCursor.getInput().isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+                    for (int i = 0; i < optionsFrameButtons.size(); i++) {
+                        InventoryOptionsButton currentOption = optionsFrameButtons.get(i);
+
+                        if (mouseCursor.intersects(currentOption)) {
+
+                            if (currentOption.getCommand().equalsIgnoreCase("drop")) {
+                                itemForDrop = currentContainer.getItem();
+                                dropX = lockedX;
+                                dropY = lockedY;
+                                droppableListener.drop(itemForDrop);
+                            } else if (currentOption.getCommand().equalsIgnoreCase("consume")) {
+                                consumableListener.consume(currentContainer.item);
+                                currentContainer.item = null;
+                            }
+
+                        }
+
+                        showOptionsFrame = false;
+                    }
+
+                }
+
+                if (inventoryContainers[x][y] != null && !showOptionsFrame) {
                     inventoryContainers[x][y].update(delta, 0 , 0);
                     currentContainer = inventoryContainers[x][y];
+                    lockedX = x;
+                    lockedY = y;
 
                     if (mouseCursor.intersects(currentContainer)) {
                         currentContainer.setHover(true);
@@ -72,17 +117,20 @@ public class Inventory {
 
                         // DROP
                         if (currentContainer.getItem() != null) {
-                            if (mouseCursor.getInput().isMousePressed(Input.MOUSE_RIGHT_BUTTON)) {
-                                itemForDrop = currentContainer.getItem();
-                                dropX = x;
-                                dropY = y;
-                                dropping = true;
-                            }
-                        }
 
-                        // USE
-                        if (mouseCursor.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-                            using = true;
+                            if (mouseCursor.getInput().isMousePressed(Input.MOUSE_RIGHT_BUTTON)) {
+                                optionsFrameButtons = new ArrayList<>();
+
+                                if (currentContainer.getItem().getItemType() == ItemType.FOOD)
+                                    optionsFrameButtons.add(new InventoryOptionsButton("Zjedz", (int) currentContainer.getX() + 20, (int) currentContainer.getY() - 55, "consume"));
+
+                                if (currentContainer.getItem().getItemType() == ItemType.POTION)
+                                    optionsFrameButtons.add(new InventoryOptionsButton("Wypij", (int) currentContainer.getX() + 20, (int) currentContainer.getY() - 55, "consume"));
+
+                                optionsFrameButtons.add(new InventoryOptionsButton("Wyrzuć", (int) currentContainer.getX() + 20, (int) currentContainer.getY() - 30, "drop"));
+
+                                showOptionsFrame = true;
+                            }
                         }
 
                         // DRAG
@@ -120,9 +168,6 @@ public class Inventory {
                                         player.statistics.armorClass -= dragItem.getArmorRatio();
                                         player.statistics.damage -= dragItem.getDamageRatio();
                                     }
-
-
-
                                 }
                                 dragItem = null;
                                 drag = false;
@@ -144,6 +189,11 @@ public class Inventory {
                     }
                 }
             }
+            if (showOptionsFrame) {
+                for (int i = 0; i < optionsFrameButtons.size(); i++) {
+                    optionsFrameButtons.get(i).render(g, 0, 0);
+                }
+            }
         }
     }
 
@@ -153,23 +203,24 @@ public class Inventory {
 
     public void setShow(boolean show) {
         this.show = show;
+        showOptionsFrame = false;
     }
 
-    public Item dropFromInventory() {
+    public Item getItemForDrop() {
         return itemForDrop;
     }
 
-    public void removeItem() {
+    public void removeDroppedItemFromInventory() {
         inventoryContainers[dropX][dropY].item = null;
     }
-
-    public boolean isDropping() {
-        return dropping;
-    }
-
-    public void setDropping(boolean dropping) {
-        this.dropping = dropping;
-    }
+//
+//    public boolean isDropping() {
+//        return dropping;
+//    }
+//
+//    public void setDropping(boolean dropping) {
+//        this.dropping = dropping;
+//    }
 
     public boolean putToInventory(Item item) {
         boolean done = false;
@@ -195,4 +246,6 @@ public class Inventory {
     public boolean isDrag() {
         return drag;
     }
+
+
 }

@@ -10,7 +10,7 @@ public class Dialogue {
     protected int currentDialogueState;
     protected NPC npc;
     protected final int BX = 30;
-    protected int BY = 460;
+    protected int BY = 530;
     protected final int BWIDTH = 250;
     protected final int BHEIGHT = 40;
 

@@ -7,6 +7,8 @@ import com.szczypiorofix.sweetrolls.game.gui.DialogueFrame;
 import com.szczypiorofix.sweetrolls.game.gui.HUD;
 import com.szczypiorofix.sweetrolls.game.gui.Inventory;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
+import com.szczypiorofix.sweetrolls.game.interfaces.ConsumableListener;
+import com.szczypiorofix.sweetrolls.game.interfaces.DroppableListener;
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import com.szczypiorofix.sweetrolls.game.main.core.LevelManager;
 import com.szczypiorofix.sweetrolls.game.main.core.ObjectManager;
@@ -27,7 +29,7 @@ import static com.szczypiorofix.sweetrolls.game.enums.PlayerState.MOVING_WORLD_M
 /**
  * This is the main class of the game (gameplay).
  */
-public class FGAS_Game {
+public class FGAS_Game implements DroppableListener, ConsumableListener {
 
     private static final String WORLD_MAP_NAME = "worldmap.tmx";
     private final boolean COLLISIONS_ENABLED = true;
@@ -49,10 +51,34 @@ public class FGAS_Game {
 
     private float offsetX, offsetY;
     private int tileWidth, tileHeight;
-    //private int mapWidth, mapHeight;
     private int gameWidth, gameHeight;
     private boolean setNextRound;
     private boolean showMap;
+
+    @Override
+    public void drop(Item item) {
+        if (objectManager.getItems()[player.getTileX()][player.getTileY()] == null) {
+            objectManager.getItems()[player.getTileX()][player.getTileY()] = inventory.getItemForDrop();
+            objectManager.getItems()[player.getTileX()][player.getTileY()].setX(player.getX());
+            objectManager.getItems()[player.getTileX()][player.getTileY()].setY(player.getY());
+            player.getActionHistory().addValue("Upuszczono "+objectManager.getItems()[player.getTileX()][player.getTileY()].getStringProperty("name"));
+            inventory.removeDroppedItemFromInventory();
+        } else player.getActionHistory().addValue("Brak miejsca na ziemi!");
+    }
+
+    @Override
+    public void consume(Item item) {
+        switch (item.getItemType()) {
+            case FOOD: {
+                player.getActionHistory().addValue("Zjedzono coś...");
+                break;
+            }
+            case POTION: {
+                player.getActionHistory().addValue("Wypito eliksir...");
+                break;
+            }
+        }
+    }
 
 
     /**
@@ -134,8 +160,6 @@ public class FGAS_Game {
 
         tileWidth = levelMap.getTileWidth();
         tileHeight = levelMap.getTileHeight();
-        //mapWidth = levelMap.getWidth();
-        //mapHeight = levelMap.getHeight();
         objectManager.setLevel(levelMap, levelName);
         player.setCurrentLevelName(currentLevelName);
         offsetX = 0;
@@ -151,6 +175,8 @@ public class FGAS_Game {
         player.setCurrentLevelName(currentLevelName);
         hud = new HUD(player, mouseCursor);
         inventory = new Inventory(player, mouseCursor);
+        inventory.setConsumableListener(this);
+        inventory.setDroppableListener(this);
     }
 
 
@@ -308,6 +334,11 @@ public class FGAS_Game {
                     changeLevel(objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("filename"), currentLevelName, LevelType.CREATED);
                 }
 
+                // ######## Podnoszenie przedmiotów za pomocą "E"
+                if (objectManager.getItems(player.getTileX(), player.getTileY()) != null) {
+                    Item currentItem = objectManager.getItems(player.getTileX(), player.getTileY());
+                    pickUpItem(currentItem, 0, 0);
+                }
 
 
                 // ENTERING INNER MAP FROM WORLD MAP
@@ -408,6 +439,7 @@ public class FGAS_Game {
         if (setNextRound) {
             objectManager.turn();
             player.turn();
+            hud.turn();
         }
         setNextRound = false;
 
@@ -486,17 +518,7 @@ public class FGAS_Game {
             }
         }
 
-        if (player.getPlayerAction() == INVENTORY) {
-            if (inventory.isDropping()) {
-                if (objectManager.getItems()[player.getTileX()][player.getTileY()] == null) {
-                    objectManager.getItems()[player.getTileX()][player.getTileY()] = inventory.dropFromInventory();
-                    objectManager.getItems()[player.getTileX()][player.getTileY()].setX(player.getX());
-                    objectManager.getItems()[player.getTileX()][player.getTileY()].setY(player.getY());
-                    inventory.removeItem();
-                } else player.getActionHistory().addValue("Brak miejsca na ziemi!");
-                inventory.setDropping(false);
-            }
-        }
+
     }
 
     /**
@@ -547,7 +569,7 @@ public class FGAS_Game {
                 objectManager.getItems()[player.getTileX(i)][player.getTileY(j)] = null;
             } // Złoto nie pojawia się w ekwipunku.
             else {
-                player.getActionHistory().addValue("Podniesiono: "+currentItem.getItemType().name);
+                player.getActionHistory().addValue("Podniesiono: "+currentItem.getStringProperty("name"));
                 if (inventory.putToInventory(currentItem)) {
                     objectManager.getItems()[player.getTileX(i)][player.getTileY(j)] = null;
                 } else {

@@ -14,7 +14,7 @@ public class DialoguePete extends Dialogue {
 
         DialoguePart dialoguePart0 = new DialoguePart(0, "Beta Fallouta 76 będzie kiedy będzie gotowa.");
         ArrayList<DialogueButton> buttons = new ArrayList<>();
-        buttons.add(new DialogueButton("OK", BX, BY + (BHEIGHT * 2), BWIDTH, BHEIGHT, true, 0));
+        buttons.add(new DialogueButton("OK", BX, BY, BWIDTH, BHEIGHT, true, 0));
         dialoguePart0.setButtons(buttons);
 
         dialogues.put(dialoguePart0.getId(), dialoguePart0);

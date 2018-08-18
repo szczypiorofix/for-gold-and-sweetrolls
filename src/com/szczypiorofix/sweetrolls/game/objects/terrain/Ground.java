@@ -39,7 +39,7 @@ public class Ground extends GameObject {
                 g.drawImage(image, - offsetX + x, - offsetY + y, highlighColor);
             } else
                 g.drawImage(image, - offsetX + x, - offsetY + y);
-            g.drawString(terrainResources.getResources().get(ResourceType.WATER).getAmount()+"", - offsetX + x, - offsetY + y + 4);
+            //g.drawString(terrainResources.getResources().get(ResourceType.WATER).getAmount()+"", - offsetX + x, - offsetY + y + 4);
         }
     }
 
@@ -95,4 +95,5 @@ public class Ground extends GameObject {
     public TerrainResources getTerrainResources() {
         return terrainResources;
     }
+
 }

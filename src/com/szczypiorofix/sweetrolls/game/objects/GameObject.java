@@ -332,5 +332,4 @@ abstract public class GameObject {
         return ((int) ((y + (height / 2)) / height) > 0) ? (int) ((y + (height / 2)) / height) : 0;
     }
 
-
 }

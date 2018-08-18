@@ -2,6 +2,8 @@ package com.szczypiorofix.sweetrolls.game.gui;
 
 import com.szczypiorofix.sweetrolls.game.enums.InventorySlotType;
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
+import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
+import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
 import com.szczypiorofix.sweetrolls.game.objects.GameObject;
 import com.szczypiorofix.sweetrolls.game.objects.item.Item;
 import org.newdawn.slick.Graphics;
@@ -13,6 +15,7 @@ public class InventoryContainer extends GameObject {
     private int c;
     private InventorySlotType inventorySlotType;
     public Item item;
+    public BitMapFont font;
 
     public InventoryContainer(int c, InventorySlotType inventorySlotType, int x, int y, Item item) {
         super("Inventory container", x, y, 32, 32, ObjectType.INVENTORY_CONTAINER);
@@ -21,6 +24,8 @@ public class InventoryContainer extends GameObject {
         this.x = x;
         this.y = y;
         this.item = item;
+        font = FontParser.getFont("BitMap Inventory Font", "immortal-bitmap.xml", "immortal-bitmap.png");
+        font.setSize(4.5f);
     }
 
 
@@ -35,8 +40,13 @@ public class InventoryContainer extends GameObject {
             if (item.getImage() != null)
                 item.getImage().draw(item.getX(), item.getY());
         }
-        if (hover)
+        if (hover) {
             g.drawRect(x-1, y, width-2, height-2);
+            if (item != null) {
+                font.draw(item.getName(), x , y - 25);
+            }
+        }
+
         //g.drawString(c+"", x, y);
     }
 

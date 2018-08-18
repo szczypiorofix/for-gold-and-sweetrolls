@@ -16,16 +16,16 @@ public class DialogueTodd extends Dialogue {
 
         DialoguePart dialoguePart0 = new DialoguePart(0, "Witaj nieznajomy!");
         ArrayList<DialogueButton> buttons = new ArrayList<>();
-        buttons.add(new DialogueButton("Witaj", BX, BY, BWIDTH, BHEIGHT, false, 1));
-        buttons.add(new DialogueButton("Witaj. Co słychać?", BX, BY + (BHEIGHT), BWIDTH, BHEIGHT, false, 2));
-        buttons.add(new DialogueButton("Wyjście", BX, BY + (BHEIGHT * 2), BWIDTH, BHEIGHT, true, 0));
+        buttons.add(new DialogueButton("Witaj", BX, BY - (BHEIGHT * 2), BWIDTH, BHEIGHT, false, 1));
+        buttons.add(new DialogueButton("Witaj. Co słychać?", BX, BY - BHEIGHT, BWIDTH, BHEIGHT, false, 2));
+        buttons.add(new DialogueButton("Wyjście", BX, BY, BWIDTH, BHEIGHT, true, 0));
         dialoguePart0.setButtons(buttons);
 
         DialoguePart dialoguePart1 = new DialoguePart(1, "Witaj. Co Cię do nas sprowadza?");
         buttons = new ArrayList<>();
-        buttons.add(new DialogueButton("Szukam pracy.", BX, BY, BWIDTH, BHEIGHT, false, 3));
-        buttons.add(new DialogueButton("Kręcę się po okolicy.", BX, BY + BHEIGHT, BWIDTH, BHEIGHT, false, 4));
-        buttons.add(new DialogueButton("Wyjście", BX, BY + (BHEIGHT * 2), BY + (BHEIGHT * 2), BHEIGHT, true, 1));
+        buttons.add(new DialogueButton("Szukam pracy.", BX, BY - (BHEIGHT * 2), BWIDTH, BHEIGHT, false, 3));
+        buttons.add(new DialogueButton("Kręcę się po okolicy.", BX, BY - BHEIGHT, BWIDTH, BHEIGHT, false, 4));
+        buttons.add(new DialogueButton("Wyjście", BX, BY, BWIDTH, BHEIGHT, true, 1));
         dialoguePart1.setButtons(buttons);
 
         DialoguePart dialoguePart2 = new DialoguePart(2, "Dziękuję. Wszystko dobrze.");
