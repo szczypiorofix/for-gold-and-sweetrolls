@@ -5,7 +5,6 @@ import com.szczypiorofix.sweetrolls.game.enums.GameState;
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
 import com.szczypiorofix.sweetrolls.game.main.core.Configuration;
-import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.*;
 

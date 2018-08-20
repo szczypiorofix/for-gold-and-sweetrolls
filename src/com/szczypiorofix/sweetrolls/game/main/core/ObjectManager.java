@@ -33,6 +33,7 @@ public class ObjectManager {
     private int gameWidth, gameHeight;
 
     private HashMap<String, LevelMap> levelMaps;
+    private LevelMap currentMap;
 
     private int tilesToWest, tilesToEast, tilesToNorth, tilesToSouth;
 
@@ -273,18 +274,14 @@ public class ObjectManager {
             }
         }
 
-        levelMaps.put(levelName, new LevelMap(grounds, places, npcs, items, player.getTileX(), player.getTileY()));
+        currentMap = new LevelMap(levelName.equalsIgnoreCase(FGAS_Game.WORLD_MAP_NAME) ? LevelMap.LevelType.WORLD_MAP : LevelMap.LevelType.INNER_MAP, grounds, places, npcs, items, player.getTileX(), player.getTileY());
+        levelMaps.put(levelName, currentMap);
     }
-
-    public void setLevelPlayerLastXY(String levelName) {
-        this.levelMaps.get(levelName).setPlayerLastTiles(player.getLastTileX(), player.getLastTileY());
-        //System.out.println(levelMaps.get(levelName).getPlayerLastTileX()+":"+levelMaps.get(levelName).getPlayerLastTileY());
-    }
-
 
     public void setLevel(TileMap tileMap, String levelName) {
 
         this.level = tileMap;
+        currentMap = levelMaps.get(levelName);
 
         int maxTileX = gameWidth / tileMap.getTileWidth();
         int maxTileY = gameHeight / tileMap.getTileHeight();
@@ -294,12 +291,10 @@ public class ObjectManager {
         tilesToNorth = - maxTileY / 2 - 1;
         tilesToSouth = maxTileY / 2 + 1;
 
-        grounds = levelMaps.get(levelName).getGround();
-        places = levelMaps.get(levelName).getPlaces();
-        npcs = levelMaps.get(levelName).getNpc();
-        items = levelMaps.get(levelName).getItems();
-
-        System.out.println("ObjectManager player tiles: " + player.getTileX() +":" +player.getTileY());
+        grounds = currentMap.getGround();
+        places = currentMap.getPlaces();
+        npcs = currentMap.getNpc();
+        items = currentMap.getItems();
 
         // SET PLAYER'S INITIAL GROUND TILE
         player.setTerrainType(grounds[player.getTileX()][player.getTileY()].getObjectType());
@@ -459,8 +454,9 @@ public class ObjectManager {
         return tilesToSouth;
     }
 
-
-
+    public LevelMap getCurrentMap() {
+        return currentMap;
+    }
 
     //    private void graczSwieci(int x,  int y, int sila) {
 //        for (int sx = x - sila; sx <= x + sila; sx++) {

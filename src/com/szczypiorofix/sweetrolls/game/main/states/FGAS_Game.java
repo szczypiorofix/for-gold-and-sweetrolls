@@ -3,15 +3,14 @@ package com.szczypiorofix.sweetrolls.game.main.states;
 import com.szczypiorofix.sweetrolls.game.enums.GameState;
 import com.szczypiorofix.sweetrolls.game.enums.ItemType;
 import com.szczypiorofix.sweetrolls.game.enums.ResourceType;
-import com.szczypiorofix.sweetrolls.game.gui.DialogueFrame;
-import com.szczypiorofix.sweetrolls.game.gui.HUD;
-import com.szczypiorofix.sweetrolls.game.gui.Inventory;
-import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
+import com.szczypiorofix.sweetrolls.game.gui.*;
 import com.szczypiorofix.sweetrolls.game.interfaces.ConsumableListener;
 import com.szczypiorofix.sweetrolls.game.interfaces.DroppableListener;
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import com.szczypiorofix.sweetrolls.game.main.core.LevelManager;
+import com.szczypiorofix.sweetrolls.game.main.core.LevelMap;
 import com.szczypiorofix.sweetrolls.game.main.core.ObjectManager;
+import com.szczypiorofix.sweetrolls.game.main.core.TimeCounter;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import com.szczypiorofix.sweetrolls.game.objects.item.Item;
 import com.szczypiorofix.sweetrolls.game.tilemap.CollisionObject;
@@ -22,8 +21,7 @@ import java.util.HashMap;
 
 import static com.szczypiorofix.sweetrolls.game.enums.PlayerAction.INVENTORY;
 import static com.szczypiorofix.sweetrolls.game.enums.PlayerAction.MOVE;
-import static com.szczypiorofix.sweetrolls.game.enums.PlayerState.MOVING_INNER_LOCATION;
-import static com.szczypiorofix.sweetrolls.game.enums.PlayerState.MOVING_WORLD_MAP;
+
 
 
 /**
@@ -31,7 +29,7 @@ import static com.szczypiorofix.sweetrolls.game.enums.PlayerState.MOVING_WORLD_M
  */
 public class FGAS_Game implements DroppableListener, ConsumableListener {
 
-    private static final String WORLD_MAP_NAME = "worldmap.tmx";
+    public static final String WORLD_MAP_NAME = "worldmap.tmx";
     private final boolean COLLISIONS_ENABLED = true;
 
     private final LevelManager levelManager = new LevelManager();
@@ -48,6 +46,8 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
     private String currentLevelName;
     private DialogueFrame dialogueFrame;
     private ForGoldAndSweetrolls forGoldAndSweetrolls;
+    private ActionHistory actionHistory;
+    private TimeCounter timeCounter;
 
     private float offsetX, offsetY;
     private int tileWidth, tileHeight;
@@ -61,20 +61,20 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
             objectManager.getItems()[player.getTileX()][player.getTileY()] = inventory.getItemForDrop();
             objectManager.getItems()[player.getTileX()][player.getTileY()].setX(player.getX());
             objectManager.getItems()[player.getTileX()][player.getTileY()].setY(player.getY());
-            player.getActionHistory().addValue("Upuszczono "+objectManager.getItems()[player.getTileX()][player.getTileY()].getStringProperty("name"));
+            actionHistory.addValue("Upuszczono "+objectManager.getItems()[player.getTileX()][player.getTileY()].getStringProperty("name"));
             inventory.removeDroppedItemFromInventory();
-        } else player.getActionHistory().addValue("Brak miejsca na ziemi!");
+        } else actionHistory.addValue("Brak miejsca na ziemi!");
     }
 
     @Override
     public void consume(Item item) {
         switch (item.getItemType()) {
             case FOOD: {
-                player.getActionHistory().addValue("Zjedzono coś...");
+                actionHistory.addValue("Zjedzono coś...");
                 break;
             }
             case POTION: {
-                player.getActionHistory().addValue("Wypito eliksir...");
+                actionHistory.addValue("Wypito eliksir...");
                 break;
             }
         }
@@ -122,7 +122,7 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
                 levelMap = levelManager.loadGeneratedLevel(
                         levelName,
                         objectManager.getGround(player.getTileX(), player.getTileY()).getCollisions().getTypeName(),
-                        player
+                        actionHistory
                 );
                 levels.put(levelName, levelMap);
                 objectManager.generateLevel(levelMap, levelName);
@@ -154,13 +154,10 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
             player.setY(sty * tileHeight);
         }
 
-        if (!levelName.equalsIgnoreCase(WORLD_MAP_NAME))
-            player.setPlayerState(MOVING_INNER_LOCATION);
-        else player.setPlayerState(MOVING_WORLD_MAP);
-
         tileWidth = levelMap.getTileWidth();
         tileHeight = levelMap.getTileHeight();
         objectManager.setLevel(levelMap, levelName);
+        player.setLevelState(objectManager.getCurrentMap().getLevelType());
         player.setCurrentLevelName(currentLevelName);
         offsetX = 0;
         offsetY = 0;
@@ -173,7 +170,9 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
         changeLevel(WORLD_MAP_NAME, "", LevelType.CREATED);
         calculateOffset();
         player.setCurrentLevelName(currentLevelName);
-        hud = new HUD(player, mouseCursor);
+        timeCounter = new TimeCounter(player);
+        actionHistory = new ActionHistory();
+        hud = new HUD(player, timeCounter, actionHistory, mouseCursor);
         inventory = new Inventory(player, mouseCursor);
         inventory.setConsumableListener(this);
         inventory.setDroppableListener(this);
@@ -195,8 +194,11 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
 
         this.mouseCursor = mouseCursor;
 
+        timeCounter = new TimeCounter(player);
+        actionHistory = new ActionHistory();
+
         player.setCurrentLevelName(currentLevelName);
-        hud = new HUD(player, mouseCursor);
+        hud = new HUD(player, timeCounter, actionHistory, mouseCursor);
         inventory = new Inventory(player, mouseCursor);
 
         try {
@@ -328,10 +330,13 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
             if (input.isKeyPressed(Input.KEY_E)) {
 
                 if (objectManager.getPlace(player.getTileX(), player.getTileY()) != null) {
-
-                    player.getActionHistory().addValue(objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("name"));
+                    actionHistory.addValue(objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("name"));
                     mouseCursor.setPositionTile(0, 0);
                     changeLevel(objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("filename"), currentLevelName, LevelType.CREATED);
+                } else {
+                    if (player.getLevelState() == LevelMap.LevelType.WORLD_MAP) {
+
+                    }
                 }
 
                 // ######## Podnoszenie przedmiotów za pomocą "E"
@@ -387,17 +392,17 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
             }
 
             if (input.isKeyPressed(Input.KEY_R)) {
-                player.getActionHistory().addValue("Szukanie zasobów...");
+                actionHistory.addValue("Szukanie zasobów...");
                 int water = objectManager.getGround(player.getTileX(), player.getTileY()).getTerrainResources().getResources().get(ResourceType.WATER).collect();
-                if (water > 0) player.getActionHistory().addValue("Zasoby woda: "+ water);
-                else player.getActionHistory().addValue("Brak wody");
+                if (water > 0) actionHistory.addValue("Zasoby woda: "+ water);
+                else actionHistory.addValue("Brak wody");
             }
 
             if (input.isKeyPressed(Input.KEY_SPACE)) {
                 player.statistics.currentLevelBar++;
             }
 
-            if (player.getPlayerState() == MOVING_WORLD_MAP) {
+            if (player.getLevelState() == LevelMap.LevelType.WORLD_MAP) {
                 player.setWorldMapTileX(player.getTileX());
                 player.setWorldMapTileY(player.getTileY());
             }
@@ -439,7 +444,9 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
         if (setNextRound) {
             objectManager.turn();
             player.turn();
+
             hud.turn();
+            timeCounter.turn();
         }
         setNextRound = false;
 
@@ -511,7 +518,7 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
             }
 
             // MOUSE HOVER ON OBJECTS
-            if (player.getPlayerState() == MOVING_WORLD_MAP) {
+            if (player.getLevelState() == LevelMap.LevelType.WORLD_MAP) {
                 if (objectManager.getPlace(mouseCursor.getTileX(), mouseCursor.getTileY()) != null) {
                     objectManager.getPlace(mouseCursor.getTileX(), mouseCursor.getTileY()).setHover(true);
                 }
@@ -533,7 +540,7 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
         player.render(g, offsetX, offsetY);
 
         Color c = g.getColor();
-        g.setColor(player.getTimeCounter().getDayNightEffect());
+        g.setColor(timeCounter.getDayNightEffect());
         g.fillRect(0, 0, gameWidth - 230, gameHeight);
         g.setColor(c);
 
@@ -564,24 +571,24 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
         if (currentItem.isPickable()) {
             if (currentItem.getItemType() == ItemType.GOLD) {
                 int goldGained = currentItem.getIntegerProperty("value");
-                player.getActionHistory().addValue("Znaleziono złoto: "+goldGained);
+                actionHistory.addValue("Znaleziono złoto: "+goldGained);
                 player.statistics.gold += goldGained;
                 objectManager.getItems()[player.getTileX(i)][player.getTileY(j)] = null;
             } // Złoto nie pojawia się w ekwipunku.
             else {
-                player.getActionHistory().addValue("Podniesiono: "+currentItem.getStringProperty("name"));
+                actionHistory.addValue("Podniesiono: "+currentItem.getStringProperty("name"));
                 if (inventory.putToInventory(currentItem)) {
                     objectManager.getItems()[player.getTileX(i)][player.getTileY(j)] = null;
                 } else {
-                    player.getActionHistory().addValue("Plecak jest pełny !!!");
+                    actionHistory.addValue("Plecak jest pełny !!!");
                 }
             }
         } else {
             if (currentItem.getItemType() == ItemType.CHEST) {
                 int goldGained = MainClass.RANDOM.nextInt(currentItem.getIntegerProperty("value")) + 1;
                 player.statistics.gold += goldGained;
-                player.getActionHistory().addValue("Przeszukiwanie skrzyni...");
-                player.getActionHistory().addValue("Znaleziono: złoto: " + goldGained);
+                actionHistory.addValue("Przeszukiwanie skrzyni...");
+                actionHistory.addValue("Znaleziono: złoto: " + goldGained);
                 objectManager.getItems()[player.getTileX(i)][player.getTileY(j)] = null;
             }
         }

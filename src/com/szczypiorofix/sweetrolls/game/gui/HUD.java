@@ -1,5 +1,6 @@
 package com.szczypiorofix.sweetrolls.game.gui;
 
+import com.szczypiorofix.sweetrolls.game.main.core.TimeCounter;
 import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
 import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
@@ -12,18 +13,22 @@ import org.newdawn.slick.SlickException;
 public class HUD {
 
     private Image image;
-    private Image timeCounter;
+    private Image clockImage;
     private Player player;
     private MouseCursor mouseCursor;
     private BitMapFont font;
+    private TimeCounter timeCounter;
+    private ActionHistory actionHistory;
     private float rotateFactor = 0;
 
-    public HUD(Player player, MouseCursor mouseCursor) {
+    public HUD(Player player, TimeCounter timeCounter, ActionHistory actionHistory, MouseCursor mouseCursor) {
         this.player = player;
         this.mouseCursor = mouseCursor;
+        this.actionHistory = actionHistory;
+        this.timeCounter = timeCounter;
         try {
             image = new Image("assets/hud.png");
-            timeCounter = new Image("assets/time-counter.png");
+            clockImage = new Image("assets/time-counter.png");
         } catch (SlickException e) {
             e.printStackTrace();
         }
@@ -32,8 +37,8 @@ public class HUD {
     }
 
     public void turn() {
-        rotateFactor = (player.getTimeCounter().getCurrentTurnTime() * 360f) / 1440f; // 1440 minut = 24h * 60min
-        timeCounter.rotate(rotateFactor);
+        rotateFactor = (timeCounter.getCurrentTurnTime() * 360f) / 1440f; // 1440 minut = 24h * 60min
+        clockImage.rotate(rotateFactor);
     }
 
     public void render(GameContainer gc, Graphics g) {
@@ -41,12 +46,12 @@ public class HUD {
         int currentLevel = (player.statistics.currentLevelBar * levelMaxContainer) / player.statistics.currentLevelMaxBar;
         if (currentLevel > levelMaxContainer) currentLevel = levelMaxContainer;
 
-        timeCounter.draw(617, 8);
+        clockImage.draw(617, 8);
         image.draw(0, 0);
 
-        font.draw("Dzień: " +player.getTimeCounter().getDayCounter()+", godz: "+player.getTimeCounter().getHourCounter()+":" + (
-                player.getTimeCounter().getMinuteCounter() < 10 ? player.getTimeCounter().getMinuteCounter()+"0"
-                        : player.getTimeCounter().getMinuteCounter()
+        font.draw("Dzień: " + timeCounter.getDayCounter() + ", godz: " + timeCounter.getHourCounter() + ":" + (
+                timeCounter.getMinuteCounter() < 10 ? timeCounter.getMinuteCounter() + "0"
+                        : timeCounter.getMinuteCounter()
         ), 590, 80);
 
         font.draw("Gracz: " + player.getName(), 590, 100);
@@ -60,12 +65,12 @@ public class HUD {
         font.draw("Jedzenie: " + String.format("%.2f", player.statistics.foodRations), 590, 230);
         font.draw("Woda: " + String.format("%.2f", player.statistics.water), 590, 250);
 
-        for (int i = 0; i < player.getActionHistory().history.length; i++) {
-            font.draw(player.getActionHistory().history[i], 580, 380 + (i * 20));
+        for (int i = 0; i < actionHistory.history.length; i++) {
+            font.draw(actionHistory.history[i], 580, 380 + (i * 20));
         }
 
         //font.draw("Tiles c: " +player.getTileX()+":"+player.getTileY(), 590, 240);
-        font.draw("PS: " +player.getPlayerState(), 590, 270);
+        font.draw("PS: " +player.getLevelState(), 590, 270);
 //        font.draw("Tiles w: " +player.getWorldMapTileX()+":"+player.getWorldMapTileY(), 590, 260);
 //        font.draw("Location: " +player.getCurrentLevelName(), 590, 280);
 //        font.draw("Mouse tile: " +mouseCursor.getTileX()+":"+mouseCursor.getTileY(), 590, 300);

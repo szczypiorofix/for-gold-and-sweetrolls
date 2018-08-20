@@ -1,5 +1,6 @@
 package com.szczypiorofix.sweetrolls.game.main.core;
 
+import com.szczypiorofix.sweetrolls.game.gui.ActionHistory;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import com.szczypiorofix.sweetrolls.game.tilemap.TileMap;
 
@@ -10,10 +11,10 @@ public class LevelManager {
 
     public LevelManager() {}
 
-    public TileMap loadGeneratedLevel(String name, String type, Player player) {
+    public TileMap loadGeneratedLevel(String name, String type, ActionHistory actionHistory) {
 
         if (type.equalsIgnoreCase("plains")) {
-            player.getActionHistory().addValue("Obszar: równiny");
+            actionHistory.addValue("Obszar: równiny");
             return new LevelGenerator(
                     name,
                     50,
@@ -27,7 +28,7 @@ public class LevelManager {
                     false).getTileMap();
 
         } else if (type.equalsIgnoreCase("forest")) {
-            player.getActionHistory().addValue("Obszar: lasy");
+            actionHistory.addValue("Obszar: lasy");
             return new LevelGenerator(
                     name,
                     50,
@@ -41,7 +42,7 @@ public class LevelManager {
                     false).getTileMap();
 
         } else if (type.equalsIgnoreCase("mountains")) {
-            player.getActionHistory().addValue("Obszar: góry");
+            actionHistory.addValue("Obszar: góry");
             return new LevelGenerator(
                     name,
                     50,
@@ -56,7 +57,7 @@ public class LevelManager {
         }
 
         // DUNGEON
-        player.getActionHistory().addValue("Obszar: podziemia");
+        actionHistory.addValue("Obszar: podziemia");
         return new LevelGenerator(
                     name,
                     50,

@@ -1,6 +1,5 @@
 package com.szczypiorofix.sweetrolls.game.main.core;
 
-import com.szczypiorofix.sweetrolls.game.enums.PlayerState;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import org.newdawn.slick.Color;
 
@@ -19,6 +18,7 @@ public class TimeCounter implements Serializable {
     private final int MINUTES_IN_HOUR = 60;
     private Color dayNightEffect;
     private float darkness = 0f;
+    private float timeC = 0f;
 
     public TimeCounter(Player player) {
         this.player = player;
@@ -29,42 +29,73 @@ public class TimeCounter implements Serializable {
     }
 
     private void calculateDarkness() {
-        if (hourCounter > 7 && hourCounter < 19) {
+//        if (hourCounter > 7 && hourCounter < 19) {
+//            darkness = 0f;
+//        } else if (hourCounter >= 19 && hourCounter < 23 ) {
+//            darkness += 0.1f;
+//        }
+//        else if (hourCounter > 4 && hourCounter <= 7 ) {
+//            darkness -= 0.1f;
+//        }
+        if (hourCounter >= 7 && hourCounter < 19) { // 12h wieczór i noc
             darkness = 0f;
-        } else if (hourCounter >= 19 && hourCounter < 23 ) {
-            darkness += 0.1f;
+        } else {
+
+            if (hourCounter >= 19 && hourCounter < 22) {
+//                timeC = ( (
+//                        (HOURS_IN_DAY - hourCounter)
+//                                * MINUTES_IN_HOUR) + minuteCounter ) / 1000f;
+
+                //timeC++;
+
+                //timeC = ( ( (float) (HOURS_IN_DAY - hourCounter) * MINUTES_IN_HOUR ) + ( (float) minuteCounter / (float) MINUTES_IN_HOUR ) );// / 1000f;
+
+            } else if (hourCounter > 3 && hourCounter < 7) {
+
+//                timeC = hourCounter + ( (float) minuteCounter / (float) MINUTES_IN_HOUR);
+
+                //timeC--;
+
+
+            } else {
+                timeC = 3f;
+            }
+
+
+            //darkness = 0.5f - Math.abs(timeC);
+
+
+            System.out.println(timeC);
         }
-        else if (hourCounter > 4 && hourCounter <= 7 ) {
-            darkness -= 0.1f;
-        }
-        dayNightEffect = new Color(0.6f - darkness, 0f, 0.6f - darkness, darkness * 1.5f);
+
+        //dayNightEffect = new Color(0.6f - darkness, 0f, 0.6f - darkness, darkness * 1.5f);
     }
 
-    public void nextTurn() {
-        if (player.getPlayerState() == PlayerState.MOVING_WORLD_MAP) {
+    public void turn() {
+        if (player.getLevelState() == LevelMap.LevelType.WORLD_MAP) {
             minuteCounter += WORLD_MAP_MINUTE_COUNTER;
-        } else if (player.getPlayerState() == PlayerState.MOVING_INNER_LOCATION) {
+        } else if (player.getLevelState() == LevelMap.LevelType.INNER_MAP) {
             minuteCounter += INNER_MAP_MINUTE_COUNTER;
         }
 
         if (minuteCounter >= MINUTES_IN_HOUR) {
             hourCounter++;
             minuteCounter = Math.abs(MINUTES_IN_HOUR - minuteCounter);
-            calculateDarkness();
             player.calculateSurvival();
         }
 
         if (hourCounter >= HOURS_IN_DAY) {
             dayCounter++;
             hourCounter = Math.abs(HOURS_IN_DAY - hourCounter);
-            calculateDarkness();
             player.calculateSurvival();
         }
+
+        calculateDarkness();
 
     }
 
     public int getCurrentTurnTime() {
-        if (player.getPlayerState() == PlayerState.MOVING_WORLD_MAP) {
+        if (player.getLevelState() == LevelMap.LevelType.WORLD_MAP) {
             return WORLD_MAP_MINUTE_COUNTER;
         } else {
             return INNER_MAP_MINUTE_COUNTER;
@@ -83,19 +114,8 @@ public class TimeCounter implements Serializable {
         return minuteCounter;
     }
 
-    public void setMinuteCounter(int minuteCounter) {
-        this.minuteCounter = minuteCounter;
-    }
-
-    public void setDayCounter(int dayCounter) {
-        this.dayCounter = dayCounter;
-    }
-
     public int getHourCounter() {
         return hourCounter;
     }
 
-    public void setHourCounter(int hourCounter) {
-        this.hourCounter = hourCounter;
-    }
 }

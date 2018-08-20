@@ -2,15 +2,14 @@ package com.szczypiorofix.sweetrolls.game.objects.characters;
 
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.enums.PlayerAction;
-import com.szczypiorofix.sweetrolls.game.enums.PlayerState;
-import com.szczypiorofix.sweetrolls.game.gui.ActionHistory;
-import com.szczypiorofix.sweetrolls.game.main.core.TimeCounter;
 import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
 import com.szczypiorofix.sweetrolls.game.tilemap.Property;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
 import java.util.ArrayList;
+import static com.szczypiorofix.sweetrolls.game.main.core.LevelMap.LevelType;
+
 
 public class Player extends Character {
 
@@ -25,11 +24,9 @@ public class Player extends Character {
 
     private Image image;
     private ObjectType terrainType;
-    private PlayerState playerState;
+    private LevelType levelType;
     private PlayerAction playerAction;
-    private TimeCounter timeCounter;
 
-    private ActionHistory actionHistory;
 
     public Player(String name, float x, float y, float width, float height, ArrayList<Property> properties) {
         super(name, x, y, width, height, ObjectType.PLAYER, properties);
@@ -40,7 +37,7 @@ public class Player extends Character {
         this.moving = true;
 
         playerAction = PlayerAction.MOVE;
-        playerState = PlayerState.MOVING_WORLD_MAP;
+        levelType = LevelType.getInitialLevelType();
 
         image = Textures.getInstance().classm32.getSprite(3, 0);
 
@@ -68,9 +65,6 @@ public class Player extends Character {
         setLastTileX(getTileX());
         setLastTileY(getTileY());
 
-        actionHistory = new ActionHistory();
-
-        timeCounter = new TimeCounter(this);
     }
 
 
@@ -99,9 +93,7 @@ public class Player extends Character {
     public void turn() {
         playerTurn++;
 
-        timeCounter.nextTurn();
-
-        if (playerState == PlayerState.MOVING_WORLD_MAP) {
+        if (levelType == LevelType.WORLD_MAP) {
             lastTileX = getTileX();
             lastTileY = getTileY();
         }
@@ -113,13 +105,6 @@ public class Player extends Character {
         statistics.water -= statistics.watetUsagePerHour;
     }
 
-    public ActionHistory getActionHistory() {
-        return actionHistory;
-    }
-
-    public TimeCounter getTimeCounter() {
-        return timeCounter;
-    }
 
     public float getOffsetX() {
         return offsetX;
@@ -185,12 +170,12 @@ public class Player extends Character {
         this.playerTurn = playerTurn;
     }
 
-    public PlayerState getPlayerState() {
-        return playerState;
+    public LevelType getLevelState() {
+        return levelType;
     }
 
-    public void setPlayerState(PlayerState playerState) {
-        this.playerState = playerState;
+    public void setLevelState(LevelType levelType) {
+        this.levelType = levelType;
     }
 
     public int getLastTileX() {

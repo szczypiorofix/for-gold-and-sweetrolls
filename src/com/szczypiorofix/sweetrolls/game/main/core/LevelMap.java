@@ -9,13 +9,24 @@ import java.io.Serializable;
 
 public class LevelMap implements Serializable {
 
+    public enum LevelType {
+        WORLD_MAP,
+        INNER_MAP;
+
+        public static LevelType getInitialLevelType() {
+            return WORLD_MAP;
+        }
+    }
+
     private Ground[][] ground;
     private Place[][] places;
     private NPC[][] npc;
     private Item[][] items;
     private int playerLastTileX, playerLastTileY;
+    private LevelType levelType;
 
-    public LevelMap(Ground[][] ground, Place[][] places, NPC[][] npc, Item[][] items, int playerLastTileX, int playerLastTileY) {
+    public LevelMap(LevelType levelType, Ground[][] ground, Place[][] places, NPC[][] npc, Item[][] items, int playerLastTileX, int playerLastTileY) {
+        this.levelType = levelType;
         this.ground = ground;
         this.places = places;
         this.npc = npc;
@@ -57,7 +68,7 @@ public class LevelMap implements Serializable {
     }
 
     public void setPlayerLastTiles(int x, int y) {
-        System.out.println("Setting old: "+playerLastTileX+":"+playerLastTileY +" to: "+x+":"+y);
+        //System.out.println("Setting old: "+playerLastTileX+":"+playerLastTileY +" to: "+x+":"+y);
         this.playerLastTileX = x;
         this.playerLastTileY = y;
     }
@@ -68,5 +79,9 @@ public class LevelMap implements Serializable {
 
     public void setItems(Item[][] items) {
         this.items = items;
+    }
+
+    public LevelType getLevelType() {
+        return levelType;
     }
 }
