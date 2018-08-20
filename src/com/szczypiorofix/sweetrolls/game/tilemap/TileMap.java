@@ -87,8 +87,8 @@ public class TileMap {
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
             doc.getDocumentElement().normalize();
-            NodeList mapList = doc.getElementsByTagName("map");
 
+            NodeList mapList = doc.getElementsByTagName("map");
             for (int temp = 0; temp < mapList.getLength(); temp++) {
                 Node mapNode = mapList.item(temp);
 
@@ -112,7 +112,19 @@ public class TileMap {
                                     Integer.parseInt(layerElement.getAttribute("height"))
                             );
 
-                            tileLayer.setDataCSVFromString(layerElement.getElementsByTagName("data").item(0).getFirstChild().getNodeValue());
+                            Node dataNode = layerElement.getElementsByTagName("data").item(0);
+                            Element dataElement = (Element) dataNode;
+                            String data = layerElement.getElementsByTagName("data").item(0).getFirstChild().getNodeValue().trim();
+                            if (dataElement.getAttribute("encoding").equalsIgnoreCase("base64")
+                                    && dataElement.getAttribute("compression").equalsIgnoreCase("gzip")) {
+                                tileLayer.readEncodedAndGZipCompressedData(data);
+                            }
+                            else if (dataElement.getAttribute("encoding").equalsIgnoreCase("csv")) {
+                                tileLayer.readCSVDataFromString(data);
+                            } else {
+                                throw new Exception("Wspierane są tylko mapy z danymi typu CSV lub base64 encoded spakowane do formatu GZIP !!!");
+                            }
+
                             if (layerElement.getAttribute("locked").equals("1")) {
                                 tileLayer.setLocked(true);
                             }
