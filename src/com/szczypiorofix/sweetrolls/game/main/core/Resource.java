@@ -4,8 +4,6 @@ import com.szczypiorofix.sweetrolls.game.enums.ResourceType;
 
 public class Resource {
 
-    private int timeStamp;
-    private int nextStamp;
     private int amount;
     private int initialAmount;
     private ResourceType type;
@@ -14,8 +12,6 @@ public class Resource {
         this.amount = amount;
         this.type = type;
         initialAmount = amount;
-        timeStamp = 0;
-        nextStamp = 10;
     }
 
     public int getAmount() {
@@ -35,17 +31,10 @@ public class Resource {
     }
 
     public int collect() {
-        if (timeStamp >= nextStamp) timeStamp = 0;
-        int temp = amount;
-        amount = 0;
-        return temp;
+        return 0;
     }
 
-    public void round() {
-        timeStamp++;
-        if (timeStamp >= nextStamp) {
-            amount = initialAmount;
-            timeStamp = nextStamp;
-        }
+    public void turn(long lastStamp) {
+        System.out.println("Setting last stamp..." +lastStamp);
     }
 }

@@ -393,9 +393,11 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
 
             if (input.isKeyPressed(Input.KEY_R)) {
                 actionHistory.addValue("Szukanie zasobów...");
-                int water = objectManager.getGround(player.getTileX(), player.getTileY()).getTerrainResources().getResources().get(ResourceType.WATER).collect();
-                if (water > 0) actionHistory.addValue("Zasoby woda: "+ water);
-                else actionHistory.addValue("Brak wody");
+                objectManager.getGround(player.getTileX(), player.getTileY()).setLastStamp(timeCounter.getTimeStamp());
+
+//                int water = objectManager.getGround(player.getTileX(), player.getTileY()).getTerrainResources().getResources().get(ResourceType.WATER).collect();
+//                if (water > 0) actionHistory.addValue("Zasoby woda: "+ water);
+//                else actionHistory.addValue("Brak wody");
             }
 
             if (input.isKeyPressed(Input.KEY_SPACE)) {
@@ -467,7 +469,7 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
                 if (objectManager.getGround(mouseCursor.getTileX(), mouseCursor.getTileY()) != null) {
                     for (int i = -1; i < 2; i++) {
                         for (int j = -1; j < 2; j++) {
-                            if (!(i == 0 && j == 0)
+                            if ( (i != 0 || j != 0)
                                     && player.getTileX(i) > 0
                                     && player.getTileY(j) > 0
                                     && player.getTileX(i) < objectManager.getLevel().getWidth()-1

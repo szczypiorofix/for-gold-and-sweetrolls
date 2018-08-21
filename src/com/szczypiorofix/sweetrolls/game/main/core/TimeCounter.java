@@ -4,6 +4,7 @@ import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import org.newdawn.slick.Color;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class TimeCounter implements Serializable {
 
@@ -19,56 +20,39 @@ public class TimeCounter implements Serializable {
     private Color dayNightEffect;
     private float darkness = 0f;
     private float timeC = 0f;
+    private long timeStamp;
 
     public TimeCounter(Player player) {
         this.player = player;
         dayCounter = 0;
         hourCounter = 9;
         minuteCounter = 0;
+        timeStamp = 0L;
         dayNightEffect = new Color(0.6f - darkness, 0f, 0.6f - darkness, darkness * 1.5f);
     }
 
     private void calculateDarkness() {
-//        if (hourCounter > 7 && hourCounter < 19) {
-//            darkness = 0f;
-//        } else if (hourCounter >= 19 && hourCounter < 23 ) {
-//            darkness += 0.1f;
-//        }
-//        else if (hourCounter > 4 && hourCounter <= 7 ) {
-//            darkness -= 0.1f;
-//        }
-        if (hourCounter >= 7 && hourCounter < 19) { // 12h wieczór i noc
+        if (hourCounter > 7 && hourCounter < 19) {
             darkness = 0f;
-        } else {
-
-            if (hourCounter >= 19 && hourCounter < 22) {
-//                timeC = ( (
-//                        (HOURS_IN_DAY - hourCounter)
-//                                * MINUTES_IN_HOUR) + minuteCounter ) / 1000f;
-
-                //timeC++;
-
-                //timeC = ( ( (float) (HOURS_IN_DAY - hourCounter) * MINUTES_IN_HOUR ) + ( (float) minuteCounter / (float) MINUTES_IN_HOUR ) );// / 1000f;
-
-            } else if (hourCounter > 3 && hourCounter < 7) {
-
-//                timeC = hourCounter + ( (float) minuteCounter / (float) MINUTES_IN_HOUR);
-
-                //timeC--;
-
-
-            } else {
-                timeC = 3f;
-            }
-
-
-            //darkness = 0.5f - Math.abs(timeC);
-
-
-            System.out.println(timeC);
+        } else if (hourCounter >= 19 && hourCounter < 23 ) {
+            darkness += 0.11f;
+        } else if (hourCounter > 4 && hourCounter <= 7 ) {
+            darkness -= 0.11f;
         }
 
-        //dayNightEffect = new Color(0.6f - darkness, 0f, 0.6f - darkness, darkness * 1.5f);
+        timeC = TimeCounter.round((hourCounter + (minuteCounter / (float) MINUTES_IN_HOUR) ) / 1000f, 4);
+
+
+        System.out.println(timeC);
+
+
+        dayNightEffect = new Color(1f - darkness, 0f, 1f - darkness, darkness);
+    }
+
+    private static float round(float d, int decimalPlace) {
+        BigDecimal bd = new BigDecimal(Float.toString(d));
+        bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
+        return bd.floatValue();
     }
 
     public void turn() {
@@ -91,7 +75,7 @@ public class TimeCounter implements Serializable {
         }
 
         calculateDarkness();
-
+        timeStamp += getCurrentTurnTime();
     }
 
     public int getCurrentTurnTime() {
@@ -100,6 +84,10 @@ public class TimeCounter implements Serializable {
         } else {
             return INNER_MAP_MINUTE_COUNTER;
         }
+    }
+
+    public long getTimeStamp() {
+        return timeStamp;
     }
 
     public Color getDayNightEffect() {

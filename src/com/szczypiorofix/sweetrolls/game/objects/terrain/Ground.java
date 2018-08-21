@@ -14,6 +14,7 @@ public class Ground extends GameObject {
     private Image image;
     private Color highlighColor = new Color(1f, 1f, 1f, 0.65f);
     private TerrainResources terrainResources;
+    private long lastStamp;
 
     public Ground(String name, float x, float y, float width, float height, Image image, boolean visible, CollisionObject collisionObject) {
         super(name, x, y, width, height);
@@ -23,6 +24,7 @@ public class Ground extends GameObject {
 
         setCollisions(collisionObject);
         terrainResources = new TerrainResources(objectType);
+        lastStamp = 0L;
 
     }
 
@@ -39,13 +41,12 @@ public class Ground extends GameObject {
                 g.drawImage(image, - offsetX + x, - offsetY + y, highlighColor);
             } else
                 g.drawImage(image, - offsetX + x, - offsetY + y);
-            //g.drawString(terrainResources.getResources().get(ResourceType.WATER).getAmount()+"", - offsetX + x, - offsetY + y + 4);
+            g.drawString(terrainResources.getResources().get(ResourceType.WATER).getAmount()+"", - offsetX + x, - offsetY + y + 4);
         }
     }
 
     @Override
     public void turn() {
-        terrainResources.getResources().get(ResourceType.WATER).round();
     }
 
 
@@ -96,4 +97,12 @@ public class Ground extends GameObject {
         return terrainResources;
     }
 
+    public long getLastStamp() {
+        return lastStamp;
+    }
+
+    public void setLastStamp(long lastStamp) {
+        this.lastStamp = lastStamp;
+        terrainResources.getResources().get(ResourceType.WATER).turn(lastStamp);
+    }
 }
