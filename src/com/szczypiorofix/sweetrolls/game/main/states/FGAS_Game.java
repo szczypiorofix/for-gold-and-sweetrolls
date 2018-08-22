@@ -97,11 +97,9 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
      * @param levelType (LevelType) - level type (generated or created).
      */
     private void changeLevel(String levelName, String prevLevelName, LevelMap.LevelType levelType) {
-        this.currentLevelName = levelName;
         TileMap levelMap;
 
         if ( !prevLevelName.equalsIgnoreCase("") ) {
-            System.out.println("LEVEL: "+prevLevelName +" to "+levelName);
             objectManager.getLevelMaps().get(prevLevelName).setPlayerLastTiles(player.getTileX(), player.getTileY());
         }
 
@@ -124,13 +122,11 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
         } else {
 
             if (!levels.containsKey(levelName)) {
-                System.out.println("Wczytywanie nowej mapy : "+levelName);
                 levelMap = levelManager.loadLevel(levelName);
                 levels.put(levelName, levelMap);
                 objectManager.generateLevel(levelMap, levelName);
                 player = objectManager.getPlayer();
             } else {
-                System.out.println("Wczytywanie mapy : "+levelName);
                 levelMap = levels.get(levelName);
             }
 
@@ -139,15 +135,21 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
         if (!prevLevelName.equalsIgnoreCase("")) {
             int stx = objectManager.getLevelMaps().get(levelName).getPlayerLastTileX();// * tileWidth;
             int sty = objectManager.getLevelMaps().get(levelName).getPlayerLastTileY();// * tileHeight;
-            //System.out.println("Nowa pozycja playera: "+stx+":"+sty);
             player.setX(stx * tileWidth);
             player.setY(sty * tileHeight);
         }
 
+        this.currentLevelName = levelName;
         tileWidth = levelMap.getTileWidth();
         tileHeight = levelMap.getTileHeight();
+
         objectManager.setLevel(levelMap, levelName);
-        player.setLevelState(objectManager.getCurrentMap().getLevelType());
+        if (levelType == LevelMap.LevelType.INNER_RANDOM_MAP) {
+            player.setX( (float) (objectManager.getCurrentMap().getWidth() * objectManager.getCurrentMap().getTileWidth()) / 2);
+            player.setY( (float) (objectManager.getCurrentMap().getHeight() * objectManager.getCurrentMap().getTileHeight()) / 2);
+        }
+
+        player.setLevelState(levelType);
         player.setCurrentLevelName(currentLevelName);
         offsetX = 0;
         offsetY = 0;
@@ -322,10 +324,10 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
                 if (objectManager.getPlace(player.getTileX(), player.getTileY()) != null) {
                     actionHistory.addValue(objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("name"));
                     mouseCursor.setPositionTile(0, 0);
-                    changeLevel(objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("filename"), currentLevelName, LevelMap.LevelType.INNER_MAP);
-                } else if (player.getLevelState() == LevelMap.LevelType.WORLD_MAP) {
+                    changeLevel(objectManager.getPlace(player.getTileX(),player.getTileY()).getStringProperty("filename"), currentLevelName, objectManager.getPlace(player.getTileX(),player.getTileY()).getStringProperty("filename").equalsIgnoreCase(WORLD_MAP_NAME) ? LevelMap.LevelType.WORLD_MAP : LevelMap.LevelType.INNER_MAP);
+                } else if (objectManager.getCurrentMap().getLevelType() == LevelMap.LevelType.WORLD_MAP) {
 
-                    player.setLevelState(LevelMap.LevelType.INNER_MAP);
+                    //player.setLevelState(LevelMap.LevelType.INNER_RANDOM_MAP);
                     mouseCursor.setPositionTile(0, 0);
                     changeLevel("generate", currentLevelName, LevelMap.LevelType.INNER_RANDOM_MAP);
 
@@ -353,15 +355,19 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
                         pickUpItem(currentItem, 0, 0);
                     }
 
-                    if ((player.getTileX() <= 0
+                    if (
+                            ((player.getTileX() <= 0
                             || player.getTileY() <= 0
                             || player.getTileX() >= objectManager.getCurrentMap().getWidth()-1
-                            || player.getTileY() >= objectManager.getCurrentMap().getHeight()-1)
+                            || player.getTileY() >= objectManager.getCurrentMap().getHeight()-1))
+
                     ) {
                         actionHistory.addValue("Wyjście z generowanego poziomu...");
-
+                        mouseCursor.setPositionTile(0, 0);
+                        changeLevel(WORLD_MAP_NAME, currentLevelName, LevelMap.LevelType.WORLD_MAP);
                     }
                 }
+
 
                 // ENTERING INNER MAP FROM WORLD MAP
 //                if (player.getPlayerState() == MOVING_WORLD_MAP) {
@@ -407,7 +413,7 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
                 player.statistics.currentLevelBar++;
             }
 
-            if (player.getLevelState() == LevelMap.LevelType.WORLD_MAP) {
+            if (objectManager.getCurrentMap().getLevelType() == LevelMap.LevelType.WORLD_MAP) {
                 player.setWorldMapTileX(player.getTileX());
                 player.setWorldMapTileY(player.getTileY());
             }
@@ -523,7 +529,7 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
             }
 
             // MOUSE HOVER ON OBJECTS
-            if (player.getLevelState() == LevelMap.LevelType.WORLD_MAP) {
+            if (objectManager.getCurrentMap().getLevelType() == LevelMap.LevelType.WORLD_MAP) {
                 if (objectManager.getPlace(mouseCursor.getTileX(), mouseCursor.getTileY()) != null) {
                     objectManager.getPlace(mouseCursor.getTileX(), mouseCursor.getTileY()).setHover(true);
                 }

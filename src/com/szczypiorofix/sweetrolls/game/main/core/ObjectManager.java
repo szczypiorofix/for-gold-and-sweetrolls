@@ -274,7 +274,16 @@ public class ObjectManager {
             }
         }
 
-        currentMap = new LevelMap(levelName.equalsIgnoreCase(FGAS_Game.WORLD_MAP_NAME) ? LevelMap.LevelType.WORLD_MAP : LevelMap.LevelType.INNER_MAP, grounds, places, npcs, items, player.getTileX(), player.getTileY());
+        currentMap = new LevelMap(
+                tileMap.getTileWidth(),
+                tileMap.getTileHeight(),
+                levelName.equalsIgnoreCase(FGAS_Game.WORLD_MAP_NAME) ? LevelMap.LevelType.WORLD_MAP : LevelMap.LevelType.INNER_MAP,
+                grounds,
+                places,
+                npcs,
+                items,
+                player.getTileX(),
+                player.getTileY());
         levelMaps.put(levelName, currentMap);
     }
 

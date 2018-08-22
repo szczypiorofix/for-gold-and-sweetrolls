@@ -22,13 +22,13 @@ public class LevelGenerator {
     private int emptyFieldGid;
     private int wallFieldGid;
     private int simulationSteps = 5;
-    private boolean wallsCollidable;
+    private boolean innerWorldMap;
     private Vector playerVector;
     private Vector exitVector;
     private Vector itemVector;
 
 
-    public LevelGenerator(String name, int levelWidth, int levelHeight, int wallFieldGid, int emptyFieldGid, int deathLimit, int birthLimit, float chanceToStartAlive, int simulationSteps, boolean wallsCollidable) {
+    public LevelGenerator(String name, int levelWidth, int levelHeight, int wallFieldGid, int emptyFieldGid, int deathLimit, int birthLimit, float chanceToStartAlive, int simulationSteps, boolean innerWorldMap) {
         this.name = name;
         this.levelWidth = levelWidth;
         this.levelHeight = levelHeight;
@@ -38,7 +38,7 @@ public class LevelGenerator {
         this.birthLimit = birthLimit;
         this.chanceToStartAlive = chanceToStartAlive;
         this.simulationSteps = simulationSteps;
-        this.wallsCollidable = wallsCollidable;
+        this.innerWorldMap = innerWorldMap;
         createTileMap();
     }
 
@@ -111,6 +111,10 @@ public class LevelGenerator {
 
         //placePlayerOnMap(map);
         playerVector = placeOnMap(map);
+        if (innerWorldMap) {
+            playerVector.setXY(levelWidth / 2 * TILEWIDTH, levelHeight / 2 * TILEHEIGHT);
+        }
+
         System.out.println("LevelGenerator, lokalizacja playera: " +playerVector.x / TILEWIDTH+":"+playerVector.y / TILEHEIGHT);
 
         itemVector = placeOnMap(map);
@@ -119,7 +123,7 @@ public class LevelGenerator {
         exitVector.x = playerVector.x;
         exitVector.y = playerVector.y;
 
-        if (wallsCollidable) {
+        if (!innerWorldMap) {
             for (int i = 0; i < map.length; i++) {
                 for (int j = 0; j < map[0].length; j++) {
 
@@ -158,7 +162,7 @@ public class LevelGenerator {
         tileMap.addObjectGroup(playerObjectGroup);
 
         // ############# EXIT
-        if (wallsCollidable) {
+        if (!innerWorldMap) {
             ObjectGroup exitObjectGroup = new ObjectGroup("exit");
             ObjectGroupObject exitObject = new ObjectGroupObject(
                     2,
@@ -188,6 +192,15 @@ public class LevelGenerator {
                 tileMap.getTileSets()
         );
         itemObject.setGid(208); // ITEM GID  208 - 308
+
+
+        itemObject.addProperty(new Property("name", "string", "złamany miecz"));
+        itemObject.addProperty(new Property("pickable", "bool", "true"));
+        itemObject.addProperty(new Property("type", "string", "sword"));
+
+
+
+
         itemsObjectGroup.addObject(itemObject);
         tileMap.addObjectGroup(itemsObjectGroup);
     }
@@ -291,7 +304,7 @@ public class LevelGenerator {
                 if ((float) MainClass.RANDOM.nextInt(1001) / 1000  < this.chanceToStartAlive) {
                     tile = wallFieldGid; // true
                 }
-                if (wallsCollidable) {
+                if (innerWorldMap) {
                     if (i == 0 || j == 0 || i == levelWidth-1 || j == levelHeight-1) {
                         tile = wallFieldGid;
                     }

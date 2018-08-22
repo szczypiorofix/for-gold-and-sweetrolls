@@ -25,8 +25,11 @@ public class LevelMap {
     private int playerLastTileX, playerLastTileY;
     private LevelType levelType;
     private int width, height;
+    private int tileWidth, tileHeight;
 
-    public LevelMap(LevelType levelType, Ground[][] ground, Place[][] places, NPC[][] npc, Item[][] items, int playerLastTileX, int playerLastTileY) {
+    public LevelMap(int tileWidth, int tileHeight, LevelType levelType, Ground[][] ground, Place[][] places, NPC[][] npc, Item[][] items, int playerLastTileX, int playerLastTileY) {
+        this.tileWidth = tileWidth;
+        this.tileHeight = tileHeight;
         this.levelType = levelType;
         this.ground = ground;
         this.places = places;
@@ -94,5 +97,13 @@ public class LevelMap {
 
     public LevelType getLevelType() {
         return levelType;
+    }
+
+    public int getTileWidth() {
+        return tileWidth;
+    }
+
+    public int getTileHeight() {
+        return tileHeight;
     }
 }

@@ -25,7 +25,7 @@ public class LevelManager {
                     4,
                     0.43f,
                     4,
-                    false).getTileMap();
+                    true).getTileMap();
 
         } else if (type.equalsIgnoreCase("forest")) {
             actionHistory.addValue("Obszar: lasy");
@@ -39,7 +39,7 @@ public class LevelManager {
                     4,
                     0.40f,
                     4,
-                    false).getTileMap();
+                    true).getTileMap();
 
         } else if (type.equalsIgnoreCase("mountains")) {
             actionHistory.addValue("Obszar: góry");
@@ -53,7 +53,7 @@ public class LevelManager {
                     4,
                     0.44f,
                     4,
-                    false).getTileMap();
+                    true).getTileMap();
         }
 
         // DUNGEON
@@ -68,7 +68,7 @@ public class LevelManager {
                     4,
                     0.43f,
                     8,
-                    true).getTileMap();
+                    false).getTileMap();
     }
 
     public TileMap loadLevel(String levelName) {
