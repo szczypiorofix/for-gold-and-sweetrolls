@@ -1,5 +1,6 @@
 package com.szczypiorofix.sweetrolls.game.gui;
 
+import com.szczypiorofix.sweetrolls.game.interfaces.CloseableDialogueListener;
 import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
 import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
 import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
@@ -15,6 +16,7 @@ public class DialogueFrame {
     private boolean showDialog = false;
     private BitMapFont fontS, fontL;
     private Image dialogueFrame;
+    private CloseableDialogueListener closeableDialogueListener;
 
     public DialogueFrame() {
     }
@@ -28,6 +30,10 @@ public class DialogueFrame {
         fontL = FontParser.getFont("Immortal NPC L Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
         fontL.setSize(5.5f);
         dialogueFrame = Textures.getInstance().dialogueFrame;
+    }
+
+    public void setCloseableDialogueListener(CloseableDialogueListener closeableDialogueListener) {
+        this.closeableDialogueListener = closeableDialogueListener;
     }
 
     public void update(GameContainer gc, int delta, float offsetX, float offsetY) {
@@ -45,6 +51,7 @@ public class DialogueFrame {
 
                     if (currentButton.isEndButton()) {
                         showDialog = false;
+                        closeableDialogueListener.closeDialogue();
                     }
                 }
             }

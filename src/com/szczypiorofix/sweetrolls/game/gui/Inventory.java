@@ -27,9 +27,7 @@ public class Inventory {
     private InventoryContainer currentContainer;
     private int dropX, dropY;
     private int dragOriginX, dragOriginY;
-    //private boolean dropping;
     private boolean drag;
-    private boolean using;
     private DroppableListener droppableListener;
     private ConsumableListener consumableListener;
     private ArrayList<InventoryOptionsButton> optionsFrameButtons = new ArrayList<>();

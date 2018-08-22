@@ -4,7 +4,13 @@ public enum PlayerAction {
 
     MOVE,
 
-    INVENTORY
+    INVENTORY,
+
+    DIALOGUE,
+
+    MAP,
+
+    MENU
 
 
 }

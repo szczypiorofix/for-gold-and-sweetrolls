@@ -1,8 +1,9 @@
 package com.szczypiorofix.sweetrolls.game.main.states;
 
-import com.szczypiorofix.sweetrolls.game.enums.GameState;
 import com.szczypiorofix.sweetrolls.game.enums.ItemType;
+import com.szczypiorofix.sweetrolls.game.enums.PlayerAction;
 import com.szczypiorofix.sweetrolls.game.gui.*;
+import com.szczypiorofix.sweetrolls.game.interfaces.CloseableDialogueListener;
 import com.szczypiorofix.sweetrolls.game.interfaces.ConsumableListener;
 import com.szczypiorofix.sweetrolls.game.interfaces.DroppableListener;
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
@@ -26,7 +27,7 @@ import static com.szczypiorofix.sweetrolls.game.enums.PlayerAction.MOVE;
 /**
  * This is the main class of the game (gameplay).
  */
-public class FGAS_Game implements DroppableListener, ConsumableListener {
+public class FGAS_Game implements DroppableListener, ConsumableListener, CloseableDialogueListener {
 
     public static final String WORLD_MAP_NAME = "worldmap.tmx";
     private final boolean COLLISIONS_ENABLED = true;
@@ -52,7 +53,7 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
     private int tileWidth, tileHeight;
     private int gameWidth, gameHeight;
     private boolean setNextRound;
-    private boolean showMap;
+
 
     @Override
     public void drop(Item item) {
@@ -88,7 +89,6 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
         this.forGoldAndSweetrolls = forGoldAndSweetrolls;
         offsetX = 0;
         offsetY = 0;
-        dialogueFrame = new DialogueFrame();
     }
 
     /**
@@ -166,8 +166,10 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
         actionHistory = new ActionHistory();
         hud = new HUD(player, timeCounter, actionHistory, mouseCursor);
         inventory = new Inventory(player, mouseCursor);
+        dialogueFrame = new DialogueFrame();
         inventory.setConsumableListener(this);
         inventory.setDroppableListener(this);
+        dialogueFrame.setCloseableDialogueListener(this);
     }
 
 
@@ -221,30 +223,22 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
         mouseCursor.update(delta, offsetX, offsetY);
 
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-            if (player.getPlayerAction() == MOVE) {
-                if (!showMap) forGoldAndSweetrolls.setGameState(GameState.MAIN_MENU);
-                else showMap = false;
-            } else if (player.getPlayerAction() == INVENTORY) {
-                player.setPlayerAction(MOVE);
-                inventory.setShow(false);
-                showMap = false;
-            }
+
         }
 
         // INVENTORY
         if (input.isKeyPressed(Input.KEY_I)) {
-            inventory.setShow(!inventory.isShow());
-            if (inventory.isShow()) {
-                player.setPlayerAction(INVENTORY);
-            } else player.setPlayerAction(MOVE);
+            if (player.getPlayerAction() == PlayerAction.MOVE) {
+                player.setPlayerAction(PlayerAction.INVENTORY);
+                inventory.setShow(true);
+            } else {
+                player.setPlayerAction(PlayerAction.MOVE);
+                inventory.setShow(false);
+            }
         }
 
         // PLAYER CONTROLS ON MOVE
         if (player.getPlayerAction() == MOVE) {
-
-            if (input.isKeyPressed(Input.KEY_M)) {
-                showMap = !showMap;
-            }
 
             if (input.isKeyPressed(Input.KEY_RIGHT) || gc.getInput().isKeyPressed(Input.KEY_D)) {
 
@@ -420,47 +414,6 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
 
         }
 
-        if (player.getPlayerAction() == INVENTORY) {
-            inventory.update(gc, delta);
-        }
-
-    }
-
-    private void calculateOffset() {
-
-        if ((player.getTileX() >= objectManager.getTilesToEast())
-                &&
-                (player.getTileX() < objectManager.getLevel().getWidth() - objectManager.getTilesToEast() + 1)
-                ) {
-            offsetX = player.getX() - (gameWidth / 2) + (3 * tileWidth) + (player.getWidth()/2);
-        }
-
-        if ((player.getTileY() >= objectManager.getTilesToSouth() - 1)
-                &&
-                (player.getTileY() < objectManager.getLevel().getHeight() - objectManager.getTilesToSouth() + 1)
-                ) {
-            offsetY = player.getY() - (gameHeight / 2) + (player.getHeight()/2) - 4;
-        }
-
-    }
-
-
-    public void handleLogic(GameContainer gc, int delta) throws SlickException {
-
-        objectManager.update(delta, offsetX, offsetY);
-        player.update(delta, offsetX, offsetY);
-
-        dialogueFrame.update(gc, delta, offsetX, offsetY);
-
-        if (setNextRound) {
-            objectManager.turn();
-            player.turn();
-
-            hud.turn();
-            timeCounter.turn();
-        }
-        setNextRound = false;
-
         // #################################### HOVER ####################################
         // MOUSE HOVER ON PLAYER
 //        if (mouseCursor.intersects(player.getX() - offsetX, player.getY() - offsetY, player.getWidth(), player.getHeight())) {
@@ -474,7 +427,7 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
                     && player.getTileX() <= mouseCursor.getTileX() + 1
                     && player.getTileY() >= mouseCursor.getTileY() - 1
                     && player.getTileY() <= mouseCursor.getTileY() + 1
-                    ) {
+            ) {
                 if (objectManager.getGround(mouseCursor.getTileX(), mouseCursor.getTileY()) != null) {
                     for (int i = -1; i < 2; i++) {
                         for (int j = -1; j < 2; j++) {
@@ -492,7 +445,7 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
                                 if (objectManager.getNpc(player.getTileX(i), player.getTileY(j)) != null
                                         && objectManager.getNpc(player.getTileX(i), player.getTileY(j)).getTileX() == mouseCursor.getTileX()
                                         && objectManager.getNpc(player.getTileX(i), player.getTileY(j)).getTileY() == mouseCursor.getTileY()
-                                        ) {
+                                ) {
 
                                     objectManager.getNpc(player.getTileX(i), player.getTileY(j)).setHover(true);
 
@@ -501,6 +454,7 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
                                             if (objectManager.getNpc(player.getTileX(i), player.getTileY(j)).isLondTalk()) {
                                                 dialogueFrame = new DialogueFrame(player, objectManager.getNpc(player.getTileX(i), player.getTileY(j)), mouseCursor);
                                                 dialogueFrame.setShowDialog(true);
+                                                player.setPlayerAction(PlayerAction.DIALOGUE);
                                             } else {
                                                 objectManager.getNpc(player.getTileX(i), player.getTileY(j)).setShortTalk(true);
                                             }
@@ -536,6 +490,43 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
             }
         }
 
+    }
+
+    private void calculateOffset() {
+
+        if ((player.getTileX() >= objectManager.getTilesToEast())
+                &&
+                (player.getTileX() < objectManager.getLevel().getWidth() - objectManager.getTilesToEast() + 1)
+                ) {
+            offsetX = player.getX() - (float) (gameWidth / 2) + (3 * tileWidth) + (player.getWidth()/2);
+        }
+
+        if ((player.getTileY() >= objectManager.getTilesToSouth() - 1)
+                &&
+                (player.getTileY() < objectManager.getLevel().getHeight() - objectManager.getTilesToSouth() + 1)
+                ) {
+            offsetY = player.getY() - (float) (gameHeight / 2) + (player.getHeight()/2) - 4;
+        }
+
+    }
+
+
+    public void handleLogic(GameContainer gc, int delta) throws SlickException {
+
+        objectManager.update(delta, offsetX, offsetY);
+        player.update(delta, offsetX, offsetY);
+
+        if (player.getPlayerAction() == PlayerAction.DIALOGUE) dialogueFrame.update(gc, delta, offsetX, offsetY);
+        if (player.getPlayerAction() == INVENTORY) inventory.update(gc, delta);
+
+        if (setNextRound) {
+            objectManager.turn();
+            player.turn();
+
+            hud.turn();
+            timeCounter.turn();
+        }
+        setNextRound = false;
 
     }
 
@@ -559,7 +550,7 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
         hud.render(gc, g);
         inventory.render(g);
 
-        if (showMap) {
+        if (player.getPlayerAction() == PlayerAction.MAP) {
             worldMapImage.draw(60, 50, 450, 450);
             g.drawRect(59, 49, 451, 451);
             g.drawRect(60 + (int) ((player.getWorldMapTileX() * 450)/300), 50 + (int) ((player.getWorldMapTileY() * 450)/300), 1, 1);
@@ -620,4 +611,10 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
     public ObjectManager getObjectManager() {
         return objectManager;
     }
+
+    @Override
+    public void closeDialogue() {
+        player.setPlayerAction(PlayerAction.MOVE);
+    }
+
 }
