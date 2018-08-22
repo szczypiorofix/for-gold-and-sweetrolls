@@ -100,8 +100,6 @@ public class MainMenuControlls extends GameObject {
         text = defaultText;
     }
 
-    @Override
-    public void turn() {}
 
     public void setHover(boolean hover) {
         this.hover = hover;

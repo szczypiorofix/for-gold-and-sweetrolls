@@ -5,13 +5,13 @@ import com.szczypiorofix.sweetrolls.game.objects.item.Item;
 import com.szczypiorofix.sweetrolls.game.objects.terrain.Place;
 import com.szczypiorofix.sweetrolls.game.objects.terrain.Ground;
 
-import java.io.Serializable;
 
-public class LevelMap implements Serializable {
+public class LevelMap {
 
     public enum LevelType {
         WORLD_MAP,
-        INNER_MAP;
+        INNER_MAP,
+        INNER_RANDOM_MAP;
 
         public static LevelType getInitialLevelType() {
             return WORLD_MAP;
@@ -24,6 +24,7 @@ public class LevelMap implements Serializable {
     private Item[][] items;
     private int playerLastTileX, playerLastTileY;
     private LevelType levelType;
+    private int width, height;
 
     public LevelMap(LevelType levelType, Ground[][] ground, Place[][] places, NPC[][] npc, Item[][] items, int playerLastTileX, int playerLastTileY) {
         this.levelType = levelType;
@@ -31,6 +32,8 @@ public class LevelMap implements Serializable {
         this.places = places;
         this.npc = npc;
         this.items = items;
+        this.width = ground.length;
+        this.height = ground[0].length;
         this.playerLastTileX = playerLastTileX;
         this.playerLastTileY = playerLastTileY;
     }
@@ -71,6 +74,14 @@ public class LevelMap implements Serializable {
         //System.out.println("Setting old: "+playerLastTileX+":"+playerLastTileY +" to: "+x+":"+y);
         this.playerLastTileX = x;
         this.playerLastTileY = y;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 
     public Item[][] getItems() {

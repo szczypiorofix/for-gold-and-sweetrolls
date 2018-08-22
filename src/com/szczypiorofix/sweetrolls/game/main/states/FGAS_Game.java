@@ -2,7 +2,6 @@ package com.szczypiorofix.sweetrolls.game.main.states;
 
 import com.szczypiorofix.sweetrolls.game.enums.GameState;
 import com.szczypiorofix.sweetrolls.game.enums.ItemType;
-import com.szczypiorofix.sweetrolls.game.enums.ResourceType;
 import com.szczypiorofix.sweetrolls.game.gui.*;
 import com.szczypiorofix.sweetrolls.game.interfaces.ConsumableListener;
 import com.szczypiorofix.sweetrolls.game.interfaces.DroppableListener;
@@ -82,15 +81,6 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
 
 
     /**
-     * Level type enum - generated level or created in TiledMap Editor.
-     */
-    private enum LevelType {
-        CREATED,
-        GENERATED
-    }
-
-
-    /**
      * Main FGAS_Game constructor.
      * @param forGoldAndSweetrolls (ForGoldAndSweetrolls) - main class of game (starting main menu state and game state - FGAS_Game).
      */
@@ -106,7 +96,7 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
      * @param levelName (String) - level name.
      * @param levelType (LevelType) - level type (generated or created).
      */
-    private void changeLevel(String levelName, String prevLevelName, LevelType levelType) {
+    private void changeLevel(String levelName, String prevLevelName, LevelMap.LevelType levelType) {
         this.currentLevelName = levelName;
         TileMap levelMap;
 
@@ -115,7 +105,7 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
             objectManager.getLevelMaps().get(prevLevelName).setPlayerLastTiles(player.getTileX(), player.getTileY());
         }
 
-        if (levelType == LevelType.GENERATED) {
+        if (levelType == LevelMap.LevelType.INNER_RANDOM_MAP) {
             levelName = levelName+player.getTileX()+"x"+player.getTileY();
 
             if (!levels.containsKey(levelName)) {
@@ -167,7 +157,7 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
     public void restartGame() {
         levels = new HashMap<>();
         objectManager = new ObjectManager(gameWidth, gameHeight);
-        changeLevel(WORLD_MAP_NAME, "", LevelType.CREATED);
+        changeLevel(WORLD_MAP_NAME, "", LevelMap.LevelType.WORLD_MAP);
         calculateOffset();
         player.setCurrentLevelName(currentLevelName);
         timeCounter = new TimeCounter(player);
@@ -189,7 +179,7 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
         objectManager = new ObjectManager(gameWidth, gameHeight);
 
         // INITIAL WORLD MAP
-        changeLevel(WORLD_MAP_NAME, "", LevelType.CREATED);
+        changeLevel(WORLD_MAP_NAME, "", LevelMap.LevelType.WORLD_MAP);
         calculateOffset();
 
         this.mouseCursor = mouseCursor;
@@ -332,19 +322,46 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
                 if (objectManager.getPlace(player.getTileX(), player.getTileY()) != null) {
                     actionHistory.addValue(objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("name"));
                     mouseCursor.setPositionTile(0, 0);
-                    changeLevel(objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("filename"), currentLevelName, LevelType.CREATED);
+                    changeLevel(objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("filename"), currentLevelName, LevelMap.LevelType.INNER_MAP);
+                } else if (player.getLevelState() == LevelMap.LevelType.WORLD_MAP) {
+
+                    player.setLevelState(LevelMap.LevelType.INNER_MAP);
+                    mouseCursor.setPositionTile(0, 0);
+                    changeLevel("generate", currentLevelName, LevelMap.LevelType.INNER_RANDOM_MAP);
+
+
+
+//                    actionHistory.addValue("Szukanie zasobów...");
+//                    if (
+//                            objectManager.getGround(player.getTileX(), player.getTileY()).getLastStamp()
+//                                    < timeCounter.getTimeStamp()
+//                                    - objectManager.getGround(player.getTileX(), player.getTileY()).getTerrainResources().getResources().get(ResourceType.WATER).getType().timeToRenewResource
+//                    ) {
+//                        actionHistory.addValue("Ostatni timestamp: "+objectManager.getGround(player.getTileX(), player.getTileY()).getLastStamp());
+//                        actionHistory.addValue("Pobieram zasoby wody: "+objectManager.getGround(player.getTileX(), player.getTileY()).getTerrainResources().getResources().get(ResourceType.WATER).getAmount());
+//                        objectManager.getGround(player.getTileX(), player.getTileY()).setLastStamp(timeCounter.getTimeStamp());
+//                    } else {
+//                        actionHistory.addValue("Brak zasobów wody.");
+//                    }
+
+
+
                 } else {
-                    if (player.getLevelState() == LevelMap.LevelType.WORLD_MAP) {
+                    // ######## Podnoszenie przedmiotów za pomocą "E"
+                    if (objectManager.getItems(player.getTileX(), player.getTileY()) != null) {
+                        Item currentItem = objectManager.getItems(player.getTileX(), player.getTileY());
+                        pickUpItem(currentItem, 0, 0);
+                    }
+
+                    if ((player.getTileX() <= 0
+                            || player.getTileY() <= 0
+                            || player.getTileX() >= objectManager.getCurrentMap().getWidth()-1
+                            || player.getTileY() >= objectManager.getCurrentMap().getHeight()-1)
+                    ) {
+                        actionHistory.addValue("Wyjście z generowanego poziomu...");
 
                     }
                 }
-
-                // ######## Podnoszenie przedmiotów za pomocą "E"
-                if (objectManager.getItems(player.getTileX(), player.getTileY()) != null) {
-                    Item currentItem = objectManager.getItems(player.getTileX(), player.getTileY());
-                    pickUpItem(currentItem, 0, 0);
-                }
-
 
                 // ENTERING INNER MAP FROM WORLD MAP
 //                if (player.getPlayerState() == MOVING_WORLD_MAP) {
@@ -381,24 +398,10 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
 //                        }
 //                    }
 //
-//                    // ######## Podnoszenie przedmiotów za pomocą "E"
-//                    if (objectManager.getItems(player.getTileX(), player.getTileY()) != null) {
-//                        Item currentItem = objectManager.getItems(player.getTileX(), player.getTileY());
-//                        pickUpItem(currentItem, 0, 0);
-//                    }
-//
 //                }
                 calculateOffset();
             }
 
-            if (input.isKeyPressed(Input.KEY_R)) {
-                actionHistory.addValue("Szukanie zasobów...");
-                objectManager.getGround(player.getTileX(), player.getTileY()).setLastStamp(timeCounter.getTimeStamp());
-
-//                int water = objectManager.getGround(player.getTileX(), player.getTileY()).getTerrainResources().getResources().get(ResourceType.WATER).collect();
-//                if (water > 0) actionHistory.addValue("Zasoby woda: "+ water);
-//                else actionHistory.addValue("Brak wody");
-            }
 
             if (input.isKeyPressed(Input.KEY_SPACE)) {
                 player.statistics.currentLevelBar++;

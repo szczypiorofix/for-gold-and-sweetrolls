@@ -45,8 +45,6 @@ public class MouseCursor extends GameObject {
     @Override
     public void render(Graphics g, float offsetX, float offsetY) {}
 
-    @Override
-    public void turn() {}
 
     public Input getInput() {
         return input;

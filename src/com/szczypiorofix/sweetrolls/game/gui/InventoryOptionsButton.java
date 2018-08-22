@@ -32,8 +32,7 @@ public class InventoryOptionsButton extends GameObject {
         font.draw(name, x, y + 5);
     }
 
-    @Override
-    public void turn() {}
+
 
     public String getCommand() {
         return command;

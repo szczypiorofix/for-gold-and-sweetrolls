@@ -1,8 +1,7 @@
 package com.szczypiorofix.sweetrolls.game.objects;
 
-import java.io.Serializable;
 
-public class Statistics implements Serializable {
+public class Statistics {
 
     public int gold;
 

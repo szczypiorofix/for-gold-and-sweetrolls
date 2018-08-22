@@ -46,8 +46,6 @@ public class MainMenuButton extends GameObject {
 
     }
 
-    @Override
-    public void turn() {}
 
     public void setHover(boolean hover) {
         this.hover = hover;

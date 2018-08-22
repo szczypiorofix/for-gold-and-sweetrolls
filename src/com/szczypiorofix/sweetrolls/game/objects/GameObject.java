@@ -79,7 +79,7 @@ abstract public class GameObject {
 
     public abstract void render(Graphics g, float offsetX, float offsetY) throws SlickException;
 
-    public abstract void turn();
+    public void turn() {}
 
 
     // ########## COMMON METHODS ##########

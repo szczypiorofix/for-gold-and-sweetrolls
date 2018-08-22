@@ -111,7 +111,7 @@ public class LevelGenerator {
 
         //placePlayerOnMap(map);
         playerVector = placeOnMap(map);
-        System.out.println(playerVector.x / TILEWIDTH+":"+playerVector.y / TILEHEIGHT);
+        System.out.println("LevelGenerator, lokalizacja playera: " +playerVector.x / TILEWIDTH+":"+playerVector.y / TILEHEIGHT);
 
         itemVector = placeOnMap(map);
         //System.out.println(itemVector.x / TILEWIDTH+":"+itemVector.y / TILEHEIGHT);

@@ -37,10 +37,6 @@ public class Place extends GameObject {
         }
     }
 
-    @Override
-    public void turn() {
-
-    }
 
     public String getType() {
         return type;

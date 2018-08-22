@@ -107,10 +107,6 @@ public class NPC extends Character {
         }
     }
 
-    @Override
-    public void turn() {
-
-    }
 
     public boolean isPlayerKnow() {
         return playerKnow;

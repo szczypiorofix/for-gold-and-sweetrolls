@@ -23,8 +23,4 @@ public class OtherCharacter extends Character {
 
     }
 
-    @Override
-    public void turn() {
-
-    }
 }

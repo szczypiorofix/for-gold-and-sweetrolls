@@ -68,9 +68,6 @@ public class Item extends GameObject {
         }
     }
 
-    @Override
-    public void turn() {}
-
 
     public Image getImage() {
         return image;

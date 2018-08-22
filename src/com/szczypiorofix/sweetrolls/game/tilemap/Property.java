@@ -1,8 +1,7 @@
 package com.szczypiorofix.sweetrolls.game.tilemap;
 
-import java.io.Serializable;
 
-public class Property implements Serializable {
+public class Property {
 
     public static final String ERROR_MSG = "ERROR";
     private String name;

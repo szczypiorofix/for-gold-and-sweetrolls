@@ -50,8 +50,6 @@ public class InventoryContainer extends GameObject {
         //g.drawString(c+"", x, y);
     }
 
-    @Override
-    public void turn() {}
 
     public Item getItem() {
         return item;

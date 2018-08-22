@@ -3,10 +3,9 @@ package com.szczypiorofix.sweetrolls.game.main.core;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import org.newdawn.slick.Color;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class TimeCounter implements Serializable {
+public class TimeCounter {
 
     private Player player;
 
@@ -74,7 +73,7 @@ public class TimeCounter implements Serializable {
             player.calculateSurvival();
         }
 
-        calculateDarkness();
+        //calculateDarkness();
         timeStamp += getCurrentTurnTime();
     }
 

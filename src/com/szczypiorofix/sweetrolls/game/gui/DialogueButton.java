@@ -26,18 +26,13 @@ public class DialogueButton extends GameObject {
 
 
     @Override
-    public void update(int delta, float offsetX, float offsetY) {
-
-     }
+    public void update(int delta, float offsetX, float offsetY) {}
 
     @Override
     public void render(Graphics g, float offsetX, float offsetY) {
         g.drawRect(x - 4, y - 2, width + 4, height + 4);
         font.draw(name, x, y + 5);
     }
-
-    @Override
-    public void turn() {}
 
     public boolean isClicked() {
         return clicked;
