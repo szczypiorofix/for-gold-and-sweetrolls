@@ -57,8 +57,8 @@ public class Inventory implements CloseableFrameListener {
                 MainMenuControlls.ControlType.CANCEL,
                 "",
                 false,
-                250,
-                250,
+                409,
+                100,
                 32,
                 32
                 );

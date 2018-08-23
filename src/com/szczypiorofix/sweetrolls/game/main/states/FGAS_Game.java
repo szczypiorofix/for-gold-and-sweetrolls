@@ -8,10 +8,7 @@ import com.szczypiorofix.sweetrolls.game.interfaces.CloseableFrameListener;
 import com.szczypiorofix.sweetrolls.game.interfaces.ConsumableListener;
 import com.szczypiorofix.sweetrolls.game.interfaces.DroppableListener;
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
-import com.szczypiorofix.sweetrolls.game.main.core.LevelManager;
-import com.szczypiorofix.sweetrolls.game.main.core.LevelMap;
-import com.szczypiorofix.sweetrolls.game.main.core.ObjectManager;
-import com.szczypiorofix.sweetrolls.game.main.core.TimeCounter;
+import com.szczypiorofix.sweetrolls.game.main.core.*;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import com.szczypiorofix.sweetrolls.game.objects.item.Item;
 import com.szczypiorofix.sweetrolls.game.tilemap.CollisionObject;
@@ -175,7 +172,7 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
 
         pauseMenuButtons = new MainMenuButton[2];
         pauseMenuButtons[0] = new MainMenuButton("WZNÓW", 230, 280);
-        pauseMenuButtons[1] = new MainMenuButton("WYJDŹ", 230, 320);
+        pauseMenuButtons[1] = new MainMenuButton("ZAPIS I WYJDŹ", 230, 320);
 
         // CREATE WORLD MAP IMAGE
         try {
@@ -376,7 +373,7 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
 
     }
 
-    private void calculateOffset() {
+    public void calculateOffset() {
 
         if ((player.getTileX() >= objectManager.getTilesToEast())
                 &&
@@ -505,6 +502,9 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
                             case 1: {
                                 input.clearKeyPressedRecord();
                                 input.clearMousePressedRecord();
+
+                                SaveGameManager.saveGame("player.sav", this);
+
                                 forGoldAndSweetrolls.setGameState(GameState.MAIN_MENU);
                                 break;
                             }
@@ -553,6 +553,38 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
 //            g.drawString(objectManager.getGround(player.getTileX(), player.getTileY()).getCollisions().getTypeName(), 20, 50);
 //        }
 
+    }
+
+    public static String getWorldMapName() {
+        return WORLD_MAP_NAME;
+    }
+
+    public String getCurrentLevelName() {
+        return currentLevelName;
+    }
+
+    public int getTileWidth() {
+        return tileWidth;
+    }
+
+    public int getTileHeight() {
+        return tileHeight;
+    }
+
+    public int getGameWidth() {
+        return gameWidth;
+    }
+
+    public int getGameHeight() {
+        return gameHeight;
+    }
+
+    public HashMap<String, TileMap> getLevels() {
+        return levels;
+    }
+
+    public TimeCounter getTimeCounter() {
+        return timeCounter;
     }
 
 

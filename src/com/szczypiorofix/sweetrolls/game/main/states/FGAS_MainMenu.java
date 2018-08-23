@@ -4,9 +4,7 @@ import com.szczypiorofix.sweetrolls.game.enums.GameState;
 import com.szczypiorofix.sweetrolls.game.gui.MainMenuButton;
 import com.szczypiorofix.sweetrolls.game.gui.MainMenuControlls;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
-import com.szczypiorofix.sweetrolls.game.main.core.ConfigManager;
-import com.szczypiorofix.sweetrolls.game.main.core.Configuration;
-import com.szczypiorofix.sweetrolls.game.main.core.ObjectManager;
+import com.szczypiorofix.sweetrolls.game.main.core.*;
 import com.szczypiorofix.sweetrolls.game.objects.terrain.Ground;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.*;
@@ -164,9 +162,11 @@ public class FGAS_MainMenu {
                         menuButtons[i].setActive(true);
                         switch (i) {
                             case 0: {
-                                input.clearKeyPressedRecord();
-                                forGoldAndSweetrolls.resetGame();
-                                forGoldAndSweetrolls.setGameState(GameState.GAME);
+                                loadGame(true);
+                                break;
+                            }
+                            case 1: {
+                                loadGame(false);
                                 break;
                             }
                             case 2: {
@@ -261,11 +261,6 @@ public class FGAS_MainMenu {
             }
         }
 
-        if (input.isKeyPressed(Input.KEY_SPACE)) {
-            forGoldAndSweetrolls.resetGame();
-            forGoldAndSweetrolls.setGameState(GameState.GAME);
-        }
-
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
             if (!showSettings) {
                 forGoldAndSweetrolls.setGameState(GameState.EXIT);
@@ -308,4 +303,23 @@ public class FGAS_MainMenu {
     }
 
 
+    private void loadGame(boolean load) {
+        forGoldAndSweetrolls.resetGame();
+        forGoldAndSweetrolls.setGameState(GameState.GAME);
+        if (load) {
+            SaveGameData saveGameData = SaveGameManager.load("player.sav");
+            // DATA
+            forGoldAndSweetrolls.getFGASGame().getPlayer().setX(saveGameData.getPlayerX());
+            forGoldAndSweetrolls.getFGASGame().getPlayer().setY(saveGameData.getPlayerY());
+            forGoldAndSweetrolls.getFGASGame().getPlayer().setWorldMapTileX(saveGameData.getPlayerWorldMapTileX());
+            forGoldAndSweetrolls.getFGASGame().getPlayer().setWorldMapTileY(saveGameData.getPlayerWorldMapTileY());
+            forGoldAndSweetrolls.getFGASGame().getPlayer().statistics = saveGameData.getPlayerStatistics();
+            forGoldAndSweetrolls.getFGASGame().getTimeCounter().setTimeStamp(saveGameData.getTimeCounterTimeStamp());
+            forGoldAndSweetrolls.getFGASGame().getTimeCounter().setDayCounter(saveGameData.getTimeCounterDayCounter());
+            forGoldAndSweetrolls.getFGASGame().getTimeCounter().setHourCounter(saveGameData.getTimeCounterHourCounter());
+            forGoldAndSweetrolls.getFGASGame().getTimeCounter().setMinuteCounter(saveGameData.getTimeCounterMinuteCounter());
+        }
+
+        forGoldAndSweetrolls.getFGASGame().calculateOffset();
+    }
 }

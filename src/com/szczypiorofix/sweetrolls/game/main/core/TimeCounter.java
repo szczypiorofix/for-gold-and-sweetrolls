@@ -105,4 +105,19 @@ public class TimeCounter {
         return hourCounter;
     }
 
+    public void setDayCounter(int dayCounter) {
+        this.dayCounter = dayCounter;
+    }
+
+    public void setHourCounter(int hourCounter) {
+        this.hourCounter = hourCounter;
+    }
+
+    public void setMinuteCounter(int minuteCounter) {
+        this.minuteCounter = minuteCounter;
+    }
+
+    public void setTimeStamp(long timeStamp) {
+        this.timeStamp = timeStamp;
+    }
 }
