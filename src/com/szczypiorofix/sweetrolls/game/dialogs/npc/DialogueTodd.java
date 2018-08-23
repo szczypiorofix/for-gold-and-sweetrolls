@@ -3,6 +3,7 @@ package com.szczypiorofix.sweetrolls.game.dialogs.npc;
 import com.szczypiorofix.sweetrolls.game.dialogs.Dialogue;
 import com.szczypiorofix.sweetrolls.game.dialogs.DialoguePart;
 import com.szczypiorofix.sweetrolls.game.gui.DialogueButton;
+import com.szczypiorofix.sweetrolls.game.interfaces.CloseableFrameListener;
 import com.szczypiorofix.sweetrolls.game.objects.characters.NPC;
 
 import java.util.ArrayList;

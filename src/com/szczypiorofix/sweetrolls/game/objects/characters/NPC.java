@@ -82,7 +82,7 @@ public class NPC extends Character {
 
     @Override
     public void update(int delta, float offsetX, float offsetY) {
-        //hover = false;
+        hover = false;
 
         if (playerKnow) displayName = name;
 

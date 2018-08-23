@@ -1,6 +1,7 @@
 package com.szczypiorofix.sweetrolls.game.gui;
 
-import com.szczypiorofix.sweetrolls.game.interfaces.CloseableDialogueListener;
+import com.szczypiorofix.sweetrolls.game.enums.PlayerAction;
+import com.szczypiorofix.sweetrolls.game.interfaces.CloseableFrameListener;
 import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
 import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
 import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
@@ -8,32 +9,28 @@ import com.szczypiorofix.sweetrolls.game.objects.characters.NPC;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import org.newdawn.slick.*;
 
-public class DialogueFrame {
+public class DialogueFrame implements CloseableFrameListener {
 
     private Player player;
     private NPC npc;
     private MouseCursor mouseCursor;
     private boolean showDialog = false;
     private BitMapFont fontS, fontL;
-    private Image dialogueFrame;
-    private CloseableDialogueListener closeableDialogueListener;
+    private Image dialogueFrameImage;
 
-    public DialogueFrame() {
-    }
 
-    public DialogueFrame(Player player, NPC npc, MouseCursor mouseCursor) {
+    public DialogueFrame(Player player, MouseCursor mouseCursor) {
         this.player = player;
-        this.npc = npc;
         this.mouseCursor = mouseCursor;
         fontS = FontParser.getFont("Immortal NPC S Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
         fontS.setSize(4.5f);
         fontL = FontParser.getFont("Immortal NPC L Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
         fontL.setSize(5.5f);
-        dialogueFrame = Textures.getInstance().dialogueFrame;
+        dialogueFrameImage = Textures.getInstance().dialogueFrame;
     }
 
-    public void setCloseableDialogueListener(CloseableDialogueListener closeableDialogueListener) {
-        this.closeableDialogueListener = closeableDialogueListener;
+    public void setNpc(NPC npc) {
+        this.npc = npc;
     }
 
     public void update(GameContainer gc, int delta, float offsetX, float offsetY) {
@@ -51,7 +48,7 @@ public class DialogueFrame {
 
                     if (currentButton.isEndButton()) {
                         showDialog = false;
-                        closeableDialogueListener.closeDialogue();
+                        player.setPlayerAction(PlayerAction.MOVE);
                     }
                 }
             }
@@ -63,7 +60,7 @@ public class DialogueFrame {
 //            Color c = g.getColor();
 //            g.setColor(new Color(0.1f, 0.1f, 0.1f, 0.9f));
 //            g.fillRect(0, 300, 560, 290);
-            dialogueFrame.draw(10, 300);
+            dialogueFrameImage.draw(10, 300);
 
             fontS.draw(npc.getName()+" :", 30, 310);
             fontL.draw(npc.getDialogue().
@@ -90,4 +87,8 @@ public class DialogueFrame {
         return npc;
     }
 
+    @Override
+    public void closeFrame() {
+        showDialog = false;
+    }
 }

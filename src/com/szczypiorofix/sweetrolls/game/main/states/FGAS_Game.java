@@ -1,9 +1,10 @@
 package com.szczypiorofix.sweetrolls.game.main.states;
 
+import com.szczypiorofix.sweetrolls.game.enums.GameState;
 import com.szczypiorofix.sweetrolls.game.enums.ItemType;
 import com.szczypiorofix.sweetrolls.game.enums.PlayerAction;
 import com.szczypiorofix.sweetrolls.game.gui.*;
-import com.szczypiorofix.sweetrolls.game.interfaces.CloseableDialogueListener;
+import com.szczypiorofix.sweetrolls.game.interfaces.CloseableFrameListener;
 import com.szczypiorofix.sweetrolls.game.interfaces.ConsumableListener;
 import com.szczypiorofix.sweetrolls.game.interfaces.DroppableListener;
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
@@ -27,7 +28,7 @@ import static com.szczypiorofix.sweetrolls.game.enums.PlayerAction.MOVE;
 /**
  * This is the main class of the game (gameplay).
  */
-public class FGAS_Game implements DroppableListener, ConsumableListener, CloseableDialogueListener {
+public class FGAS_Game implements DroppableListener, ConsumableListener {
 
     public static final String WORLD_MAP_NAME = "worldmap.tmx";
     private final boolean COLLISIONS_ENABLED = true;
@@ -48,37 +49,13 @@ public class FGAS_Game implements DroppableListener, ConsumableListener, Closeab
     private ForGoldAndSweetrolls forGoldAndSweetrolls;
     private ActionHistory actionHistory;
     private TimeCounter timeCounter;
+    private MainMenuButton[] pauseMenuButtons;
 
     private float offsetX, offsetY;
     private int tileWidth, tileHeight;
     private int gameWidth, gameHeight;
     private boolean setNextRound;
 
-
-    @Override
-    public void drop(Item item) {
-        if (objectManager.getItems()[player.getTileX()][player.getTileY()] == null) {
-            objectManager.getItems()[player.getTileX()][player.getTileY()] = inventory.getItemForDrop();
-            objectManager.getItems()[player.getTileX()][player.getTileY()].setX(player.getX());
-            objectManager.getItems()[player.getTileX()][player.getTileY()].setY(player.getY());
-            actionHistory.addValue("Upuszczono "+objectManager.getItems()[player.getTileX()][player.getTileY()].getStringProperty("name"));
-            inventory.removeDroppedItemFromInventory();
-        } else actionHistory.addValue("Brak miejsca na ziemi!");
-    }
-
-    @Override
-    public void consume(Item item) {
-        switch (item.getItemType()) {
-            case FOOD: {
-                actionHistory.addValue("Zjedzono coś...");
-                break;
-            }
-            case POTION: {
-                actionHistory.addValue("Wypito eliksir...");
-                break;
-            }
-        }
-    }
 
 
     /**
@@ -165,11 +142,12 @@ public class FGAS_Game implements DroppableListener, ConsumableListener, Closeab
         timeCounter = new TimeCounter(player);
         actionHistory = new ActionHistory();
         hud = new HUD(player, timeCounter, actionHistory, mouseCursor);
+
         inventory = new Inventory(player, mouseCursor);
-        dialogueFrame = new DialogueFrame();
         inventory.setConsumableListener(this);
         inventory.setDroppableListener(this);
-        dialogueFrame.setCloseableDialogueListener(this);
+
+        dialogueFrame = new DialogueFrame(player, mouseCursor);
     }
 
 
@@ -195,6 +173,11 @@ public class FGAS_Game implements DroppableListener, ConsumableListener, Closeab
         hud = new HUD(player, timeCounter, actionHistory, mouseCursor);
         inventory = new Inventory(player, mouseCursor);
 
+        pauseMenuButtons = new MainMenuButton[2];
+        pauseMenuButtons[0] = new MainMenuButton("WZNÓW", 230, 280);
+        pauseMenuButtons[1] = new MainMenuButton("WYJDŹ", 230, 320);
+
+        // CREATE WORLD MAP IMAGE
         try {
             int imgWidth = 300;
             int imgHeight = 300;
@@ -224,17 +207,31 @@ public class FGAS_Game implements DroppableListener, ConsumableListener, Closeab
 
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
 
+            // PAUSE MENU
+            if (player.getPlayerAction() == PlayerAction.MOVE) {
+                player.setPlayerAction(PlayerAction.PAUSE_MENU);
+            } else if (player.getPlayerAction() == PlayerAction.INVENTORY) {
+                inventory.setShow(false);
+                player.setPlayerAction(PlayerAction.MOVE);
+            } else if (player.getPlayerAction() == PlayerAction.MAP) {
+                player.setPlayerAction(PlayerAction.MOVE);
+            } else player.setPlayerAction(PlayerAction.MOVE);
         }
+
 
         // INVENTORY
         if (input.isKeyPressed(Input.KEY_I)) {
             if (player.getPlayerAction() == PlayerAction.MOVE) {
                 player.setPlayerAction(PlayerAction.INVENTORY);
                 inventory.setShow(true);
-            } else {
-                player.setPlayerAction(PlayerAction.MOVE);
-                inventory.setShow(false);
             }
+        }
+
+        // WORLD MAP
+        if (input.isKeyPressed(Input.KEY_M)) {
+            if (player.getPlayerAction() == PlayerAction.MOVE)
+                player.setPlayerAction(PlayerAction.MAP);
+
         }
 
         // PLAYER CONTROLS ON MOVE
@@ -317,12 +314,12 @@ public class FGAS_Game implements DroppableListener, ConsumableListener, Closeab
 
                 if (objectManager.getPlace(player.getTileX(), player.getTileY()) != null) {
                     actionHistory.addValue(objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("name"));
-                    mouseCursor.setPositionTile(0, 0);
+                    mouseCursor.resetPosition();
                     changeLevel(objectManager.getPlace(player.getTileX(),player.getTileY()).getStringProperty("filename"), currentLevelName, objectManager.getPlace(player.getTileX(),player.getTileY()).getStringProperty("filename").equalsIgnoreCase(WORLD_MAP_NAME) ? LevelMap.LevelType.WORLD_MAP : LevelMap.LevelType.INNER_MAP);
                 } else if (objectManager.getCurrentMap().getLevelType() == LevelMap.LevelType.WORLD_MAP) {
 
                     //player.setLevelState(LevelMap.LevelType.INNER_RANDOM_MAP);
-                    mouseCursor.setPositionTile(0, 0);
+                    mouseCursor.resetPosition();
                     changeLevel("generate", currentLevelName, LevelMap.LevelType.INNER_RANDOM_MAP);
 
 
@@ -356,49 +353,12 @@ public class FGAS_Game implements DroppableListener, ConsumableListener, Closeab
                             || player.getTileY() >= objectManager.getCurrentMap().getHeight()-1))
 
                     ) {
-                        actionHistory.addValue("Wyjście z generowanego poziomu...");
-                        mouseCursor.setPositionTile(0, 0);
+                        //actionHistory.addValue("Wyjście z generowanego poziomu...");
+                        mouseCursor.resetPosition();
                         changeLevel(WORLD_MAP_NAME, currentLevelName, LevelMap.LevelType.WORLD_MAP);
                     }
                 }
 
-
-                // ENTERING INNER MAP FROM WORLD MAP
-//                if (player.getPlayerState() == MOVING_WORLD_MAP) {
-//                    if (objectManager.getPlace(player.getTileX(), player.getTileY()) != null) {
-//
-//                        MainClass.logging(false, Level.INFO, "Przejście do lokacji: "+objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("name")+".");
-//
-//                        player.setPlayerState(MOVING_INNER_LOCATION);
-//                        player.getActionHistory().addValue("Wchodzisz do: "+objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("name"));
-//                        mouseCursor.setPositionTile(0, 0);
-//                        changeLevel(objectManager.getPlace(player.getTileX(), player.getTileY()).getStringProperty("filename"), LevelType.CREATED);
-//                    } else {
-//                        player.setPlayerState(MOVING_INNER_LOCATION);
-//                        mouseCursor.setPositionTile(0, 0);
-//                        changeLevel("generate", LevelType.GENERATED);
-//                    }
-//                } else {
-//                    // EXIT FROM INNER MAP
-//                    if (player.getTileX() <= 0
-//                            || player.getTileY() <= 0
-//                            || player.getTileX() >= mapWidth-1
-//                            || player.getTileY() >= mapHeight-1
-//                            || objectManager.getPlace(player.getTileX(), player.getTileY()) != null
-//                            ) {
-//
-//                        if (objectManager.getPlace(player.getTileX(), player.getTileY()) != null) {
-//                            System.out.println(objectManager.getPlace(player.getTileX(), player.getTileY()).getType());
-//                        }
-//                        else {
-//                            MainClass.logging(false, Level.INFO, "Powrót do mapy głównej.");
-//                            player.getActionHistory().addValue("Powrót na mapę główną");
-//                            player.setPlayerState(MOVING_WORLD_MAP);
-//                            changeLevel(WORLD_MAP_NAME, LevelType.CREATED);
-//                        }
-//                    }
-//
-//                }
                 calculateOffset();
             }
 
@@ -412,82 +372,6 @@ public class FGAS_Game implements DroppableListener, ConsumableListener, Closeab
                 player.setWorldMapTileY(player.getTileY());
             }
 
-        }
-
-        // #################################### HOVER ####################################
-        // MOUSE HOVER ON PLAYER
-//        if (mouseCursor.intersects(player.getX() - offsetX, player.getY() - offsetY, player.getWidth(), player.getHeight())) {
-//            player.setHover(true);
-//        }
-//
-        // ON MOVE
-        if (player.getPlayerAction() == MOVE) {
-
-            if (player.getTileX() >= mouseCursor.getTileX() - 1
-                    && player.getTileX() <= mouseCursor.getTileX() + 1
-                    && player.getTileY() >= mouseCursor.getTileY() - 1
-                    && player.getTileY() <= mouseCursor.getTileY() + 1
-            ) {
-                if (objectManager.getGround(mouseCursor.getTileX(), mouseCursor.getTileY()) != null) {
-                    for (int i = -1; i < 2; i++) {
-                        for (int j = -1; j < 2; j++) {
-                            if ( (i != 0 || j != 0)
-                                    && player.getTileX(i) > 0
-                                    && player.getTileY(j) > 0
-                                    && player.getTileX(i) < objectManager.getLevel().getWidth()-1
-                                    && player.getTileY(j) < objectManager.getLevel().getHeight()-1) {
-
-                                //objectManager.getGround(player.getTileX(i), player.getTileY(j)).setHover(true);
-
-                                objectManager.getGround(mouseCursor.getTileX(), mouseCursor.getTileY()).setHover(true);
-
-                                // NPCs
-                                if (objectManager.getNpc(player.getTileX(i), player.getTileY(j)) != null
-                                        && objectManager.getNpc(player.getTileX(i), player.getTileY(j)).getTileX() == mouseCursor.getTileX()
-                                        && objectManager.getNpc(player.getTileX(i), player.getTileY(j)).getTileY() == mouseCursor.getTileY()
-                                ) {
-
-                                    objectManager.getNpc(player.getTileX(i), player.getTileY(j)).setHover(true);
-
-                                    if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-                                        if (!objectManager.getNpc(player.getTileX(i), player.getTileY(j)).isShortTalk()) {
-                                            if (objectManager.getNpc(player.getTileX(i), player.getTileY(j)).isLondTalk()) {
-                                                dialogueFrame = new DialogueFrame(player, objectManager.getNpc(player.getTileX(i), player.getTileY(j)), mouseCursor);
-                                                dialogueFrame.setShowDialog(true);
-                                                player.setPlayerAction(PlayerAction.DIALOGUE);
-                                            } else {
-                                                objectManager.getNpc(player.getTileX(i), player.getTileY(j)).setShortTalk(true);
-                                            }
-                                        }
-                                    }
-                                }
-
-                                //Items
-                                if (objectManager.getItems(player.getTileX(i), player.getTileY(j)) != null
-                                        && objectManager.getItems(player.getTileX(i), player.getTileY(j)).getTileX() == mouseCursor.getTileX()
-                                        && objectManager.getItems(player.getTileX(i), player.getTileY(j)).getTileY() == mouseCursor.getTileY()
-                                ) {
-
-                                    objectManager.getItems(player.getTileX(i), player.getTileY(j)).setHover(true);
-
-                                    if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-                                        Item currentItem = objectManager.getItems(player.getTileX(i), player.getTileY(j));
-                                        pickUpItem(currentItem, i, j);
-                                    }
-                                }
-
-                            }
-                        }
-                    }
-                }
-            }
-
-            // MOUSE HOVER ON OBJECTS
-            if (objectManager.getCurrentMap().getLevelType() == LevelMap.LevelType.WORLD_MAP) {
-                if (objectManager.getPlace(mouseCursor.getTileX(), mouseCursor.getTileY()) != null) {
-                    objectManager.getPlace(mouseCursor.getTileX(), mouseCursor.getTileY()).setHover(true);
-                }
-            }
         }
 
     }
@@ -528,6 +412,109 @@ public class FGAS_Game implements DroppableListener, ConsumableListener, Closeab
         }
         setNextRound = false;
 
+        // #################################### HOVER ####################################
+        // MOUSE HOVER ON PLAYER
+//        if (mouseCursor.intersects(player.getX() - offsetX, player.getY() - offsetY, player.getWidth(), player.getHeight())) {
+//            player.setHover(true);
+//        }
+//
+        // ON MOVE
+        if (player.getPlayerAction() == MOVE) {
+
+            if (player.getTileX() >= mouseCursor.getTileX() - 1
+                    && player.getTileX() <= mouseCursor.getTileX() + 1
+                    && player.getTileY() >= mouseCursor.getTileY() - 1
+                    && player.getTileY() <= mouseCursor.getTileY() + 1
+            ) {
+                if (objectManager.getGround(mouseCursor.getTileX(), mouseCursor.getTileY()) != null) {
+                    for (int i = -1; i < 2; i++) {
+                        for (int j = -1; j < 2; j++) {
+                            if ( (i != 0 || j != 0)
+                                    && player.getTileX(i) > 0
+                                    && player.getTileY(j) > 0
+                                    && player.getTileX(i) < objectManager.getLevel().getWidth()-1
+                                    && player.getTileY(j) < objectManager.getLevel().getHeight()-1) {
+
+                                //objectManager.getGround(player.getTileX(i), player.getTileY(j)).setHover(false);
+
+                                objectManager.getGround(mouseCursor.getTileX(), mouseCursor.getTileY()).setHover(true);
+
+                                // NPCs
+                                if (objectManager.getNpc(player.getTileX(i), player.getTileY(j)) != null
+                                        && objectManager.getNpc(player.getTileX(i), player.getTileY(j)).getTileX() == mouseCursor.getTileX()
+                                        && objectManager.getNpc(player.getTileX(i), player.getTileY(j)).getTileY() == mouseCursor.getTileY()
+                                ) {
+
+                                    objectManager.getNpc(player.getTileX(i), player.getTileY(j)).setHover(true);
+
+                                    if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+                                        if (!objectManager.getNpc(player.getTileX(i), player.getTileY(j)).isShortTalk()) {
+                                            if (objectManager.getNpc(player.getTileX(i), player.getTileY(j)).isLondTalk()) {
+                                                dialogueFrame.setNpc(objectManager.getNpc(player.getTileX(i), player.getTileY(j)));
+                                                dialogueFrame.setShowDialog(true);
+                                                player.setPlayerAction(PlayerAction.DIALOGUE);
+                                            } else {
+                                                objectManager.getNpc(player.getTileX(i), player.getTileY(j)).setShortTalk(true);
+                                            }
+                                        }
+                                    }
+                                }
+
+                                //Items
+                                if (objectManager.getItems(player.getTileX(i), player.getTileY(j)) != null
+                                        && objectManager.getItems(player.getTileX(i), player.getTileY(j)).getTileX() == mouseCursor.getTileX()
+                                        && objectManager.getItems(player.getTileX(i), player.getTileY(j)).getTileY() == mouseCursor.getTileY()
+                                ) {
+
+                                    objectManager.getItems(player.getTileX(i), player.getTileY(j)).setHover(true);
+
+                                    if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+                                        Item currentItem = objectManager.getItems(player.getTileX(i), player.getTileY(j));
+                                        pickUpItem(currentItem, i, j);
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+
+            // MOUSE HOVER ON PLACES
+            if (objectManager.getCurrentMap().getLevelType() == LevelMap.LevelType.WORLD_MAP) {
+                if (objectManager.getPlace(mouseCursor.getTileX(), mouseCursor.getTileY()) != null) {
+                    objectManager.getPlace(mouseCursor.getTileX(), mouseCursor.getTileY()).setHover(true);
+                }
+            }
+        }
+
+        if (player.getPlayerAction() == PlayerAction.PAUSE_MENU) {
+            for (int i = 0; i < pauseMenuButtons.length; i++) {
+                if (mouseCursor.intersects(pauseMenuButtons[i])) {
+                    pauseMenuButtons[i].setHover(true);
+                    if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+                        pauseMenuButtons[i].setActive(true);
+
+                        switch (i) {
+                            case 0: {
+                                input.clearKeyPressedRecord();
+                                input.clearMousePressedRecord();
+                                player.setPlayerAction(PlayerAction.MOVE);
+                                break;
+                            }
+                            case 1: {
+                                input.clearKeyPressedRecord();
+                                input.clearMousePressedRecord();
+                                forGoldAndSweetrolls.setGameState(GameState.MAIN_MENU);
+                                break;
+                            }
+                        }
+
+                    } else pauseMenuButtons[i].setActive(false);
+                } else pauseMenuButtons[i].setHover(false);
+            }
+        }
+
     }
 
     /**
@@ -546,7 +533,7 @@ public class FGAS_Game implements DroppableListener, ConsumableListener, Closeab
         g.fillRect(0, 0, gameWidth - 230, gameHeight);
         g.setColor(c);
 
-        dialogueFrame.render(g);
+        if (player.getPlayerAction() == PlayerAction.DIALOGUE) dialogueFrame.render(g);
         hud.render(gc, g);
         inventory.render(g);
 
@@ -554,6 +541,12 @@ public class FGAS_Game implements DroppableListener, ConsumableListener, Closeab
             worldMapImage.draw(60, 50, 450, 450);
             g.drawRect(59, 49, 451, 451);
             g.drawRect(60 + (int) ((player.getWorldMapTileX() * 450)/300), 50 + (int) ((player.getWorldMapTileY() * 450)/300), 1, 1);
+        }
+
+        if (player.getPlayerAction() == PlayerAction.PAUSE_MENU) {
+            for (int i = 0; i < pauseMenuButtons.length; i++) {
+                pauseMenuButtons[i].render(g, 0, 0);
+            }
         }
 
 //        if (objectManager.getGround(player.getTileX(), player.getTileY()).getCollisions() != null) {
@@ -612,9 +605,30 @@ public class FGAS_Game implements DroppableListener, ConsumableListener, Closeab
         return objectManager;
     }
 
+
     @Override
-    public void closeDialogue() {
-        player.setPlayerAction(PlayerAction.MOVE);
+    public void drop(Item item) {
+        if (objectManager.getItems()[player.getTileX()][player.getTileY()] == null) {
+            objectManager.getItems()[player.getTileX()][player.getTileY()] = inventory.getItemForDrop();
+            objectManager.getItems()[player.getTileX()][player.getTileY()].setX(player.getX());
+            objectManager.getItems()[player.getTileX()][player.getTileY()].setY(player.getY());
+            actionHistory.addValue("Upuszczono "+objectManager.getItems()[player.getTileX()][player.getTileY()].getStringProperty("name"));
+            inventory.removeDroppedItemFromInventory();
+        } else actionHistory.addValue("Brak miejsca na ziemi!");
+    }
+
+    @Override
+    public void consume(Item item) {
+        switch (item.getItemType()) {
+            case FOOD: {
+                actionHistory.addValue("Zjedzono coś...");
+                break;
+            }
+            case POTION: {
+                actionHistory.addValue("Wypito eliksir...");
+                break;
+            }
+        }
     }
 
 }

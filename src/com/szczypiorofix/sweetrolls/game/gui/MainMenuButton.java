@@ -19,8 +19,8 @@ public class MainMenuButton extends GameObject {
     private BitMapFont font;
 
 
-    public MainMenuButton(String name, float x, float y, float width, float height) {
-        super(name, x, y, width, height, ObjectType.GUI);
+    public MainMenuButton(String name, float x, float y) {
+        super(name, x, y, 148, 32, ObjectType.GUI);
         this.name = name;
         image = Textures.getInstance().mainMenuMainButtons.getSprite(0, 0);
         imagePressed = Textures.getInstance().mainMenuMainButtons.getSprite(0, 1);

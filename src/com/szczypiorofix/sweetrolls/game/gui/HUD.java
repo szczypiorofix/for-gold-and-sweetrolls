@@ -79,7 +79,7 @@ public class HUD {
         font.draw("Pancerz : " +player.statistics.armorClass, 590, 320);
         font.draw("Atak: " +player.statistics.damage, 590, 340);
 
-        font.draw("TimeStamp: " +timeCounter.getTimeStamp(), 590, 360);
+        font.draw("PA: " +player.getPlayerAction(), 590, 360);
     }
 
 }

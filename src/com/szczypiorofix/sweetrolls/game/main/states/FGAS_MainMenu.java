@@ -96,8 +96,6 @@ public class FGAS_MainMenu {
 
         optionsGui = new Image("assets/mm-gui-options.png");
 
-        menuButtons = new MainMenuButton[4];
-
         // ##################### FONT #####################
         // https://www.fontsquirrel.com/fonts/Immortal
 
@@ -124,12 +122,12 @@ public class FGAS_MainMenu {
 
 
         // ############ PRZYCISKI
-        menuButtons[0] = new MainMenuButton("KONTYNUUJ", 140, 520, 128, 32);
-        menuButtons[1] = new MainMenuButton("NOWA GRA", 280, 520, 128, 32);
-        menuButtons[2] = new MainMenuButton("USTAWIENIA", 420, 520, 128, 32);
-        menuButtons[3] = new MainMenuButton("KONIEC", 560, 520, 128, 32);
-
-        // https://opengameart.org/content/dwarven-cursor
+        menuButtons = new MainMenuButton[5];
+        menuButtons[0] = new MainMenuButton("KONTYNUUJ", 320, 260);
+        menuButtons[1] = new MainMenuButton("NOWA GRA", 320, 300);
+        menuButtons[2] = new MainMenuButton("KOSTNICA", 320, 340);
+        menuButtons[3] = new MainMenuButton("USTAWIENIA", 320, 380);
+        menuButtons[4] = new MainMenuButton("KONIEC", 320, 420);
     }
 
     public void update(GameContainer gc, int delta) throws SlickException {
@@ -172,6 +170,10 @@ public class FGAS_MainMenu {
                                 break;
                             }
                             case 2: {
+                                System.out.println("KOSTNICA...");
+                                break;
+                            }
+                            case 3: {
                                 settingControlls[5].setText(config.gameWidth+"x"+config.gameHeight);
                                 settingControlls[7].setChecked(config.fullScreen);
                                 settingControlls[9].setChecked(config.vsync);
@@ -180,7 +182,7 @@ public class FGAS_MainMenu {
                                 showSettings = true;
                                 break;
                             }
-                            case 3: {
+                            case 4: {
                                 input.clearKeyPressedRecord();
                                 forGoldAndSweetrolls.setGameState(GameState.EXIT);
                                 break;

@@ -31,7 +31,7 @@ public class Ground extends GameObject {
 
     @Override
     public void update(int delta, float offsetX, float offsetY) {
-        //hover = false;
+        hover = false;
     }
 
     @Override

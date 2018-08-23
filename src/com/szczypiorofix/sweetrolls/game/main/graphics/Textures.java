@@ -22,7 +22,7 @@ public class Textures {
         try {
             miscItems = new SpriteSheet("map/dg_misc32.png", 32, 32);
             classm32 = new SpriteSheet("map/dg_classm32.png", 32, 32);
-            mainMenuMainButtons = new SpriteSheet("assets/mm-gui-button.png", 128, 32);
+            mainMenuMainButtons = new SpriteSheet("assets/mm-gui-button.png", 148, 32);
             mainMenuControlls = new SpriteSheet("assets/mm-gui-controlls.png", 32, 32);
             dialogueFrame = new Image("assets/dialogue-frame.png");
             MainClass.logging(false, Level.INFO, "Tekstury i obrazy załadowane");

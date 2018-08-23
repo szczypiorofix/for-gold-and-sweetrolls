@@ -2,10 +2,10 @@ package com.szczypiorofix.sweetrolls.game.gui;
 
 import com.szczypiorofix.sweetrolls.game.enums.InventorySlotType;
 import com.szczypiorofix.sweetrolls.game.enums.ItemType;
+import com.szczypiorofix.sweetrolls.game.enums.PlayerAction;
+import com.szczypiorofix.sweetrolls.game.interfaces.CloseableFrameListener;
 import com.szczypiorofix.sweetrolls.game.interfaces.ConsumableListener;
 import com.szczypiorofix.sweetrolls.game.interfaces.DroppableListener;
-import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
-import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import com.szczypiorofix.sweetrolls.game.objects.item.Item;
 import org.newdawn.slick.*;
@@ -13,11 +13,11 @@ import org.newdawn.slick.*;
 import java.util.ArrayList;
 
 
-public class Inventory {
+public class Inventory implements CloseableFrameListener {
 
     private Player player;
     private MouseCursor mouseCursor;
-    private BitMapFont font;
+    private MainMenuControlls inventoryExit;
     private Image image;
     private boolean show;
     private int rows = 5;
@@ -44,9 +44,6 @@ public class Inventory {
             e.printStackTrace();
         }
 
-        font = FontParser.getFont("Immortal HUD Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
-        font.setSize(4.5f);
-
         // INVENTORY CONTAINERS
         int id = 0;
         for (int y = 0; y < rows; y++) {
@@ -55,6 +52,17 @@ public class Inventory {
                 id++;
             }
         }
+
+        inventoryExit = new MainMenuControlls(
+                MainMenuControlls.ControlType.CANCEL,
+                "",
+                false,
+                250,
+                250,
+                32,
+                32
+                );
+        inventoryExit.setCloseableFrameListener(this);
 
         inventoryContainers[0][rows] = new InventoryContainer(id, InventorySlotType.HEAD, 284, 144, null);
         inventoryContainers[1][rows] = new InventoryContainer(id+1, InventorySlotType.CHEST, 284, 186, null);
@@ -73,9 +81,15 @@ public class Inventory {
         this.consumableListener = consumableListener;
     }
 
-
     public void update(GameContainer gc, int delta) throws SlickException {
 
+        if (mouseCursor.intersects(inventoryExit)) {
+            inventoryExit.setHover(true);
+            if (mouseCursor.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+                inventoryExit.close();
+                setShow(false);
+            } else inventoryExit.setActive(false);
+        } else inventoryExit.setHover(false);
 
         for (int x = 0; x < inventoryContainers.length; x++) {
             for (int y = 0; y < inventoryContainers[0].length; y++) {
@@ -192,12 +206,10 @@ public class Inventory {
                     optionsFrameButtons.get(i).render(g, 0, 0);
                 }
             }
+            inventoryExit.render(g, 0, 0);
         }
     }
 
-    public boolean isShow() {
-        return show;
-    }
 
     public void setShow(boolean show) {
         this.show = show;
@@ -211,14 +223,6 @@ public class Inventory {
     public void removeDroppedItemFromInventory() {
         inventoryContainers[dropX][dropY].item = null;
     }
-//
-//    public boolean isDropping() {
-//        return dropping;
-//    }
-//
-//    public void setDropping(boolean dropping) {
-//        this.dropping = dropping;
-//    }
 
     public boolean putToInventory(Item item) {
         boolean done = false;
@@ -241,9 +245,9 @@ public class Inventory {
         return true;
     }
 
-    public boolean isDrag() {
-        return drag;
+
+    @Override
+    public void closeFrame() {
+        player.setPlayerAction(PlayerAction.MOVE);
     }
-
-
 }

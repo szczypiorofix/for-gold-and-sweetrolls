@@ -5,7 +5,6 @@ import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
 import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
 import com.szczypiorofix.sweetrolls.game.objects.GameObject;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
 
 public class DialogueButton extends GameObject {
 
@@ -14,6 +13,7 @@ public class DialogueButton extends GameObject {
     private boolean endButton;
     private boolean clicked;
     private int nextDialogueState;
+
 
     public DialogueButton(String name, float x, float y, float width, float height, boolean endButton, int nextDialogueState) {
         super(name, x, y, width, height, ObjectType.GUI);

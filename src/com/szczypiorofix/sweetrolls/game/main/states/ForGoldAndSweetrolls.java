@@ -44,6 +44,7 @@ public final class ForGoldAndSweetrolls extends BasicGame {
         // ##################### FONT #####################
         // https://www.fontsquirrel.com/fonts/Immortal
 
+        // https://opengameart.org/content/dwarven-cursor
         gc.setMouseCursor(new Image("mouse_cursor.png"), 0, 0);
         mouseCursor = new MouseCursor("Mouse Cursor Main Menu", input.getMouseX(), input.getMouseY(), 32, 32, ObjectType.MOUSECURSOR, input);
 

@@ -10,7 +10,7 @@ public enum PlayerAction {
 
     MAP,
 
-    MENU
+    PAUSE_MENU
 
 
 }

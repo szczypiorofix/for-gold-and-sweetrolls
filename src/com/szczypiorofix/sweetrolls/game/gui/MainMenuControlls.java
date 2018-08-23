@@ -1,6 +1,7 @@
 package com.szczypiorofix.sweetrolls.game.gui;
 
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
+import com.szczypiorofix.sweetrolls.game.interfaces.CloseableFrameListener;
 import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
 import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
 import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
@@ -28,6 +29,7 @@ public class MainMenuControlls extends GameObject {
     private String text;
     private String defaultText;
     private boolean textBased;
+    private CloseableFrameListener closeableFrameListener;
 
 
     public MainMenuControlls(ControlType controlType, String text, Boolean checked, float x, float y, float width, float height) {
@@ -100,6 +102,9 @@ public class MainMenuControlls extends GameObject {
         text = defaultText;
     }
 
+    public void setCloseableFrameListener(CloseableFrameListener closeableFrameListener) {
+        this.closeableFrameListener = closeableFrameListener;
+    }
 
     public void setHover(boolean hover) {
         this.hover = hover;
@@ -115,6 +120,10 @@ public class MainMenuControlls extends GameObject {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public void close() {
+        closeableFrameListener.closeFrame();
     }
 
     public boolean isChecked() {

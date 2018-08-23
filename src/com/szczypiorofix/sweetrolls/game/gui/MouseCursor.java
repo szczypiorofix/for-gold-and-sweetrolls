@@ -32,6 +32,10 @@ public class MouseCursor extends GameObject {
         this.tileY = tileY;
     }
 
+    public void resetPosition() {
+        setPositionTile(0, 0);
+    }
+
     @Override
     public void update(int delta, float offsetX, float offsetY) {
         x = input.getMouseX();
