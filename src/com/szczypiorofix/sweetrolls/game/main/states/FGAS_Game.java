@@ -17,9 +17,6 @@ import org.newdawn.slick.*;
 
 import java.util.HashMap;
 
-import static com.szczypiorofix.sweetrolls.game.enums.PlayerAction.INVENTORY;
-import static com.szczypiorofix.sweetrolls.game.enums.PlayerAction.MOVE;
-
 
 
 /**
@@ -232,7 +229,7 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
         }
 
         // PLAYER CONTROLS ON MOVE
-        if (player.getPlayerAction() == MOVE) {
+        if (player.getPlayerAction() == PlayerAction.MOVE) {
 
             if (input.isKeyPressed(Input.KEY_RIGHT) || gc.getInput().isKeyPressed(Input.KEY_D)) {
 
@@ -398,7 +395,7 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
         player.update(delta, offsetX, offsetY);
 
         if (player.getPlayerAction() == PlayerAction.DIALOGUE) dialogueFrame.update(gc, delta, offsetX, offsetY);
-        if (player.getPlayerAction() == INVENTORY) inventory.update(gc, delta);
+        if (player.getPlayerAction() == PlayerAction.INVENTORY) inventory.update(gc, delta);
 
         if (setNextRound) {
             objectManager.turn();
@@ -416,7 +413,7 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
 //        }
 //
         // ON MOVE
-        if (player.getPlayerAction() == MOVE) {
+        if (player.getPlayerAction() == PlayerAction.MOVE) {
 
             if (player.getTileX() >= mouseCursor.getTileX() - 1
                     && player.getTileX() <= mouseCursor.getTileX() + 1

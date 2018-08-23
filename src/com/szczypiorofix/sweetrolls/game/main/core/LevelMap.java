@@ -65,7 +65,6 @@ public class LevelMap {
     }
 
     public void setPlayerLastTiles(int x, int y) {
-        //System.out.println("Setting old: "+playerLastTileX+":"+playerLastTileY +" to: "+x+":"+y);
         this.playerLastTileX = x;
         this.playerLastTileY = y;
     }
@@ -125,4 +124,5 @@ public class LevelMap {
     public void setTileHeight(int tileHeight) {
         this.tileHeight = tileHeight;
     }
+
 }

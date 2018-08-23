@@ -4,13 +4,19 @@ import com.szczypiorofix.sweetrolls.game.enums.GameState;
 import com.szczypiorofix.sweetrolls.game.gui.MainMenuButton;
 import com.szczypiorofix.sweetrolls.game.gui.MainMenuControlls;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
+import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import com.szczypiorofix.sweetrolls.game.main.core.*;
 import com.szczypiorofix.sweetrolls.game.objects.terrain.Ground;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.*;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.particles.ConfigurableEmitter;
+import org.newdawn.slick.particles.ParticleIO;
+import org.newdawn.slick.particles.ParticleSystem;
 
+import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 
@@ -27,6 +33,8 @@ public class FGAS_MainMenu {
     private ForGoldAndSweetrolls forGoldAndSweetrolls;
     private ObjectManager objectManager;
     private Ground[][] mainMenuMovingBackground;
+    private ParticleSystem system;
+    private Image torch;
 
     private int windowWidth, windowHeight;
     private int selectedGameWidth, selectedGameHeight;
@@ -126,6 +134,30 @@ public class FGAS_MainMenu {
         menuButtons[2] = new MainMenuButton("KOSTNICA", 320, 340);
         menuButtons[3] = new MainMenuButton("USTAWIENIA", 320, 380);
         menuButtons[4] = new MainMenuButton("KONIEC", 320, 420);
+
+
+        // PARTICLES
+        torch = new Image("particles/torch.png");
+
+        Image image = new Image("particles/particle.png", false);
+        system = new ParticleSystem(image,1500);
+
+        try {
+            File xmlFile = new File(MainClass.RES + "particles/torch.xml");
+            ConfigurableEmitter emitter = ParticleIO.loadEmitter(xmlFile);
+            emitter.setPosition(295, 358);
+            system.addEmitter(emitter);
+            emitter = ParticleIO.loadEmitter(xmlFile);
+            emitter.setPosition(485, 358);
+            system.addEmitter(emitter);
+        } catch (Exception e) {
+            System.out.println("Exception: " +e.getMessage());
+            e.printStackTrace();
+            System.exit(0);
+        }
+
+        system.setBlendingMode(ParticleSystem.BLEND_ADDITIVE);
+
     }
 
     public void update(GameContainer gc, int delta) throws SlickException {
@@ -271,6 +303,8 @@ public class FGAS_MainMenu {
 
         }
 
+        system.update(delta);
+
     }
 
     public void render(GameContainer gc, Graphics g) throws SlickException {
@@ -300,6 +334,12 @@ public class FGAS_MainMenu {
                 s.render(g, 0 ,0);
             }
         }
+
+        torch.draw(280,350);
+        torch.draw(470,350);
+
+        system.render();
+
     }
 
 
