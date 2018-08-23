@@ -1,5 +1,6 @@
 package com.szczypiorofix.sweetrolls.game.objects.characters;
 
+import com.szczypiorofix.sweetrolls.game.enums.LevelType;
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.enums.PlayerAction;
 import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
@@ -8,7 +9,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
 import java.util.ArrayList;
-import static com.szczypiorofix.sweetrolls.game.main.core.LevelMap.LevelType;
 
 
 public class Player extends Character {

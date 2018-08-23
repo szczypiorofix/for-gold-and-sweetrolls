@@ -1,5 +1,6 @@
 package com.szczypiorofix.sweetrolls.game.main.core;
 
+import com.szczypiorofix.sweetrolls.game.enums.LevelType;
 import com.szczypiorofix.sweetrolls.game.objects.characters.NPC;
 import com.szczypiorofix.sweetrolls.game.objects.item.Item;
 import com.szczypiorofix.sweetrolls.game.objects.terrain.Place;
@@ -7,16 +8,6 @@ import com.szczypiorofix.sweetrolls.game.objects.terrain.Ground;
 
 
 public class LevelMap {
-
-    public enum LevelType {
-        WORLD_MAP,
-        INNER_MAP,
-        INNER_RANDOM_MAP;
-
-        public static LevelType getInitialLevelType() {
-            return WORLD_MAP;
-        }
-    }
 
     private Ground[][] ground;
     private Place[][] places;
@@ -105,5 +96,33 @@ public class LevelMap {
 
     public int getTileHeight() {
         return tileHeight;
+    }
+
+    public void setPlayerLastTileX(int playerLastTileX) {
+        this.playerLastTileX = playerLastTileX;
+    }
+
+    public void setPlayerLastTileY(int playerLastTileY) {
+        this.playerLastTileY = playerLastTileY;
+    }
+
+    public void setLevelType(LevelType levelType) {
+        this.levelType = levelType;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public void setTileWidth(int tileWidth) {
+        this.tileWidth = tileWidth;
+    }
+
+    public void setTileHeight(int tileHeight) {
+        this.tileHeight = tileHeight;
     }
 }

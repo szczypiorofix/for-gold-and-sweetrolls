@@ -41,6 +41,11 @@ public class HUD {
         clockImage.rotate(rotateFactor);
     }
 
+    public void turn(int minutes) {
+        rotateFactor = ((minutes * timeCounter.getCurrentTurnTime() * 360f) / 1440f);
+        clockImage.rotate(rotateFactor);
+    }
+
     public void render(GameContainer gc, Graphics g) {
         int levelMaxContainer = 156;
         int currentLevel = (player.statistics.currentLevelBar * levelMaxContainer) / player.statistics.currentLevelMaxBar;

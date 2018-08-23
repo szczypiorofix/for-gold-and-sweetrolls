@@ -1,5 +1,6 @@
 package com.szczypiorofix.sweetrolls.game.main.core;
 
+import com.szczypiorofix.sweetrolls.game.enums.LevelType;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import org.newdawn.slick.Color;
 
@@ -55,9 +56,9 @@ public class TimeCounter {
     }
 
     public void turn() {
-        if (player.getLevelState() == LevelMap.LevelType.WORLD_MAP) {
+        if (player.getLevelState() == LevelType.WORLD_MAP) {
             minuteCounter += WORLD_MAP_MINUTE_COUNTER;
-        } else if (player.getLevelState() == LevelMap.LevelType.INNER_MAP) {
+        } else if (player.getLevelState() == LevelType.INNER_MAP) {
             minuteCounter += INNER_MAP_MINUTE_COUNTER;
         }
 
@@ -78,7 +79,7 @@ public class TimeCounter {
     }
 
     public int getCurrentTurnTime() {
-        if (player.getLevelState() == LevelMap.LevelType.WORLD_MAP) {
+        if (player.getLevelState() == LevelType.WORLD_MAP) {
             return WORLD_MAP_MINUTE_COUNTER;
         } else {
             return INNER_MAP_MINUTE_COUNTER;

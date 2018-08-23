@@ -1,5 +1,6 @@
 package com.szczypiorofix.sweetrolls.game.main.core;
 
+import com.szczypiorofix.sweetrolls.game.enums.LevelType;
 import com.szczypiorofix.sweetrolls.game.objects.Statistics;
 
 import java.io.Serializable;
@@ -16,6 +17,7 @@ public class SaveGameData implements Serializable {
     private int timeCounterDayCounter;
     private int timeCounterHourCounter;
     private int timeCounterMinuteCounter;
+    private LevelType levelType;
 
     public SaveGameData() {}
 
@@ -106,5 +108,13 @@ public class SaveGameData implements Serializable {
 
     public HashSet<String> getLevels() {
         return levels;
+    }
+
+    public LevelType getLevelType() {
+        return levelType;
+    }
+
+    public void setLevelType(LevelType levelType) {
+        this.levelType = levelType;
     }
 }

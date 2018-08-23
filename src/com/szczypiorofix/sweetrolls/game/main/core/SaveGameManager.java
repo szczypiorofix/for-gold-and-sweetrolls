@@ -53,6 +53,7 @@ public class SaveGameManager {
         saveGameData.setTimeCounterHourCounter(game.getTimeCounter().getHourCounter());
         saveGameData.setTimeCounterMinuteCounter(game.getTimeCounter().getMinuteCounter());
         saveGameData.setTimeCounterTimeStamp(game.getTimeCounter().getTimeStamp());
+        saveGameData.setLevelType(game.getObjectManager().getCurrentMap().getLevelType());
 
 
         // LEVELS

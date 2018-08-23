@@ -308,6 +308,7 @@ public class FGAS_MainMenu {
         forGoldAndSweetrolls.setGameState(GameState.GAME);
         if (load) {
             SaveGameData saveGameData = SaveGameManager.load("player.sav");
+
             // DATA
             forGoldAndSweetrolls.getFGASGame().getPlayer().setX(saveGameData.getPlayerX());
             forGoldAndSweetrolls.getFGASGame().getPlayer().setY(saveGameData.getPlayerY());
@@ -318,6 +319,9 @@ public class FGAS_MainMenu {
             forGoldAndSweetrolls.getFGASGame().getTimeCounter().setDayCounter(saveGameData.getTimeCounterDayCounter());
             forGoldAndSweetrolls.getFGASGame().getTimeCounter().setHourCounter(saveGameData.getTimeCounterHourCounter());
             forGoldAndSweetrolls.getFGASGame().getTimeCounter().setMinuteCounter(saveGameData.getTimeCounterMinuteCounter());
+            forGoldAndSweetrolls.getFGASGame().getObjectManager().getCurrentMap().setLevelType(saveGameData.getLevelType());
+
+            forGoldAndSweetrolls.getFGASGame().getHud().turn(saveGameData.getTimeCounterHourCounter());
         }
 
         forGoldAndSweetrolls.getFGASGame().calculateOffset();

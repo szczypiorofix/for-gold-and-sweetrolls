@@ -1,6 +1,7 @@
 package com.szczypiorofix.sweetrolls.game.main.core;
 
 
+import com.szczypiorofix.sweetrolls.game.enums.LevelType;
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.main.states.FGAS_Game;
 import com.szczypiorofix.sweetrolls.game.objects.GameObject;
@@ -277,7 +278,7 @@ public class ObjectManager {
         currentMap = new LevelMap(
                 tileMap.getTileWidth(),
                 tileMap.getTileHeight(),
-                levelName.equalsIgnoreCase(FGAS_Game.WORLD_MAP_NAME) ? LevelMap.LevelType.WORLD_MAP : LevelMap.LevelType.INNER_MAP,
+                levelName.equalsIgnoreCase(FGAS_Game.WORLD_MAP_NAME) ? LevelType.WORLD_MAP : LevelType.INNER_MAP,
                 grounds,
                 places,
                 npcs,
