@@ -16,6 +16,10 @@ public class EditorWindow extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(800, 600);
         this.setLocationRelativeTo(null);
+
+        MainPanel mainPanel = new MainPanel(new BorderLayout(), true);
+        JScrollPane scrollMainPanel = new JScrollPane(mainPanel);
+        this.add(scrollMainPanel);
     }
 
 
