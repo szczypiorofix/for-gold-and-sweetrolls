@@ -1,3 +1,9 @@
+/*
+ * Developed by szczypiorofix on 24.08.18 13:27.
+ * Copyright (c) 2018. All rights reserved.
+ *
+ */
+
 package com.szczypiorofix.sweetrolls.game.dialogs;
 
 import com.szczypiorofix.sweetrolls.game.gui.DialogueButton;

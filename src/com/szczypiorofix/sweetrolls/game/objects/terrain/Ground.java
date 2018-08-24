@@ -1,3 +1,9 @@
+/*
+ * Developed by szczypiorofix on 24.08.18 13:34.
+ * Copyright (c) 2018. All rights reserved.
+ *
+ */
+
 package com.szczypiorofix.sweetrolls.game.objects.terrain;
 
 import com.szczypiorofix.sweetrolls.game.enums.ResourceType;
@@ -46,7 +52,6 @@ public class Ground extends GameObject {
     }
 
     public void turn() {
-
     }
 
 

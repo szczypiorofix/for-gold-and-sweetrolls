@@ -9,6 +9,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="Slick2D" level="project" />
-    <orderEntry type="library" name="Apache Common Codec" level="project" />
+    <orderEntry type="library" exported="" name="Apache Common Codec" level="project" />
   </component>
 </module>
