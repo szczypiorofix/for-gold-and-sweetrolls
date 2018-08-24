@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 24.08.18 13:35.
+ * Developed by szczypiorofix on 24.08.18 22:54.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -8,11 +8,10 @@ package com.szczypiorofix.sweetrolls.game.quests.articy.content;
 
 import java.util.ArrayList;
 
-public abstract class Hierarchy {
+public class A_HierarchyNode {
 
     public String IdRef;
     public String type;
-    public ArrayList<Hierarchy> child = new ArrayList<>();
-
+    public ArrayList<A_HierarchyNode> children = new ArrayList<>();
 
 }

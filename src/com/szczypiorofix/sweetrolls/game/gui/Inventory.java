@@ -175,16 +175,16 @@ public class Inventory implements CloseableFrameListener {
                                     inventoryContainers[dragOriginX][dragOriginY].item = null;
 
                                     if (currentContainer.getInventorySlotType() == InventorySlotType.HEAD) {
-                                        player.statistics.armorClass += dragItem.getArmorRatio();
+                                        player.statistics.P_ArmorClass += dragItem.getArmorRatio();
                                     }
 
                                     if (currentContainer.getInventorySlotType() == InventorySlotType.CHEST) {
-                                        player.statistics.armorClass += dragItem.getArmorRatio();
+                                        player.statistics.P_ArmorClass += dragItem.getArmorRatio();
                                     }
 
                                     if (currentContainer.getInventorySlotType() == InventorySlotType.INVENTORY) {
-                                        player.statistics.armorClass -= dragItem.getArmorRatio();
-                                        player.statistics.damage -= dragItem.getDamageRatio();
+                                        player.statistics.P_ArmorClass -= dragItem.getArmorRatio();
+                                        player.statistics.P_Damage -= dragItem.getDamageRatio();
                                     }
                                 }
                                 dragItem = null;
@@ -239,6 +239,7 @@ public class Inventory implements CloseableFrameListener {
 
             if (inventoryContainers[c][r].getItem() == null) {
                 inventoryContainers[c][r].setItem(item);
+                inventoryContainers[c][r].getItem().setFound(true);
                 done = true;
             }
 

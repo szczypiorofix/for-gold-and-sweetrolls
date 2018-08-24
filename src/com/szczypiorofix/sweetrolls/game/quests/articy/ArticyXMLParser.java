@@ -24,6 +24,7 @@ public class ArticyXMLParser {
     private HashMap<String, A_Connection> connections;
     private HashMap<String, A_Dialogue> dialogues;
     private HashMap<String, A_DialogueFragment> dialoguesFragmens;
+    private A_HierarchyNode a_hierarchyNode;
 
     private String startId;
     private String stopId;
@@ -213,14 +214,14 @@ public class ArticyXMLParser {
                             // ################ DIALOGUE ################
                             NodeList dialogueList = contentElement.getElementsByTagName("Dialogue");
                             for (int dl = 0; dl < dialogueList.getLength(); dl++) {
-                                Node connectionsNode = dialogueList.item(dl);
-                                if (connectionsNode.getNodeType() == Node.ELEMENT_NODE) {
-                                    Element connectionsElement = (Element) connectionsNode;
+                                Node dialogueNode = dialogueList.item(dl);
+                                if (dialogueNode.getNodeType() == Node.ELEMENT_NODE) {
+                                    Element dialogueElement = (Element) dialogueNode;
 
-                                    A_Dialogue a_dialogue = new A_Dialogue(connectionsElement.getAttribute("Id"));
+                                    A_Dialogue a_dialogue = new A_Dialogue(dialogueElement.getAttribute("Id"));
 
                                     // DisplayName
-                                    NodeList displayNameList = connectionsElement.getElementsByTagName("DisplayName");
+                                    NodeList displayNameList = dialogueElement.getElementsByTagName("DisplayName");
                                     for (int dn = 0; dn < displayNameList.getLength(); dn++) {
                                         Node dnNode = displayNameList.item(dn);
                                         if (dnNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -237,7 +238,7 @@ public class ArticyXMLParser {
                                     }
 
                                     // Text
-                                    NodeList textList = connectionsElement.getElementsByTagName("Text");
+                                    NodeList textList = dialogueElement.getElementsByTagName("Text");
                                     for (int tn = 0; tn < textList.getLength(); tn++) {
                                         Node tNode = textList.item(tn);
                                         if (tNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -253,6 +254,37 @@ public class ArticyXMLParser {
                                         }
                                     }
 
+                                    // Pins
+                                    NodeList pinsList = dialogueElement.getElementsByTagName("Pins");
+                                    for (int pn = 0; pn < pinsList.getLength(); pn++) {
+                                        Node pinsNode = pinsList.item(pn);
+                                        if (pinsNode.getNodeType() == Node.ELEMENT_NODE) {
+                                            Element pinsElement = (Element) pinsNode;
+
+                                            a_dialogue.pinCount = Integer.parseInt(pinsElement.getAttribute("Count"));
+
+                                            NodeList pinList = pinsElement.getElementsByTagName("Pin");
+                                            for (int p = 0; p < pinList.getLength(); p++) {
+                                                Node pNode = pinList.item(p);
+                                                if (pNode.getNodeType() == Node.ELEMENT_NODE) {
+                                                    Element pinElement = (Element) pNode;
+
+                                                    A_Semantic s;
+                                                    if (pinElement.getAttribute("Semantic").equalsIgnoreCase("Input"))
+                                                        s = A_Semantic.INPUT;
+                                                    else s = A_Semantic.OUTPUT;
+
+                                                    A_Pin a_pin = new A_Pin(
+                                                            pinElement.getAttribute("Id"),
+                                                            Integer.parseInt(pinElement.getAttribute("Index")),
+                                                            s,
+                                                            pinElement.getAttribute("Expression")
+                                                    );
+                                                    a_dialogue.addPin(a_pin);
+                                                }
+                                            }
+                                        }
+                                    }
 
                                     dialogues.put(a_dialogue.id, a_dialogue);
                                 }
@@ -359,11 +391,13 @@ public class ArticyXMLParser {
                         Node hierarchyListNode = hierarchyList.item(i);
                         if (hierarchyListNode.getNodeType() == Node.ELEMENT_NODE) {
                             Element hierarchyListElement = (Element) hierarchyListNode;
-                            System.out.println(hierarchyListElement.getTagName());
+
+                            a_hierarchyNode = new A_HierarchyNode();
+                            a_hierarchyNode.type = hierarchyListElement.getAttribute("Type");
+                            a_hierarchyNode.IdRef = hierarchyListElement.getAttribute("IdRef");
+                            parse(a_hierarchyNode, hierarchyListElement);
                         }
                     }
-
-
                 }
             }
 
@@ -371,6 +405,11 @@ public class ArticyXMLParser {
             e.printStackTrace();
         }
 
+        System.out.println(a_hierarchyNode.children.get(0).children.size());
+
+        // #############################
+        System.exit(0);
+        // #############################
 
 
         System.out.println("Entities: ");
@@ -383,9 +422,6 @@ public class ArticyXMLParser {
         System.out.println(flowFragment);
         System.out.println();
 
-        // #############################
-        System.exit(0);
-        // #############################
 
         System.out.println("Connections: ");
         connections.forEach((key, value)
@@ -418,15 +454,19 @@ public class ArticyXMLParser {
         System.out.println();
 
         boolean end = false;
-        state = State.FLOW_FRAGMENT;
+        state = State.DIALOGUE;
 
 
-        startId = flowFragment.pins.get("0x0100000000000153").id;
+        //startId = dialogues.get("Todd Howard").pins.get("0x0100000000000139").id;
+        //System.out.println(dialogues.get("0x0100000000000136").pins.get("0x0100000000000139").id);
+        startId = dialogues.get("0x0100000000000136").pins.get("0x0100000000000139").id;
+
         stopId = flowFragment.pins.get("0x010000000000012A").id;
 
         System.out.println("Flow from "+startId +" to "+stopId);
 
-        currentId = startId;
+        //currentId = startId;
+        currentId = "0x0100000000000136";
 
         Scanner in = new Scanner(System.in);
         String[] ids = new String[0];
@@ -443,16 +483,17 @@ public class ArticyXMLParser {
 
             System.out.println("Current id: "+currentId);
 
-            if (state == State.FLOW_FRAGMENT) {
-                Set<Map.Entry<String, A_Pin>> flowFragmentEntries = flowFragment.pins.entrySet();
+            if (state == State.DIALOGUE) {
+                Set<Map.Entry<String, A_Pin>> flowFragmentEntries = dialogues.get(currentId).pins.entrySet();
                 Iterator<Map.Entry<String, A_Pin>> flowFramentIterator = flowFragmentEntries.iterator();
-                ids = new String[flowFragment.pins.size()];
+                ids = new String[dialogues.get(currentId).pins.size()];
                 while (flowFramentIterator.hasNext()) {
                     Map.Entry<String, A_Pin> entry = flowFramentIterator.next();
                     System.out.println("[" +c+"] " + entry.getKey() + " => " + entry.getValue());
                     ids[c] = entry.getKey();
                     c++;
                 }
+                state = State.CONNECTION;
             }
 
 
@@ -469,20 +510,20 @@ public class ArticyXMLParser {
             }
 
 
-            if (state == State.DIALOGUE) {
-                dialogues.forEach((key, value)
-                                -> {
-                            if (key.equalsIgnoreCase(currentId)) {
-                                System.out.println("Dialog :" +key +", " +value.displayName);
-                                System.out.println(value.text);
-
-
-
-                            }
-
-                        }
-                );
-            }
+//            if (state == State.DIALOGUE) {
+//                dialogues.forEach((key, value)
+//                                -> {
+//                            if (key.equalsIgnoreCase(currentId)) {
+//                                System.out.println("Dialog :" +key +", " +value.displayName);
+//                                System.out.println(value.text);
+//
+//
+//
+//                            }
+//
+//                        }
+//                );
+//            }
 
 
             input = in.nextInt();
@@ -522,6 +563,24 @@ public class ArticyXMLParser {
         } while (!end);
 
 
+    }
+
+
+
+    private void parse(A_HierarchyNode node, final Element e) {
+        final NodeList children = e.getChildNodes();
+        for (int i = 0; i < children.getLength(); i++) {
+            final Node n = children.item(i);
+            if (n.getNodeType() == Node.ELEMENT_NODE) {
+                Element el = (Element) n;
+                A_HierarchyNode aNode = new A_HierarchyNode();
+                aNode.type = el.getAttribute("Type");
+                aNode.IdRef = el.getAttribute("IdRef");
+                node.children.add(aNode);
+                //System.out.println(n.getNodeName()+", IdRef: "+el.getAttribute("IdRef"));
+                parse(aNode, (Element) n);
+            }
+        }
     }
 
 }

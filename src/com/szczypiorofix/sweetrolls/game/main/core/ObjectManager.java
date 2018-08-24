@@ -86,41 +86,6 @@ public class ObjectManager {
                 }
             }
 
-            // ######## DUNGEON EXIT
-//            if (tileMap.getObjectGroups().get(objectGroups).getName().equals("exit")) {
-//                int tileSet;
-//                for (int item = 0; item < tileMap.getObjectGroups().get(objectGroups).getObjects().size(); item++) {
-//
-//                    ObjectGroupObject currentItem = tileMap.getObjectGroups().get(objectGroups).getObjects().get(item);
-//                    tileSet = 0;
-//                    while (currentItem.getGid() >
-//                            tileMap.getTileSets().get(tileSet).getFirstGid() + tileMap.getTileSets().get(tileSet).getTileCount() - (tileSet + 1)
-//                            ) {
-//                        tileSet++;
-//                    }
-//
-//                    places[currentItem.getX() / tileMap.getTileWidth()]
-//                            [currentItem.getY() / tileMap.getTileHeight()] =
-//                            new Place(
-//                                    currentItem.getStringProperty("name").equalsIgnoreCase("null")
-//                                            ? currentItem.getName()
-//                                            : currentItem.getStringProperty("name"),
-//                                    currentItem.getX(),
-//                                    currentItem.getY(),
-//                                    currentItem.getWidth(),
-//                                    currentItem.getHeight(),
-//                                    currentItem.getGid() >= 0 ?
-//                                            tileMap.getTileSets().get(tileSet).getImageSprite(
-//                                                    currentItem.getGid()
-//                                                            - tileMap.getTileSets().get(tileSet).getFirstGid()
-//                                            )
-//                                            : null,
-//                                    currentItem.getType(),
-//                                    currentItem.getProperties()
-//                            );
-//                }
-//            }
-
             // ######## ITEMS
             if (tileMap.getObjectGroups().get(objectGroups).getName().equals("items")) {
                 int tileSet;
@@ -156,7 +121,7 @@ public class ObjectManager {
                 }
             }
 
-            // ######## WORLD MAP PLACES
+            // ######## PLACES
             if (tileMap.getObjectGroups().get(objectGroups).getName().equals("places")) {
                 int tileSet;
                 for (int item = 0; item < tileMap.getObjectGroups().get(objectGroups).getObjects().size(); item++) {
@@ -262,15 +227,6 @@ public class ObjectManager {
                                             tileMap.getTileLayers().get(layers).getTile(i, j).getCollisionObject().getHeight()
                                     )
                             );
-
-//                            tempGround.setCollisions(new CollisionObject(
-//                                    tileMap.getTileLayers().get(layers).getTile(i, j).getCollisionObject().getId(),
-//                                    tileMap.getTileLayers().get(layers).getTile(i, j).getCollisionObject().getTypeName(),
-//                                    i * tileMap.getTileWidth(),
-//                                    j * tileMap.getTileHeight(),
-//                                    tileMap.getTileLayers().get(layers).getTile(i, j).getCollisionObject().getWidth(),
-//                                    tileMap.getTileLayers().get(layers).getTile(i, j).getCollisionObject().getHeight()
-//                            ));
 
                             grounds[i][j] = tempGround;
                         } else {

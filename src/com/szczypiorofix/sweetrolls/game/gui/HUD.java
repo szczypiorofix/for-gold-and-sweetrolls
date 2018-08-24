@@ -54,7 +54,7 @@ public class HUD {
 
     public void render(GameContainer gc, Graphics g) {
         int levelMaxContainer = 156;
-        int currentLevel = (player.statistics.currentLevelBar * levelMaxContainer) / player.statistics.currentLevelMaxBar;
+        int currentLevel = (player.statistics.P_CurrentLevelBar * levelMaxContainer) / player.statistics.P_CurrentLevelMaxBar;
         if (currentLevel > levelMaxContainer) currentLevel = levelMaxContainer;
 
         clockImage.draw(617, 8);
@@ -66,15 +66,15 @@ public class HUD {
         ), 590, 80);
 
         font.draw("Gracz: " + player.getName(), 590, 100);
-        font.draw("Poziom: " +player.statistics.level, 590, 120);
-        font.draw("Złoto: " + player.statistics.gold, 590, 170);
+        font.draw("Poziom: " +player.statistics.P_Level, 590, 120);
+        font.draw("Złoto: " + player.statistics.P_Gold, 590, 170);
         g.drawRect(590, 150, 160, 11);
         g.fillRect(592, 152, currentLevel, 8);
-        font.draw("Zdrowie: " +player.statistics.health +"/"+player.statistics.maxHealth, 590, 190);
+        font.draw("Zdrowie: " +player.statistics.P_Health +"/"+player.statistics.P_MaxHealth, 590, 190);
 
         font.draw("Teren: " +player.getTerrainType().getName(), 590, 210);
-        font.draw("Jedzenie: " + String.format("%.2f", player.statistics.foodRations), 590, 230);
-        font.draw("Woda: " + String.format("%.2f", player.statistics.water), 590, 250);
+        font.draw("Jedzenie: " + String.format("%.2f", player.statistics.P_FoodRations), 590, 230);
+        font.draw("Woda: " + String.format("%.2f", player.statistics.P_Water), 590, 250);
 
         for (int i = 0; i < actionHistory.history.length; i++) {
             font.draw(actionHistory.history[i], 580, 380 + (i * 20));
@@ -87,10 +87,10 @@ public class HUD {
 //        font.draw("Mouse tile: " +mouseCursor.getTileX()+":"+mouseCursor.getTileY(), 590, 300);
 //        font.draw("Player offset: " +player.getOffsetX()+":"+player.getOffsetY(), 590, 340);
 
-        font.draw("Pancerz : " +player.statistics.armorClass, 590, 320);
-        font.draw("Atak: " +player.statistics.damage, 590, 340);
+        font.draw("Pancerz : " +player.statistics.P_ArmorClass, 590, 320);
+        font.draw("Atak: " +player.statistics.P_Damage, 590, 340);
 
-        font.draw("PA: " +timeCounter.getTimeStamp(), 590, 360);
+        font.draw("Picked: " +player.statistics.W_PickedUpItems, 590, 360);
     }
 
 }

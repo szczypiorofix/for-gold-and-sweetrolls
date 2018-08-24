@@ -52,7 +52,7 @@ public class NPC extends Character {
         font.setSize(5.5f);
 
         characterType = estimateCharacterType(getStringProperty("type"));
-        statistics.maxHealth = getIntegerProperty("maxhealth");
+        statistics.P_MaxHealth = getIntegerProperty("maxhealth");
 
         dialogue = new Dialogue();
 

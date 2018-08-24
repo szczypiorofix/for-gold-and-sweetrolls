@@ -64,7 +64,7 @@ public class TimeCounter {
     public void turn() {
         if (player.getLevelState() == LevelType.WORLD_MAP) {
             minuteCounter += WORLD_MAP_MINUTE_COUNTER;
-        } else if (player.getLevelState() == LevelType.INNER_MAP) {
+        } else if (player.getLevelState() == LevelType.INNER_MAP || player.getLevelState() == LevelType.INNER_RANDOM_MAP) {
             minuteCounter += INNER_MAP_MINUTE_COUNTER;
         }
 

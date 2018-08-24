@@ -11,29 +11,36 @@ import java.io.Serializable;
 
 public class Statistics implements Serializable {
 
-    public int gold;
+    // PLAYER
 
-    public int strength;
-    public int dexterity;
-    public int constitution;
-    public int intelligence;
+    public int P_Gold;
 
-    public int health;
-    public int maxHealth;
+    public int P_Strength;
+    public int P_Dexterity;
+    public int P_Constitution;
+    public int P_Intelligence;
 
-    public int armorClass = 0;
-    public int damage = 1;
-    public float chanceToHit = 0.5f; // 0 - 1
+    public int P_Health;
+    public int P_MaxHealth;
 
-    public int level;
-    public int currentLevelBar;
-    public int currentLevelMaxBar;
+    public int P_ArmorClass = 0;
+    public int P_Damage = 1;
 
-    public float foodRations;
-    public float foodUsagePerHour;
+    public int P_Level;
+    public int P_CurrentLevelBar;
+    public int P_CurrentLevelMaxBar;
 
-    public float water;
-    public float watetUsagePerHour;
+    public float P_FoodRations;
+    public float P_FoodUsagePerHour;
+
+    public float P_Water;
+    public float P_WatetUsagePerHour;
+
+
+    // WORLD
+
+    public int W_DiscoveredPlaces;
+    public int W_PickedUpItems;
 
 
 

@@ -27,6 +27,7 @@ public class Item extends GameObject {
     private int armorRatio;
     private int damageRatio;
     private ItemType itemType;
+    private boolean found = false;
 
 
     public Item(String name, float x, float y, float width, float height, Image image, ObjectType objectType, String type, ArrayList<Property> properties) {
@@ -105,5 +106,13 @@ public class Item extends GameObject {
 
     public ItemType getItemType() {
         return itemType;
+    }
+
+    public boolean isFound() {
+        return found;
+    }
+
+    public void setFound(boolean found) {
+        this.found = found;
     }
 }

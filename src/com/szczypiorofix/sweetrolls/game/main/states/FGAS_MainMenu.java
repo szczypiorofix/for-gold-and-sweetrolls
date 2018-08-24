@@ -115,22 +115,22 @@ public class FGAS_MainMenu {
         // ############ USTAWIENIA
         settingControlls = new MainMenuControlls[12];
 
-        settingControlls[0] = new MainMenuControlls(MainMenuControlls.ControlType.OK, "OK", false,385, 400, 32, 32);
-        settingControlls[1] = new MainMenuControlls(MainMenuControlls.ControlType.CANCEL, "Cancel", false,430, 400, 32, 32);
-        settingControlls[2] = new MainMenuControlls(MainMenuControlls.ControlType.LEF_ARROW,  "Left arrow", false,310, 190, 32, 32);
-        settingControlls[3] = new MainMenuControlls(MainMenuControlls.ControlType.RIGHT_ARROW, "Right arrow", false, 490, 190, 32, 32);
+        settingControlls[0] = new MainMenuControlls(MainMenuControlls.ControlType.OK, "OK", false,365, 410, 32, 32);
+        settingControlls[1] = new MainMenuControlls(MainMenuControlls.ControlType.CANCEL, "Cancel", false,410, 410, 32, 32);
+        settingControlls[2] = new MainMenuControlls(MainMenuControlls.ControlType.LEF_ARROW,  "Left arrow", false,290, 200, 32, 32);
+        settingControlls[3] = new MainMenuControlls(MainMenuControlls.ControlType.RIGHT_ARROW, "Right arrow", false, 470, 200, 32, 32);
 
-        settingControlls[4] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Rozdzielczość", false, 355, 170, 32, 32);
-        settingControlls[5] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, selectedGameWidth+"x"+selectedGameHeight, false, 380, 195, 32, 32);
+        settingControlls[4] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Rozdzielczość", false, 335, 180, 32, 32);
+        settingControlls[5] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, selectedGameWidth+"x"+selectedGameHeight, false, 360, 205, 32, 32);
 
-        settingControlls[6] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Full screen", false, 360, 234, 32, 32);
-        settingControlls[7] = new MainMenuControlls(MainMenuControlls.ControlType.CHECK_BOX, "Full screen checkbox", selectedFullScreen, 470, 230, 32, 32);
+        settingControlls[6] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Full screen", false, 340, 254, 32, 32);
+        settingControlls[7] = new MainMenuControlls(MainMenuControlls.ControlType.CHECK_BOX, "Full screen checkbox", selectedFullScreen, 450, 250, 32, 32);
 
-        settingControlls[8] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "v-sync", false, 360, 274, 32, 32);
-        settingControlls[9] = new MainMenuControlls(MainMenuControlls.ControlType.CHECK_BOX, "V-Sync checkbox", selectedVSync, 470, 270, 32, 32);
+        settingControlls[8] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "v-sync", false, 340, 294, 32, 32);
+        settingControlls[9] = new MainMenuControlls(MainMenuControlls.ControlType.CHECK_BOX, "V-Sync checkbox", selectedVSync, 450, 290, 32, 32);
 
-        settingControlls[10] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "FPS", false, 360, 314, 32, 32);
-        settingControlls[11] = new MainMenuControlls(MainMenuControlls.ControlType.CHECK_BOX, "FPS show checkbox", selectedShowFPS, 470, 310, 32, 32);
+        settingControlls[10] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "FPS", false, 340, 334, 32, 32);
+        settingControlls[11] = new MainMenuControlls(MainMenuControlls.ControlType.CHECK_BOX, "FPS show checkbox", selectedShowFPS, 450, 330, 32, 32);
 
 
         // ############ PRZYCISKI
@@ -334,17 +334,17 @@ public class FGAS_MainMenu {
             m.render(g, 0 ,0);
         }
 
-        if (showSettings) {
-            optionsGui.draw(250, 150);
-            for(MainMenuControlls s: settingControlls) {
-                s.render(g, 0 ,0);
-            }
-        }
-
         torch.draw(280,350);
         torch.draw(470,350);
 
         system.render();
+
+        if (showSettings) {
+            optionsGui.draw(230, 160);
+            for(MainMenuControlls s: settingControlls) {
+                s.render(g, 0 ,0);
+            }
+        }
 
     }
 

@@ -7,7 +7,6 @@
 package com.szczypiorofix.sweetrolls.game.main.core;
 
 import com.szczypiorofix.sweetrolls.game.gui.ActionHistory;
-import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import com.szczypiorofix.sweetrolls.game.tilemap.TileMap;
 
 

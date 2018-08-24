@@ -92,6 +92,9 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
                 levels.put(levelName, levelMap);
                 objectManager.generateLevel(levelMap, levelName);
                 player = objectManager.getPlayer();
+
+                //STATISTICS: Discovered Places +1
+                player.statistics.W_DiscoveredPlaces++;
             } else {
                 levelMap = levels.get(levelName);
             }
@@ -103,6 +106,9 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
                 levels.put(levelName, levelMap);
                 objectManager.generateLevel(levelMap, levelName);
                 player = objectManager.getPlayer();
+
+                //STATISTICS: Discovered Places +1
+                player.statistics.W_DiscoveredPlaces++;
             } else {
                 levelMap = levels.get(levelName);
             }
@@ -364,7 +370,7 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
 
 
             if (input.isKeyPressed(Input.KEY_SPACE)) {
-                player.statistics.currentLevelBar++;
+                player.statistics.P_CurrentLevelBar++;
             }
 
             if (objectManager.getCurrentMap().getLevelType() == LevelType.WORLD_MAP) {
@@ -406,7 +412,6 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
         if (setNextRound) {
             objectManager.turn();
             player.turn();
-
             hud.turn();
             timeCounter.turn();
         }
@@ -531,10 +536,10 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
         objectManager.render(g, offsetX, offsetY);
         player.render(g, offsetX, offsetY);
 
-        Color c = g.getColor();
-        g.setColor(timeCounter.getDayNightEffect());
-        g.fillRect(0, 0, gameWidth - 230, gameHeight);
-        g.setColor(c);
+//        Color c = g.getColor();
+//        g.setColor(timeCounter.getDayNightEffect());
+//        g.fillRect(0, 0, gameWidth - 230, gameHeight);
+//        g.setColor(c);
 
         if (player.getPlayerAction() == PlayerAction.DIALOGUE) dialogueFrame.render(g);
         hud.render(gc, g);
@@ -605,11 +610,13 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
             if (currentItem.getItemType() == ItemType.GOLD) {
                 int goldGained = currentItem.getIntegerProperty("value");
                 actionHistory.addValue("Znaleziono złoto: "+goldGained);
-                player.statistics.gold += goldGained;
+                player.statistics.P_Gold += goldGained;
                 objectManager.getItems()[player.getTileX(i)][player.getTileY(j)] = null;
             } // Złoto nie pojawia się w ekwipunku.
             else {
                 actionHistory.addValue("Podniesiono: "+currentItem.getStringProperty("name"));
+                // STATISTICS: Picked Up item +1
+                if (!currentItem.isFound()) player.statistics.W_PickedUpItems++;
                 if (inventory.putToInventory(currentItem)) {
                     objectManager.getItems()[player.getTileX(i)][player.getTileY(j)] = null;
                 } else {
@@ -619,7 +626,7 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
         } else {
             if (currentItem.getItemType() == ItemType.CHEST) {
                 int goldGained = MainClass.RANDOM.nextInt(currentItem.getIntegerProperty("value")) + 1;
-                player.statistics.gold += goldGained;
+                player.statistics.P_Gold += goldGained;
                 actionHistory.addValue("Przeszukiwanie skrzyni...");
                 actionHistory.addValue("Znaleziono: złoto: " + goldGained);
                 objectManager.getItems()[player.getTileX(i)][player.getTileY(j)] = null;

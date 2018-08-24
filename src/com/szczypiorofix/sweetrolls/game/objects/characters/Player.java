@@ -47,24 +47,24 @@ public class Player extends Character {
 
         image = Textures.getInstance().classm32.getSprite(3, 0);
 
-        statistics.gold = 0;
-        statistics.level = 1;
-        statistics.currentLevelBar = 1;
-        statistics.currentLevelMaxBar = 8;
-        statistics.foodRations = 20;
-        statistics.foodUsagePerHour = 0.1f;
-        statistics.water = 20;
-        statistics.watetUsagePerHour = 0.1f;
-        statistics.strength = 10;
-        statistics.dexterity = 10;
-        statistics.constitution = 10;
-        statistics.intelligence = 10;
+        statistics.P_Gold = 0;
+        statistics.P_Level = 1;
+        statistics.P_CurrentLevelBar = 1;
+        statistics.P_CurrentLevelMaxBar = 8;
+        statistics.P_FoodRations = 20;
+        statistics.P_FoodUsagePerHour = 0.1f;
+        statistics.P_Water = 20;
+        statistics.P_WatetUsagePerHour = 0.1f;
+        statistics.P_Strength = 10;
+        statistics.P_Dexterity = 10;
+        statistics.P_Constitution = 10;
+        statistics.P_Intelligence = 10;
 
-        statistics.armorClass = 0;
-        statistics.damage = 1;
+        statistics.P_ArmorClass = 0;
+        statistics.P_Damage = 1;
 
-        statistics.maxHealth = (statistics.constitution * 10) + 50;
-        statistics.health = statistics.maxHealth;
+        statistics.P_MaxHealth = (statistics.P_Constitution * 10) + 50;
+        statistics.P_Health = statistics.P_MaxHealth;
 
         playerTurn = 0;
 
@@ -106,8 +106,8 @@ public class Player extends Character {
     }
 
     public void calculateSurvival() {
-        statistics.foodRations -= statistics.foodUsagePerHour;
-        statistics.water -= statistics.watetUsagePerHour;
+        statistics.P_FoodRations -= statistics.P_FoodUsagePerHour;
+        statistics.P_Water -= statistics.P_WatetUsagePerHour;
     }
 
 

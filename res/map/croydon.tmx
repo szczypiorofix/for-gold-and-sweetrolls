@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="2018.08.06" orientation="orthogonal" renderorder="left-up" width="25" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="14">
+<map version="1.1" tiledversion="2018.08.22" orientation="orthogonal" renderorder="left-up" width="25" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="14">
  <tileset firstgid="1" source="dg_grounds32.tsx"/>
  <tileset firstgid="172" source="dg_extra132.tsx"/>
  <tileset firstgid="316" source="dg_people32.tsx"/>
@@ -79,4 +79,5 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup id="7" name="enemies" offsetx="0" offsety="32"/>
 </map>
