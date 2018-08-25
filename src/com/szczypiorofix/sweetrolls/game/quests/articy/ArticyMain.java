@@ -7,9 +7,17 @@
 package com.szczypiorofix.sweetrolls.game.quests.articy;
 
 
+import java.awt.*;
+
 public class ArticyMain {
 
+    public ArticyMain() {
+        //new ArticyXMLParser("TestProject.xml");
+        EditorWindow editorWindow = new EditorWindow("Articy Draft Viewer");
+        editorWindow.setVisible(true);
+    }
+
     public static void main(String[] args) {
-        new ArticyXMLParser("TestProject.xml");
+        EventQueue.invokeLater(ArticyMain::new);
     }
 }

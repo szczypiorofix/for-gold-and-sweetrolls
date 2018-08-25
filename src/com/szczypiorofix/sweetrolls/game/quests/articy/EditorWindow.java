@@ -1,10 +1,10 @@
 /*
- * Developed by szczypiorofix on 24.08.18 13:26.
+ * Developed by szczypiorofix on 26.08.18 00:42.
  * Copyright (c) 2018. All rights reserved.
  *
  */
 
-package com.szczypiorofix.sweetrolls.dialogueeditor;
+package com.szczypiorofix.sweetrolls.game.quests.articy;
 
 import javax.swing.*;
 import java.awt.*;

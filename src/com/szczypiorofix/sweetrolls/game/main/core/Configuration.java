@@ -24,7 +24,7 @@ public class Configuration {
     public boolean keepAspectRatio;
     public boolean vsync;
     public boolean showFps;
-    public float musicVolume;
+    public int musicVolume;
 
     public Configuration() {}
 
@@ -37,7 +37,7 @@ public class Configuration {
         defaultConfiguration.gameRefreshRate = 60;
         defaultConfiguration.keepAspectRatio = true;
         defaultConfiguration.vsync = true;
-        defaultConfiguration.musicVolume = 1.0f;
+        defaultConfiguration.musicVolume = 100;
         defaultConfiguration.showFps = true;
 
         return defaultConfiguration;

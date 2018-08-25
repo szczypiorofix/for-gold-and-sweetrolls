@@ -42,6 +42,7 @@ public class ConfigManager {
             prop.setProperty(Configuration.vSyncName, String.valueOf(cfg.vsync));
             prop.setProperty(Configuration.musicVolumeName, String.valueOf(cfg.musicVolume));
             prop.setProperty(Configuration.showFPSName, String.valueOf(cfg.showFps));
+            prop.setProperty(Configuration.musicVolumeName, String.valueOf(cfg.musicVolume));
             prop.store(outputStream, null);
         } catch (IOException io) {
             io.printStackTrace();
@@ -81,7 +82,7 @@ public class ConfigManager {
             cfg.fullScreen = Boolean.parseBoolean(prop.getProperty(Configuration.fullScreenName));
             cfg.vsync = Boolean.parseBoolean(prop.getProperty(Configuration.vSyncName));
             cfg.keepAspectRatio = Boolean.parseBoolean(prop.getProperty(Configuration.keepAspectRatioName));
-            cfg.musicVolume = Float.valueOf(prop.getProperty(Configuration.musicVolumeName));
+            cfg.musicVolume = Integer.valueOf(prop.getProperty(Configuration.musicVolumeName));
             cfg.showFps = Boolean.valueOf(prop.getProperty(Configuration.showFPSName));
 
         } else {

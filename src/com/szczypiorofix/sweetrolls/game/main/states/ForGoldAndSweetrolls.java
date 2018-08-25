@@ -26,7 +26,7 @@ public final class ForGoldAndSweetrolls extends BasicGame {
 
     private GameState gameState;
     private Music gameMusic, mainMenuMusic;
-    private float musicVolume = 1f;
+    private int musicVolume = 100;
 
     public ForGoldAndSweetrolls(String title, ArrayList<DisplayMode> modes, Configuration config) {
         super(title);
@@ -129,7 +129,15 @@ public final class ForGoldAndSweetrolls extends BasicGame {
         return musicVolume;
     }
 
-    public void setMusicVolume(float musicVolume) {
+    public void setMusicVolume(int musicVolume) {
         this.musicVolume = musicVolume;
+    }
+
+    public Music getMainMenuMusic() {
+        return mainMenuMusic;
+    }
+
+    public Music getGameMusic() {
+        return gameMusic;
     }
 }

@@ -23,7 +23,9 @@ public class MainMenuControlls extends GameObject {
         LEF_ARROW,
         RIGHT_ARROW,
         CHECK_BOX,
-        TEXT
+        TEXT,
+        UP_ARROW,
+        DOWN_ARROW
     }
     private ControlType controlType;
     private Image imageDefault, imageHover, imageActive;
@@ -71,6 +73,18 @@ public class MainMenuControlls extends GameObject {
                 imageDefault = Textures.getInstance().mainMenuControlls.getSprite(0, 4);
                 imageHover = Textures.getInstance().mainMenuControlls.getSprite(1, 4);
                 imageActive = Textures.getInstance().mainMenuControlls.getSprite(2, 4);
+                break;
+            }
+            case UP_ARROW: {
+                imageDefault = Textures.getInstance().mainMenuControlls.getSprite(0, 5);
+                imageHover = Textures.getInstance().mainMenuControlls.getSprite(1, 5);
+                imageActive = Textures.getInstance().mainMenuControlls.getSprite(2, 5);
+                break;
+            }
+            case DOWN_ARROW: {
+                imageDefault = Textures.getInstance().mainMenuControlls.getSprite(0, 6);
+                imageHover = Textures.getInstance().mainMenuControlls.getSprite(1, 6);
+                imageActive = Textures.getInstance().mainMenuControlls.getSprite(2, 6);
                 break;
             }
             default: {

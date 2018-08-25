@@ -22,7 +22,6 @@ import org.newdawn.slick.particles.ParticleIO;
 import org.newdawn.slick.particles.ParticleSystem;
 
 import java.io.File;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 
@@ -34,7 +33,7 @@ public class FGAS_MainMenu {
     private Image optionsGui;
     private Image logoTitle;
     private MainMenuButton[] menuButtons;
-    private MainMenuControlls[] settingControlls;
+    private MainMenuControlls[] settingControls;
     private MouseCursor mouseCursor;
     private ForGoldAndSweetrolls forGoldAndSweetrolls;
     private ObjectManager objectManager;
@@ -44,7 +43,7 @@ public class FGAS_MainMenu {
 
     private int windowWidth, windowHeight;
     private int selectedGameWidth, selectedGameHeight;
-    private float selectedMusicVolume;
+    private int selectedMusicVolume;
     private boolean selectedFullScreen;
     private boolean selectedVSync;
     private boolean selectedShowFPS;
@@ -113,25 +112,29 @@ public class FGAS_MainMenu {
 
 
         // ############ USTAWIENIA
-        settingControlls = new MainMenuControlls[12];
+        settingControls = new MainMenuControlls[16];
 
-        settingControlls[0] = new MainMenuControlls(MainMenuControlls.ControlType.OK, "OK", false,365, 410, 32, 32);
-        settingControlls[1] = new MainMenuControlls(MainMenuControlls.ControlType.CANCEL, "Cancel", false,410, 410, 32, 32);
-        settingControlls[2] = new MainMenuControlls(MainMenuControlls.ControlType.LEF_ARROW,  "Left arrow", false,290, 200, 32, 32);
-        settingControlls[3] = new MainMenuControlls(MainMenuControlls.ControlType.RIGHT_ARROW, "Right arrow", false, 470, 200, 32, 32);
+        settingControls[0] = new MainMenuControlls(MainMenuControlls.ControlType.OK, "OK", false,365, 410, 32, 32);
+        settingControls[1] = new MainMenuControlls(MainMenuControlls.ControlType.CANCEL, "Cancel", false,410, 410, 32, 32);
+        settingControls[2] = new MainMenuControlls(MainMenuControlls.ControlType.LEF_ARROW,  "Left arrow", false,290, 200, 32, 32);
+        settingControls[3] = new MainMenuControlls(MainMenuControlls.ControlType.RIGHT_ARROW, "Right arrow", false, 470, 200, 32, 32);
 
-        settingControlls[4] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Rozdzielczość", false, 335, 180, 32, 32);
-        settingControlls[5] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, selectedGameWidth+"x"+selectedGameHeight, false, 360, 205, 32, 32);
+        settingControls[4] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Rozdzielczość", false, 335, 180, 32, 32);
+        settingControls[5] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, selectedGameWidth+"x"+selectedGameHeight, false, 360, 205, 32, 32);
 
-        settingControlls[6] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Full screen", false, 340, 254, 32, 32);
-        settingControlls[7] = new MainMenuControlls(MainMenuControlls.ControlType.CHECK_BOX, "Full screen checkbox", selectedFullScreen, 450, 250, 32, 32);
+        settingControls[6] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Full screen", false, 340, 254, 32, 32);
+        settingControls[7] = new MainMenuControlls(MainMenuControlls.ControlType.CHECK_BOX, "Full screen checkbox", selectedFullScreen, 450, 250, 32, 32);
 
-        settingControlls[8] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "v-sync", false, 340, 294, 32, 32);
-        settingControlls[9] = new MainMenuControlls(MainMenuControlls.ControlType.CHECK_BOX, "V-Sync checkbox", selectedVSync, 450, 290, 32, 32);
+        settingControls[8] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "v-sync", false, 340, 294, 32, 32);
+        settingControls[9] = new MainMenuControlls(MainMenuControlls.ControlType.CHECK_BOX, "V-Sync checkbox", selectedVSync, 450, 290, 32, 32);
 
-        settingControlls[10] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "FPS", false, 340, 334, 32, 32);
-        settingControlls[11] = new MainMenuControlls(MainMenuControlls.ControlType.CHECK_BOX, "FPS show checkbox", selectedShowFPS, 450, 330, 32, 32);
+        settingControls[10] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "FPS", false, 340, 334, 32, 32);
+        settingControls[11] = new MainMenuControlls(MainMenuControlls.ControlType.CHECK_BOX, "FPS show checkbox", selectedShowFPS, 450, 330, 32, 32);
 
+        settingControls[12] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Muzyka", false, 260, 374, 32, 32);
+        settingControls[13] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, (int) selectedMusicVolume + "", false, 350, 374, 32, 32);
+        settingControls[14] = new MainMenuControlls(MainMenuControlls.ControlType.UP_ARROW, "Music Volume up", selectedShowFPS, 410, 370, 32, 32);
+        settingControls[15] = new MainMenuControlls(MainMenuControlls.ControlType.DOWN_ARROW, "Music Volume down", selectedShowFPS, 442, 370, 32, 32);
 
         // ############ PRZYCISKI
         menuButtons = new MainMenuButton[5];
@@ -212,10 +215,10 @@ public class FGAS_MainMenu {
                                 break;
                             }
                             case 3: {
-                                settingControlls[5].setText(config.gameWidth+"x"+config.gameHeight);
-                                settingControlls[7].setChecked(config.fullScreen);
-                                settingControlls[9].setChecked(config.vsync);
-                                settingControlls[11].setChecked(config.showFps);
+                                settingControls[5].setText(config.gameWidth+"x"+config.gameHeight);
+                                settingControls[7].setChecked(config.fullScreen);
+                                settingControls[9].setChecked(config.vsync);
+                                settingControls[11].setChecked(config.showFps);
 
                                 showSettings = true;
                                 break;
@@ -230,11 +233,11 @@ public class FGAS_MainMenu {
                 } else menuButtons[i].setHover(false);
             }
         } else {
-            for(int i = 0; i < settingControlls.length; i++) {
-                if (mouseCursor.intersects(settingControlls[i])) {
-                    settingControlls[i].setHover(true);
+            for(int i = 0; i < settingControls.length; i++) {
+                if (mouseCursor.intersects(settingControls[i])) {
+                    settingControls[i].setHover(true);
                     if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-                        settingControlls[i].setActive(true);
+                        settingControls[i].setActive(true);
                         switch (i) {
                             case 0: {
                                 config.gameWidth = selectedGameWidth;
@@ -265,7 +268,7 @@ public class FGAS_MainMenu {
                             case 2: {
                                 if (selectedMode > 0) selectedMode--;
                                 else selectedMode = modes.size()-1;
-                                settingControlls[5].setText(modes.get(selectedMode).getWidth()+"x"+modes.get(selectedMode).getHeight());
+                                settingControls[5].setText(modes.get(selectedMode).getWidth()+"x"+modes.get(selectedMode).getHeight());
                                 selectedGameWidth = modes.get(selectedMode).getWidth();
                                 selectedGameHeight = modes.get(selectedMode).getHeight();
                                 break;
@@ -273,29 +276,45 @@ public class FGAS_MainMenu {
                             case 3: {
                                 if (selectedMode < modes.size()-1) selectedMode++;
                                 else selectedMode = 0;
-                                settingControlls[5].setText(modes.get(selectedMode).getWidth()+"x"+modes.get(selectedMode).getHeight());
+                                settingControls[5].setText(modes.get(selectedMode).getWidth()+"x"+modes.get(selectedMode).getHeight());
                                 selectedGameWidth = modes.get(selectedMode).getWidth();
                                 selectedGameHeight = modes.get(selectedMode).getHeight();
                                 break;
                             }
                             case 7: {
-                                settingControlls[i].setChecked(!settingControlls[i].isChecked());
-                                selectedFullScreen = settingControlls[i].isChecked();
+                                settingControls[i].setChecked(!settingControls[i].isChecked());
+                                selectedFullScreen = settingControls[i].isChecked();
                                 break;
                             }
                             case 9: {
-                                settingControlls[i].setChecked(!settingControlls[i].isChecked());
-                                selectedVSync = settingControlls[i].isChecked();
+                                settingControls[i].setChecked(!settingControls[i].isChecked());
+                                selectedVSync = settingControls[i].isChecked();
                                 break;
                             }
                             case 11: {
-                                settingControlls[i].setChecked(!settingControlls[i].isChecked());
-                                selectedShowFPS = settingControlls[i].isChecked();
+                                settingControls[i].setChecked(!settingControls[i].isChecked());
+                                selectedShowFPS = settingControls[i].isChecked();
+                                break;
+                            }
+                            case 14: {
+                                if (selectedMusicVolume < 100) {
+                                    selectedMusicVolume += 10;
+                                }
+                                settingControls[13].setText(selectedMusicVolume+"");
+                                forGoldAndSweetrolls.getMainMenuMusic().setVolume(selectedMusicVolume / 100f);
+                                break;
+                            }
+                            case 15: {
+                                if (selectedMusicVolume > 0) {
+                                    selectedMusicVolume -= 10;
+                                }
+                                settingControls[13].setText(selectedMusicVolume+"");
+                                forGoldAndSweetrolls.getMainMenuMusic().setVolume(selectedMusicVolume / 100f);
                                 break;
                             }
                         }
-                    } settingControlls[i].setActive(false);
-                } else settingControlls[i].setHover(false);
+                    } settingControls[i].setActive(false);
+                } else settingControls[i].setHover(false);
             }
         }
 
@@ -341,7 +360,7 @@ public class FGAS_MainMenu {
 
         if (showSettings) {
             optionsGui.draw(230, 160);
-            for(MainMenuControlls s: settingControlls) {
+            for(MainMenuControlls s: settingControls) {
                 s.render(g, 0 ,0);
             }
         }
