@@ -315,6 +315,8 @@ public class FGAS_MainMenu {
                         }
                     } settingControls[i].setActive(false);
                 } else settingControls[i].setHover(false);
+
+                // TODO Poprawić działanie regulowania głośności - dodać regulacje głoścości SFXów
             }
         }
 

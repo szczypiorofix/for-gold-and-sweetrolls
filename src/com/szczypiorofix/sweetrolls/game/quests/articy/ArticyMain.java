@@ -15,6 +15,9 @@ public class ArticyMain {
         //new ArticyXMLParser("TestProject.xml");
         EditorWindow editorWindow = new EditorWindow("Articy Draft Viewer");
         editorWindow.setVisible(true);
+
+        // TODO Zrobić Articy Draft Viewer
+
     }
 
     public static void main(String[] args) {
