@@ -14,6 +14,7 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.File;
 import java.io.InputStream;
 import java.util.*;
 
@@ -24,7 +25,6 @@ public class ArticyXMLParser {
     private HashMap<String, A_Connection> connections;
     private HashMap<String, A_Dialogue> dialogues;
     private HashMap<String, A_DialogueFragment> dialoguesFragmens;
-    private A_HierarchyNode a_hierarchyNode;
 
     private String startId;
     private String stopId;
@@ -32,7 +32,7 @@ public class ArticyXMLParser {
     private A_State state;
 
 
-    public ArticyXMLParser(String name) {
+    public ArticyXMLParser(File inputFile) {
 
         startId = "-1";
 
@@ -43,7 +43,8 @@ public class ArticyXMLParser {
         dialoguesFragmens = new HashMap<>();
 
         try {
-            InputStream inputFile = getClass().getResourceAsStream("/quests/"+name);
+            //InputStream inputFile = getClass().getResourceAsStream("/quests/"+name);
+
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
@@ -384,7 +385,7 @@ public class ArticyXMLParser {
                         if (hierarchyListNode.getNodeType() == Node.ELEMENT_NODE) {
                             Element hierarchyListElement = (Element) hierarchyListNode;
 
-                            a_hierarchyNode = new A_HierarchyNode();
+                            A_HierarchyNode a_hierarchyNode = new A_HierarchyNode();
                             a_hierarchyNode.type = hierarchyListElement.getAttribute("Type");
                             a_hierarchyNode.IdRef = hierarchyListElement.getAttribute("IdRef");
                             parseHierarchy(a_hierarchyNode, hierarchyListElement);
@@ -575,4 +576,23 @@ public class ArticyXMLParser {
         }
     }
 
+    public HashMap<String, A_Entity> getEntitiesList() {
+        return entitiesList;
+    }
+
+    public HashMap<String, A_FlowFragment> getFlowFragments() {
+        return flowFragments;
+    }
+
+    public HashMap<String, A_Connection> getConnections() {
+        return connections;
+    }
+
+    public HashMap<String, A_Dialogue> getDialogues() {
+        return dialogues;
+    }
+
+    public HashMap<String, A_DialogueFragment> getDialoguesFragmens() {
+        return dialoguesFragmens;
+    }
 }

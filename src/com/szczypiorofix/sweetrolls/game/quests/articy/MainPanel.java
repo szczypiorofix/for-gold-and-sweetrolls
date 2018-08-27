@@ -6,8 +6,11 @@
 
 package com.szczypiorofix.sweetrolls.game.quests.articy;
 
+import com.szczypiorofix.sweetrolls.game.quests.articy.content.A_Entity;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.Map;
 
 public class MainPanel extends JPanel {
 
@@ -31,7 +34,6 @@ public class MainPanel extends JPanel {
         flowsPanel.add(new JTextArea(25, 50));
 
         entitiesPanel = new JPanel();
-        entitiesPanel.add(new JButton("Cancel"));
 
         tabbedPane.addTab("Flows", flowsPanel);
         tabbedPane.addTab("Entities", entitiesPanel);
@@ -46,4 +48,12 @@ public class MainPanel extends JPanel {
 
 
     }
+
+
+    public void updateEntitiesPanel(ArticyXMLParser parser) {
+        for (Map.Entry<String, A_Entity> entry : parser.getEntitiesList().entrySet()) {
+            entitiesPanel.add(new JButton(entry.getValue().displayName));
+        }
+    }
+
 }

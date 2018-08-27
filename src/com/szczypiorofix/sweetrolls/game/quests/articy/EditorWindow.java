@@ -7,21 +7,26 @@
 package com.szczypiorofix.sweetrolls.game.quests.articy;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.io.File;
 
 public class EditorWindow extends JFrame {
 
+    private ArticyXMLParser articyXMLParser;
     private JMenuBar menuBar = new JMenuBar();
     private JMenu plikMenu = new JMenu("Projekt");
     private JMenu infoMenu = new JMenu("Info");
     private JMenuItem plikMenuOtworz = new JMenuItem("Otwórz", KeyEvent.VK_O);
     private JMenuItem plikMenuZakoncz = new JMenuItem("Zakończ", KeyEvent.VK_Z);
     private JMenuItem infoMenuInfo = new JMenuItem("Informacje", KeyEvent.VK_I);
-    final JFileChooser fc = new JFileChooser();
+    private JFileChooser fc;
+    private MainPanel mainPanel;
 
     public EditorWindow(String title) throws HeadlessException {
         super(title);
@@ -29,13 +34,27 @@ public class EditorWindow extends JFrame {
         this.setSize(800, 600);
         this.setLocationRelativeTo(null);
 
-        MainPanel mainPanel = new MainPanel(new BorderLayout(), true);
+        mainPanel = new MainPanel(new BorderLayout(), true);
         JScrollPane scrollMainPanel = new JScrollPane(mainPanel);
         this.add(scrollMainPanel);
 
         plikMenuOtworz.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
-        plikMenuZakoncz.addActionListener(e -> {
+        plikMenuOtworz.addActionListener(e -> {
+            fc = new JFileChooser(FileSystemView.getFileSystemView().getDefaultDirectory());
+            fc.setDialogTitle("ArticyDraft 3 XML project ");
+            fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            fc.setMultiSelectionEnabled(false);
+            fc.setAcceptAllFileFilterUsed(false);
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("XML file (ArticyDraft 3 export)", "xml");
+            fc.addChoosableFileFilter(filter);
 
+            int returnValue = fc.showOpenDialog(null);
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fc.getSelectedFile();
+                System.out.println(selectedFile.getAbsolutePath());
+                articyXMLParser = new ArticyXMLParser(selectedFile);
+                mainPanel.updateEntitiesPanel(articyXMLParser);
+            }
         });
 
         plikMenuZakoncz.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_MASK));
@@ -53,8 +72,6 @@ public class EditorWindow extends JFrame {
         menuBar.add(plikMenu);
         menuBar.add(infoMenu);
         this.setJMenuBar(menuBar);
-
-        new ArticyXMLParser("TestProject.xml");
     }
 
 

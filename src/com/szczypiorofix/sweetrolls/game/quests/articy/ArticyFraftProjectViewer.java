@@ -9,17 +9,14 @@ package com.szczypiorofix.sweetrolls.game.quests.articy;
 
 import java.awt.*;
 
-public class ArticyMain {
+public class ArticyFraftProjectViewer {
 
-    private ArticyMain() {
+    private ArticyFraftProjectViewer() {
         EditorWindow editorWindow = new EditorWindow("Articy Draft Viewer");
         editorWindow.setVisible(true);
-
-        // TODO Zrobić Articy Draft Viewer
-
     }
 
     public static void main(String[] args) {
-        EventQueue.invokeLater(ArticyMain::new);
+        EventQueue.invokeLater(ArticyFraftProjectViewer::new);
     }
 }
