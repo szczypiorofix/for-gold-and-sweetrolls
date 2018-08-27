@@ -328,6 +328,7 @@ public class FGAS_MainMenu {
                                     selectedSFXVolume += 10;
                                 }
                                 settingControls[17].setText(selectedSFXVolume+"");
+                                forGoldAndSweetrolls.setSfxVolume(selectedSFXVolume);
                                 break;
                             }
                             case 19: {
@@ -335,6 +336,7 @@ public class FGAS_MainMenu {
                                     selectedSFXVolume -= 10;
                                 }
                                 settingControls[17].setText(selectedSFXVolume+"");
+                                forGoldAndSweetrolls.setSfxVolume(selectedSFXVolume);
                                 break;
                             }
                         }

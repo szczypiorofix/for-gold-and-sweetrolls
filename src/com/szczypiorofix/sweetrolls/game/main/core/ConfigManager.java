@@ -31,6 +31,10 @@ public class ConfigManager {
         }
     }
 
+    public boolean isDefaultConfiguration() {
+        return defaultConfiguration;
+    }
+
     public boolean saveToFile(Configuration cfg) {
         try {
             outputStream = new FileOutputStream(configFile);
