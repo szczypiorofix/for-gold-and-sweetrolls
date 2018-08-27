@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
-<Export Version="3.1" CreatorTool="articy:draft" CreatorVersion="3.1.16" CreatedOn="2018-08-24T20:18:02Z">
+<Export Version="3.1" CreatorTool="articy:draft" CreatorVersion="3.1.16" CreatedOn="2018-08-27T15:49:22Z">
   <Settings>
     <ExportMarkup>0</ExportMarkup>
     <ExportQueries>0</ExportQueries>
@@ -224,6 +224,24 @@
       <Target IdRef="0x0100000000000136" PinRef="0x010000000000013A"/>
       <ShowLabel>0</ShowLabel>
     </Connection>
+    <Connection Id="0x010000000000049B">
+      <Color>#C8E2E7</Color>
+      <TechnicalName>Con_9417C3CE</TechnicalName>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929115</Url>
+      <Label Count="0"/>
+      <Source IdRef="0x0100000000000488" PinRef="0x010000000000048B"/>
+      <Target IdRef="0x0100000000000496" PinRef="0x0100000000000499"/>
+      <ShowLabel>0</ShowLabel>
+    </Connection>
+    <Connection Id="0x010000000000049D">
+      <Color>#C8E2E7</Color>
+      <TechnicalName>Con_0D8B241A</TechnicalName>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929117</Url>
+      <Label Count="0"/>
+      <Source IdRef="0x0100000000000496" PinRef="0x010000000000049A"/>
+      <Target IdRef="0x0100000000000488" PinRef="0x010000000000048C"/>
+      <ShowLabel>0</ShowLabel>
+    </Connection>
     <Dialogue Id="0x0100000000000136">
       <DisplayName Count="1">
         <LocalizedString Lang="">Todd Howard</LocalizedString>
@@ -248,9 +266,37 @@
           <Expression/>
         </Pin>
       </Pins>
-      <Position X="192" Y="200"/>
+      <Position X="167" Y="200"/>
       <Size Width="266" Height="175"/>
       <ZIndex>0</ZIndex>
+    </Dialogue>
+    <Dialogue Id="0x0100000000000488">
+      <DisplayName Count="1">
+        <LocalizedString Lang="">Pete Hines</LocalizedString>
+      </DisplayName>
+      <Text Count="1">
+        <LocalizedString Lang="">Dialog z Petem Hinesem</LocalizedString>
+      </Text>
+      <Color>#C8E2E7</Color>
+      <TechnicalName>Dlg_1389F327</TechnicalName>
+      <ExternalId/>
+      <ShortId>0x1389F327</ShortId>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929096</Url>
+      <Features Count="0"/>
+      <References Count="1">
+        <Reference IdRef="0x010000000000048E"/>
+      </References>
+      <Pins Count="2">
+        <Pin Id="0x010000000000048B" Index="0" Semantic="Input">
+          <Expression/>
+        </Pin>
+        <Pin Id="0x010000000000048C" Index="0" Semantic="Output">
+          <Expression/>
+        </Pin>
+      </Pins>
+      <Position X="167" Y="425"/>
+      <Size Width="266" Height="175"/>
+      <ZIndex>1</ZIndex>
     </Dialogue>
     <DialogueFragment Id="0x010000000000024D">
       <DisplayName><![CDATA[Todd: "Witaj! Jestem Todd. Todd Howard."]]></DisplayName>
@@ -306,10 +352,39 @@
       <StageDirections Count="0"/>
       <MenuText Count="0"/>
     </DialogueFragment>
+    <DialogueFragment Id="0x0100000000000496">
+      <DisplayName><![CDATA[Pete Hines: "Witaj, jestem Pete Hines!"]]></DisplayName>
+      <Text Count="1">
+        <LocalizedString Lang="">Witaj, jestem Pete Hines!</LocalizedString>
+      </Text>
+      <Color>#C8E2E7</Color>
+      <TechnicalName>DFr_BC0DC430</TechnicalName>
+      <ExternalId/>
+      <ShortId>0xBC0DC430</ShortId>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929110</Url>
+      <Features Count="0"/>
+      <Pins Count="2">
+        <Pin Id="0x0100000000000499" Index="0" Semantic="Input">
+          <Expression/>
+        </Pin>
+        <Pin Id="0x010000000000049A" Index="0" Semantic="Output">
+          <Expression/>
+        </Pin>
+      </Pins>
+      <Position X="325" Y="300"/>
+      <Size Width="225" Height="200"/>
+      <ZIndex>0</ZIndex>
+      <Speaker IdRef="0x010000000000048E"/>
+      <StageDirections Count="0"/>
+      <MenuText Count="0"/>
+    </DialogueFragment>
     <Entity Id="0x0100000000000463">
       <DisplayName Count="1">
-        <LocalizedString Lang="">Todd</LocalizedString>
+        <LocalizedString Lang="">Todd Howard</LocalizedString>
       </DisplayName>
+      <Text Count="1">
+        <LocalizedString Lang="">To jest postać Todd Howard.</LocalizedString>
+      </Text>
       <Color>#C8E2E7</Color>
       <TechnicalName>Ntt_87D77F10</TechnicalName>
       <ExternalId/>
@@ -318,12 +393,24 @@
       <Features Count="0"/>
       <References Count="0"/>
     </Entity>
+    <Entity Id="0x010000000000048E">
+      <DisplayName Count="1">
+        <LocalizedString Lang="">Pete Hines</LocalizedString>
+      </DisplayName>
+      <Color>#C8E2E7</Color>
+      <TechnicalName>Ntt_F884BB67</TechnicalName>
+      <ExternalId/>
+      <ShortId>0xF884BB67</ShortId>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929102</Url>
+      <Features Count="0"/>
+      <References Count="0"/>
+    </Entity>
     <FlowFragment Id="0x0100000000000126">
       <DisplayName Count="1">
-        <LocalizedString Lang="">Tristram</LocalizedString>
+        <LocalizedString Lang="">Croydon</LocalizedString>
       </DisplayName>
       <Text Count="1">
-        <LocalizedString Lang=""/>
+        <LocalizedString Lang="">Dialogi w mieście Croydon</LocalizedString>
       </Text>
       <Color>#C8E2E7</Color>
       <TechnicalName>FFr_6C0043C3</TechnicalName>
@@ -331,7 +418,10 @@
       <ShortId>0x6C0043C3</ShortId>
       <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037928230</Url>
       <Features Count="0"/>
-      <References Count="0"/>
+      <References Count="2">
+        <Reference IdRef="0x0100000000000463"/>
+        <Reference IdRef="0x010000000000048E"/>
+      </References>
       <Pins Count="2">
         <Pin Id="0x0100000000000153" Index="0" Semantic="Input">
           <Expression/>
@@ -341,6 +431,32 @@
         </Pin>
       </Pins>
       <Position X="0" Y="100"/>
+      <Size Width="275" Height="200"/>
+      <ZIndex>0</ZIndex>
+    </FlowFragment>
+    <FlowFragment Id="0x0100000000000469">
+      <DisplayName Count="1">
+        <LocalizedString Lang="">Kineallen</LocalizedString>
+      </DisplayName>
+      <Text Count="1">
+        <LocalizedString Lang="">Dialogi w mieście Kineallen</LocalizedString>
+      </Text>
+      <Color>#C8E2E7</Color>
+      <TechnicalName>FFr_009B2A6B</TechnicalName>
+      <ExternalId/>
+      <ShortId>0x009B2A6B</ShortId>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929065</Url>
+      <Features Count="0"/>
+      <References Count="0"/>
+      <Pins Count="2">
+        <Pin Id="0x0100000000000482" Index="0" Semantic="Input">
+          <Expression/>
+        </Pin>
+        <Pin Id="0x0100000000000483" Index="0" Semantic="Output">
+          <Expression/>
+        </Pin>
+      </Pins>
+      <Position X="0" Y="350"/>
       <Size Width="275" Height="200"/>
       <ZIndex>0</ZIndex>
     </FlowFragment>
@@ -356,11 +472,18 @@
             <Node IdRef="0x01000000000002F4" Type="DialogueFragment"/>
             <Node IdRef="0x01000000000002F9" Type="Connection"/>
           </Node>
+          <Node IdRef="0x0100000000000488" Type="Dialogue">
+            <Node IdRef="0x0100000000000496" Type="DialogueFragment"/>
+            <Node IdRef="0x010000000000049B" Type="Connection"/>
+            <Node IdRef="0x010000000000049D" Type="Connection"/>
+          </Node>
         </Node>
+        <Node IdRef="0x0100000000000469" Type="FlowFragment"/>
       </Node>
       <Node IdRef="0x030000003140D3AC" Type="Locations"/>
       <Node IdRef="0x03000000AC61A2B3" Type="Entities">
         <Node IdRef="0x0100000000000463" Type="Entity"/>
+        <Node IdRef="0x010000000000048E" Type="Entity"/>
       </Node>
       <Node IdRef="0x030000004C3DAF54" Type="Assets"/>
       <Node IdRef="0x0300000029CF057C" Type="ObjectTemplates">

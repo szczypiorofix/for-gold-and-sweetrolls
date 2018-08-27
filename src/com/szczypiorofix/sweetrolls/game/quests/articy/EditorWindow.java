@@ -41,6 +41,7 @@ public class EditorWindow extends JFrame {
         plikMenuOtworz.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
         plikMenuOtworz.addActionListener(e -> {
             fc = new JFileChooser(FileSystemView.getFileSystemView().getDefaultDirectory());
+            fc.setCurrentDirectory(new File(System.getProperty("user.dir")));
             fc.setDialogTitle("ArticyDraft 3 XML project ");
             fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
             fc.setMultiSelectionEnabled(false);
