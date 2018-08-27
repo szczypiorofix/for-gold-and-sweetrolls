@@ -23,6 +23,7 @@ import org.newdawn.slick.particles.ParticleSystem;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class FGAS_MainMenu {
@@ -387,8 +388,9 @@ public class FGAS_MainMenu {
             forGoldAndSweetrolls.getFGASGame().getTimeCounter().setHourCounter(saveGameData.getTimeCounterHourCounter());
             forGoldAndSweetrolls.getFGASGame().getTimeCounter().setMinuteCounter(saveGameData.getTimeCounterMinuteCounter());
             forGoldAndSweetrolls.getFGASGame().getObjectManager().getCurrentMap().setLevelType(saveGameData.getLevelType());
+            forGoldAndSweetrolls.getFGASGame().setActionHistory(saveGameData.getActionHistory());
 
-            forGoldAndSweetrolls.getFGASGame().getHud().turn(saveGameData.getTimeCounterHourCounter());
+            forGoldAndSweetrolls.getFGASGame().getHud().turn(saveGameData.getTimeCounterTimeStamp());
         }
 
         forGoldAndSweetrolls.getFGASGame().calculateOffset();

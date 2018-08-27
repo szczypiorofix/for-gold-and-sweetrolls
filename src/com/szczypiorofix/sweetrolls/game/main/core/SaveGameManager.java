@@ -60,6 +60,7 @@ public class SaveGameManager {
         saveGameData.setTimeCounterMinuteCounter(game.getTimeCounter().getMinuteCounter());
         saveGameData.setTimeCounterTimeStamp(game.getTimeCounter().getTimeStamp());
         saveGameData.setLevelType(game.getObjectManager().getCurrentMap().getLevelType());
+        saveGameData.setActionHistory(game.getActionHistory());
 
 
         // LEVELS

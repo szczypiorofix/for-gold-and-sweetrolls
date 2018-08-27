@@ -7,6 +7,7 @@
 package com.szczypiorofix.sweetrolls.game.main.core;
 
 import com.szczypiorofix.sweetrolls.game.enums.LevelType;
+import com.szczypiorofix.sweetrolls.game.gui.ActionHistory;
 import com.szczypiorofix.sweetrolls.game.objects.Statistics;
 
 import java.io.Serializable;
@@ -24,6 +25,7 @@ public class SaveGameData implements Serializable {
     private int timeCounterHourCounter;
     private int timeCounterMinuteCounter;
     private LevelType levelType;
+    private ActionHistory actionHistory;
 
     public SaveGameData() {}
 
@@ -122,5 +124,13 @@ public class SaveGameData implements Serializable {
 
     public void setLevelType(LevelType levelType) {
         this.levelType = levelType;
+    }
+
+    public ActionHistory getActionHistory() {
+        return actionHistory;
+    }
+
+    public void setActionHistory(ActionHistory actionHistory) {
+        this.actionHistory = actionHistory;
     }
 }

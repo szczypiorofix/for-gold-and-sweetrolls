@@ -599,6 +599,15 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
         return hud;
     }
 
+    public ActionHistory getActionHistory() {
+        return actionHistory;
+    }
+
+    public void setActionHistory(ActionHistory actionHistory) {
+        this.actionHistory = actionHistory;
+        this.hud.setActionHistory(this.actionHistory);
+    }
+
     /**
      * Method for picking up items from ground
      * @param currentItem (Item) current object - clicked by mouse left button or in the same tile as polayer ("E" key presssed)

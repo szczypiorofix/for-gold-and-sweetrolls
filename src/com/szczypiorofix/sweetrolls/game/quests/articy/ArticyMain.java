@@ -11,8 +11,7 @@ import java.awt.*;
 
 public class ArticyMain {
 
-    public ArticyMain() {
-        //new ArticyXMLParser("TestProject.xml");
+    private ArticyMain() {
         EditorWindow editorWindow = new EditorWindow("Articy Draft Viewer");
         editorWindow.setVisible(true);
 

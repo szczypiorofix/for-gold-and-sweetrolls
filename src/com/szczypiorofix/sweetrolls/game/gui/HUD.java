@@ -40,6 +40,7 @@ public class HUD {
         }
         font = FontParser.getFont("HUD Font", "immortal-bitmap.xml", "immortal-bitmap.png");
         font.setSize(4.2f);
+
     }
 
     public void turn() {
@@ -47,9 +48,25 @@ public class HUD {
         clockImage.rotate(rotateFactor);
     }
 
-    public void turn(int minutes) {
-        rotateFactor = ((minutes * timeCounter.getCurrentTurnTime() * 360f) / 1440f);
+    public void turn(long minutes) {
+        rotateFactor = ((minutes * 360f) / 1440f) % 360f;
         clockImage.rotate(rotateFactor);
+    }
+
+    public TimeCounter getTimeCounter() {
+        return timeCounter;
+    }
+
+    public void setTimeCounter(TimeCounter timeCounter) {
+        this.timeCounter = timeCounter;
+    }
+
+    public ActionHistory getActionHistory() {
+        return actionHistory;
+    }
+
+    public void setActionHistory(ActionHistory actionHistory) {
+        this.actionHistory = actionHistory;
     }
 
     public void render(GameContainer gc, Graphics g) {
@@ -91,6 +108,7 @@ public class HUD {
         font.draw("Atak: " +player.statistics.P_Damage, 590, 340);
 
         font.draw("Picked: " +player.statistics.W_PickedUpItems, 590, 360);
+
     }
 
 }
