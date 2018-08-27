@@ -64,6 +64,8 @@ public class ArticyXMLParser {
                         if (contentNode.getNodeType() == Node.ELEMENT_NODE) {
                             Element contentElement = (Element) contentNode;
 
+
+
                             // ################ ENTITY ################
                             NodeList entityList = contentElement.getElementsByTagName("Entity");
                             for (int entity = 0; entity < entityList.getLength(); entity++) {
@@ -73,6 +75,7 @@ public class ArticyXMLParser {
 
                                     A_Entity a_entity = new A_Entity(entityElement.getAttribute("Id"));
 
+                                    // DisplayName
                                     NodeList displayNameList = entityElement.getElementsByTagName("DisplayName");
                                     for (int dn = 0; dn < displayNameList.getLength(); dn++) {
                                         Node dnNode = displayNameList.item(dn);
@@ -80,7 +83,7 @@ public class ArticyXMLParser {
                                             Element dnElement = (Element) dnNode;
                                             NodeList localizedStringNameList = dnElement.getElementsByTagName("LocalizedString");
                                             for (int ls = 0; ls < localizedStringNameList.getLength(); ls++) {
-                                                Node lsNode = displayNameList.item(ls);
+                                                Node lsNode = localizedStringNameList.item(ls);
                                                 if (lsNode.getNodeType() == Node.ELEMENT_NODE) {
                                                     Element lsElement = (Element) lsNode;
                                                     a_entity.displayName = lsElement.getTextContent().trim();
@@ -88,6 +91,44 @@ public class ArticyXMLParser {
                                             }
                                         }
                                     }
+
+                                    // Text
+                                    NodeList textList = entityElement.getElementsByTagName("Text");
+                                    for (int tn = 0; tn < textList.getLength(); tn++) {
+                                        Node textNode = textList.item(tn);
+                                        if (textNode.getNodeType() == Node.ELEMENT_NODE) {
+                                            Element textElement = (Element) textNode;
+                                            NodeList localizedStringNameList = textElement.getElementsByTagName("LocalizedString");
+                                            for (int ls = 0; ls < localizedStringNameList.getLength(); ls++) {
+                                                Node lsNode = localizedStringNameList.item(ls);
+                                                if (lsNode.getNodeType() == Node.ELEMENT_NODE) {
+                                                    Element lsElement = (Element) lsNode;
+                                                    a_entity.text = lsElement.getTextContent().trim();
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    // Color
+                                    NodeList colorList = entityElement.getElementsByTagName("Color");
+                                    for (int cn = 0; cn < colorList.getLength(); cn++) {
+                                        Node colorNode = colorList.item(cn);
+                                        if (colorNode.getNodeType() == Node.ELEMENT_NODE) {
+                                            Element colorElement = (Element) colorNode;
+                                            a_entity.color = colorElement.getTextContent().trim();
+                                        }
+                                    }
+
+                                    // Technical Name
+                                    NodeList technicalNameList = entityElement.getElementsByTagName("TechnicalName");
+                                    for (int cn = 0; cn < technicalNameList.getLength(); cn++) {
+                                        Node colorNode = technicalNameList.item(cn);
+                                        if (colorNode.getNodeType() == Node.ELEMENT_NODE) {
+                                            Element colorElement = (Element) colorNode;
+                                            a_entity.technicalName = colorElement.getTextContent().trim();
+                                        }
+                                    }
+
                                     entitiesList.put(a_entity.id, a_entity);
                                 }
                             }

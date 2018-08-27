@@ -21,15 +21,15 @@ public class ArticyFraftProjectViewer {
 
     private ArticyFraftProjectViewer() {
 
-        Path scriptPath = Paths.get("test.js");
-        ScriptEngineManager manager = new ScriptEngineManager();
-        ScriptEngine engine = manager.getEngineByName("JavaScript");
-        try {
-            Reader scriptReader = Files.newBufferedReader(scriptPath);
-            engine.eval(scriptReader);
-        } catch (IOException | ScriptException e) {
-            e.printStackTrace();
-        }
+//        Path scriptPath = Paths.get("test.js");
+//        ScriptEngineManager manager = new ScriptEngineManager();
+//        ScriptEngine engine = manager.getEngineByName("JavaScript");
+//        try {
+//            Reader scriptReader = Files.newBufferedReader(scriptPath);
+//            engine.eval(scriptReader);
+//        } catch (IOException | ScriptException e) {
+//            e.printStackTrace();
+//        }
 
         EditorWindow editorWindow = new EditorWindow("Articy Draft Viewer");
         editorWindow.setVisible(true);

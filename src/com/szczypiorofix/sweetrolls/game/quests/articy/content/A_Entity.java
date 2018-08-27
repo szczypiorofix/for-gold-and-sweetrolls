@@ -9,6 +9,7 @@ package com.szczypiorofix.sweetrolls.game.quests.articy.content;
 public class A_Entity extends A_Object {
 
 
+    public String text;
 
     public A_Entity(String id) {
         super(id);
@@ -22,8 +23,11 @@ public class A_Entity extends A_Object {
     @Override
     public String toString() {
         return "A_Entity{" +
-                "id='" + id + '\'' +
+                "text='" + text + '\'' +
+                ", id='" + id + '\'' +
                 ", displayName='" + displayName + '\'' +
+                ", technicalName='" + technicalName + '\'' +
+                ", color='" + color + '\'' +
                 '}';
     }
 }

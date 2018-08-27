@@ -15,8 +15,10 @@ import java.util.Map;
 public class MainPanel extends JPanel {
 
     private JPanel northPanel, westPanel, eastPanel, southPanel, centerPanel;
-    private JPanel flowsPanel, entitiesPanel;
+    private JPanel flowFragmentsPanel, entitiesPanel, dialoguesPanel, dialoguesFragmentsPanel;
     private JTabbedPane tabbedPane = new JTabbedPane();
+    private JList<String> entityList;
+    private DefaultListModel<String> defaultListModel;
 
 
 
@@ -29,14 +31,29 @@ public class MainPanel extends JPanel {
         southPanel = new JPanel();
         centerPanel = new JPanel();
 
-        flowsPanel = new JPanel();
-        flowsPanel.add(new JButton("OK"));
-        flowsPanel.add(new JTextArea(25, 50));
+
+
+        flowFragmentsPanel = new JPanel();
 
         entitiesPanel = new JPanel();
 
-        tabbedPane.addTab("Flows", flowsPanel);
+        dialoguesPanel = new JPanel();
+
+        dialoguesFragmentsPanel = new JPanel();
+
+
+
+        defaultListModel = new DefaultListModel<>();
+        entityList = new JList<>(defaultListModel);
+        //entityList.setBounds(100,100, 75,75);
+
+        entitiesPanel.add(entityList);
+
+        tabbedPane.addTab("Flows", flowFragmentsPanel);
         tabbedPane.addTab("Entities", entitiesPanel);
+        tabbedPane.addTab("Dialogues", dialoguesPanel);
+        tabbedPane.addTab("Dialogues Fragmens", dialoguesFragmentsPanel);
+
 
         centerPanel.add(tabbedPane);
 
@@ -52,7 +69,10 @@ public class MainPanel extends JPanel {
 
     public void updateEntitiesPanel(ArticyXMLParser parser) {
         for (Map.Entry<String, A_Entity> entry : parser.getEntitiesList().entrySet()) {
-            entitiesPanel.add(new JButton(entry.getValue().displayName));
+
+            defaultListModel.addElement(entry.getValue().displayName);
+
+
         }
     }
 
