@@ -44,7 +44,7 @@ public class FGAS_MainMenu {
 
     private int windowWidth, windowHeight;
     private int selectedGameWidth, selectedGameHeight;
-    private int selectedMusicVolume;
+    private int selectedMusicVolume, selectedSFXVolume;
     private boolean selectedFullScreen;
     private boolean selectedVSync;
     private boolean selectedShowFPS;
@@ -80,6 +80,7 @@ public class FGAS_MainMenu {
         selectedGameHeight = config.gameHeight;
         selectedVSync = config.vsync;
         selectedMusicVolume = config.musicVolume;
+        selectedSFXVolume = config.sfxVolume;
         selectedShowFPS = config.showFps;
         for(int i = 0; i < modes.size(); i++) {
             if (modes.get(i).getWidth() == selectedGameWidth && modes.get(i).getHeight() == selectedGameHeight) {
@@ -113,10 +114,10 @@ public class FGAS_MainMenu {
 
 
         // ############ USTAWIENIA
-        settingControls = new MainMenuControlls[16];
+        settingControls = new MainMenuControlls[20];
 
-        settingControls[0] = new MainMenuControlls(MainMenuControlls.ControlType.OK, "OK", false,365, 410, 32, 32);
-        settingControls[1] = new MainMenuControlls(MainMenuControlls.ControlType.CANCEL, "Cancel", false,410, 410, 32, 32);
+        settingControls[0] = new MainMenuControlls(MainMenuControlls.ControlType.OK, "OK", false,365, 480, 32, 32);
+        settingControls[1] = new MainMenuControlls(MainMenuControlls.ControlType.CANCEL, "Cancel", false,410, 480, 32, 32);
         settingControls[2] = new MainMenuControlls(MainMenuControlls.ControlType.LEF_ARROW,  "Left arrow", false,290, 200, 32, 32);
         settingControls[3] = new MainMenuControlls(MainMenuControlls.ControlType.RIGHT_ARROW, "Right arrow", false, 470, 200, 32, 32);
 
@@ -132,10 +133,15 @@ public class FGAS_MainMenu {
         settingControls[10] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "FPS", false, 340, 334, 32, 32);
         settingControls[11] = new MainMenuControlls(MainMenuControlls.ControlType.CHECK_BOX, "FPS show checkbox", selectedShowFPS, 450, 330, 32, 32);
 
-        settingControls[12] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Muzyka", false, 260, 374, 32, 32);
-        settingControls[13] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, (int) selectedMusicVolume + "", false, 350, 374, 32, 32);
-        settingControls[14] = new MainMenuControlls(MainMenuControlls.ControlType.UP_ARROW, "Music Volume up", selectedShowFPS, 410, 370, 32, 32);
-        settingControls[15] = new MainMenuControlls(MainMenuControlls.ControlType.DOWN_ARROW, "Music Volume down", selectedShowFPS, 442, 370, 32, 32);
+        settingControls[12] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Muzyka", false, 290, 374, 32, 32);
+        settingControls[13] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, selectedMusicVolume + "", false, 380, 374, 32, 32);
+        settingControls[14] = new MainMenuControlls(MainMenuControlls.ControlType.UP_ARROW, "Music Volume up", false, 440, 370, 32, 32);
+        settingControls[15] = new MainMenuControlls(MainMenuControlls.ControlType.DOWN_ARROW, "Music Volume down", false, 472, 370, 32, 32);
+
+        settingControls[16] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "SFX", false, 290, 410, 32, 32);
+        settingControls[17] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, selectedSFXVolume + "", false, 380, 410, 32, 32);
+        settingControls[18] = new MainMenuControlls(MainMenuControlls.ControlType.UP_ARROW, "SFX Volume up", false, 440, 410, 32, 32);
+        settingControls[19] = new MainMenuControlls(MainMenuControlls.ControlType.DOWN_ARROW, "SFX Volume down", false, 472, 410, 32, 32);
 
         // ############ PRZYCISKI
         menuButtons = new MainMenuButton[5];
@@ -213,6 +219,7 @@ public class FGAS_MainMenu {
                             }
                             case 2: {
                                 System.out.println("KOSTNICA...");
+                                forGoldAndSweetrolls.getSfx().play(forGoldAndSweetrolls.getSfxVolume());
                                 break;
                             }
                             case 3: {
@@ -220,6 +227,8 @@ public class FGAS_MainMenu {
                                 settingControls[7].setChecked(config.fullScreen);
                                 settingControls[9].setChecked(config.vsync);
                                 settingControls[11].setChecked(config.showFps);
+                                settingControls[13].setText(config.musicVolume+"");
+                                settingControls[17].setText(config.sfxVolume+"");
 
                                 showSettings = true;
                                 break;
@@ -247,6 +256,7 @@ public class FGAS_MainMenu {
                                 config.vsync = selectedVSync;
                                 config.showFps = selectedShowFPS;
                                 config.musicVolume = selectedMusicVolume;
+                                config.sfxVolume = selectedSFXVolume;
 
                                 AppGameContainer gameContainer = (AppGameContainer) gc;
                                 gameContainer.setDisplayMode(config.gameWidth, config.gameHeight, config.fullScreen);
@@ -313,11 +323,23 @@ public class FGAS_MainMenu {
                                 forGoldAndSweetrolls.getMainMenuMusic().setVolume(selectedMusicVolume / 100f);
                                 break;
                             }
+                            case 18: {
+                                if (selectedSFXVolume < 100) {
+                                    selectedSFXVolume += 10;
+                                }
+                                settingControls[17].setText(selectedSFXVolume+"");
+                                break;
+                            }
+                            case 19: {
+                                if (selectedSFXVolume > 0) {
+                                    selectedSFXVolume -= 10;
+                                }
+                                settingControls[17].setText(selectedSFXVolume+"");
+                                break;
+                            }
                         }
                     } settingControls[i].setActive(false);
                 } else settingControls[i].setHover(false);
-
-                // TODO Poprawić działanie regulowania głośności - dodać regulacje głoścości SFXów
             }
         }
 

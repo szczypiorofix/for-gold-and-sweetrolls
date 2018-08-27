@@ -15,6 +15,7 @@ public class Configuration {
     public static String keepAspectRatioName = "KEEP_ASPECT_RATIO";
     public static String vSyncName = "V_SYNC";
     public static String musicVolumeName = "MUSIC_VOLUME";
+    public static String sfxVolumeName = "SFX_VOLUME";
     public static String showFPSName = "SHOW_FPS";
 
     public int gameWidth;
@@ -25,6 +26,7 @@ public class Configuration {
     public boolean vsync;
     public boolean showFps;
     public int musicVolume;
+    public int sfxVolume;
 
     public Configuration() {}
 
@@ -38,6 +40,7 @@ public class Configuration {
         defaultConfiguration.keepAspectRatio = true;
         defaultConfiguration.vsync = true;
         defaultConfiguration.musicVolume = 100;
+        defaultConfiguration.sfxVolume = 100;
         defaultConfiguration.showFps = true;
 
         return defaultConfiguration;
@@ -54,6 +57,7 @@ public class Configuration {
                 ", vsync=" + vsync +
                 ", showFps=" + showFps +
                 ", musicVolume=" + musicVolume +
+                ", sfxVolume=" + sfxVolume +
                 '}';
     }
 }

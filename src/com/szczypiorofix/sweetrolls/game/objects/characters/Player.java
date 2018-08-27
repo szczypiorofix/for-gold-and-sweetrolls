@@ -54,7 +54,7 @@ public class Player extends Character {
         statistics.P_FoodRations = 20;
         statistics.P_FoodUsagePerHour = 0.1f;
         statistics.P_Water = 20;
-        statistics.P_WatetUsagePerHour = 0.1f;
+        statistics.P_WaterUsagePerHour = 0.1f;
         statistics.P_Strength = 10;
         statistics.P_Dexterity = 10;
         statistics.P_Constitution = 10;
@@ -107,7 +107,7 @@ public class Player extends Character {
 
     public void calculateSurvival() {
         statistics.P_FoodRations -= statistics.P_FoodUsagePerHour;
-        statistics.P_Water -= statistics.P_WatetUsagePerHour;
+        statistics.P_Water -= statistics.P_WaterUsagePerHour;
     }
 
 

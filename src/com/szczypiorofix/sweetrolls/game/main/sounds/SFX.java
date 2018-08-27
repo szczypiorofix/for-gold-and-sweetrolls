@@ -22,7 +22,7 @@ public class SFX {
     }
 
 
-    public void play() {
-        s.play();
+    public void play(int volume) {
+        s.play(1f, (float)(volume / 100));
     }
 }

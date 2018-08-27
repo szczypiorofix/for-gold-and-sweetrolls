@@ -11,6 +11,7 @@ import com.szczypiorofix.sweetrolls.game.enums.GameState;
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
 import com.szczypiorofix.sweetrolls.game.main.core.Configuration;
+import com.szczypiorofix.sweetrolls.game.main.sounds.SFX;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.*;
 
@@ -26,7 +27,9 @@ public final class ForGoldAndSweetrolls extends BasicGame {
 
     private GameState gameState;
     private Music gameMusic, mainMenuMusic;
+    private SFX sfx;
     private int musicVolume = 100;
+    private int sfxVolume = 100;
 
     public ForGoldAndSweetrolls(String title, ArrayList<DisplayMode> modes, Configuration config) {
         super(title);
@@ -44,8 +47,9 @@ public final class ForGoldAndSweetrolls extends BasicGame {
 
         // https://modarchive.org/index.php?request=view_by_moduleid&query=59256  - 0rigin.xm
         mainMenuMusic = new Music("music/mm-0rigin.xm");
-
         mainMenuMusic.loop(1f, musicVolume);
+
+        sfx = new SFX("sword-unsheathe.ogg");
 
         // ##################### FONT #####################
         // https://www.fontsquirrel.com/fonts/Immortal
@@ -139,5 +143,17 @@ public final class ForGoldAndSweetrolls extends BasicGame {
 
     public Music getGameMusic() {
         return gameMusic;
+    }
+
+    public SFX getSfx() {
+        return sfx;
+    }
+
+    public int getSfxVolume() {
+        return sfxVolume;
+    }
+
+    public void setSfxVolume(int sfxVolume) {
+        this.sfxVolume = sfxVolume;
     }
 }

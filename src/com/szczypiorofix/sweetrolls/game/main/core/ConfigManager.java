@@ -16,7 +16,7 @@ public class ConfigManager {
 
     private final String CONFIG_FILE_NAME = "fgas.cfg";
     private File configFile;
-    public boolean defaultConfiguration = true;
+    private boolean defaultConfiguration = true;
     private Properties prop = new Properties();
     private InputStream propStream;
     private OutputStream outputStream;
@@ -34,6 +34,7 @@ public class ConfigManager {
     public boolean saveToFile(Configuration cfg) {
         try {
             outputStream = new FileOutputStream(configFile);
+
             prop.setProperty(Configuration.gameWidthName, String.valueOf(cfg.gameWidth));
             prop.setProperty(Configuration.gameHeightName, String.valueOf(cfg.gameHeight));
             prop.setProperty(Configuration.refreshRateName, String.valueOf(cfg.gameRefreshRate));
@@ -43,6 +44,8 @@ public class ConfigManager {
             prop.setProperty(Configuration.musicVolumeName, String.valueOf(cfg.musicVolume));
             prop.setProperty(Configuration.showFPSName, String.valueOf(cfg.showFps));
             prop.setProperty(Configuration.musicVolumeName, String.valueOf(cfg.musicVolume));
+            prop.setProperty(Configuration.sfxVolumeName, String.valueOf(cfg.sfxVolume));
+
             prop.store(outputStream, null);
         } catch (IOException io) {
             io.printStackTrace();
@@ -76,6 +79,7 @@ public class ConfigManager {
                     }
                 }
             }
+
             cfg.gameWidth = Integer.parseInt(prop.getProperty(Configuration.gameWidthName));
             cfg.gameHeight = Integer.parseInt(prop.getProperty(Configuration.gameHeightName));
             cfg.gameRefreshRate = Integer.parseInt(prop.getProperty(Configuration.refreshRateName));
@@ -83,6 +87,7 @@ public class ConfigManager {
             cfg.vsync = Boolean.parseBoolean(prop.getProperty(Configuration.vSyncName));
             cfg.keepAspectRatio = Boolean.parseBoolean(prop.getProperty(Configuration.keepAspectRatioName));
             cfg.musicVolume = Integer.valueOf(prop.getProperty(Configuration.musicVolumeName));
+            cfg.sfxVolume = Integer.valueOf(prop.getProperty(Configuration.sfxVolumeName));
             cfg.showFps = Boolean.valueOf(prop.getProperty(Configuration.showFPSName));
 
         } else {

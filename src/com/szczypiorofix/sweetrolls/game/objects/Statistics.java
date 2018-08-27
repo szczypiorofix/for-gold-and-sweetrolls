@@ -34,7 +34,7 @@ public class Statistics implements Serializable {
     public float P_FoodUsagePerHour;
 
     public float P_Water;
-    public float P_WatetUsagePerHour;
+    public float P_WaterUsagePerHour;
 
 
     // WORLD
