@@ -25,6 +25,7 @@ public class EditorWindow extends JFrame {
     private JMenuItem infoMenuInfo = new JMenuItem("Informacje", KeyEvent.VK_I);
     private JFileChooser fc;
     private MainPanel mainPanel;
+    private JScrollPane scrollMainPanel;
 
     public EditorWindow(String title) throws HeadlessException {
         super(title);
@@ -32,8 +33,8 @@ public class EditorWindow extends JFrame {
         this.setSize(800, 600);
         this.setLocationRelativeTo(null);
 
-        mainPanel = new MainPanel(new BorderLayout(), true);
-        JScrollPane scrollMainPanel = new JScrollPane(mainPanel);
+        mainPanel = new MainPanel();
+        scrollMainPanel = new JScrollPane(mainPanel);
         this.add(scrollMainPanel);
 
         plikMenuOtworz.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));

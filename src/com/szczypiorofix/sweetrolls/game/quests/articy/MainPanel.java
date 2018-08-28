@@ -22,32 +22,38 @@ public class MainPanel extends JPanel {
 
 
 
-    public MainPanel(LayoutManager layout, boolean isDoubleBuffered) {
-        super(layout, isDoubleBuffered);
+    public MainPanel() {
+        super(new FlowLayout(), true);
 
-        northPanel = new JPanel();
-        eastPanel = new JPanel();
-        westPanel = new JPanel();
-        southPanel = new JPanel();
+//        northPanel = new JPanel();
+//        eastPanel = new JPanel();
+//        westPanel = new JPanel();
+//        southPanel = new JPanel();
         centerPanel = new JPanel();
 
 
 
         flowFragmentsPanel = new JPanel();
 
-        entitiesPanel = new JPanel();
+        entitiesPanel = new JPanel(new BorderLayout());
 
         dialoguesPanel = new JPanel();
 
         dialoguesFragmentsPanel = new JPanel();
 
 
+        flowFragmentsPanel.setPreferredSize(new Dimension(500, 400));
+
 
         defaultListModel = new DefaultListModel<>();
         entityList = new JList<>(defaultListModel);
-        //entityList.setBounds(100,100, 75,75);
+        entityList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        entityList.setLayoutOrientation(JList.VERTICAL);
+        entityList.setSize(new Dimension(500, 400));
 
-        entitiesPanel.add(entityList);
+        JScrollPane entitiesListScrollPane = new JScrollPane();
+        entitiesListScrollPane.setViewportView(entityList);
+        entitiesPanel.add(entitiesListScrollPane, BorderLayout.WEST);
 
         tabbedPane.addTab("Flows", flowFragmentsPanel);
         tabbedPane.addTab("Entities", entitiesPanel);
@@ -57,22 +63,19 @@ public class MainPanel extends JPanel {
 
         centerPanel.add(tabbedPane);
 
-        this.add(northPanel, BorderLayout.NORTH);
-        this.add(southPanel, BorderLayout.SOUTH);
-        this.add(westPanel, BorderLayout.WEST);
-        this.add(eastPanel, BorderLayout.EAST);
-        this.add(centerPanel, BorderLayout.CENTER);
-
+//        this.add(northPanel, BorderLayout.NORTH);
+//        this.add(southPanel, BorderLayout.SOUTH);
+//        this.add(westPanel, BorderLayout.WEST);
+//        this.add(eastPanel, BorderLayout.EAST);
+//        this.add(centerPanel, BorderLayout.CENTER);
+        this.add(centerPanel);
 
     }
 
 
     public void updateEntitiesPanel(ArticyXMLParser parser) {
         for (Map.Entry<String, A_Entity> entry : parser.getEntitiesList().entrySet()) {
-
             defaultListModel.addElement(entry.getValue().displayName);
-
-
         }
     }
 
