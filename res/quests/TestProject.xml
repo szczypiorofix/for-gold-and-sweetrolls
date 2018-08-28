@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
-<Export Version="3.1" CreatorTool="articy:draft" CreatorVersion="3.1.16" CreatedOn="2018-08-27T22:11:24Z">
+<Export Version="3.1" CreatorTool="articy:draft" CreatorVersion="3.1.16" CreatedOn="2018-08-28T12:32:03Z">
   <Settings>
     <ExportMarkup>0</ExportMarkup>
     <ExportQueries>0</ExportQueries>
@@ -77,7 +77,7 @@
     </Documents>
     <Entities Id="0x03000000AC61A2B3">
       <DisplayName>Podmioty</DisplayName>
-      <Color>#C8E2E7</Color>
+      <Color>#FF0000</Color>
     </Entities>
     <Features Id="0x03000000D2404DC0">
       <DisplayName>Właściwości</DisplayName>
@@ -606,25 +606,97 @@
       <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929117</Url>
       <Label Count="0"/>
       <Source IdRef="0x0100000000000496" PinRef="0x010000000000049A"/>
+      <Target IdRef="0x01000000000006BD" PinRef="0x01000000000006C0"/>
+      <ShowLabel>0</ShowLabel>
+    </Connection>
+    <Connection Id="0x01000000000006C2">
+      <Color>#C8E2E7</Color>
+      <TechnicalName>Con_05D38EFC</TechnicalName>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929666</Url>
+      <Label Count="0"/>
+      <Source IdRef="0x01000000000006BD" PinRef="0x01000000000006C1"/>
       <Target IdRef="0x0100000000000488" PinRef="0x010000000000048C"/>
       <ShowLabel>0</ShowLabel>
     </Connection>
-    <Connection Id="0x01000000000004A4">
+    <Connection Id="0x010000000000051F">
       <Color>#C8E2E7</Color>
-      <TechnicalName>Con_E4CDCC58</TechnicalName>
-      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929124</Url>
+      <TechnicalName>Con_92368FB0</TechnicalName>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929247</Url>
       <Label Count="0"/>
-      <Source IdRef="0x0100000000000469" PinRef="0x0100000000000482"/>
-      <Target IdRef="0x010000000000049E" PinRef="0x01000000000004A1"/>
+      <Source IdRef="0x0100000000000519" PinRef="0x010000000000051D"/>
+      <Target IdRef="0x0100000000000651" PinRef="0x0100000000000654"/>
       <ShowLabel>0</ShowLabel>
     </Connection>
-    <Connection Id="0x01000000000004A5">
+    <Connection Id="0x0100000000000520">
       <Color>#C8E2E7</Color>
-      <TechnicalName>Con_A9C8178A</TechnicalName>
-      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929125</Url>
+      <TechnicalName>Con_85EE895C</TechnicalName>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929248</Url>
       <Label Count="0"/>
-      <Source IdRef="0x010000000000049E" PinRef="0x01000000000004A2"/>
-      <Target IdRef="0x0100000000000469" PinRef="0x0100000000000483"/>
+      <Source IdRef="0x010000000000050F" PinRef="0x0100000000000512"/>
+      <Target IdRef="0x01000000000005A0" PinRef="0x01000000000005A3"/>
+      <ShowLabel>0</ShowLabel>
+    </Connection>
+    <Connection Id="0x010000000000052B">
+      <Color>#C8E2E7</Color>
+      <TechnicalName>Con_512F6DBD</TechnicalName>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929259</Url>
+      <Label Count="0"/>
+      <Source IdRef="0x0100000000000519" PinRef="0x010000000000051D"/>
+      <Target IdRef="0x0100000000000656" PinRef="0x0100000000000659"/>
+      <ShowLabel>0</ShowLabel>
+    </Connection>
+    <Connection Id="0x01000000000005A5">
+      <Color>#C8E2E7</Color>
+      <TechnicalName>Con_74381054</TechnicalName>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929381</Url>
+      <Label Count="0"/>
+      <Source IdRef="0x01000000000005A0" PinRef="0x01000000000005A4"/>
+      <Target IdRef="0x0100000000000519" PinRef="0x010000000000051C"/>
+      <ShowLabel>0</ShowLabel>
+    </Connection>
+    <Connection Id="0x01000000000005FE">
+      <Color>#C8E2E7</Color>
+      <TechnicalName>Con_ECC8C0B2</TechnicalName>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929470</Url>
+      <Label Count="0"/>
+      <Source IdRef="0x01000000000005F7" PinRef="0x01000000000005FB"/>
+      <Target IdRef="0x010000000000050F" PinRef="0x0100000000000513"/>
+      <ShowLabel>0</ShowLabel>
+    </Connection>
+    <Connection Id="0x0100000000000631">
+      <Color>#C8E2E7</Color>
+      <TechnicalName>Con_8F8ADC71</TechnicalName>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929521</Url>
+      <Label Count="0"/>
+      <Source IdRef="0x0100000000000521" PinRef="0x0100000000000525"/>
+      <Target IdRef="0x01000000000005F7" PinRef="0x01000000000005FA"/>
+      <ShowLabel>0</ShowLabel>
+    </Connection>
+    <Connection Id="0x0100000000000632">
+      <Color>#C8E2E7</Color>
+      <TechnicalName>Con_29497499</TechnicalName>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929522</Url>
+      <Label Count="0"/>
+      <Source IdRef="0x0100000000000526" PinRef="0x010000000000052A"/>
+      <Target IdRef="0x01000000000005F7" PinRef="0x01000000000005FA"/>
+      <ShowLabel>0</ShowLabel>
+    </Connection>
+    <Connection Id="0x010000000000065B">
+      <Color>#C8E2E7</Color>
+      <TechnicalName>Con_3B6E6338</TechnicalName>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929563</Url>
+      <Label Count="0"/>
+      <Source IdRef="0x0100000000000651" PinRef="0x0100000000000655"/>
+      <Target IdRef="0x0100000000000521" PinRef="0x0100000000000524"/>
+      <ShowLabel>0</ShowLabel>
+    </Connection>
+    <Connection Id="0x010000000000065C">
+      <Color>#C8E2E7</Color>
+      <TechnicalName>Con_7ACD2762</TechnicalName>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929564</Url>
+      <Label Count="0"/>
+      <Source IdRef="0x0100000000000656" PinRef="0x010000000000065A"/>
+      <Target IdRef="0x0100000000000526" PinRef="0x0100000000000529"/>
       <ShowLabel>0</ShowLabel>
     </Connection>
     <Dialogue Id="0x0100000000000136">
@@ -640,8 +712,9 @@
       <ShortId>0xDFAA7D9F</ShortId>
       <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037928246</Url>
       <Features Count="0"/>
-      <References Count="1">
+      <References Count="2">
         <Reference IdRef="0x0100000000000463"/>
+        <Reference IdRef="0x0100000000000568"/>
       </References>
       <Pins Count="2">
         <Pin Id="0x0100000000000139" Index="0" Semantic="Input">
@@ -668,8 +741,9 @@
       <ShortId>0x1389F327</ShortId>
       <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929096</Url>
       <Features Count="0"/>
-      <References Count="1">
+      <References Count="2">
         <Reference IdRef="0x010000000000048E"/>
+        <Reference IdRef="0x0100000000000568"/>
       </References>
       <Pins Count="2">
         <Pin Id="0x010000000000048B" Index="0" Semantic="Input">
@@ -683,26 +757,32 @@
       <Size Width="266" Height="175"/>
       <ZIndex>1</ZIndex>
     </Dialogue>
-    <Dialogue Id="0x010000000000049E">
+    <Dialogue Id="0x010000000000050F">
       <DisplayName Count="1">
-        <LocalizedString Lang="">Mieszkaniec</LocalizedString>
+        <LocalizedString Lang="">Fionn MacPheadrais</LocalizedString>
       </DisplayName>
+      <Text Count="1">
+        <LocalizedString Lang="">To jest dialog z postacią Fionn MacPheadrais.</LocalizedString>
+      </Text>
       <Color>#C8E2E7</Color>
-      <TechnicalName>Dlg_376BFBA1</TechnicalName>
+      <TechnicalName>Dlg_F23B1D81</TechnicalName>
       <ExternalId/>
-      <ShortId>0x376BFBA1</ShortId>
-      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929118</Url>
+      <ShortId>0xF23B1D81</ShortId>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929231</Url>
       <Features Count="0"/>
-      <References Count="0"/>
+      <References Count="2">
+        <Reference IdRef="0x0100000000000509"/>
+        <Reference IdRef="0x0100000000000568"/>
+      </References>
       <Pins Count="2">
-        <Pin Id="0x01000000000004A1" Index="0" Semantic="Input">
+        <Pin Id="0x0100000000000512" Index="0" Semantic="Input">
           <Expression/>
         </Pin>
-        <Pin Id="0x01000000000004A2" Index="0" Semantic="Output">
+        <Pin Id="0x0100000000000513" Index="0" Semantic="Output">
           <Expression/>
         </Pin>
       </Pins>
-      <Position X="442" Y="275"/>
+      <Position X="292" Y="375"/>
       <Size Width="291" Height="200"/>
       <ZIndex>0</ZIndex>
     </Dialogue>
@@ -784,6 +864,224 @@
       <ZIndex>0</ZIndex>
       <Speaker IdRef="0x010000000000048E"/>
       <StageDirections Count="0"/>
+      <MenuText Count="1">
+        <LocalizedString Lang=""/>
+      </MenuText>
+    </DialogueFragment>
+    <DialogueFragment Id="0x01000000000006BD">
+      <DisplayName><![CDATA[Pete Hines: "Beta Fallouta 76 będzie wtedy kiedy..."]]></DisplayName>
+      <Text Count="1">
+        <LocalizedString Lang="">Beta Fallouta 76 będzie wtedy kiedy będzie. Koniec, kropka.</LocalizedString>
+      </Text>
+      <Color>#C8E2E7</Color>
+      <TechnicalName>DFr_FAD712B5</TechnicalName>
+      <ExternalId/>
+      <ShortId>0xFAD712B5</ShortId>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929661</Url>
+      <Features Count="0"/>
+      <Pins Count="2">
+        <Pin Id="0x01000000000006C0" Index="0" Semantic="Input">
+          <Expression/>
+        </Pin>
+        <Pin Id="0x01000000000006C1" Index="0" Semantic="Output">
+          <Expression/>
+        </Pin>
+      </Pins>
+      <Position X="625" Y="300"/>
+      <Size Width="225" Height="200"/>
+      <ZIndex>3</ZIndex>
+      <Speaker IdRef="0x010000000000048E"/>
+      <StageDirections Count="0"/>
+      <MenuText Count="0"/>
+    </DialogueFragment>
+    <DialogueFragment Id="0x0100000000000519">
+      <DisplayName><![CDATA[Fionn MacPheadrais: "Witaj. Czego tu szukasz?"]]></DisplayName>
+      <Text Count="1">
+        <LocalizedString Lang="">Witaj. Czego tu szukasz?</LocalizedString>
+      </Text>
+      <Color>#C8E2E7</Color>
+      <TechnicalName>DFr_245F7445</TechnicalName>
+      <ExternalId/>
+      <ShortId>0x245F7445</ShortId>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929241</Url>
+      <Features Count="0"/>
+      <Pins Count="2">
+        <Pin Id="0x010000000000051C" Index="0" Semantic="Input">
+          <Expression/>
+        </Pin>
+        <Pin Id="0x010000000000051D" Index="0" Semantic="Output">
+          <Expression/>
+        </Pin>
+      </Pins>
+      <Position X="100" Y="500"/>
+      <Size Width="225" Height="200"/>
+      <ZIndex>0</ZIndex>
+      <Speaker IdRef="0x0100000000000509"/>
+      <StageDirections Count="0"/>
+      <MenuText Count="1">
+        <LocalizedString Lang=""/>
+      </MenuText>
+    </DialogueFragment>
+    <DialogueFragment Id="0x0100000000000521">
+      <DisplayName><![CDATA[Fionn MacPheadrais: "To poszukaj gdzie indziej. Ja sam ś..."]]></DisplayName>
+      <Text Count="1">
+        <LocalizedString Lang="">To poszukaj gdzie indziej. Ja sam świetnie daję sobie radę.</LocalizedString>
+      </Text>
+      <Color>#C8E2E7</Color>
+      <TechnicalName>DFr_CDD0C072</TechnicalName>
+      <ExternalId/>
+      <ShortId>0xCDD0C072</ShortId>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929249</Url>
+      <Features Count="0"/>
+      <Pins Count="2">
+        <Pin Id="0x0100000000000524" Index="0" Semantic="Input">
+          <Expression/>
+        </Pin>
+        <Pin Id="0x0100000000000525" Index="0" Semantic="Output">
+          <Expression/>
+        </Pin>
+      </Pins>
+      <Position X="750" Y="375"/>
+      <Size Width="225" Height="200"/>
+      <ZIndex>3</ZIndex>
+      <Speaker IdRef="0x0100000000000509"/>
+      <StageDirections Count="0"/>
+      <MenuText Count="1">
+        <LocalizedString Lang=""/>
+      </MenuText>
+    </DialogueFragment>
+    <DialogueFragment Id="0x0100000000000526">
+      <DisplayName><![CDATA[Fionn MacPheadrais: "Tylko nie narób kłopotów, i tak mam..."]]></DisplayName>
+      <Text Count="1">
+        <LocalizedString Lang="">Tylko nie narób kłopotów, i tak mamy ich aż nadto.</LocalizedString>
+      </Text>
+      <Color>#C8E2E7</Color>
+      <TechnicalName>DFr_C76F40B0</TechnicalName>
+      <ExternalId/>
+      <ShortId>0xC76F40B0</ShortId>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929254</Url>
+      <Features Count="0"/>
+      <Pins Count="2">
+        <Pin Id="0x0100000000000529" Index="0" Semantic="Input">
+          <Expression/>
+        </Pin>
+        <Pin Id="0x010000000000052A" Index="0" Semantic="Output">
+          <Expression/>
+        </Pin>
+      </Pins>
+      <Position X="750" Y="625"/>
+      <Size Width="225" Height="200"/>
+      <ZIndex>4</ZIndex>
+      <Speaker IdRef="0x0100000000000509"/>
+      <StageDirections Count="0"/>
+      <MenuText Count="1">
+        <LocalizedString Lang=""/>
+      </MenuText>
+    </DialogueFragment>
+    <DialogueFragment Id="0x01000000000005A0">
+      <DisplayName><![CDATA[Player: "Witaj"]]></DisplayName>
+      <Text Count="1">
+        <LocalizedString Lang="">Witaj</LocalizedString>
+      </Text>
+      <Color>#C8E2E7</Color>
+      <TechnicalName>DFr_4DCBC525</TechnicalName>
+      <ExternalId/>
+      <ShortId>0x4DCBC525</ShortId>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929376</Url>
+      <Features Count="0"/>
+      <Pins Count="2">
+        <Pin Id="0x01000000000005A3" Index="0" Semantic="Input">
+          <Expression/>
+        </Pin>
+        <Pin Id="0x01000000000005A4" Index="0" Semantic="Output">
+          <Expression/>
+        </Pin>
+      </Pins>
+      <Position X="-200" Y="500"/>
+      <Size Width="225" Height="200"/>
+      <ZIndex>10</ZIndex>
+      <Speaker IdRef="0x0100000000000568"/>
+      <StageDirections Count="0"/>
+      <MenuText Count="1">
+        <LocalizedString Lang="">Menu: Witaj!</LocalizedString>
+      </MenuText>
+    </DialogueFragment>
+    <DialogueFragment Id="0x01000000000005F7">
+      <DisplayName><![CDATA[Fionn MacPheadrais: "Tak czy siak, nie mam teraz czasu n..."]]></DisplayName>
+      <Text Count="1">
+        <LocalizedString Lang="">Tak czy siak, nie mam teraz czasu na pogaduszki.</LocalizedString>
+      </Text>
+      <Color>#C8E2E7</Color>
+      <TechnicalName>DFr_07A21F74</TechnicalName>
+      <ExternalId/>
+      <ShortId>0x07A21F74</ShortId>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929463</Url>
+      <Features Count="0"/>
+      <Pins Count="2">
+        <Pin Id="0x01000000000005FA" Index="0" Semantic="Input">
+          <Expression/>
+        </Pin>
+        <Pin Id="0x01000000000005FB" Index="0" Semantic="Output">
+          <Expression/>
+        </Pin>
+      </Pins>
+      <Position X="1100" Y="500"/>
+      <Size Width="225" Height="200"/>
+      <ZIndex>13</ZIndex>
+      <Speaker IdRef="0x0100000000000509"/>
+      <StageDirections Count="0"/>
+      <MenuText Count="0"/>
+    </DialogueFragment>
+    <DialogueFragment Id="0x0100000000000651">
+      <DisplayName><![CDATA[Player: "Szukam pracy"]]></DisplayName>
+      <Text Count="1">
+        <LocalizedString Lang="">Szukam pracy</LocalizedString>
+      </Text>
+      <Color>#C8E2E7</Color>
+      <TechnicalName>DFr_C8E64353</TechnicalName>
+      <ExternalId/>
+      <ShortId>0xC8E64353</ShortId>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929553</Url>
+      <Features Count="0"/>
+      <Pins Count="2">
+        <Pin Id="0x0100000000000654" Index="0" Semantic="Input">
+          <Expression/>
+        </Pin>
+        <Pin Id="0x0100000000000655" Index="0" Semantic="Output">
+          <Expression/>
+        </Pin>
+      </Pins>
+      <Position X="450" Y="375"/>
+      <Size Width="225" Height="200"/>
+      <ZIndex>12</ZIndex>
+      <Speaker IdRef="0x0100000000000568"/>
+      <StageDirections Count="0"/>
+      <MenuText Count="0"/>
+    </DialogueFragment>
+    <DialogueFragment Id="0x0100000000000656">
+      <DisplayName><![CDATA[Player: "Tułam się w poszukiwaniu własnego m..."]]></DisplayName>
+      <Text Count="1">
+        <LocalizedString Lang="">Tułam się w poszukiwaniu własnego miejsca w tym nieprzyjaznym świecie.</LocalizedString>
+      </Text>
+      <Color>#C8E2E7</Color>
+      <TechnicalName>DFr_90C9F6AD</TechnicalName>
+      <ExternalId/>
+      <ShortId>0x90C9F6AD</ShortId>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929558</Url>
+      <Features Count="0"/>
+      <Pins Count="2">
+        <Pin Id="0x0100000000000659" Index="0" Semantic="Input">
+          <Expression/>
+        </Pin>
+        <Pin Id="0x010000000000065A" Index="0" Semantic="Output">
+          <Expression/>
+        </Pin>
+      </Pins>
+      <Position X="450" Y="625"/>
+      <Size Width="225" Height="200"/>
+      <ZIndex>13</ZIndex>
+      <Speaker IdRef="0x0100000000000568"/>
+      <StageDirections Count="0"/>
       <MenuText Count="0"/>
     </DialogueFragment>
     <Entity Id="0x0100000000000463">
@@ -793,7 +1091,7 @@
       <Text Count="1">
         <LocalizedString Lang="">To jest postać Todd Howard.</LocalizedString>
       </Text>
-      <Color>#C8E2E7</Color>
+      <Color>#FBD5B5</Color>
       <TechnicalName>Ntt_87D77F10</TechnicalName>
       <ExternalId/>
       <ShortId>0x87D77F10</ShortId>
@@ -811,7 +1109,7 @@
       <Text Count="1">
         <LocalizedString Lang="">To jest Pete Hines.</LocalizedString>
       </Text>
-      <Color>#C8E2E7</Color>
+      <Color>#938953</Color>
       <TechnicalName>Ntt_F884BB67</TechnicalName>
       <ExternalId/>
       <ShortId>0xF884BB67</ShortId>
@@ -821,6 +1119,108 @@
       <PreviewImage IdRef="0x01000000000004B9" Mode="FromAsset">
         <ViewBox MinX="0" MinY="0" MaxX="0" MaxY="0"/>
       </PreviewImage>
+    </Entity>
+    <Entity Id="0x01000000000004F5">
+      <DisplayName Count="1">
+        <LocalizedString Lang="">Gilduin Konan</LocalizedString>
+      </DisplayName>
+      <Text Count="1">
+        <LocalizedString Lang="">To jest postać Gilduin Konan</LocalizedString>
+      </Text>
+      <Color>#548DD4</Color>
+      <TechnicalName>Ntt_854152A9</TechnicalName>
+      <ExternalId/>
+      <ShortId>0x854152A9</ShortId>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929205</Url>
+      <Features Count="0"/>
+      <References Count="0"/>
+      <PreviewImage IdRef="0x01000000000004C8" Mode="FromAsset">
+        <ViewBox MinX="0" MinY="0" MaxX="0" MaxY="0"/>
+      </PreviewImage>
+    </Entity>
+    <Entity Id="0x01000000000004FA">
+      <DisplayName Count="1">
+        <LocalizedString Lang="">Nolo Hascoet</LocalizedString>
+      </DisplayName>
+      <Text Count="1">
+        <LocalizedString Lang="">To jest postać Nolo Hascoet.</LocalizedString>
+      </Text>
+      <Color>#92CDDC</Color>
+      <TechnicalName>Ntt_C00F8195</TechnicalName>
+      <ExternalId/>
+      <ShortId>0xC00F8195</ShortId>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929210</Url>
+      <Features Count="0"/>
+      <References Count="0"/>
+      <PreviewImage IdRef="0x01000000000004D4" Mode="FromAsset">
+        <ViewBox MinX="0" MinY="0" MaxX="0" MaxY="0"/>
+      </PreviewImage>
+    </Entity>
+    <Entity Id="0x01000000000004FF">
+      <DisplayName Count="1">
+        <LocalizedString Lang="">Fraech Mac Conmidhe</LocalizedString>
+      </DisplayName>
+      <Text Count="1">
+        <LocalizedString Lang="">To jest postać Fraech Mac Conmidhe.</LocalizedString>
+      </Text>
+      <Color>#C8E2E7</Color>
+      <TechnicalName>Ntt_A1C55508</TechnicalName>
+      <ExternalId/>
+      <ShortId>0xA1C55508</ShortId>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929215</Url>
+      <Features Count="0"/>
+      <References Count="0"/>
+      <PreviewImage IdRef="0x01000000000004E6" Mode="FromAsset">
+        <ViewBox MinX="0" MinY="0" MaxX="0" MaxY="0"/>
+      </PreviewImage>
+    </Entity>
+    <Entity Id="0x0100000000000504">
+      <DisplayName Count="1">
+        <LocalizedString Lang="">Horas MacCain</LocalizedString>
+      </DisplayName>
+      <Text Count="1">
+        <LocalizedString Lang="">To jest postać Horas MacCain.</LocalizedString>
+      </Text>
+      <Color>#953734</Color>
+      <TechnicalName>Ntt_8050589D</TechnicalName>
+      <ExternalId/>
+      <ShortId>0x8050589D</ShortId>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929220</Url>
+      <Features Count="0"/>
+      <References Count="0"/>
+      <PreviewImage IdRef="0x01000000000004F2" Mode="FromAsset">
+        <ViewBox MinX="0" MinY="0" MaxX="0" MaxY="0"/>
+      </PreviewImage>
+    </Entity>
+    <Entity Id="0x0100000000000509">
+      <DisplayName Count="1">
+        <LocalizedString Lang="">Fionn MacPheadrais</LocalizedString>
+      </DisplayName>
+      <Text Count="1">
+        <LocalizedString Lang="">To jest postać o imieniu Fionn MacPheadrais.</LocalizedString>
+      </Text>
+      <Color>#C8E2E7</Color>
+      <TechnicalName>Ntt_2D2CD135</TechnicalName>
+      <ExternalId/>
+      <ShortId>0x2D2CD135</ShortId>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929225</Url>
+      <Features Count="0"/>
+      <References Count="0"/>
+      <PreviewImage IdRef="0x01000000000004CE" Mode="FromAsset">
+        <ViewBox MinX="0" MinY="0" MaxX="0" MaxY="0"/>
+      </PreviewImage>
+    </Entity>
+    <Entity Id="0x0100000000000568">
+      <DisplayName Count="1">
+        <LocalizedString Lang="">Player</LocalizedString>
+      </DisplayName>
+      <Color>#FF0000</Color>
+      <TechnicalName>Ntt_8E65279A</TechnicalName>
+      <ExternalId/>
+      <ShortId>0x8E65279A</ShortId>
+      <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929320</Url>
+      <Features Count="0"/>
+      <References Count="0"/>
     </Entity>
     <FlowFragment Id="0x0100000000000126">
       <DisplayName Count="1">
@@ -835,9 +1235,10 @@
       <ShortId>0x6C0043C3</ShortId>
       <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037928230</Url>
       <Features Count="0"/>
-      <References Count="2">
+      <References Count="3">
         <Reference IdRef="0x0100000000000463"/>
         <Reference IdRef="0x010000000000048E"/>
+        <Reference IdRef="0x0100000000000568"/>
       </References>
       <Pins Count="2">
         <Pin Id="0x0100000000000153" Index="0" Semantic="Input">
@@ -864,7 +1265,10 @@
       <ShortId>0x009B2A6B</ShortId>
       <Url>articy://localhost/view/ac6795f4-a2d8-4905-9167-89a0f902fc41/72057594037929065</Url>
       <Features Count="0"/>
-      <References Count="0"/>
+      <References Count="2">
+        <Reference IdRef="0x0100000000000509"/>
+        <Reference IdRef="0x0100000000000568"/>
+      </References>
       <Pins Count="2">
         <Pin Id="0x0100000000000482" Index="0" Semantic="Input">
           <Expression/>
@@ -893,18 +1297,41 @@
             <Node IdRef="0x0100000000000496" Type="DialogueFragment"/>
             <Node IdRef="0x010000000000049B" Type="Connection"/>
             <Node IdRef="0x010000000000049D" Type="Connection"/>
+            <Node IdRef="0x01000000000006BD" Type="DialogueFragment"/>
+            <Node IdRef="0x01000000000006C2" Type="Connection"/>
           </Node>
         </Node>
         <Node IdRef="0x0100000000000469" Type="FlowFragment">
-          <Node IdRef="0x010000000000049E" Type="Dialogue"/>
-          <Node IdRef="0x01000000000004A4" Type="Connection"/>
-          <Node IdRef="0x01000000000004A5" Type="Connection"/>
+          <Node IdRef="0x010000000000050F" Type="Dialogue">
+            <Node IdRef="0x0100000000000519" Type="DialogueFragment"/>
+            <Node IdRef="0x010000000000051F" Type="Connection"/>
+            <Node IdRef="0x0100000000000520" Type="Connection"/>
+            <Node IdRef="0x0100000000000521" Type="DialogueFragment"/>
+            <Node IdRef="0x0100000000000526" Type="DialogueFragment"/>
+            <Node IdRef="0x010000000000052B" Type="Connection"/>
+            <Node IdRef="0x01000000000005A0" Type="DialogueFragment"/>
+            <Node IdRef="0x01000000000005A5" Type="Connection"/>
+            <Node IdRef="0x01000000000005F7" Type="DialogueFragment"/>
+            <Node IdRef="0x01000000000005FE" Type="Connection"/>
+            <Node IdRef="0x0100000000000631" Type="Connection"/>
+            <Node IdRef="0x0100000000000632" Type="Connection"/>
+            <Node IdRef="0x0100000000000651" Type="DialogueFragment"/>
+            <Node IdRef="0x0100000000000656" Type="DialogueFragment"/>
+            <Node IdRef="0x010000000000065B" Type="Connection"/>
+            <Node IdRef="0x010000000000065C" Type="Connection"/>
+          </Node>
         </Node>
       </Node>
       <Node IdRef="0x030000003140D3AC" Type="Locations"/>
       <Node IdRef="0x03000000AC61A2B3" Type="Entities">
         <Node IdRef="0x0100000000000463" Type="Entity"/>
         <Node IdRef="0x010000000000048E" Type="Entity"/>
+        <Node IdRef="0x01000000000004F5" Type="Entity"/>
+        <Node IdRef="0x01000000000004FA" Type="Entity"/>
+        <Node IdRef="0x01000000000004FF" Type="Entity"/>
+        <Node IdRef="0x0100000000000504" Type="Entity"/>
+        <Node IdRef="0x0100000000000509" Type="Entity"/>
+        <Node IdRef="0x0100000000000568" Type="Entity"/>
       </Node>
       <Node IdRef="0x030000004C3DAF54" Type="Assets">
         <Node IdRef="0x01000000000004B1" Type="AssetsUserFolder">

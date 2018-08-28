@@ -14,12 +14,21 @@ import java.util.Map;
 
 public class MainPanel extends JPanel {
 
-    private JPanel northPanel, westPanel, eastPanel, southPanel, centerPanel;
-    private JPanel flowFragmentsPanel, entitiesPanel, dialoguesPanel, dialoguesFragmentsPanel;
-    private JTabbedPane tabbedPane = new JTabbedPane();
-    private JList<String> entityList;
-    private DefaultListModel<String> defaultListModel;
+    private ArticyXMLParser parser;
 
+    private JPanel northPanel, westPanel, eastPanel, southPanel, centerPanel;
+    private JPanel entitiesPanel;
+    private FlowsDataPanel flowFragmentsPanel;
+    private DialoguesDataPanel  dialoguesPanel;
+    private DialogueFragmentsDataPanel dialoguesFragmentsPanel;
+    private SimulatePanel simulatePanel;
+
+    private JPanel entitiesPanelList;
+    private EntitiesDataPanel entitiesDataPanel;
+
+    private JTabbedPane tabbedPane = new JTabbedPane();
+    private JList<A_Entity> entityList;
+    private DefaultListModel<A_Entity> defaultEntityListModel;
 
 
     public MainPanel() {
@@ -31,30 +40,47 @@ public class MainPanel extends JPanel {
 //        southPanel = new JPanel();
         centerPanel = new JPanel();
 
-
-
-        flowFragmentsPanel = new JPanel();
+        flowFragmentsPanel = new FlowsDataPanel();
 
         entitiesPanel = new JPanel(new BorderLayout());
+        entitiesPanelList = new JPanel();
+        //entitiesPanelList.setPreferredSize(new Dimension(150, 400));
+        entitiesDataPanel = new EntitiesDataPanel();
 
-        dialoguesPanel = new JPanel();
+        dialoguesPanel = new DialoguesDataPanel();
 
-        dialoguesFragmentsPanel = new JPanel();
+        dialoguesFragmentsPanel = new DialogueFragmentsDataPanel();
+
+        simulatePanel = new SimulatePanel();
 
 
-        flowFragmentsPanel.setPreferredSize(new Dimension(500, 400));
+        //flowFragmentsPanel.setPreferredSize(new Dimension(500, 400));
 
 
-        defaultListModel = new DefaultListModel<>();
-        entityList = new JList<>(defaultListModel);
+        defaultEntityListModel = new DefaultListModel<>();
+
+        entityList = new JList<>(defaultEntityListModel);
+
         entityList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         entityList.setLayoutOrientation(JList.VERTICAL);
-        entityList.setSize(new Dimension(500, 400));
+        entityList.setCellRenderer(new EntitiesListRenderer());
+        //entityList.setMinimumSize(new Dimension(150, 450));
 
-        JScrollPane entitiesListScrollPane = new JScrollPane();
-        entitiesListScrollPane.setViewportView(entityList);
-        entitiesPanel.add(entitiesListScrollPane, BorderLayout.WEST);
+        ListSelectionModel entitySelectionModel = entityList.getSelectionModel();
+        entitySelectionModel.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                entitiesDataPanel.updateData(entityList.getSelectedValue().id, parser);
+            }
+        });
 
+
+        // Entities Panel List
+        JScrollPane entitiesListScrollPane = new JScrollPane(entityList);
+        entitiesPanelList.add(entitiesListScrollPane);
+        entitiesPanel.add(entitiesPanelList, BorderLayout.WEST);
+        entitiesPanel.add(entitiesDataPanel, BorderLayout.CENTER);
+
+        tabbedPane.addTab("Simulate!", simulatePanel);
         tabbedPane.addTab("Flows", flowFragmentsPanel);
         tabbedPane.addTab("Entities", entitiesPanel);
         tabbedPane.addTab("Dialogues", dialoguesPanel);
@@ -69,13 +95,17 @@ public class MainPanel extends JPanel {
 //        this.add(eastPanel, BorderLayout.EAST);
 //        this.add(centerPanel, BorderLayout.CENTER);
         this.add(centerPanel);
-
     }
 
 
-    public void updateEntitiesPanel(ArticyXMLParser parser) {
+    public void updateMainPanel(ArticyXMLParser parser) {
+        this.parser = parser;
+        flowFragmentsPanel.updateData(parser);
+        dialoguesPanel.updateData(parser);
+        dialoguesFragmentsPanel.updateData(parser);
+        simulatePanel.updateData(parser);
         for (Map.Entry<String, A_Entity> entry : parser.getEntitiesList().entrySet()) {
-            defaultListModel.addElement(entry.getValue().displayName);
+            defaultEntityListModel.addElement(entry.getValue());
         }
     }
 
