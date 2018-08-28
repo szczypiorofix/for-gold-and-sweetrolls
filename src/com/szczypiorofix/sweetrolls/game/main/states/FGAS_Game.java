@@ -373,6 +373,10 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
                 player.statistics.P_CurrentLevelBar++;
             }
 
+            if (input.isKeyPressed(Input.KEY_F1)) {
+                player.statistics.P_Health -= 7;
+            }
+
             if (objectManager.getCurrentMap().getLevelType() == LevelType.WORLD_MAP) {
                 player.setWorldMapTileX(player.getTileX());
                 player.setWorldMapTileY(player.getTileY());

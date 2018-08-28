@@ -10,6 +10,7 @@ import com.szczypiorofix.sweetrolls.game.enums.LevelType;
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.enums.PlayerAction;
 import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
+import com.szczypiorofix.sweetrolls.game.objects.Statistics;
 import com.szczypiorofix.sweetrolls.game.tilemap.Property;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -49,11 +50,11 @@ public class Player extends Character {
 
         statistics.P_Gold = 0;
         statistics.P_Level = 1;
-        statistics.P_CurrentLevelBar = 1;
-        statistics.P_CurrentLevelMaxBar = 8;
-        statistics.P_FoodRations = 20;
+        statistics.P_CurrentLevelBar = 0;
+        statistics.P_CurrentLevelMaxBar = 25;
+        statistics.P_Food = Statistics.P_MAX_FOOD;
         statistics.P_FoodUsagePerHour = 0.1f;
-        statistics.P_Water = 20;
+        statistics.P_Water = Statistics.P_MAX_WATER;
         statistics.P_WaterUsagePerHour = 0.1f;
         statistics.P_Strength = 10;
         statistics.P_Dexterity = 10;
@@ -106,7 +107,7 @@ public class Player extends Character {
     }
 
     public void calculateSurvival() {
-        statistics.P_FoodRations -= statistics.P_FoodUsagePerHour;
+        statistics.P_Food -= statistics.P_FoodUsagePerHour;
         statistics.P_Water -= statistics.P_WaterUsagePerHour;
     }
 

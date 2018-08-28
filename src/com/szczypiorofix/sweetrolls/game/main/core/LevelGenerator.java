@@ -99,14 +99,9 @@ public class LevelGenerator {
         ));
 
 
-//        for (int i = 0; i < tileMap.getTileSets().size(); i++) {
-//            System.out.println(tileMap.getTileSets().get(i).getFirstGid()+", "+tileMap.getTileSets().get(i).getName());
-//        }
-
         TileLayer layer = new TileLayer("ground", levelWidth, levelHeight);
 
         TileObject[][] map = randomMap();
-        //map = generateMap(map);
         for (int i = 0; i < simulationSteps; i++) {
             map = doSimulationStep(map);
         }
@@ -115,16 +110,12 @@ public class LevelGenerator {
         exitVector = new Vector();
         itemVector = new Vector();
 
-        //placePlayerOnMap(map);
         playerVector = placeOnMap(map);
         if (innerWorldMap) {
             playerVector.setXY(levelWidth / 2 * TILEWIDTH, levelHeight / 2 * TILEHEIGHT);
         }
 
-        System.out.println("LevelGenerator, lokalizacja playera: " +playerVector.x / TILEWIDTH+":"+playerVector.y / TILEHEIGHT);
-
         itemVector = placeOnMap(map);
-        //System.out.println(itemVector.x / TILEWIDTH+":"+itemVector.y / TILEHEIGHT);
 
         exitVector.x = playerVector.x;
         exitVector.y = playerVector.y;
@@ -199,12 +190,9 @@ public class LevelGenerator {
         );
         itemObject.setGid(208); // ITEM GID  208 - 308
 
-
         itemObject.addProperty(new Property("name", "string", "złamany miecz"));
         itemObject.addProperty(new Property("pickable", "bool", "true"));
         itemObject.addProperty(new Property("type", "string", "sword"));
-
-
 
 
         itemsObjectGroup.addObject(itemObject);
@@ -215,9 +203,8 @@ public class LevelGenerator {
         Vector v = new Vector();
         boolean exitSet = false;
         do {
-            // TODO - haxxxxx !!!!
-            v.x = MainClass.RANDOM.nextInt(map.length - 8);
-            v.y = MainClass.RANDOM.nextInt(map[0].length - 8);
+            v.x = MainClass.RANDOM.nextInt(map.length);
+            v.y = MainClass.RANDOM.nextInt(map[0].length);
             if (map[v.x][v.y].getGid() == emptyFieldGid) exitSet = true;
         } while(!exitSet);
         v.multiply(TILEWIDTH, TILEHEIGHT);
@@ -230,17 +217,12 @@ public class LevelGenerator {
             for(int j = -1; j < 2; j++){
                 int neighbour_x = x + i;
                 int neighbour_y = y + j;
-                //If we're looking at the middle point
-                if(i == 0 && j == 0){
-                    //Do nothing, we don't want to add ourselves in!
-                }
-                //In case the index we're looking at it off the edge of the map
-                else if (neighbour_x < 0 || neighbour_y < 0 || neighbour_x >= map.length || neighbour_y >= map[0].length){
-                    count = count + 1;
-                }
-                //Otherwise, a normal check of the neighbour
-                else if (map[neighbour_x][neighbour_y].getGid() == wallFieldGid){ // true
-                    count = count + 1;
+                if (i != 0 || j != 0) {
+                    if (neighbour_x < 0 || neighbour_y < 0 || neighbour_x >= map.length || neighbour_y >= map[0].length){
+                        count = count + 1;
+                    } else if (map[neighbour_x][neighbour_y].getGid() == wallFieldGid){
+                        count = count + 1;
+                    }
                 }
             }
         }
@@ -249,72 +231,40 @@ public class LevelGenerator {
 
     public TileObject[][] doSimulationStep(TileObject[][] oldMap){
         TileObject[][] newMap = new TileObject[levelWidth][levelHeight];
-        //Loop over each row and column of the map
         for(int x = 0; x < oldMap.length; x++){
             for(int y = 0; y < oldMap[0].length; y++){
                 int nbs = countAliveNeighbours(oldMap, x, y);
-                //The new value is based on our simulation rules
-                //First, if a cell is alive but has too few neighbours, kill it.
-                if (oldMap[x][y].getGid() == wallFieldGid) { // true
+                if (oldMap[x][y].getGid() == wallFieldGid) {
                     if(nbs < deathLimit){
-                        newMap[x][y] = new TileObject(emptyFieldGid); // false
+                        newMap[x][y] = new TileObject(emptyFieldGid);
+                    } else {
+                        newMap[x][y] = new TileObject(wallFieldGid);
                     }
-                    else {
-                        newMap[x][y] = new TileObject(wallFieldGid); // true
-                    }
-                } //Otherwise, if the cell is dead now, check if it has the right number of neighbours to be 'born'
-                else{
+                } else{
                     if (nbs > birthLimit) {
-                        newMap[x][y] = new TileObject(wallFieldGid); // true
-                    }
-                    else {
-                        newMap[x][y] = new TileObject(emptyFieldGid); // false
+                        newMap[x][y] = new TileObject(wallFieldGid);
+                    } else {
+                        newMap[x][y] = new TileObject(emptyFieldGid);
                     }
                 }
             }
         }
         return newMap;
-    }
-
-
-    private int[][] generateMap(int[][] randomMap) {
-        // Copy to new array
-        int[][] newMap = new int[randomMap.length][randomMap[0].length];
-        System.arraycopy( randomMap, 0, newMap, 0, randomMap.length );
-
-        return newMap;
-    }
-
-    public void placePlayerOnMap(TileObject[][] world){
-        int treasureHiddenLimit = 5;
-        for (int x = 0; x < levelWidth; x++){
-            for (int y = 0; y < levelHeight; y++){
-                if(world[x][y].getGid() == emptyFieldGid){
-                    int nbs = countAliveNeighbours(world, x, y);
-                    if(nbs >= treasureHiddenLimit){
-                        playerVector.x = x * TILEWIDTH;
-                        playerVector.y = y * TILEHEIGHT;
-                    }
-                }
-            }
-        }
     }
 
     private TileObject[][] randomMap() {
-
         TileObject[][] map = new TileObject[levelWidth][levelHeight];
-        // fill map
         for (int i = 0; i < levelWidth; i++) {
             for (int j = 0; j < levelHeight; j++) {
-                int tile = emptyFieldGid; // false
-                if ((float) MainClass.RANDOM.nextInt(1001) / 1000  < this.chanceToStartAlive) {
-                    tile = wallFieldGid; // true
-                }
-                if (innerWorldMap) {
-                    if (i == 0 || j == 0 || i == levelWidth-1 || j == levelHeight-1) {
+                int tile = emptyFieldGid;
+
+                if ((float) MainClass.RANDOM.nextInt(1001) / 1000  < this.chanceToStartAlive)
+                    tile = wallFieldGid;
+
+                if (innerWorldMap)
+                    if (i == 0 || j == 0 || i == levelWidth-1 || j == levelHeight-1)
                         tile = wallFieldGid;
-                    }
-                }
+
                 map[i][j] = new TileObject(tile);
             }
         }

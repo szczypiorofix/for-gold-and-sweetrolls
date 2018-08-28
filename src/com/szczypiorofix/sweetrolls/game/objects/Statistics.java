@@ -30,9 +30,11 @@ public class Statistics implements Serializable {
     public int P_CurrentLevelBar;
     public int P_CurrentLevelMaxBar;
 
-    public float P_FoodRations;
+    public final static float P_MAX_FOOD = 20f;
+    public float P_Food;
     public float P_FoodUsagePerHour;
 
+    public final static float P_MAX_WATER = 20f;
     public float P_Water;
     public float P_WaterUsagePerHour;
 
