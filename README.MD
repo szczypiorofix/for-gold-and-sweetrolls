@@ -15,3 +15,12 @@ Roguelite game made in Slick2D + Java.
 ### Assets:
 * tiles graphics: http://pousse.rapiere.free.fr/tome/
 
+
+## Authors
+
+* **Piotr Wróblewski** - *all work* - [szczypiorofix](https://github.com/szczypiorofix)
+
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.MD](LICENSE.MD) file for details
