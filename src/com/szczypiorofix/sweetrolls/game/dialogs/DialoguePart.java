@@ -36,9 +36,9 @@ public class DialoguePart {
     }
 
     public void finalizeButtons() {
-        System.out.println("Finalize buttons: "+id+", text: "+text);
+        // You can change the order of dialogue buttons
         for (int i = 0; i < dialoguePartButtons.size(); i++) {
-            dialoguePartButtons.get(i).setY(DialoguePartButton.BY - ((dialoguePartButtons.size() - i) * DialoguePartButton.BHEIGHT));
+            dialoguePartButtons.get(i).setY(DialoguePartButton.BY - ((dialoguePartButtons.size() - dialoguePartButtons.get(i).getOrder()) * DialoguePartButton.BHEIGHT));
         }
     }
 

@@ -73,7 +73,7 @@ public class DialoguePartButton extends GameObject {
 
     @Override
     public void render(Graphics g, float offsetX, float offsetY) throws SlickException {
-        g.drawRect(x - 4, y - 2, width + 4, height + 4);
-        font.draw(name, x, y + 5);
+        g.drawRect(x - 5, y - 2, width + 5, height + 4);
+        font.draw(name, x, y + 10);
     }
 }
