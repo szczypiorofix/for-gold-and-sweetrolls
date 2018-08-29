@@ -12,8 +12,17 @@ Roguelite game made in Slick2D + Java.
 ### **WARNING!** The game is under constant development.
 
 
+### Tools & Libraries
+* [Slick2D](http://slick.ninjacave.com/)
+* [TiledMap Editor](https://www.mapeditor.org/)
+* [Apache Common Codec](https://commons.apache.org/proper/commons-codec/)
+* [Font Tool v3.41 (from Asphyre framework)](https://sourceforge.net/projects/asphyre/)
+
+
 ### Assets:
-* tiles graphics: http://pousse.rapiere.free.fr/tome/
+* [tiles graphics](http://pousse.rapiere.free.fr/tome/)
+* mouse cursor [Dwarven Cursor](https://opengameart.org/content/dwarven-cursor/)
+* main menu music: [0rigin.xm](https://modarchive.org/index.php?request=view_by_moduleid&query=59256)
 
 
 ## Authors
