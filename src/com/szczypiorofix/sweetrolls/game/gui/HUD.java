@@ -16,6 +16,10 @@ import org.newdawn.slick.*;
 
 public class HUD {
 
+    private final Color levelBarColor = new Color(104, 103, 29, 255);
+    private final Color healthBarColor = new Color(181, 5, 25, 255);
+    private final Color foodBarColor = new Color(5, 109, 2, 255);
+    private final Color waterBarColor = new Color(9, 28, 155, 255);
     private Image image;
     private Image clockImage;
     private Player player;
@@ -104,7 +108,7 @@ public class HUD {
                 16,
                 player.statistics.P_CurrentLevelBar,
                 player.statistics.P_CurrentLevelMaxBar,
-                Color.white,
+                levelBarColor,
                 font,
                 "Poziom "+player.statistics.P_Level
                 );
@@ -116,35 +120,45 @@ public class HUD {
 
         font.draw("Gracz: " + player.getName(), 590, 100);
         font.draw("Poziom: " +player.statistics.P_Level, 590, 120);
-        font.draw("Złoto: " + player.statistics.P_Gold, 590, 170);
+        //font.draw("Złoto: " + player.statistics.P_Gold, 590, 170);
+        //font.draw("Teren: " +player.getTerrainType().getName(), 590, 190);
 
         featureBar(g,
-                120,
-                20,
+                590,
+                180,
                 160,
                 20,
                 player.statistics.P_Health,
                 player.statistics.P_MaxHealth,
-                Color.red,
+                healthBarColor,
                 font,
                 " Zdrowie: " +player.statistics.P_Health +"/"+player.statistics.P_MaxHealth);
         //font.draw(" Zdrowie: " +player.statistics.P_Health +"/"+player.statistics.P_MaxHealth, 125, 20);
 
-        font.draw("Teren: " +player.getTerrainType().getName(), 590, 210);
-
         featureBar(g,
-                120,
-                40,
+                590,
+                200,
                 160,
                 20,
                 player.statistics.P_Food,
                 Statistics.P_MAX_FOOD,
-                Color.green,
+                foodBarColor,
                 font,
                 "Jedzenie: " + String.format("%.2f", player.statistics.P_Food));
 
+        featureBar(g,
+                590,
+                220,
+                160,
+                20,
+                player.statistics.P_Water,
+                Statistics.P_MAX_WATER,
+                waterBarColor,
+                font,
+                "Woda: " + String.format("%.2f", player.statistics.P_Water));
+
         //font.draw("Jedzenie: " + String.format("%.2f", player.statistics.P_Food), 590, 230);
-        font.draw("Woda: " + String.format("%.2f", player.statistics.P_Water), 590, 250);
+        //font.draw("Woda: " + String.format("%.2f", player.statistics.P_Water), 590, 250);
 
         for (int i = 0; i < actionHistory.history.length; i++) {
             font.draw(actionHistory.history[i], 580, 380 + (i * 20));

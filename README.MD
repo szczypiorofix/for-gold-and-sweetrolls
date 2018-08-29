@@ -21,6 +21,7 @@ Roguelite game made in Slick2D + Java.
 
 ### Assets:
 * [tiles graphics](http://pousse.rapiere.free.fr/tome/)
+* font [Immortal](https://www.fontsquirrel.com/fonts/Immortal)
 * mouse cursor [Dwarven Cursor](https://opengameart.org/content/dwarven-cursor/)
 * main menu music: [0rigin.xm](https://modarchive.org/index.php?request=view_by_moduleid&query=59256)
 
