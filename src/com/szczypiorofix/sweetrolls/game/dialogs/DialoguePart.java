@@ -6,37 +6,56 @@
 
 package com.szczypiorofix.sweetrolls.game.dialogs;
 
-import com.szczypiorofix.sweetrolls.game.gui.DialogueButton;
+
 
 import java.util.ArrayList;
 
 public class DialoguePart {
 
-    private int id;
-    private String name;
-    private ArrayList<DialogueButton> buttons;
 
-    public DialoguePart(int id, String name) {
-        this.id = id;
-        this.name = name;
-        buttons = new ArrayList<>();
+    private int id;
+    private String text;
+    private ArrayList<DialoguePartButton> dialoguePartButtons;
+
+    public DialoguePart(String id, String text) {
+        this.id = Integer.parseInt(id);
+        this.text = text;
+        dialoguePartButtons = new ArrayList<>();
+    }
+
+    public void addDialogueButton(DialoguePartButton dialoguePartButton) {
+        dialoguePartButtons.add(dialoguePartButton);
+    }
+
+    public ArrayList<DialoguePartButton> getDialoguePartButtons() {
+        return dialoguePartButtons;
+    }
+
+    public void setDialoguePartButtons(ArrayList<DialoguePartButton> dialoguePartButtons) {
+        this.dialoguePartButtons = dialoguePartButtons;
+    }
+
+    public void finalizeButtons() {
+        System.out.println("Finalize buttons: "+id+", text: "+text);
+        for (int i = 0; i < dialoguePartButtons.size(); i++) {
+            dialoguePartButtons.get(i).setY(DialoguePartButton.BY - ((dialoguePartButtons.size() - i) * DialoguePartButton.BHEIGHT));
+        }
     }
 
     public int getId() {
         return id;
     }
 
-    public void setButtons(ArrayList<DialogueButton> buttons) {
-        this.buttons = buttons;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public ArrayList<DialogueButton> getButtons() {
-        return buttons;
+    public String getText() {
+        return text;
     }
 
-    public String getName() {
-        return name;
+    public void setText(String text) {
+        this.text = text;
     }
-
 
 }

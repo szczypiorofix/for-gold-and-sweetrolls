@@ -7,8 +7,7 @@
 package com.szczypiorofix.sweetrolls.game.objects.characters;
 
 import com.szczypiorofix.sweetrolls.game.dialogs.Dialogue;
-import com.szczypiorofix.sweetrolls.game.dialogs.npc.DialoguePete;
-import com.szczypiorofix.sweetrolls.game.dialogs.npc.DialogueTodd;
+import com.szczypiorofix.sweetrolls.game.dialogs.DialoguesXMLParser;
 import com.szczypiorofix.sweetrolls.game.enums.CharacterType;
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
@@ -35,7 +34,6 @@ public class NPC extends Character {
     private String[] talksGuard = {
       "Uważaj na siebie!", "Patrz w niebo.", "Mamy cię na oku.", "Mam nadzieję, że nie szukasz kłopotów.", "Rozkaz, rozkaz!", "Tylko nic nie ukradnij!"
     };
-    private boolean playerKnow;
     private String displayName;
     private boolean londTalk;
     private Statistics statistics = new Statistics();
@@ -54,17 +52,11 @@ public class NPC extends Character {
         characterType = estimateCharacterType(getStringProperty("type"));
         statistics.P_MaxHealth = getIntegerProperty("maxhealth");
 
-        dialogue = new Dialogue();
-
-        if (name.equals("Todd Howard")) {
-            dialogue = new DialogueTodd(this);
-        }
-
-        if (name.equals("Pete Hines")) {
-            dialogue = new DialoguePete(this);
-        }
-
         londTalk = getBooleanProperty("longTalk");
+
+        if (londTalk) {
+            dialogue = DialoguesXMLParser.parseDialogueXML(getStringProperty("dialogueFileName"));
+        }
 
         displayName = getStringProperty("name");
 
@@ -90,8 +82,6 @@ public class NPC extends Character {
     public void update(int delta, float offsetX, float offsetY) {
         hover = false;
 
-        if (playerKnow) displayName = name;
-
         if (shortTalk) {
             if (shortTalkCounter < shortTalkCounerMax)
                 shortTalkCounter++;
@@ -114,15 +104,6 @@ public class NPC extends Character {
     }
 
 
-    public boolean isPlayerKnow() {
-        return playerKnow;
-    }
-
-    public void setPlayerKnow(boolean playerKnow) {
-        this.playerKnow = playerKnow;
-    }
-
-
     public String[] getTalks() {
         return talks;
     }
@@ -138,11 +119,11 @@ public class NPC extends Character {
         this.shortTalk = shortTalk;
     }
 
-    public Dialogue getDialogue() {
-        return dialogue;
-    }
-
     public boolean isLondTalk() {
         return londTalk;
+    }
+
+    public Dialogue getDialogue() {
+        return dialogue;
     }
 }

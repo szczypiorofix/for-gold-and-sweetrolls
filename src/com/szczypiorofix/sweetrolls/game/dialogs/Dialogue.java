@@ -6,36 +6,28 @@
 
 package com.szczypiorofix.sweetrolls.game.dialogs;
 
-import com.szczypiorofix.sweetrolls.game.objects.characters.NPC;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Dialogue {
 
-    protected HashMap<Integer, DialoguePart> dialogues;
-    protected int currentDialogueState;
-    protected NPC npc;
-    protected final int BX = 30;
-    protected int BY = 530;
-    protected final int BWIDTH = 250;
-    protected final int BHEIGHT = 40;
+
+    private String name;
+    private ArrayList<DialoguePart> dialogueParts;
+    private int currentDialogueState = 0;
 
     public Dialogue() {
-        dialogues = new HashMap<>();
+        name = "";
+        dialogueParts = new ArrayList<>();
     }
 
-    public Dialogue(NPC npc) {
+    public Dialogue(String name) {
         this();
-        dialogues = new HashMap<>();
-        this.npc = npc;
+        this.name = name;
     }
 
-    public HashMap<Integer, DialoguePart> getDialogues() {
-        return dialogues;
-    }
-
-    public void setDialogues(HashMap<Integer, DialoguePart> dialogues) {
-        this.dialogues = dialogues;
+    public DialoguePart getCurrentDialoguePart() {
+        return dialogueParts.get(currentDialogueState);
     }
 
     public int getCurrentDialogueState() {
@@ -46,11 +38,24 @@ public class Dialogue {
         this.currentDialogueState = currentDialogueState;
     }
 
-    public NPC getNpc() {
-        return npc;
+    public String getName() {
+        return name;
     }
 
-    public void setNpc(NPC npc) {
-        this.npc = npc;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void addDialoguePart(DialoguePart dialoguePart) {
+        dialogueParts.add(dialoguePart);
+        dialoguePart.finalizeButtons();
+    }
+
+    public ArrayList<DialoguePart> getDialogueParts() {
+        return dialogueParts;
+    }
+
+    public void setDialogueParts(ArrayList<DialoguePart> dialogueParts) {
+        this.dialogueParts = dialogueParts;
     }
 }

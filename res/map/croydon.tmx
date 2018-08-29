@@ -22,6 +22,7 @@
  <objectgroup id="3" name="npc" offsetx="0" offsety="32">
   <object id="2" template="npc.tx" name="Todd" gid="317" x="224" y="320">
    <properties>
+    <property name="dialogueFileName" value="toddhoward.xml"/>
     <property name="longTalk" type="bool" value="true"/>
     <property name="maxhealth" type="int" value="150"/>
     <property name="name" value="Todd Howard"/>
@@ -30,6 +31,7 @@
   </object>
   <object id="3" template="npc.tx" name="Pete" gid="321" x="544" y="608">
    <properties>
+    <property name="dialogueFileName" value="petehines.xml"/>
     <property name="longTalk" type="bool" value="true"/>
     <property name="maxhealth" type="int" value="150"/>
     <property name="name" value="Pete Hines"/>

@@ -20,17 +20,17 @@ public class SaveGameManager {
 
     public static SaveGameData load(String saveGameFileName) {
         SaveGameData sgd = null;
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
+
         try {
 
-            FileInputStream fi = new FileInputStream(new File(saveGameFileName));
-            ObjectInputStream oi = new ObjectInputStream(fi);
+            fis = new FileInputStream(new File(saveGameFileName));
+            ois = new ObjectInputStream(fis);
 
-            sgd = (SaveGameData) oi.readObject();
+            sgd = (SaveGameData) ois.readObject();
 
-            System.out.println("Wczytano świat : " + sgd.getCurrentWorldName());
-
-            oi.close();
-            fi.close();
+            //System.out.println("Wczytano świat : " + sgd.getCurrentWorldName());
 
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
@@ -40,6 +40,17 @@ public class SaveGameManager {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (ois != null) ois.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (fis != null) fis.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         return sgd;
@@ -71,24 +82,33 @@ public class SaveGameManager {
             levels.add(map.getKey());
         }
         saveGameData.setLevels(levels);
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;
 
         try {
-            FileOutputStream f = new FileOutputStream(new File(saveGameFileName));
-            ObjectOutputStream o = new ObjectOutputStream(f);
-
-            // Write objects to file
-            o.writeObject(saveGameData);
-
-            o.close();
-            f.close();
-
+            fos = new FileOutputStream(new File(saveGameFileName));
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(saveGameData);
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            System.out.println("File not found !");
+            e.printStackTrace();
         } catch (IOException e) {
-            System.out.println("Error initializing stream");
+            System.out.println("Error initializing stream !");
+            e.printStackTrace();
+        } finally {
+            try {
+                if (oos != null) oos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (fos != null) fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
-        System.out.println("Save complete...");
+        //System.out.println("Save complete...");
 
     }
 

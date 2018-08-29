@@ -6,6 +6,7 @@
 
 package com.szczypiorofix.sweetrolls.game.gui;
 
+import com.szczypiorofix.sweetrolls.game.dialogs.DialoguePartButton;
 import com.szczypiorofix.sweetrolls.game.enums.PlayerAction;
 import com.szczypiorofix.sweetrolls.game.interfaces.CloseableFrameListener;
 import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
@@ -41,16 +42,31 @@ public class DialogueFrame implements CloseableFrameListener {
 
     public void update(GameContainer gc, int delta, float offsetX, float offsetY) {
         if (npc != null && showDialog) {
-            for (int i = 0; i < npc.getDialogue().getDialogues().get(npc.getDialogue().getCurrentDialogueState()).getButtons().size(); i++) {
+//            for (int i = 0; i < npc.getDialogue().getDialogueParts().get(npc.getDialogue().getCurrentDialogueState()).getButtons().size(); i++) {
+//
+//                DialogueButton currentButton = npc.getDialogue().getDialogues().get(npc.getDialogue().getCurrentDialogueState()).getButtons().get(i);
+//                if (mouseCursor.intersects(currentButton)
+//                        && gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+//
+//                    npc.getDialogue().setCurrentDialogueState(currentButton.getNextDialogueState());
+//
+//                    System.out.println(currentButton.getName());
+//                    System.out.println(npc.getDialogue().getCurrentDialogueState());
+//
+//                    if (currentButton.isEndButton()) {
+//                        showDialog = false;
+//                        player.setPlayerAction(PlayerAction.MOVE);
+//                    }
+//                }
+//            }
 
-                DialogueButton currentButton = npc.getDialogue().getDialogues().get(npc.getDialogue().getCurrentDialogueState()).getButtons().get(i);
+            for (int i = 0; i < npc.getDialogue().getCurrentDialoguePart().getDialoguePartButtons().size(); i++) {
+                DialoguePartButton currentButton = npc.getDialogue().getCurrentDialoguePart().getDialoguePartButtons().get(i);
                 if (mouseCursor.intersects(currentButton)
-                        && gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-
-                    npc.getDialogue().setCurrentDialogueState(currentButton.getNextDialogueState());
-
-                    System.out.println(currentButton.getName());
-                    System.out.println(npc.getDialogue().getCurrentDialogueState());
+                        && gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)
+                    ) {
+                    System.out.println(currentButton.getNextId());
+                    npc.getDialogue().setCurrentDialogueState(currentButton.getNextId());
 
                     if (currentButton.isEndButton()) {
                         showDialog = false;
@@ -58,26 +74,23 @@ public class DialogueFrame implements CloseableFrameListener {
                     }
                 }
             }
+
+            //System.out.println(npc.getDialogue().getCurrentDialogueState());
+
         }
     }
 
     public void render(Graphics g) throws SlickException {
         if (showDialog) {
-//            Color c = g.getColor();
-//            g.setColor(new Color(0.1f, 0.1f, 0.1f, 0.9f));
-//            g.fillRect(0, 300, 560, 290);
             dialogueFrameImage.draw(10, 300);
 
             fontS.draw(npc.getName()+" :", 30, 310);
-            fontL.draw(npc.getDialogue().
-                    getDialogues().get(
-                            npc.getDialogue().getCurrentDialogueState()
-                    ).getName(), 30, 345);
-            for (int i = 0; i < npc.getDialogue().getDialogues().get(npc.getDialogue().getCurrentDialogueState()).getButtons().size(); i++) {
-                npc.getDialogue().getDialogues().get(npc.getDialogue().getCurrentDialogueState()).getButtons().get(i).render(g, 0, 0);
+            fontL.draw(npc.getDialogue().getCurrentDialoguePart().getText(), 30, 345);
+
+            for (int i = 0; i < npc.getDialogue().getCurrentDialoguePart().getDialoguePartButtons().size(); i++) {
+                npc.getDialogue().getCurrentDialoguePart().getDialoguePartButtons().get(i).render(g, 0, 0);
             }
 
-            //g.setColor(c);
         }
     }
 

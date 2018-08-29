@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Developed by szczypiorofix on 29.08.18 10:28.
+  ~ Copyright (c) 2018. All rights reserved.
+  ~
+  -->
+<dialogue name="Todd Howard">
+    <dialogue_part id="0" text="Witaj nieznajomy!">
+        <dialogue_button order="0" response="Witaj" endbutton="false" nextId="1"/>
+        <dialogue_button order="1" response="Witaj. Co słychać?" endbutton="false" nextId="2"/>
+        <dialogue_button order="2" response="Żegnaj" endbutton="true" nextId="0"/>
+    </dialogue_part>
+    <dialogue_part id="1" text="Witaj. Co Cię do nas sprowadza?">
+        <dialogue_button order="0" response="Szukam pracy." endbutton="false" nextId="3"/>
+        <dialogue_button order="1" response="Kręcę się po okolicy." endbutton="false" nextId="4"/>
+        <dialogue_button order="2" response="Nie twoja sprawa. Żegnaj." endbutton="true" nextId="1"/>
+    </dialogue_part>
+    <dialogue_part id="2" text="Dziękuję. Wszystko dobrze.">
+        <dialogue_button order="0" response="Żegnaj." endbutton="true" nextId="1"/>
+    </dialogue_part>
+    <dialogue_part id="3" text="Nic dla ciebie nie mam.\nPrzyjdź jutro.">
+        <dialogue_button order="0" response="Żegnaj." endbutton="true" nextId="1"/>
+    </dialogue_part>
+    <dialogue_part id="4" text="Tylko nie przeszkadzaj.\nNikt nie lubi jak jakiś przybłęda wchodzi mu\nna posesję.">
+        <dialogue_button order="0" response="Żegnaj." endbutton="true" nextId="1"/>
+    </dialogue_part>
+</dialogue>

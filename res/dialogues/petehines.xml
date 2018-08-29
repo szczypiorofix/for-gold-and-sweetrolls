@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Developed by szczypiorofix on 29.08.18 11:02.
+  ~ Copyright (c) 2018. All rights reserved.
+  ~
+  -->
+<dialogue name="Pete Hines">
+    <dialogue_part id="0" text="Beta Fallouta 76 będzie kiedy będzie gotowa.">
+        <dialogue_button order="0" response="No trudno" endbutton="true" nextId="0"/>
+    </dialogue_part>
+</dialogue>
