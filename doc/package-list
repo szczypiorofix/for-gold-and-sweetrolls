@@ -1,0 +1,16 @@
+com.szczypiorofix.sweetrolls.deditor
+com.szczypiorofix.sweetrolls.game.dialogs
+com.szczypiorofix.sweetrolls.game.enums
+com.szczypiorofix.sweetrolls.game.gui
+com.szczypiorofix.sweetrolls.game.interfaces
+com.szczypiorofix.sweetrolls.game.main
+com.szczypiorofix.sweetrolls.game.main.core
+com.szczypiorofix.sweetrolls.game.main.fonts
+com.szczypiorofix.sweetrolls.game.main.graphics
+com.szczypiorofix.sweetrolls.game.main.sounds
+com.szczypiorofix.sweetrolls.game.main.states
+com.szczypiorofix.sweetrolls.game.objects
+com.szczypiorofix.sweetrolls.game.objects.characters
+com.szczypiorofix.sweetrolls.game.objects.item
+com.szczypiorofix.sweetrolls.game.objects.terrain
+com.szczypiorofix.sweetrolls.game.tilemap
