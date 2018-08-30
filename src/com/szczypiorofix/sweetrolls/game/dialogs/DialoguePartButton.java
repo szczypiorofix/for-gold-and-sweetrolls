@@ -15,6 +15,8 @@ import org.newdawn.slick.SlickException;
 
 public class DialoguePartButton extends GameObject {
 
+    private BitMapFont font;
+
     private String response;
     private boolean endButton;
     private int nextId;
@@ -23,7 +25,6 @@ public class DialoguePartButton extends GameObject {
     public static int BY = 570;
     public static final int BWIDTH = 250;
     public static final int BHEIGHT = 40;
-    private BitMapFont font;
 
 
     public DialoguePartButton(String order, String response, String endButton, String nextId) {
@@ -74,6 +75,6 @@ public class DialoguePartButton extends GameObject {
     @Override
     public void render(Graphics g, float offsetX, float offsetY) throws SlickException {
         g.drawRect(x - 5, y - 2, width + 5, height + 4);
-        font.draw(name, x, y + 10);
+        font.draw(response, x, y + 10);
     }
 }

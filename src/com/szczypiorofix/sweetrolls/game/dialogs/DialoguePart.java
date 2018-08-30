@@ -19,7 +19,7 @@ public class DialoguePart {
 
     public DialoguePart(String id, String text) {
         this.id = Integer.parseInt(id);
-        this.text = text;
+        this.text = text.replace("\\n", "\n");
         dialoguePartButtons = new ArrayList<>();
     }
 
