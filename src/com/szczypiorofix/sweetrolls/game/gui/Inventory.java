@@ -12,6 +12,7 @@ import com.szczypiorofix.sweetrolls.game.enums.PlayerAction;
 import com.szczypiorofix.sweetrolls.game.interfaces.CloseableFrameListener;
 import com.szczypiorofix.sweetrolls.game.interfaces.ConsumableListener;
 import com.szczypiorofix.sweetrolls.game.interfaces.DroppableListener;
+import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import com.szczypiorofix.sweetrolls.game.objects.item.Item;
 import org.newdawn.slick.*;
@@ -44,11 +45,7 @@ public class Inventory implements CloseableFrameListener {
         this.player = player;
         this.mouseCursor = mouseCursor;
 
-        try {
-            image = new Image("assets/inventory.png");
-        } catch (SlickException e) {
-            e.printStackTrace();
-        }
+        image = Textures.getInstance().inventoryImage;
 
         // INVENTORY CONTAINERS
         int id = 0;

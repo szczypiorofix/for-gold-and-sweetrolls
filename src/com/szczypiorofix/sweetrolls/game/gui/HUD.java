@@ -9,6 +9,7 @@ package com.szczypiorofix.sweetrolls.game.gui;
 import com.szczypiorofix.sweetrolls.game.main.core.TimeCounter;
 import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
 import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
+import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
 import com.szczypiorofix.sweetrolls.game.objects.Statistics;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import org.newdawn.slick.*;
@@ -34,12 +35,8 @@ public class HUD {
         this.mouseCursor = mouseCursor;
         this.actionHistory = actionHistory;
         this.timeCounter = timeCounter;
-        try {
-            image = new Image("assets/hud.png");
-            clockImage = new Image("assets/time-counter.png");
-        } catch (SlickException e) {
-            e.printStackTrace();
-        }
+        image = Textures.getInstance().hudImage;
+        clockImage = Textures.getInstance().clockImage;
         font = FontParser.getFont("HUD Font", "immortal-bitmap.xml", "immortal-bitmap.png");
         font.setSize(4.2f);
 

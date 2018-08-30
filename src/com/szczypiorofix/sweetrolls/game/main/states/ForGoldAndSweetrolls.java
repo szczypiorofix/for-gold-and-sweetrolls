@@ -11,6 +11,7 @@ import com.szczypiorofix.sweetrolls.game.enums.GameState;
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
 import com.szczypiorofix.sweetrolls.game.main.core.Configuration;
+import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
 import com.szczypiorofix.sweetrolls.game.main.sounds.SFX;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.*;
@@ -21,9 +22,10 @@ import java.util.ArrayList;
 public final class ForGoldAndSweetrolls extends BasicGame {
 
     private Input input;
-    private com.szczypiorofix.sweetrolls.game.main.states.FGASGame FGASGame;
+    private FGASGame FGASGame;
+    private FGASMainMenu FGASMainMenu;
+    private FGASCreatePlayer FGASCreatePlayer;
     private MouseCursor mouseCursor;
-    private com.szczypiorofix.sweetrolls.game.main.states.FGASMainMenu FGASMainMenu;
 
     private GameState gameState;
     private Music gameMusic, mainMenuMusic;
@@ -35,6 +37,7 @@ public final class ForGoldAndSweetrolls extends BasicGame {
         super(title);
         FGASMainMenu = new FGASMainMenu(this, config, modes);
         FGASGame = new FGASGame(this);
+        FGASCreatePlayer = new FGASCreatePlayer(this, FGASMainMenu);
         gameState = GameState.MAIN_MENU;
     }
 
@@ -55,10 +58,11 @@ public final class ForGoldAndSweetrolls extends BasicGame {
         // https://www.fontsquirrel.com/fonts/Immortal
 
         // https://opengameart.org/content/dwarven-cursor
-        gc.setMouseCursor(new Image("mouse_cursor.png"), 0, 0);
+        gc.setMouseCursor(Textures.getInstance().mouseCursor, 0, 0);
         mouseCursor = new MouseCursor("Mouse Cursor Main Menu", input.getMouseX(), input.getMouseY(), 32, 32, ObjectType.MOUSECURSOR, input);
 
         FGASMainMenu.init(gc, input, mouseCursor);
+        FGASCreatePlayer.init(gc, input, mouseCursor);
         FGASGame.init(gc, input, mouseCursor);
     }
 
@@ -67,12 +71,12 @@ public final class ForGoldAndSweetrolls extends BasicGame {
 
         if (gameState == GameState.MAIN_MENU) {
             FGASMainMenu.update(gc, delta);
+        } else if (gameState == GameState.CREATION_MENU) {
+            FGASCreatePlayer.update(gc, delta);
         } else if (gameState == GameState.GAME) {
             FGASGame.handleInputs(gc, delta);
             FGASGame.handleLogic(gc, delta);
-        }
-
-        if (gameState == GameState.EXIT) {
+        } else if (gameState == GameState.EXIT) {
             gc.exit();
         }
 
@@ -84,8 +88,9 @@ public final class ForGoldAndSweetrolls extends BasicGame {
 
         if (gameState == GameState.MAIN_MENU) {
             FGASMainMenu.render(gc, g);
-        }
-        if (gameState == GameState.GAME) {
+        } else if (gameState == GameState.CREATION_MENU) {
+            FGASCreatePlayer.render(gc, g);
+        } else if (gameState == GameState.GAME) {
             FGASGame.render(gc, g);
         }
 
@@ -110,6 +115,10 @@ public final class ForGoldAndSweetrolls extends BasicGame {
             case GAME: {
                 mainMenuMusic.stop();
                 gameMusic.loop(1f, musicVolume);
+                break;
+            }
+            case CREATION_MENU: {
+
                 break;
             }
             default: {

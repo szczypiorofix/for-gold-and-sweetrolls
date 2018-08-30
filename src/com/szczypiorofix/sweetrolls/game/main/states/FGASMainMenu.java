@@ -12,6 +12,7 @@ import com.szczypiorofix.sweetrolls.game.gui.MainMenuControlls;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import com.szczypiorofix.sweetrolls.game.main.core.*;
+import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
 import com.szczypiorofix.sweetrolls.game.objects.terrain.Ground;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.*;
@@ -42,7 +43,6 @@ public class FGASMainMenu {
     private ParticleSystem system;
     private Image torch;
 
-    private int windowWidth, windowHeight;
     private int selectedGameWidth, selectedGameHeight;
     private int selectedMusicVolume, selectedSFXVolume;
     private boolean selectedFullScreen;
@@ -91,26 +91,18 @@ public class FGASMainMenu {
     }
 
     public void init(GameContainer gc, Input input, MouseCursor mouseCursor) throws SlickException {
-        windowWidth = gc.getWidth();
-        windowHeight = gc.getHeight();
 
         this.mouseCursor = mouseCursor;
         this.input = input;
 
-        // https://opengameart.org/content/heroic-minority
+//        // https://opengameart.org/content/heroic-minority
 //        Music mainMenuMusic = new Music("music/menu-music.ogg");
 //        mainMenuMusic.play();
 
-
-        mainMenuBackground = new Image("assets/mm-gui-background.png");
-        mainMenuBackgroundShade = new Image("assets/mm-background-shade.png");
-
-        logoTitle = new Image("assets/logo-title.png");
-
-        optionsGui = new Image("assets/mm-gui-options.png");
-
-        // ##################### FONT #####################
-        // https://www.fontsquirrel.com/fonts/Immortal
+        mainMenuBackground = Textures.getInstance().mainMenuBackground;
+        mainMenuBackgroundShade = Textures.getInstance().mainMenuBackgroundShade;
+        logoTitle = Textures.getInstance().logoTitle;
+        optionsGui = Textures.getInstance().optionsGui;
 
 
         // ############ USTAWIENIA
@@ -214,7 +206,8 @@ public class FGASMainMenu {
                                 break;
                             }
                             case 1: {
-                                loadGame(false);
+                                //loadGame(false);
+                                forGoldAndSweetrolls.setGameState(GameState.CREATION_MENU);
                                 break;
                             }
                             case 2: {
@@ -270,9 +263,7 @@ public class FGASMainMenu {
                                 break;
                             }
                             case 1: {
-                                // RESET CONTROLLS
                                 setSettingsToDeclared();
-
                                 showSettings = false;
                                 break;
                             }
@@ -395,7 +386,7 @@ public class FGASMainMenu {
     }
 
 
-    private void loadGame(boolean load) {
+    public void loadGame(boolean load) {
         forGoldAndSweetrolls.resetGame();
         forGoldAndSweetrolls.setGameState(GameState.GAME);
         if (load) {

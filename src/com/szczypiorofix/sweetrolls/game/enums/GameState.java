@@ -10,5 +10,6 @@ public enum GameState {
     MAIN_MENU,
     GAME,
     PAUSE_GAME,
+    CREATION_MENU,
     EXIT
 }

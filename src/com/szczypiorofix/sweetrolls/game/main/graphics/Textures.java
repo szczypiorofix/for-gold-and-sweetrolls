@@ -25,6 +25,15 @@ public class Textures {
     public SpriteSheet mainMenuMainButtons = null;
     public SpriteSheet mainMenuControlls = null;
     public Image dialogueFrame = null;
+    public Image hudImage = null;
+    public Image clockImage = null;
+    public Image inventoryImage = null;
+    public Image logoTitle = null;
+    public Image optionsGui = null;
+    public Image mainMenuBackground = null;
+    public Image mainMenuBackgroundShade = null;
+    public Image mouseCursor = null;
+    public Image creationGUI = null;
 
     private Textures() {
         try {
@@ -33,6 +42,15 @@ public class Textures {
             mainMenuMainButtons = new SpriteSheet("assets/mm-gui-button.png", 148, 32);
             mainMenuControlls = new SpriteSheet("assets/mm-gui-controlls.png", 32, 32);
             dialogueFrame = new Image("assets/dialogue-frame.png");
+            hudImage = new Image("assets/hud.png");
+            clockImage = new Image("assets/time-counter.png");
+            inventoryImage = new Image("assets/inventory.png");
+            logoTitle = new Image("assets/logo-title.png");
+            optionsGui = new Image("assets/mm-gui-options.png");
+            mainMenuBackground = new Image("assets/mm-gui-background.png");
+            mainMenuBackgroundShade = new Image("assets/mm-background-shade.png");
+            mouseCursor = new Image("mouse_cursor.png");
+            creationGUI = new Image("assets/creation.png");
         } catch (Exception e) {
             e.printStackTrace();
             MainClass.logging(true, Level.WARNING, MainClass.getStackTrace(e));
