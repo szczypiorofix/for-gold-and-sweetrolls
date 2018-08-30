@@ -19,22 +19,43 @@ public class DialoguePartButton extends GameObject {
 
     private String response;
     private boolean endButton;
+    private boolean random;
     private int nextId;
     private int order;
+    private int rangeFrom, rangeTo;
     public static final int BX = 30;
     public static int BY = 570;
     public static final int BWIDTH = 250;
     public static final int BHEIGHT = 40;
 
 
-    public DialoguePartButton(String order, String response, String endButton, String nextId) {
+    public DialoguePartButton(String order, String response, String endButton, String nextId, String random, String rangeFrom, String rangeTo) {
         super(response, BX, BY, BWIDTH, BHEIGHT, ObjectType.GUI);
         this.order = Integer.parseInt(order);
         this.response = response;
         this.endButton = Boolean.parseBoolean(endButton);
+        this.random = Boolean.parseBoolean(random);
         this.nextId = Integer.parseInt(nextId);
+        this.rangeFrom = Integer.parseInt(rangeFrom);
+        this.rangeTo = Integer.parseInt(rangeTo);
         font = FontParser.getFont("Immortal Menu Button Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
         font.setSize(5f);
+    }
+
+    public int getRangeFrom() {
+        return rangeFrom;
+    }
+
+    public void setRangeFrom(int rangeFrom) {
+        this.rangeFrom = rangeFrom;
+    }
+
+    public int getRangeTo() {
+        return rangeTo;
+    }
+
+    public void setRangeTo(int rangeTo) {
+        this.rangeTo = rangeTo;
     }
 
     public int getOrder() {
@@ -67,6 +88,14 @@ public class DialoguePartButton extends GameObject {
 
     public void setNextId(int nextId) {
         this.nextId = nextId;
+    }
+
+    public boolean isRandom() {
+        return random;
+    }
+
+    public void setRandom(boolean random) {
+        this.random = random;
     }
 
     @Override

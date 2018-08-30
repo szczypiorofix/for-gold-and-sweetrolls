@@ -21,6 +21,10 @@ import java.io.File;
 import java.util.ArrayList;
 
 
+/**
+ * Main tile map object.
+ * It contains all tile layers, tile sets and object groups.
+ */
 public class TileMap {
 
     private ArrayList<TileLayer> tileLayers;
@@ -42,10 +46,10 @@ public class TileMap {
 
     /**
      *  Constructor for loading data from LevelGenerator
-     * @param width
-     * @param height
-     * @param tileWidth
-     * @param tileHeight
+     * @param width (Integer) tile map width.
+     * @param height (Integer) tile map height.
+     * @param tileWidth (Integer) tile map single tile width.
+     * @param tileHeight (Integer) tile map single tile height.
      */
     public TileMap(int width, int height, int tileWidth, int tileHeight) {
         this();

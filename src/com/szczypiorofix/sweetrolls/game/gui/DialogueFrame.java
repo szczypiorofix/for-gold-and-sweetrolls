@@ -9,6 +9,7 @@ package com.szczypiorofix.sweetrolls.game.gui;
 import com.szczypiorofix.sweetrolls.game.dialogs.DialoguePartButton;
 import com.szczypiorofix.sweetrolls.game.enums.PlayerAction;
 import com.szczypiorofix.sweetrolls.game.interfaces.CloseableFrameListener;
+import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
 import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
 import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
@@ -47,7 +48,22 @@ public class DialogueFrame implements CloseableFrameListener {
                 if (mouseCursor.intersects(currentButton)
                         && gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)
                     ) {
-                    npc.getDialogue().setCurrentDialogueState(currentButton.getNextId());
+
+                    if (currentButton.isRandom())
+                        if (currentButton.getRangeFrom() == 0 && currentButton.getRangeTo() == 0)
+                            npc.getDialogue().setCurrentDialogueState(MainClass.RANDOM.nextInt(npc.getDialogue().getDialogueParts().size()));
+                        else {
+                            System.out.println("Range from: " +currentButton.getRangeFrom()+ " to: " +currentButton.getRangeTo());
+                            int r = MainClass.RANDOM.nextInt(
+                                    (currentButton.getRangeTo() - currentButton.getRangeFrom()) + 1
+                            ) + currentButton.getRangeFrom();
+                            System.out.println(r);
+                            npc.getDialogue().setCurrentDialogueState(r);
+                        }
+
+                    else
+                        npc.getDialogue().setCurrentDialogueState(currentButton.getNextId());
+
                     if (currentButton.isEndButton()) {
                         showDialog = false;
                         player.setPlayerAction(PlayerAction.MOVE);

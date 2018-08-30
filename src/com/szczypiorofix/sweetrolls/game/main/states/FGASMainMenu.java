@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class FGAS_MainMenu {
+public class FGASMainMenu {
 
     private Input input;
     private Image mainMenuBackground;
@@ -63,7 +63,7 @@ public class FGAS_MainMenu {
     private final float maxOffsetY = 6000f;
 
 
-    FGAS_MainMenu(ForGoldAndSweetrolls forGoldAndSweetrolls, Configuration config, ArrayList<DisplayMode> modes) {
+    FGASMainMenu(ForGoldAndSweetrolls forGoldAndSweetrolls, Configuration config, ArrayList<DisplayMode> modes) {
         this.forGoldAndSweetrolls = forGoldAndSweetrolls;
         this.config = config;
         this.modes = modes;

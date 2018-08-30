@@ -21,9 +21,9 @@ import java.util.ArrayList;
 public final class ForGoldAndSweetrolls extends BasicGame {
 
     private Input input;
-    private FGAS_Game FGASGame;
+    private com.szczypiorofix.sweetrolls.game.main.states.FGASGame FGASGame;
     private MouseCursor mouseCursor;
-    private FGAS_MainMenu FGASMainMenu;
+    private com.szczypiorofix.sweetrolls.game.main.states.FGASMainMenu FGASMainMenu;
 
     private GameState gameState;
     private Music gameMusic, mainMenuMusic;
@@ -33,8 +33,8 @@ public final class ForGoldAndSweetrolls extends BasicGame {
 
     public ForGoldAndSweetrolls(String title, ArrayList<DisplayMode> modes, Configuration config) {
         super(title);
-        FGASMainMenu = new FGAS_MainMenu(this, config, modes);
-        FGASGame = new FGAS_Game(this);
+        FGASMainMenu = new FGASMainMenu(this, config, modes);
+        FGASGame = new FGASGame(this);
         gameState = GameState.MAIN_MENU;
     }
 
@@ -121,11 +121,11 @@ public final class ForGoldAndSweetrolls extends BasicGame {
         this.gameState = gameState;
     }
 
-    public FGAS_Game getFGASGame() {
+    public com.szczypiorofix.sweetrolls.game.main.states.FGASGame getFGASGame() {
         return FGASGame;
     }
 
-    public FGAS_MainMenu getFGASMainMenu() {
+    public com.szczypiorofix.sweetrolls.game.main.states.FGASMainMenu getFGASMainMenu() {
         return FGASMainMenu;
     }
 

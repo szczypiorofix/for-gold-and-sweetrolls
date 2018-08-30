@@ -59,7 +59,16 @@ public class DialoguesXMLParser {
                                             dialogueButtonElement.getAttribute("order"),
                                             dialogueButtonElement.getAttribute("response"),
                                             dialogueButtonElement.getAttribute("endbutton"),
-                                            dialogueButtonElement.getAttribute("nextId")
+                                            dialogueButtonElement.getAttribute("nextId"),
+                                            dialogueButtonElement.getAttribute("random").equalsIgnoreCase("")
+                                                    ? "false"
+                                                    : dialogueButtonElement.getAttribute("random"),
+                                            dialogueButtonElement.getAttribute("rangeFrom").equalsIgnoreCase("")
+                                                    ? "0"
+                                                    : dialogueButtonElement.getAttribute("rangeFrom"),
+                                            dialogueButtonElement.getAttribute("rangeTo").equalsIgnoreCase("")
+                                                    ? "0"
+                                                    : dialogueButtonElement.getAttribute("rangeTo")
                                     );
                                     dialoguePart.addDialogueButton(dialoguePartButton);
                                 }

@@ -12,6 +12,9 @@ import org.newdawn.slick.SpriteSheet;
 
 import java.util.logging.Level;
 
+/**
+ * Class for loading sprites from image files.
+ */
 public class Textures {
 
     private static Textures instance = null;
@@ -24,20 +27,22 @@ public class Textures {
     public Image dialogueFrame = null;
 
     private Textures() {
-        MainClass.logging(false, Level.INFO, "Ładowanie tekstur i obrazów...");
         try {
             miscItems = new SpriteSheet("map/dg_misc32.png", 32, 32);
             classm32 = new SpriteSheet("map/dg_classm32.png", 32, 32);
             mainMenuMainButtons = new SpriteSheet("assets/mm-gui-button.png", 148, 32);
             mainMenuControlls = new SpriteSheet("assets/mm-gui-controlls.png", 32, 32);
             dialogueFrame = new Image("assets/dialogue-frame.png");
-            MainClass.logging(false, Level.INFO, "Tekstury i obrazy załadowane");
         } catch (Exception e) {
             e.printStackTrace();
             MainClass.logging(true, Level.WARNING, MainClass.getStackTrace(e));
         }
     }
 
+    /**
+     * Returns only one instance of Textures object.
+     * @return Texture instance
+     */
     public static Textures getInstance() {
         if (instance == null) instance = new Textures();
         return instance;

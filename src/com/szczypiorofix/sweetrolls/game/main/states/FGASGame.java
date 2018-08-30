@@ -28,7 +28,7 @@ import java.util.HashMap;
 /**
  * This is the main class of the game (gameplay).
  */
-public class FGAS_Game implements DroppableListener, ConsumableListener {
+public class FGASGame implements DroppableListener, ConsumableListener {
 
     public static final String WORLD_MAP_NAME = "worldmap.tmx";
     private final boolean COLLISIONS_ENABLED = true;
@@ -59,10 +59,10 @@ public class FGAS_Game implements DroppableListener, ConsumableListener {
 
 
     /**
-     * Main FGAS_Game constructor.
-     * @param forGoldAndSweetrolls (ForGoldAndSweetrolls) - main class of game (starting main menu state and game state - FGAS_Game).
+     * Main FGASGame constructor.
+     * @param forGoldAndSweetrolls (ForGoldAndSweetrolls) - main class of game (starting main menu state and game state - FGASGame).
      */
-    public FGAS_Game(ForGoldAndSweetrolls forGoldAndSweetrolls) {
+    public FGASGame(ForGoldAndSweetrolls forGoldAndSweetrolls) {
         this.forGoldAndSweetrolls = forGoldAndSweetrolls;
         offsetX = 0;
         offsetY = 0;

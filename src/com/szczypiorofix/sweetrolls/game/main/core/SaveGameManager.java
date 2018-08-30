@@ -6,7 +6,7 @@
 
 package com.szczypiorofix.sweetrolls.game.main.core;
 
-import com.szczypiorofix.sweetrolls.game.main.states.FGAS_Game;
+import com.szczypiorofix.sweetrolls.game.main.states.FGASGame;
 import com.szczypiorofix.sweetrolls.game.tilemap.TileMap;
 
 import java.io.*;
@@ -56,7 +56,7 @@ public class SaveGameManager {
         return sgd;
     }
 
-    public static void saveGame(String saveGameFileName, FGAS_Game game) {
+    public static void saveGame(String saveGameFileName, FGASGame game) {
 
         SaveGameData saveGameData = new SaveGameData();
 
