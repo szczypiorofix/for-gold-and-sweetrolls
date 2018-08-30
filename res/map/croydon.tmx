@@ -40,7 +40,8 @@
   </object>
   <object id="8" template="npc.tx" name="Strażnik" type="guard" gid="349" x="64" y="256">
    <properties>
-    <property name="longTalk" type="bool" value="false"/>
+    <property name="dialogueFileName" value="guard1.xml"/>
+    <property name="longTalk" type="bool" value="true"/>
     <property name="maxhealth" type="int" value="250"/>
     <property name="name" value="Strażnik"/>
     <property name="type" value="guard"/>
@@ -48,7 +49,8 @@
   </object>
   <object id="9" template="npc.tx" name="Strażnik" type="guard" gid="349" x="64" y="384">
    <properties>
-    <property name="longTalk" type="bool" value="false"/>
+    <property name="dialogueFileName" value="guard2.xml"/>
+    <property name="longTalk" type="bool" value="true"/>
     <property name="maxhealth" type="int" value="250"/>
     <property name="name" value="Strażnik"/>
     <property name="type" value="guard"/>

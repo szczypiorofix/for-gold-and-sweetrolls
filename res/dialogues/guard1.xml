@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Developed by szczypiorofix on 30.08.18 12:03.
+  ~ Copyright (c) 2018. All rights reserved.
+  ~
+  -->
+<dialogue name="Guard1">
+    <dialogue_part id="0" text="Kiedyś byłem poszukiwaczem przygód jak ty.\nJednak strzała w kolano przekreśliła moje\nmarzenia o awanturniczym życiu.">
+        <dialogue_button order="0" response="Koniec" endbutton="true" nextId="0" random="true"/>
+    </dialogue_part>
+    <dialogue_part id="1" text="Patrz w niebo!">
+        <dialogue_button order="0" response="Koniec" endbutton="true" nextId="0" random="true"/>
+    </dialogue_part>
+    <dialogue_part id="2" text="Smoki? Gdzie?">
+        <dialogue_button order="0" response="Koniec" endbutton="true" nextId="0" random="true"/>
+    </dialogue_part>
+    <dialogue_part id="3" text="Tylko nie sprawiaj kłopotów!">
+        <dialogue_button order="0" response="Koniec" endbutton="true" nextId="0" random="true"/>
+    </dialogue_part>
+    <dialogue_part id="4" text="Niech no zgadnę. Ktoś ci ukradł słodką bułkę?">
+        <dialogue_button order="0" response="Koniec" endbutton="true" nextId="0" random="true"/>
+    </dialogue_part>
+    <dialogue_part id="5" text="Tuż za murami miasta robi się niebezpiecznie.\nZwłaszcza w nocy. Uważaj na siebie!">
+        <dialogue_button order="0" response="Koniec" endbutton="true" nextId="0" random="true"/>
+    </dialogue_part>
+    <dialogue_part id="6" text="Jeśli szukasz zajęcia idź do sklepu Belethora \nna północy miasta. Podobno szuka kogoś do \npomocy.">
+        <dialogue_button order="0" response="Koniec" endbutton="true" nextId="0" random="true"/>
+    </dialogue_part>
+    <dialogue_part id="7" text="Gospoda pod Niedopieczonym Czarodziejem to \nmiejsce gdzie można odpocząć, posłuchać muzyki\na i trunki mają tam całkiem niezłe.">
+        <dialogue_button order="0" response="Koniec" endbutton="true" nextId="0" random="true"/>
+    </dialogue_part>
+</dialogue>

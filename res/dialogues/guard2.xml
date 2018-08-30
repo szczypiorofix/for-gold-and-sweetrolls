@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Developed by szczypiorofix on 30.08.18 12:58.
+  ~ Copyright (c) 2018. All rights reserved.
+  ~
+  -->
+<dialogue name="Guard2">
+    <dialogue_part id="0" text="Szybko! Musisz nam pomóc! Smok zaatakował miasto!">
+        <dialogue_button order="0" response="OK" endbutton="true" nextId="1" random="false"/>
+    </dialogue_part>
+    <dialogue_part id="1" text="Smok atakuje! Szybko!">
+        <dialogue_button order="0" response="Na smoka!" endbutton="true" nextId="2" random="false"/>
+    </dialogue_part>
+    <dialogue_part id="2" text="Było blisko ale dziękujęmy że nam pomogłeś!">
+        <dialogue_button order="0" response="Nie ma sprawy" endbutton="true" nextId="3" random="false"/>
+    </dialogue_part>
+    <dialogue_part id="3" text="Dziękujemy za pomoc!">
+        <dialogue_button order="0" response="OK" endbutton="true" nextId="0" random="true" rangeFrom="3" rangeTo="6"/>
+    </dialogue_part>
+    <dialogue_part id="4" text="Miasto jest ci wdzięczne">
+        <dialogue_button order="0" response="OK" endbutton="true" nextId="0" random="true" rangeFrom="3" rangeTo="6"/>
+    </dialogue_part>
+    <dialogue_part id="5" text="Bez ciebie nie dalibysmy rady">
+        <dialogue_button order="0" response="OK" endbutton="true" nextId="0" random="true" rangeFrom="3" rangeTo="6"/>
+    </dialogue_part>
+    <dialogue_part id="6" text="Teraz jest już spokojnie">
+        <dialogue_button order="0" response="OK" endbutton="true" nextId="0" random="true" rangeFrom="3" rangeTo="6"/>
+    </dialogue_part>
+</dialogue>
