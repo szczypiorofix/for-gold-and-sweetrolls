@@ -19,11 +19,11 @@ public class Textures {
 
     private static Textures instance = null;
 
-    public SpriteSheet miscItems = null;
     public SpriteSheet classm32 = null;
-
     public SpriteSheet mainMenuMainButtons = null;
     public SpriteSheet mainMenuControlls = null;
+    public SpriteSheet avatartsMales = null;
+    public SpriteSheet avatatsFemales = null;
     public Image dialogueFrame = null;
     public Image hudImage = null;
     public Image clockImage = null;
@@ -35,12 +35,14 @@ public class Textures {
     public Image mouseCursor = null;
     public Image creationGUI = null;
 
+
     private Textures() {
         try {
-            miscItems = new SpriteSheet("map/dg_misc32.png", 32, 32);
             classm32 = new SpriteSheet("map/dg_classm32.png", 32, 32);
             mainMenuMainButtons = new SpriteSheet("assets/mm-gui-button.png", 148, 32);
             mainMenuControlls = new SpriteSheet("assets/mm-gui-controlls.png", 32, 32);
+            avatartsMales = new SpriteSheet("avatars/males.png", 54, 84);
+            avatatsFemales = new SpriteSheet("avatars/females.png", 54 ,84);
             dialogueFrame = new Image("assets/dialogue-frame.png");
             hudImage = new Image("assets/hud.png");
             clockImage = new Image("assets/time-counter.png");

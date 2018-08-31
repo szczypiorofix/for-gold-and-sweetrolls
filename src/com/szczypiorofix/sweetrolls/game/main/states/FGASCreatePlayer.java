@@ -7,7 +7,7 @@
 package com.szczypiorofix.sweetrolls.game.main.states;
 
 import com.szczypiorofix.sweetrolls.game.enums.GameState;
-import com.szczypiorofix.sweetrolls.game.gui.MainMenuButton;
+import com.szczypiorofix.sweetrolls.game.gui.MainMenuControlls;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
 import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
 import org.newdawn.slick.*;
@@ -19,7 +19,9 @@ public class FGASCreatePlayer {
     private Image hudImage;
     private FGASMainMenu fgasMainMenu;
     private ForGoldAndSweetrolls forGoldAndSweetrolls;
-    private MainMenuButton[] buttons;
+    private MainMenuControlls[] controlls;
+    private Image currentImage = null;
+    private int avatarSpriteSheetY = 0;
 
     public FGASCreatePlayer(ForGoldAndSweetrolls forGoldAndSweetrolls, FGASMainMenu fgasMainMenu) {
         this.forGoldAndSweetrolls = forGoldAndSweetrolls;
@@ -32,9 +34,16 @@ public class FGASCreatePlayer {
         this.mouseCursor = mouseCursor;
         hudImage = Textures.getInstance().creationGUI;
 
-        buttons = new MainMenuButton[2];
-        buttons[0] = new MainMenuButton("Anuluj", 60, 540);
-        buttons[1] = new MainMenuButton("OK", 600, 540);
+        currentImage = Textures.getInstance().avatartsMales.getSprite(0, avatarSpriteSheetY);
+
+        // Avatars
+        // https://opengameart.org/content/60-terrible-character-portraits
+
+        controlls = new MainMenuControlls[4];
+        controlls[0] = new MainMenuControlls(MainMenuControlls.ControlType.CANCEL, "", false, 330, 540);
+        controlls[1] = new MainMenuControlls(MainMenuControlls.ControlType.OK, "", false, 380, 540);
+        controlls[2] = new MainMenuControlls(MainMenuControlls.ControlType.LEF_ARROW, "", false, 120, 260);
+        controlls[3] = new MainMenuControlls(MainMenuControlls.ControlType.RIGHT_ARROW, "", false, 270, 260);
     }
 
     public void update(GameContainer gc, int delta) throws SlickException {
@@ -48,11 +57,11 @@ public class FGASCreatePlayer {
             forGoldAndSweetrolls.setGameState(GameState.GAME);
         }
 
-        for (int i = 0; i < buttons.length; i++) {
-            if (mouseCursor.intersects(buttons[i])) {
-                buttons[i].setHover(true);
+        for (int i = 0; i < controlls.length; i++) {
+            if (mouseCursor.intersects(controlls[i])) {
+                controlls[i].setHover(true);
                 if (mouseCursor.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-                    buttons[i].setActive(true);
+                    controlls[i].setActive(true);
                     switch (i) {
                         case 0: {
                             forGoldAndSweetrolls.setGameState(GameState.MAIN_MENU);
@@ -64,16 +73,17 @@ public class FGASCreatePlayer {
                             break;
                         }
                     }
-                } else buttons[i].setActive(false);
-            } else buttons[i].setHover(false);
+                } else controlls[i].setActive(false);
+            } else controlls[i].setHover(false);
         }
     }
 
     public void render(GameContainer gc, Graphics g) throws SlickException {
         hudImage.draw(0, 0);
-        for (int i = 0; i < buttons.length; i++) {
-            buttons[i].render(g, 0, 0);
+        for (int i = 0; i < controlls.length; i++) {
+            controlls[i].render(g, 0, 0);
         }
+        currentImage.draw(170, 150);
     }
 
 }

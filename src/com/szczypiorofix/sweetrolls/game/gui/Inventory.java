@@ -61,9 +61,7 @@ public class Inventory implements CloseableFrameListener {
                 "",
                 false,
                 409,
-                100,
-                32,
-                32
+                100
                 );
         inventoryExit.setCloseableFrameListener(this);
 

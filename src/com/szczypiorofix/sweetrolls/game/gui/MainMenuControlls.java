@@ -25,7 +25,8 @@ public class MainMenuControlls extends GameObject {
         CHECK_BOX,
         TEXT,
         UP_ARROW,
-        DOWN_ARROW
+        DOWN_ARROW,
+        RADIO_BUTTON
     }
     private ControlType controlType;
     private Image imageDefault, imageHover, imageActive;
@@ -40,8 +41,8 @@ public class MainMenuControlls extends GameObject {
     private CloseableFrameListener closeableFrameListener;
 
 
-    public MainMenuControlls(ControlType controlType, String text, Boolean checked, float x, float y, float width, float height) {
-        super(text, x, y, width, height, ObjectType.GUI);
+    public MainMenuControlls(ControlType controlType, String text, Boolean checked, float x, float y) {
+        super(text, x, y, 32, 32, ObjectType.GUI);
         this.text = text;
         this.defaultText = text;
         this.checked = checked;
@@ -85,6 +86,12 @@ public class MainMenuControlls extends GameObject {
                 imageDefault = Textures.getInstance().mainMenuControlls.getSprite(0, 6);
                 imageHover = Textures.getInstance().mainMenuControlls.getSprite(1, 6);
                 imageActive = Textures.getInstance().mainMenuControlls.getSprite(2, 6);
+                break;
+            }
+            case RADIO_BUTTON: {
+                imageDefault = Textures.getInstance().mainMenuControlls.getSprite(0, 7);
+                imageHover = Textures.getInstance().mainMenuControlls.getSprite(1, 7);
+                imageActive = Textures.getInstance().mainMenuControlls.getSprite(2, 7);
                 break;
             }
             default: {

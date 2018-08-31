@@ -108,32 +108,32 @@ public class FGASMainMenu {
         // ############ USTAWIENIA
         settingControls = new MainMenuControlls[20];
 
-        settingControls[0] = new MainMenuControlls(MainMenuControlls.ControlType.OK, "OK", false,365, 480, 32, 32);
-        settingControls[1] = new MainMenuControlls(MainMenuControlls.ControlType.CANCEL, "Cancel", false,410, 480, 32, 32);
-        settingControls[2] = new MainMenuControlls(MainMenuControlls.ControlType.LEF_ARROW,  "Left arrow", false,290, 200, 32, 32);
-        settingControls[3] = new MainMenuControlls(MainMenuControlls.ControlType.RIGHT_ARROW, "Right arrow", false, 470, 200, 32, 32);
+        settingControls[0] = new MainMenuControlls(MainMenuControlls.ControlType.OK, "OK", false,365, 480);
+        settingControls[1] = new MainMenuControlls(MainMenuControlls.ControlType.CANCEL, "Cancel", false,410, 480);
+        settingControls[2] = new MainMenuControlls(MainMenuControlls.ControlType.LEF_ARROW,  "Left arrow", false,290, 200);
+        settingControls[3] = new MainMenuControlls(MainMenuControlls.ControlType.RIGHT_ARROW, "Right arrow", false, 470, 200);
 
-        settingControls[4] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Rozdzielczość", false, 335, 180, 32, 32);
-        settingControls[5] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, selectedGameWidth+"x"+selectedGameHeight, false, 360, 205, 32, 32);
+        settingControls[4] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Rozdzielczość", false, 335, 180);
+        settingControls[5] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, selectedGameWidth+"x"+selectedGameHeight, false, 360, 205);
 
-        settingControls[6] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Full screen", false, 340, 254, 32, 32);
-        settingControls[7] = new MainMenuControlls(MainMenuControlls.ControlType.CHECK_BOX, "Full screen checkbox", selectedFullScreen, 450, 250, 32, 32);
+        settingControls[6] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Full screen", false, 340, 254);
+        settingControls[7] = new MainMenuControlls(MainMenuControlls.ControlType.CHECK_BOX, "Full screen checkbox", selectedFullScreen, 450, 250);
 
-        settingControls[8] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "v-sync", false, 340, 294, 32, 32);
-        settingControls[9] = new MainMenuControlls(MainMenuControlls.ControlType.CHECK_BOX, "V-Sync checkbox", selectedVSync, 450, 290, 32, 32);
+        settingControls[8] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "v-sync", false, 340, 294);
+        settingControls[9] = new MainMenuControlls(MainMenuControlls.ControlType.CHECK_BOX, "V-Sync checkbox", selectedVSync, 450, 290);
 
-        settingControls[10] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "FPS", false, 340, 334, 32, 32);
-        settingControls[11] = new MainMenuControlls(MainMenuControlls.ControlType.CHECK_BOX, "FPS show checkbox", selectedShowFPS, 450, 330, 32, 32);
+        settingControls[10] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "FPS", false, 340, 334);
+        settingControls[11] = new MainMenuControlls(MainMenuControlls.ControlType.CHECK_BOX, "FPS show checkbox", selectedShowFPS, 450, 330);
 
-        settingControls[12] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Muzyka", false, 290, 374, 32, 32);
-        settingControls[13] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, selectedMusicVolume + "", false, 380, 374, 32, 32);
-        settingControls[14] = new MainMenuControlls(MainMenuControlls.ControlType.UP_ARROW, "Music Volume up", false, 440, 370, 32, 32);
-        settingControls[15] = new MainMenuControlls(MainMenuControlls.ControlType.DOWN_ARROW, "Music Volume down", false, 472, 370, 32, 32);
+        settingControls[12] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Muzyka", false, 290, 374);
+        settingControls[13] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, selectedMusicVolume + "", false, 380, 374);
+        settingControls[14] = new MainMenuControlls(MainMenuControlls.ControlType.UP_ARROW, "Music Volume up", false, 440, 370);
+        settingControls[15] = new MainMenuControlls(MainMenuControlls.ControlType.DOWN_ARROW, "Music Volume down", false, 472, 370);
 
-        settingControls[16] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "SFX", false, 290, 410, 32, 32);
-        settingControls[17] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, selectedSFXVolume + "", false, 380, 410, 32, 32);
-        settingControls[18] = new MainMenuControlls(MainMenuControlls.ControlType.UP_ARROW, "SFX Volume up", false, 440, 410, 32, 32);
-        settingControls[19] = new MainMenuControlls(MainMenuControlls.ControlType.DOWN_ARROW, "SFX Volume down", false, 472, 410, 32, 32);
+        settingControls[16] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "SFX", false, 290, 410);
+        settingControls[17] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, selectedSFXVolume + "", false, 380, 410);
+        settingControls[18] = new MainMenuControlls(MainMenuControlls.ControlType.UP_ARROW, "SFX Volume up", false, 440, 410);
+        settingControls[19] = new MainMenuControlls(MainMenuControlls.ControlType.DOWN_ARROW, "SFX Volume down", false, 472, 410);
 
         // ############ PRZYCISKI
         menuButtons = new MainMenuButton[5];
