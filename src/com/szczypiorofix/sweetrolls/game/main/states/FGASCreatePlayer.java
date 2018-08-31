@@ -6,6 +6,7 @@
 
 package com.szczypiorofix.sweetrolls.game.main.states;
 
+import com.szczypiorofix.sweetrolls.game.enums.CharacterSex;
 import com.szczypiorofix.sweetrolls.game.enums.GameState;
 import com.szczypiorofix.sweetrolls.game.gui.MainMenuControlls;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
@@ -21,7 +22,10 @@ public class FGASCreatePlayer {
     private ForGoldAndSweetrolls forGoldAndSweetrolls;
     private MainMenuControlls[] controlls;
     private Image currentImage = null;
-    private int avatarSpriteSheetY = 0;
+    private int currentAvatarSpriteSheetId = 0;
+    private int currentAvatarSpriteSheetColumns = 0;
+    private SpriteSheet currentSpriteSheet = null;
+    private CharacterSex currentSex = CharacterSex.MALE;
 
     public FGASCreatePlayer(ForGoldAndSweetrolls forGoldAndSweetrolls, FGASMainMenu fgasMainMenu) {
         this.forGoldAndSweetrolls = forGoldAndSweetrolls;
@@ -34,10 +38,14 @@ public class FGASCreatePlayer {
         this.mouseCursor = mouseCursor;
         hudImage = Textures.getInstance().creationGUI;
 
-        currentImage = Textures.getInstance().avatartsMales.getSprite(0, avatarSpriteSheetY);
+        if (currentSex == CharacterSex.MALE) currentSpriteSheet = Textures.getInstance().avatarsMales;
+        else currentSpriteSheet = Textures.getInstance().avatarsFemales;
+
+        currentAvatarSpriteSheetColumns = currentSpriteSheet.getHorizontalCount();
+        currentImage = currentSpriteSheet.getSprite(currentAvatarSpriteSheetId % currentAvatarSpriteSheetColumns, currentAvatarSpriteSheetId / currentAvatarSpriteSheetColumns);
 
         // Avatars
-        // https://opengameart.org/content/60-terrible-character-portraits
+        // https://www.deviantart.com/artastrophe/art/BG-Portrait-Package-145216289
 
         controlls = new MainMenuControlls[4];
         controlls[0] = new MainMenuControlls(MainMenuControlls.ControlType.CANCEL, "", false, 330, 540);
@@ -70,6 +78,22 @@ public class FGASCreatePlayer {
                         case 1: {
                             fgasMainMenu.loadGame(false);
                             forGoldAndSweetrolls.setGameState(GameState.GAME);
+                            break;
+                        }
+                        case 2: {
+                            currentAvatarSpriteSheetId--;
+                            if (currentAvatarSpriteSheetId < 0) {
+                                currentAvatarSpriteSheetId = (currentSpriteSheet.getHorizontalCount() * currentSpriteSheet.getVerticalCount()) - 1;
+                            }
+                            currentImage = currentSpriteSheet.getSprite(currentAvatarSpriteSheetId % currentAvatarSpriteSheetColumns, currentAvatarSpriteSheetId / currentAvatarSpriteSheetColumns);
+                            break;
+                        }
+                        case 3: {
+                            currentAvatarSpriteSheetId++;
+                            if (currentAvatarSpriteSheetId >= currentSpriteSheet.getHorizontalCount() * currentSpriteSheet.getVerticalCount()) {
+                                currentAvatarSpriteSheetId = 0;
+                            }
+                            currentImage = currentSpriteSheet.getSprite(currentAvatarSpriteSheetId % currentAvatarSpriteSheetColumns, currentAvatarSpriteSheetId / currentAvatarSpriteSheetColumns);
                             break;
                         }
                     }
