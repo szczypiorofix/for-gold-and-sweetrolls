@@ -46,7 +46,12 @@ public class DialoguesXMLParser {
 
                             DialoguePart dialoguePart = new DialoguePart(
                                     dialoguePartElement.getAttribute("id"),
-                                    dialoguePartElement.getAttribute("text")
+                                    dialoguePartElement.getAttribute("text"),
+                                    dialoguePartElement.getAttribute("requiredItem"),
+                                    dialoguePartElement.getAttribute("requiredAmount"),
+                                    dialoguePartElement.getAttribute("failNextId").equalsIgnoreCase("")
+                                            ? "0"
+                                            : dialoguePartElement.getAttribute("failNextId")
                             );
 
                             NodeList dialogueButtonsList = dialoguePartElement.getChildNodes();

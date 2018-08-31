@@ -7,21 +7,42 @@
 <dialogue name="Todd Howard">
     <dialogue_part id="0" text="Witaj nieznajomy!">
         <dialogue_button order="0" response="Witaj" endbutton="false" nextId="1"/>
-        <dialogue_button order="1" response="Witaj. Co słychać?" endbutton="false" nextId="2"/>
-        <dialogue_button order="2" response="Żegnaj" endbutton="true" nextId="0"/>
+        <dialogue_button order="1" response="Żegnaj" endbutton="true" nextId="0"/>
     </dialogue_part>
     <dialogue_part id="1" text="Witaj. Co Cię do nas sprowadza?">
-        <dialogue_button order="0" response="Szukam pracy." endbutton="false" nextId="3"/>
-        <dialogue_button order="1" response="Kręcę się po okolicy." endbutton="false" nextId="4"/>
-        <dialogue_button order="2" response="Nie twoja sprawa. Żegnaj." endbutton="true" nextId="1"/>
+        <dialogue_button order="0" response="Szukam pracy." endbutton="false" nextId="2"/>
+        <dialogue_button order="1" response="Żegnaj" endbutton="true" nextId="1"/>
     </dialogue_part>
-    <dialogue_part id="2" text="Dziękuję. Wszystko dobrze.">
-        <dialogue_button order="0" response="Żegnaj." endbutton="true" nextId="1"/>
+    <dialogue_part id="2" text="Hmmm pracy powiadasz... Może i byłoby coś do zrobienia.">
+        <dialogue_button order="0" response="Co takiego?" endbutton="false" nextId="3"/>
+        <dialogue_button order="1" response="Nie interesuje mnie to. Żegnaj" endbutton="true" nextId="1"/>
     </dialogue_part>
-    <dialogue_part id="3" text="Nic dla ciebie nie mam.\nPrzyjdź jutro.">
-        <dialogue_button order="0" response="Żegnaj." endbutton="true" nextId="1"/>
+    <dialogue_part id="3" text="Musiz przynieść mi 10 skór wilków.">
+        <dialogue_button order="0" response="Super! Już pędzę" endbutton="true" nextId="5"/>
+        <dialogue_button order="1" response="Sam sobie poluj na wilki!" endbutton="true" nextId="4"/>
     </dialogue_part>
-    <dialogue_part id="4" text="Tylko nie przeszkadzaj.\nNikt nie lubi jak jakiś przybłęda wchodzi mu\nna posesję.">
-        <dialogue_button order="0" response="Żegnaj." endbutton="true" nextId="1"/>
+    <dialogue_part id="4" text="Nie mam o czym z tobą rozmawiać. Żegnaj">
+        <dialogue_button order="0" response="Żegnaj" endbutton="true" nextId="4"/>
+    </dialogue_part>
+    <dialogue_part id="5" text="I jak tam polowanie na wilki?">
+        <dialogue_button order="0" response="Super" endbutton="false" nextId="6" requireItem="WolfPelt" requiredAmount="10" failNextId="6"/>
+        <dialogue_button order="1" response="Muszę się za to zabrać" endbutton="true" nextId="5"/>
+    </dialogue_part>
+    <dialogue_part id="6" text="Czekam na skóry więc.">
+        <dialogue_button order="0" response="Zaraz je przyniosę" endbutton="true" nextId="5"/>
+    </dialogue_part>
+    <!-- SPRAWDZANIE CZY W INVENTORY JEST 10 SKÓR WILKÓW WTEDY PRZESKOK currentDialogueState na 7 -->
+    <dialogue_part id="7" text="Oooo widzę, że masz skóry!">
+        <dialogue_button order="0" response="Proszę oto 10 skór wilków" endbutton="false" nextId="8"/>
+        <dialogue_button order="1" response="Jednak się rozmysliłem. Żegnaj" endbutton="true" nextId="9"/>
+    </dialogue_part>
+    <dialogue_part id="8" text="Dziękuję. Oto obiecana nagroda."><!-- KA-CHING !!! -->
+        <dialogue_button order="0" response="Dziękuję!" endbutton="true" nextId="10"/>
+    </dialogue_part>
+    <dialogue_part id="9" text="Nie lubię jak ktoś robie mnie w balona. Żegnaj!">
+        <dialogue_button order="0" response="Żegnaj" endbutton="true" nextId="9"/>
+    </dialogue_part>
+    <dialogue_part id="10" text="Dostałeś już nagrodę. Teraz jestem zajęty.">
+        <dialogue_button order="0" response="Żegnaj" endbutton="true" nextId="10"/>
     </dialogue_part>
 </dialogue>

@@ -15,12 +15,20 @@ public class DialoguePart {
 
     private int id;
     private String text;
+    private String requiredItem;
+    private String requireAmount;
+    private int failNextId;
     private ArrayList<DialoguePartButton> dialoguePartButtons;
 
-    public DialoguePart(String id, String text) {
+    public DialoguePart(String id, String text, String requiredItem, String requireAmount, String failNextId) {
         this.id = Integer.parseInt(id);
+        this.requiredItem = requiredItem;
+        this.requireAmount = requireAmount;
+        this.failNextId = Integer.parseInt(failNextId);
         this.text = text.replace("\\n", "\n");
         dialoguePartButtons = new ArrayList<>();
+
+        System.out.println("Required item: " + requiredItem);
     }
 
     public void addDialogueButton(DialoguePartButton dialoguePartButton) {
@@ -58,4 +66,19 @@ public class DialoguePart {
         this.text = text;
     }
 
+    public String getRequiredItem() {
+        return requiredItem;
+    }
+
+    public void setRequiredItem(String requiredItem) {
+        this.requiredItem = requiredItem;
+    }
+
+    public String getRequireAmount() {
+        return requireAmount;
+    }
+
+    public void setRequireAmount(String requireAmount) {
+        this.requireAmount = requireAmount;
+    }
 }
