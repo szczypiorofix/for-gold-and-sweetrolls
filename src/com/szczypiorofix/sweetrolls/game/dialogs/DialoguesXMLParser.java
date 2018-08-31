@@ -19,12 +19,16 @@ import java.io.File;
 
 public class DialoguesXMLParser {
 
+    private DialoguesXMLParser() {}
 
-    public static Dialogue parseDialogueXML(String filename) {
+    public static Dialogue parseDialogueXML(String filename, boolean editorContext) {
         Dialogue dialogue = new Dialogue();
+        String path = filename;
+        if (!editorContext) {
+            path = MainClass.RES + "dialogues/" + filename;
+        }
         try {
-
-            File inputFile = new File(MainClass.RES + "dialogues/" + filename);
+            File inputFile = new File(path);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
@@ -46,12 +50,7 @@ public class DialoguesXMLParser {
 
                             DialoguePart dialoguePart = new DialoguePart(
                                     dialoguePartElement.getAttribute("id"),
-                                    dialoguePartElement.getAttribute("text"),
-                                    dialoguePartElement.getAttribute("requiredItem"),
-                                    dialoguePartElement.getAttribute("requiredAmount"),
-                                    dialoguePartElement.getAttribute("failNextId").equalsIgnoreCase("")
-                                            ? "0"
-                                            : dialoguePartElement.getAttribute("failNextId")
+                                    dialoguePartElement.getAttribute("text")
                             );
 
                             NodeList dialogueButtonsList = dialoguePartElement.getChildNodes();
@@ -61,7 +60,9 @@ public class DialoguesXMLParser {
                                     Element dialogueButtonElement = (Element) dialogueButtonNode;
 
                                     DialoguePartButton dialoguePartButton = new DialoguePartButton(
-                                            dialogueButtonElement.getAttribute("order"),
+                                            dialogueButtonElement.getAttribute("id").equalsIgnoreCase("")
+                                                    ? "-1"
+                                                    : dialogueButtonElement.getAttribute("id"),
                                             dialogueButtonElement.getAttribute("response"),
                                             dialogueButtonElement.getAttribute("endbutton"),
                                             dialogueButtonElement.getAttribute("nextId"),
@@ -69,12 +70,26 @@ public class DialoguesXMLParser {
                                                     ? "false"
                                                     : dialogueButtonElement.getAttribute("random"),
                                             dialogueButtonElement.getAttribute("rangeFrom").equalsIgnoreCase("")
-                                                    ? "0"
+                                                    ? "-1"
                                                     : dialogueButtonElement.getAttribute("rangeFrom"),
                                             dialogueButtonElement.getAttribute("rangeTo").equalsIgnoreCase("")
+                                                    ? "-1"
+                                                    : dialogueButtonElement.getAttribute("rangeTo"),
+                                            dialogueButtonElement.getAttribute("requiredItem"),
+                                            dialogueButtonElement.getAttribute("requiredAmount").equalsIgnoreCase("")
                                                     ? "0"
-                                                    : dialogueButtonElement.getAttribute("rangeTo")
+                                                    : dialogueButtonElement.getAttribute("requiredAmount"),
+                                            dialogueButtonElement.getAttribute("failNextId").equalsIgnoreCase("")
+                                                    ? "-1"
+                                                    : dialogueButtonElement.getAttribute("failNextId"),
+                                            dialogueButtonElement.getAttribute("locked").equalsIgnoreCase("")
+                                                    ? "false"
+                                                    : dialogueButtonElement.getAttribute("locked"),
+                                            dialogueButtonElement.getAttribute("unlockId").equalsIgnoreCase("")
+                                                    ? "-1"
+                                                    : dialogueButtonElement.getAttribute("unlockId")
                                     );
+                                    if (!editorContext) dialoguePartButton.setFontForGame();
                                     dialoguePart.addDialogueButton(dialoguePartButton);
                                 }
 

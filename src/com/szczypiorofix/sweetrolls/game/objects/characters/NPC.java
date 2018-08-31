@@ -55,7 +55,7 @@ public class NPC extends Character {
         londTalk = getBooleanProperty("longTalk");
 
         if (londTalk) {
-            dialogue = DialoguesXMLParser.parseDialogueXML(getStringProperty("dialogueFileName"));
+            dialogue = DialoguesXMLParser.parseDialogueXML(getStringProperty("dialogueFileName"), false);
         }
 
         displayName = getStringProperty("name");

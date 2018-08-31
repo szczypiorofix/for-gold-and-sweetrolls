@@ -45,28 +45,38 @@ public class DialogueFrame implements CloseableFrameListener {
         if (npc != null && showDialog) {
             for (int i = 0; i < npc.getDialogue().getCurrentDialoguePart().getDialoguePartButtons().size(); i++) {
                 DialoguePartButton currentButton = npc.getDialogue().getCurrentDialoguePart().getDialoguePartButtons().get(i);
-                if (mouseCursor.intersects(currentButton)
-                        && gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)
+                if (!currentButton.isLocked()) {
+                    if (mouseCursor.intersects(currentButton.getX(), currentButton.getY(), currentButton.getWidth(), currentButton.getHeight())
+                            && gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)
                     ) {
 
-                    if (currentButton.isRandom())
-                        if (currentButton.getRangeFrom() == 0 && currentButton.getRangeTo() == 0)
-                            npc.getDialogue().setCurrentDialogueState(MainClass.RANDOM.nextInt(npc.getDialogue().getDialogueParts().size()));
-                        else {
-                            System.out.println("Range from: " +currentButton.getRangeFrom()+ " to: " +currentButton.getRangeTo());
-                            int r = MainClass.RANDOM.nextInt(
-                                    (currentButton.getRangeTo() - currentButton.getRangeFrom()) + 1
-                            ) + currentButton.getRangeFrom();
-                            System.out.println(r);
-                            npc.getDialogue().setCurrentDialogueState(r);
+                        if (currentButton.isRandom()) {
+                            if (currentButton.getRangeFrom() == 0 && currentButton.getRangeTo() == 0)
+                                npc.getDialogue().setCurrentDialogueState(MainClass.RANDOM.nextInt(npc.getDialogue().getDialogueParts().size()));
+                            else {
+                                int r = MainClass.RANDOM.nextInt(
+                                        (currentButton.getRangeTo() - currentButton.getRangeFrom()) + 1
+                                ) + currentButton.getRangeFrom();
+                                npc.getDialogue().setCurrentDialogueState(r);
+                            }
+                        } else
+                            npc.getDialogue().setCurrentDialogueState(currentButton.getNextId());
+
+                        if (currentButton.getUnlockId() >= 0) {
+                            for (int m = 0; m < npc.getDialogue().getDialogueParts().size(); m++) {
+                                for (int n = 0; n < npc.getDialogue().getDialogueParts().get(m).getDialoguePartButtons().size(); n++) {
+                                    if (currentButton.getUnlockId() == npc.getDialogue().getDialogueParts().get(m).getDialoguePartButtons().get(n).getbId()) {
+                                        npc.getDialogue().getDialogueParts().get(m).getDialoguePartButtons().get(n).setLocked(false);
+                                        break;
+                                    }
+                                }
+                            }
                         }
 
-                    else
-                        npc.getDialogue().setCurrentDialogueState(currentButton.getNextId());
-
-                    if (currentButton.isEndButton()) {
-                        showDialog = false;
-                        player.setPlayerAction(PlayerAction.MOVE);
+                        if (currentButton.isEndButton()) {
+                            showDialog = false;
+                            player.setPlayerAction(PlayerAction.MOVE);
+                        }
                     }
                 }
             }
@@ -78,8 +88,18 @@ public class DialogueFrame implements CloseableFrameListener {
             dialogueFrameImage.draw(10, 300);
             fontS.draw(npc.getName()+" :", 30, 310);
             fontL.draw(npc.getDialogue().getCurrentDialoguePart().getText(), 30, 345);
+
+            int c = 0;
             for (int i = 0; i < npc.getDialogue().getCurrentDialoguePart().getDialoguePartButtons().size(); i++) {
-                npc.getDialogue().getCurrentDialoguePart().getDialoguePartButtons().get(i).render(g, 0, 0);
+                if (!npc.getDialogue().getCurrentDialoguePart().getDialoguePartButtons().get(i).isLocked()) {
+                    npc.getDialogue().getCurrentDialoguePart().getDialoguePartButtons().get(i).render(
+                            g,
+                            0,
+                            0,
+                            DialoguePartButton.BX,
+                            DialoguePartButton.BY - ((npc.getDialogue().getCurrentDialoguePart().getUnlockedButtonsCount() - c) * DialoguePartButton.BHEIGHT));
+                    c++;
+                }
             }
 
         }

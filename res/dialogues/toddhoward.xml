@@ -25,7 +25,7 @@
         <dialogue_button order="0" response="Żegnaj" endbutton="true" nextId="4"/>
     </dialogue_part>
     <dialogue_part id="5" text="I jak tam polowanie na wilki?">
-        <dialogue_button order="0" response="Super" endbutton="false" nextId="6" requireItem="WolfPelt" requiredAmount="10" failNextId="6"/>
+        <dialogue_button order="0" response="Super" endbutton="false" nextId="6" requiredItem="WolfPelt" requiredAmount="10" failNextId="6"/>
         <dialogue_button order="1" response="Muszę się za to zabrać" endbutton="true" nextId="5"/>
     </dialogue_part>
     <dialogue_part id="6" text="Czekam na skóry więc.">

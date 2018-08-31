@@ -48,7 +48,7 @@ public class Dialogue {
 
     public void addDialoguePart(DialoguePart dialoguePart) {
         dialogueParts.add(dialoguePart);
-        dialoguePart.finalizeButtons();
+        //dialoguePart.finalizeButtons();
     }
 
     public ArrayList<DialoguePart> getDialogueParts() {

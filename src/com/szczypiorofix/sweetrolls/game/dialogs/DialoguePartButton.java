@@ -21,23 +21,46 @@ public class DialoguePartButton extends GameObject {
     private boolean endButton;
     private boolean random;
     private int nextId;
-    private int order;
     private int rangeFrom, rangeTo;
+    private String requiredItem;
+    private int requiredAmount;
+    private int failNextId;
+    private int bId;
+    private int unlockId;
+    private boolean locked;
     public static final int BX = 30;
     public static int BY = 570;
-    public static final int BWIDTH = 250;
+    public static final int BWIDTH = 360;
     public static final int BHEIGHT = 40;
 
-
-    public DialoguePartButton(String order, String response, String endButton, String nextId, String random, String rangeFrom, String rangeTo) {
+    public DialoguePartButton(String id,
+                              String response,
+                              String endButton,
+                              String nextId,
+                              String random,
+                              String rangeFrom,
+                              String rangeTo,
+                              String requiredItem,
+                              String requiredAmount,
+                              String failNextId,
+                              String locked,
+                              String unlockId) {
         super(response, BX, BY, BWIDTH, BHEIGHT, ObjectType.GUI);
-        this.order = Integer.parseInt(order);
+        this.bId = Integer.parseInt(id);
         this.response = response;
         this.endButton = Boolean.parseBoolean(endButton);
         this.random = Boolean.parseBoolean(random);
         this.nextId = Integer.parseInt(nextId);
         this.rangeFrom = Integer.parseInt(rangeFrom);
         this.rangeTo = Integer.parseInt(rangeTo);
+        this.requiredItem = requiredItem;
+        this.requiredAmount = Integer.parseInt(requiredAmount);
+        this.failNextId = Integer.parseInt(failNextId);
+        this.locked = Boolean.parseBoolean(locked);
+        this.unlockId = Integer.parseInt(unlockId);
+    }
+
+    public void setFontForGame() {
         font = FontParser.getFont("Immortal Menu Button Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
         font.setSize(5f);
     }
@@ -56,14 +79,6 @@ public class DialoguePartButton extends GameObject {
 
     public void setRangeTo(int rangeTo) {
         this.rangeTo = rangeTo;
-    }
-
-    public int getOrder() {
-        return order;
-    }
-
-    public void setOrder(int order) {
-        this.order = order;
     }
 
     public String getResponse() {
@@ -98,11 +113,66 @@ public class DialoguePartButton extends GameObject {
         this.random = random;
     }
 
+    public String getRequiredItem() {
+        return requiredItem;
+    }
+
+    public void setRequiredItem(String requiredItem) {
+        this.requiredItem = requiredItem;
+    }
+
+    public int getRequiredAmount() {
+        return requiredAmount;
+    }
+
+    public void setRequiredAmount(int requiredAmount) {
+        this.requiredAmount = requiredAmount;
+    }
+
+    public int getFailNextId() {
+        return failNextId;
+    }
+
+    public void setFailNextId(int failNextId) {
+        this.failNextId = failNextId;
+    }
+
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
+
+    public int getbId() {
+        return bId;
+    }
+
+    public void setbId(int bId) {
+        this.bId = bId;
+    }
+
+    public int getUnlockId() {
+        return unlockId;
+    }
+
+    public void setUnlockId(int unlockId) {
+        this.unlockId = unlockId;
+    }
+
     @Override
     public void update(int delta, float offsetX, float offsetY) throws SlickException {}
 
     @Override
     public void render(Graphics g, float offsetX, float offsetY) throws SlickException {
+        g.drawRect(x - 5, y - 2, width + 5, height + 4);
+        font.draw(response, x, y + 10);
+    }
+
+    public void render(Graphics g, float offsetX, float offsetY, int x, int y) throws SlickException {
+        this.x = x;
+        this.y = y;
         g.drawRect(x - 5, y - 2, width + 5, height + 4);
         font.draw(response, x, y + 10);
     }
