@@ -60,6 +60,33 @@ public class DialoguePartButton extends GameObject {
         this.unlockId = Integer.parseInt(unlockId);
     }
 
+    public DialoguePartButton(String id,
+                              String response,
+                              boolean endButton,
+                              String nextId,
+                              boolean random,
+                              String rangeFrom,
+                              String rangeTo,
+                              String requiredItem,
+                              String requiredAmount,
+                              String failNextId,
+                              boolean locked,
+                              String unlockId) {
+        super(response, BX, BY, BWIDTH, BHEIGHT, ObjectType.GUI);
+        this.bId = Integer.parseInt(id);
+        this.response = response;
+        this.endButton = endButton;
+        this.random = random;
+        this.nextId = Integer.parseInt(nextId);
+        this.rangeFrom = Integer.parseInt(rangeFrom);
+        this.rangeTo = Integer.parseInt(rangeTo);
+        this.requiredItem = requiredItem;
+        this.requiredAmount = Integer.parseInt(requiredAmount);
+        this.failNextId = Integer.parseInt(failNextId);
+        this.locked = locked;
+        this.unlockId = Integer.parseInt(unlockId);
+    }
+
     public void setFontForGame() {
         font = FontParser.getFont("Immortal Menu Button Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
         font.setSize(5f);
@@ -175,5 +202,23 @@ public class DialoguePartButton extends GameObject {
         this.y = y;
         g.drawRect(x - 5, y - 2, width + 5, height + 4);
         font.draw(response, x, y + 10);
+    }
+
+    @Override
+    public String toString() {
+        return "DialoguePartButton{" +
+                "response='" + response + '\'' +
+                ", endButton=" + endButton +
+                ", random=" + random +
+                ", nextId=" + nextId +
+                ", rangeFrom=" + rangeFrom +
+                ", rangeTo=" + rangeTo +
+                ", requiredItem='" + requiredItem + '\'' +
+                ", requiredAmount=" + requiredAmount +
+                ", failNextId=" + failNextId +
+                ", bId=" + bId +
+                ", unlockId=" + unlockId +
+                ", locked=" + locked +
+                '}';
     }
 }

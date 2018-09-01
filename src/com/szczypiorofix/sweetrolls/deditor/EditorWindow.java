@@ -28,6 +28,8 @@ public class EditorWindow extends JFrame {
     private JMenu menuFile;
     private JMenuItem menuFileOpen, menuFileSave, menuFileExit;
     private JFileChooser fc;
+    private JButton addDialoguePartButton;
+    private AddNewDialoguePartDialog addNewDialoguePartDialog;
 
     public EditorWindow(String title) throws HeadlessException {
         super(title);
@@ -40,6 +42,13 @@ public class EditorWindow extends JFrame {
         mainScrollPanel = new JScrollPane(mainPanel);
         add(mainScrollPanel, BorderLayout.CENTER);
         add(functionalButtonsPanel, BorderLayout.NORTH);
+
+        addNewDialoguePartDialog = new AddNewDialoguePartDialog(this);
+
+        addDialoguePartButton = functionalButtonsPanel.getAddDialoguePartButton();
+        addDialoguePartButton.addActionListener(e -> {
+            addNewDialoguePartDialog.setVisible(true);
+        });
 
         menuBar = new JMenuBar();
         menuFile = new JMenu("File");

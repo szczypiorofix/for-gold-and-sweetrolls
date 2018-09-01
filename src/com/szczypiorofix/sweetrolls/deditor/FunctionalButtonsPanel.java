@@ -21,4 +21,9 @@ public class FunctionalButtonsPanel extends JPanel {
 
         add(addDialoguePartButton);
     }
+
+    public JButton getAddDialoguePartButton() {
+        return addDialoguePartButton;
+    }
+
 }
