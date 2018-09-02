@@ -46,8 +46,7 @@ public class NPC extends Character {
             npcImage = Textures.getInstance().classm32.getSprite(0, 0);
         } else npcImage = image;
 
-        font = FontParser.getFont("Immortal NPC Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
-        font.setSize(5.5f);
+        font = FontParser.getFont();
 
         characterType = estimateCharacterType(getStringProperty("type"));
         statistics.P_MaxHealth = getIntegerProperty("maxhealth");

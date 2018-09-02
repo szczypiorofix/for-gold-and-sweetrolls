@@ -30,8 +30,7 @@ public class InventoryContainer extends GameObject {
         this.x = x;
         this.y = y;
         this.item = item;
-        font = FontParser.getFont("BitMap Inventory Font", "immortal-bitmap.xml", "immortal-bitmap.png");
-        font.setSize(4.5f);
+        font = FontParser.getFont();
     }
 
 

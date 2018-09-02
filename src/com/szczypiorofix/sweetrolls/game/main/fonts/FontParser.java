@@ -20,17 +20,18 @@ import java.util.LinkedList;
 
 public class FontParser {
 
-    private static HashMap<String, BitMapFont> fonts;
 
+    private static FontParser instance = null;
+    private BitMapFont bitMapFont;
 
-    private static BitMapFont getBitMapFont(String fontName, String xmlFontName, String pngFontName) {
-        BitMapFont bitMapFont = new BitMapFont(fontName);
-        bitMapFont.setFontImage(pngFontName);
+    private FontParser() {
+        bitMapFont = new BitMapFont();
+        bitMapFont.setFontImage("immortal-bitmap.png");
 
-        System.out.println("Rejestracja nowego fontu: "+fontName+", "+xmlFontName);
+        System.out.println("Rejestracja nowego fontu.");
 
         try {
-            InputStream in = FontParser.class.getResourceAsStream("/fonts/"+xmlFontName);
+            InputStream in = FontParser.class.getResourceAsStream("/fonts/immortal-bitmap.xml");
             //File inputFile = new File(MainClass.RES + "fonts/" + xmlFontName);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -69,19 +70,16 @@ public class FontParser {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    private BitMapFont getBitMapFont() {
         return bitMapFont;
     }
 
-    public static BitMapFont getFont(String fontName, String xmlFontName, String pngFontName) {
-        BitMapFont font;
-        if (fonts == null) {
-            fonts = new HashMap<>();
+    public static BitMapFont getFont() {
+        if (instance == null) {
+            instance = new FontParser();
         }
-        if (!fonts.containsKey(fontName)) {
-            font = getBitMapFont(fontName, xmlFontName,pngFontName);
-            fonts.put(fontName, font);
-        } else font = fonts.get(fontName);
-        return font;
+        return instance.getBitMapFont();
     }
 
 }

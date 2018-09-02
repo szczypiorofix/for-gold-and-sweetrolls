@@ -1,113 +1,113 @@
-<font width="75" height="72" space="27">
-  <item ascii="33" raw="!" top="15" bottom="13" x="487" y="367" width="17" height="44" trailing="-1" />
-  <item ascii="34" top="12" bottom="35" x="335" y="372" width="22" height="25" trailing="-1" />
-  <item ascii="35" raw="#" top="18" bottom="26" x="168" y="341" width="31" height="28" trailing="-1" />
-  <item ascii="36" raw="$" top="9" bottom="13" x="297" y="190" width="35" height="50" trailing="-1" />
-  <item ascii="37" raw="%" top="11" bottom="16" x="315" y="53" width="56" height="45" trailing="-1" />
-  <item ascii="38" top="11" bottom="17" x="136" y="159" width="43" height="44" trailing="-1" />
-  <item ascii="39" raw="'" top="12" bottom="35" x="222" y="361" width="12" height="25" trailing="-1" />
-  <item ascii="40" raw="(" top="9" x="261" y="201" width="26" height="63" trailing="-1" />
-  <item ascii="41" raw=")" top="9" x="333" y="190" width="26" height="63" trailing="-1" />
-  <item ascii="42" raw="*" top="13" bottom="36" x="266" y="377" width="23" height="23" trailing="-1" />
-  <item ascii="43" raw="+" top="12" bottom="21" x="324" y="254" width="38" height="39" trailing="-1" />
-  <item ascii="44" raw="," top="42" bottom="10" x="318" y="389" width="15" height="20" trailing="-1" />
-  <item ascii="45" raw="-" top="34" bottom="29" x="75" y="392" width="26" height="9" trailing="-2" />
-  <item ascii="46" raw="." top="42" bottom="14" x="422" y="391" width="17" height="16" trailing="-1" />
-  <item ascii="47" raw="/" top="6" bottom="9" x="278" y="99" width="41" height="57" trailing="-1" />
-  <item ascii="48" raw="0" top="12" bottom="17" x="91" y="204" width="38" height="43" trailing="-1" />
-  <item ascii="49" raw="1" top="10" bottom="18" x="340" y="327" width="25" height="44" />
-  <item ascii="50" raw="2" top="12" bottom="16" x="168" y="226" width="36" height="44" trailing="-1" />
-  <item ascii="51" raw="3" top="12" bottom="17" x="244" y="265" width="34" height="43" />
-  <item ascii="52" raw="4" top="11" bottom="17" x="130" y="204" width="37" height="44" trailing="-1" />
-  <item ascii="53" raw="5" top="13" bottom="17" x="202" y="287" width="34" height="42" trailing="-1" />
-  <item ascii="54" raw="6" top="10" bottom="17" x="0" y="242" width="34" height="45" />
-  <item ascii="55" raw="7" top="12" bottom="16" x="40" y="202" width="38" height="44" leading="-1" trailing="-1" />
-  <item ascii="56" raw="8" top="12" bottom="17" x="438" y="247" width="35" height="43" trailing="-1" />
-  <item ascii="57" raw="9" top="12" bottom="15" x="288" y="241" width="35" height="45" trailing="-1" />
-  <item ascii="58" raw=":" top="24" bottom="14" x="168" y="370" width="17" height="34" trailing="-1" />
-  <item ascii="59" raw=";" top="24" bottom="10" x="366" y="368" width="17" height="38" trailing="-1" />
-  <item ascii="60" top="14" bottom="22" x="120" y="329" width="30" height="36" trailing="-1" />
-  <item ascii="61" raw="=" top="20" bottom="30" x="35" y="368" width="34" height="22" trailing="-1" />
-  <item ascii="62" top="14" bottom="22" x="394" y="327" width="30" height="36" trailing="-1" />
-  <item ascii="63" raw="?" top="12" bottom="13" x="468" y="305" width="25" height="47" trailing="-1" />
-  <item ascii="64" raw="@" top="6" bottom="4" x="0" y="0" width="72" height="62" trailing="-1" />
-  <item ascii="65" raw="A" top="12" bottom="17" x="320" y="146" width="49" height="43" trailing="-1" />
-  <item ascii="66" raw="B" top="11" bottom="17" x="407" y="199" width="39" height="44" />
-  <item ascii="67" raw="C" top="12" bottom="17" x="407" y="155" width="46" height="43" trailing="-1" />
-  <item ascii="68" raw="D" top="12" bottom="17" x="0" y="108" width="53" height="43" trailing="-1" />
-  <item ascii="69" raw="E" top="12" bottom="17" x="252" y="157" width="44" height="43" trailing="-1" />
-  <item ascii="70" raw="F" top="11" bottom="17" x="0" y="197" width="39" height="44" trailing="-1" />
-  <item ascii="71" raw="G" top="12" bottom="17" x="150" y="115" width="51" height="43" trailing="-1" />
-  <item ascii="72" raw="H" top="11" bottom="16" x="255" y="45" width="59" height="45" trailing="-1" />
-  <item ascii="73" raw="I" top="12" bottom="17" x="54" y="324" width="26" height="43" trailing="-1" />
-  <item ascii="74" raw="J" top="12" bottom="2" x="370" y="149" width="36" height="58" trailing="-1" />
-  <item ascii="75" raw="K" top="11" bottom="17" x="202" y="136" width="49" height="44" trailing="-1" />
-  <item ascii="76" raw="L" top="11" bottom="17" x="47" y="157" width="43" height="44" trailing="-1" />
-  <item ascii="77" raw="M" top="11" bottom="17" x="255" y="0" width="67" height="44" trailing="-1" />
-  <item ascii="78" raw="N" top="12" bottom="16" x="425" y="110" width="51" height="44" trailing="-1" />
-  <item ascii="79" raw="O" top="12" bottom="17" x="371" y="105" width="53" height="43" trailing="-1" />
-  <item ascii="80" raw="P" top="12" bottom="16" x="180" y="181" width="41" height="44" trailing="-1" />
-  <item ascii="81" raw="Q" top="11" bottom="9" x="323" y="0" width="54" height="52" trailing="-1" />
-  <item ascii="82" raw="R" top="12" bottom="16" x="454" y="155" width="44" height="44" trailing="-1" />
-  <item ascii="83" raw="S" top="11" bottom="17" x="222" y="201" width="38" height="44" trailing="-1" />
-  <item ascii="84" raw="T" top="10" bottom="15" x="125" y="56" width="52" height="47" trailing="-1" />
-  <item ascii="85" raw="U" top="11" bottom="17" x="223" y="91" width="54" height="44" trailing="-1" />
-  <item ascii="86" raw="V" top="11" bottom="12" x="378" y="0" width="57" height="49" trailing="-1" />
-  <item ascii="87" raw="W" top="12" bottom="15" x="73" y="0" width="75" height="45" trailing="-1" />
-  <item ascii="88" raw="X" top="12" bottom="16" x="0" y="63" width="54" height="44" trailing="-1" />
-  <item ascii="89" raw="Y" top="11" bottom="17" x="97" y="104" width="52" height="44" trailing="-1" />
-  <item ascii="90" raw="Z" top="11" bottom="15" x="320" y="99" width="50" height="46" trailing="-1" />
-  <item ascii="91" raw="[" top="9" bottom="2" x="151" y="341" width="16" height="61" trailing="-1" />
-  <item ascii="92" raw="\" top="6" bottom="9" x="55" y="99" width="41" height="57" trailing="-1" />
-  <item ascii="93" raw="]" top="9" bottom="2" x="494" y="305" width="16" height="61" trailing="-1" />
-  <item ascii="94" raw="^" top="11" bottom="43" x="290" y="389" width="27" height="18" trailing="-1" />
-  <item ascii="95" raw="_" top="53" bottom="11" x="31" y="391" width="43" height="8" trailing="-1" />
-  <item ascii="97" raw="a" top="27" bottom="15" x="161" y="310" width="38" height="30" trailing="-1" />
-  <item ascii="98" raw="b" top="16" bottom="17" x="124" y="289" width="36" height="39" />
-  <item ascii="99" raw="c" top="27" bottom="17" x="81" y="363" width="29" height="28" trailing="-1" />
-  <item ascii="100" raw="d" top="16" bottom="15" x="433" y="291" width="34" height="41" trailing="-1" />
-  <item ascii="101" raw="e" top="27" bottom="17" x="425" y="362" width="29" height="28" trailing="-1" />
-  <item ascii="102" raw="f" top="10" bottom="17" x="90" y="248" width="33" height="45" trailing="-1" />
-  <item ascii="103" raw="g" top="27" bottom="3" x="398" y="284" width="34" height="42" trailing="-1" />
-  <item ascii="104" raw="h" top="16" bottom="17" x="397" y="244" width="40" height="39" leading="-1" trailing="-2" />
-  <item ascii="105" raw="i" top="10" bottom="17" x="236" y="350" width="19" height="45" trailing="-1" />
-  <item ascii="106" raw="j" top="10" bottom="2" x="485" y="200" width="25" height="60" trailing="-1" />
-  <item ascii="107" raw="k" top="16" bottom="17" x="124" y="249" width="38" height="39" trailing="-1" />
-  <item ascii="108" raw="l" top="16" bottom="17" x="200" y="361" width="21" height="39" trailing="-1" />
-  <item ascii="109" raw="m" top="27" bottom="17" x="35" y="247" width="54" height="28" trailing="-1" />
-  <item ascii="110" raw="n" top="27" bottom="17" x="425" y="333" width="38" height="28" trailing="-1" />
-  <item ascii="111" raw="o" top="27" bottom="17" x="0" y="359" width="34" height="28" trailing="-1" />
-  <item ascii="112" raw="p" top="25" bottom="1" x="447" y="200" width="37" height="46" />
-  <item ascii="113" raw="q" top="26" bottom="2" x="360" y="208" width="36" height="44" trailing="-1" />
-  <item ascii="114" raw="r" top="26" bottom="17" x="111" y="366" width="27" height="29" trailing="-1" />
-  <item ascii="115" raw="s" top="26" bottom="17" x="394" y="364" width="27" height="29" trailing="-1" />
-  <item ascii="116" raw="t" top="17" bottom="17" x="464" y="353" width="22" height="38" trailing="-1" />
-  <item ascii="117" raw="u" top="27" bottom="15" x="200" y="330" width="35" height="30" trailing="-1" />
-  <item ascii="118" raw="v" top="27" bottom="16" x="267" y="347" width="33" height="29" trailing="-1" />
-  <item ascii="119" raw="w" top="27" bottom="16" x="71" y="294" width="48" height="29" trailing="-1" />
-  <item ascii="120" raw="x" top="28" bottom="17" x="301" y="361" width="33" height="27" trailing="-1" />
-  <item ascii="121" raw="y" top="27" bottom="2" x="474" y="261" width="34" height="43" trailing="-1" />
-  <item ascii="122" raw="z" top="27" bottom="17" x="304" y="332" width="35" height="28" trailing="-2" />
-  <item ascii="123" raw="{" top="12" bottom="1" x="0" y="288" width="24" height="59" trailing="-1" />
-  <item ascii="124" raw="|" top="5" bottom="8" x="256" y="350" width="9" height="59" />
-  <item ascii="125" raw="}" top="12" bottom="1" x="279" y="287" width="24" height="59" trailing="-1" />
-  <item ascii="126" raw="~" top="16" bottom="39" x="0" y="388" width="30" height="17" trailing="-1" />
-  <item ucode="211" bottom="17" x="149" y="0" width="54" height="55" trailing="-1" />
-  <item ucode="243" top="13" bottom="17" x="363" y="284" width="34" height="42" />
-  <item ucode="260" top="12" bottom="6" x="378" y="50" width="49" height="54" trailing="-1" />
-  <item ucode="261" top="27" bottom="5" x="205" y="246" width="38" height="40" trailing="-1" />
-  <item ucode="262" top="1" bottom="17" x="428" y="55" width="46" height="54" trailing="-1" />
-  <item ucode="263" top="15" bottom="17" x="237" y="309" width="29" height="40" trailing="-1" />
-  <item ucode="280" top="12" bottom="6" x="178" y="60" width="44" height="54" trailing="-1" />
-  <item ucode="281" top="27" bottom="7" x="81" y="324" width="29" height="38" trailing="-1" />
-  <item ucode="321" top="11" bottom="17" x="0" y="152" width="46" height="44" trailing="-1" />
-  <item ucode="322" top="15" bottom="17" x="25" y="318" width="28" height="40" trailing="-1" />
-  <item ucode="323" top="4" bottom="16" x="73" y="46" width="51" height="52" trailing="-1" />
-  <item ucode="324" top="17" bottom="17" x="163" y="271" width="38" height="38" trailing="-1" />
-  <item ucode="346" top="1" bottom="17" x="97" y="149" width="38" height="54" trailing="-1" />
-  <item ucode="347" top="15" bottom="17" x="366" y="327" width="27" height="40" trailing="-1" />
-  <item ucode="377" top="3" bottom="15" x="436" y="0" width="50" height="54" trailing="-1" />
-  <item ucode="378" top="18" bottom="17" x="304" y="294" width="35" height="37" trailing="-2" />
-  <item ucode="379" top="-2" bottom="15" x="204" y="0" width="50" height="59" trailing="-1" />
-  <item ucode="380" top="14" bottom="17" x="35" y="276" width="35" height="41" trailing="-2" />
+<font width="23" height="21" space="8">
+  <item ascii="33" raw="!" top="3" bottom="4" x="135" y="91" width="8" height="14" trailing="-1" />
+  <item ascii="34" top="2" bottom="10" x="34" y="94" width="9" height="9" trailing="-1" />
+  <item ascii="35" raw="#" top="3" bottom="7" x="219" y="86" width="11" height="11" trailing="-1" />
+  <item ascii="36" raw="$" top="1" bottom="3" x="214" y="33" width="13" height="17" trailing="-1" />
+  <item ascii="37" raw="%" top="2" bottom="4" x="236" y="16" width="18" height="15" trailing="-1" />
+  <item ascii="38" top="2" bottom="5" x="136" y="37" width="15" height="14" trailing="-1" />
+  <item ascii="39" raw="'" top="2" bottom="10" x="44" y="94" width="6" height="9" trailing="-1" />
+  <item ascii="40" raw="(" top="1" x="44" y="39" width="10" height="20" trailing="-1" />
+  <item ascii="41" raw=")" top="1" x="33" y="39" width="10" height="20" trailing="-1" />
+  <item ascii="42" raw="*" top="2" bottom="10" x="169" y="93" width="10" height="9" trailing="-1" />
+  <item ascii="43" raw="+" top="3" bottom="6" x="219" y="73" width="13" height="12" trailing="-1" />
+  <item ascii="44" raw="," top="10" bottom="3" x="98" y="96" width="7" height="8" trailing="-1" />
+  <item ascii="45" raw="-" top="8" bottom="8" x="0" y="96" width="10" height="5" trailing="-1" />
+  <item ascii="46" raw="." top="10" bottom="4" x="89" y="96" width="8" height="7" trailing="-1" />
+  <item ascii="47" raw="/" bottom="3" x="103" y="18" width="14" height="18" trailing="-1" />
+  <item ascii="48" raw="0" top="2" bottom="5" x="14" y="62" width="13" height="14" trailing="-1" />
+  <item ascii="49" raw="1" top="1" bottom="5" x="13" y="77" width="10" height="15" trailing="-1" />
+  <item ascii="50" raw="2" top="2" bottom="4" x="55" y="50" width="13" height="15" trailing="-1" />
+  <item ascii="51" raw="3" top="2" bottom="5" x="0" y="69" width="12" height="14" trailing="-1" />
+  <item ascii="52" raw="4" top="2" bottom="5" x="115" y="61" width="13" height="14" trailing="-1" />
+  <item ascii="53" raw="5" top="2" bottom="5" x="82" y="69" width="12" height="14" trailing="-1" />
+  <item ascii="54" raw="6" top="1" bottom="5" x="182" y="49" width="13" height="15" trailing="-1" />
+  <item ascii="55" raw="7" top="1" bottom="5" x="168" y="49" width="13" height="15" trailing="-1" />
+  <item ascii="56" raw="8" top="2" bottom="5" x="30" y="60" width="13" height="14" trailing="-1" />
+  <item ascii="57" raw="9" top="2" bottom="4" x="144" y="63" width="12" height="15" trailing="-1" />
+  <item ascii="58" raw=":" top="5" bottom="4" x="64" y="93" width="8" height="12" trailing="-1" />
+  <item ascii="59" raw=";" top="5" bottom="3" x="12" y="93" width="8" height="13" trailing="-1" />
+  <item ascii="60" top="2" bottom="6" x="39" y="80" width="11" height="13" trailing="-1" />
+  <item ascii="61" raw="=" top="4" bottom="8" x="119" y="93" width="12" height="9" trailing="-1" />
+  <item ascii="62" top="2" bottom="6" x="169" y="79" width="11" height="13" trailing="-1" />
+  <item ascii="63" raw="?" top="2" bottom="4" x="110" y="76" width="10" height="15" trailing="-1" />
+  <item ascii="64" raw="@" bottom="1" x="0" y="0" width="23" height="20" trailing="-1" />
+  <item ascii="65" raw="A" top="1" bottom="5" x="162" y="17" width="17" height="15" trailing="-1" />
+  <item ascii="66" raw="B" top="2" bottom="5" x="72" y="48" width="14" height="14" trailing="-1" />
+  <item ascii="67" raw="C" top="1" bottom="5" x="56" y="19" width="16" height="15" trailing="-1" />
+  <item ascii="68" raw="D" top="2" bottom="5" x="15" y="32" width="17" height="14" trailing="-1" />
+  <item ascii="69" raw="E" top="2" bottom="5" x="56" y="35" width="15" height="14" trailing="-1" />
+  <item ascii="70" raw="F" top="2" bottom="5" x="15" y="47" width="14" height="14" trailing="-1" />
+  <item ascii="71" raw="G" top="1" bottom="5" x="197" y="17" width="17" height="15" trailing="-1" />
+  <item ascii="72" raw="H" top="2" bottom="4" x="181" y="0" width="19" height="15" trailing="-1" />
+  <item ascii="73" raw="I" top="1" bottom="5" x="28" y="75" width="10" height="15" trailing="-1" />
+  <item ascii="74" raw="J" top="2" x="42" y="19" width="13" height="19" trailing="-1" />
+  <item ascii="75" raw="K" top="2" bottom="5" x="197" y="33" width="16" height="14" trailing="-1" />
+  <item ascii="76" raw="L" top="2" bottom="5" x="180" y="34" width="15" height="14" trailing="-1" />
+  <item ascii="77" raw="M" top="2" bottom="5" x="122" y="0" width="21" height="14" trailing="-1" />
+  <item ascii="78" raw="N" top="2" bottom="5" x="234" y="32" width="17" height="14" trailing="-1" />
+  <item ascii="79" raw="O" top="2" bottom="5" x="84" y="18" width="18" height="14" trailing="-1" />
+  <item ascii="80" raw="P" top="2" bottom="5" x="228" y="47" width="14" height="14" trailing="-1" />
+  <item ascii="81" raw="Q" top="2" bottom="2" x="103" y="0" width="18" height="17" trailing="-1" />
+  <item ascii="82" raw="R" top="1" bottom="5" x="156" y="33" width="15" height="15" trailing="-1" />
+  <item ascii="83" raw="S" top="2" bottom="5" x="115" y="46" width="14" height="14" trailing="-1" />
+  <item ascii="84" raw="T" top="1" bottom="5" x="122" y="15" width="18" height="15" trailing="-1" />
+  <item ascii="85" raw="U" top="2" bottom="5" x="215" y="18" width="18" height="14" trailing="-1" />
+  <item ascii="86" raw="V" top="2" bottom="3" x="162" y="0" width="18" height="16" trailing="-1" />
+  <item ascii="87" raw="W" top="2" bottom="4" x="24" y="0" width="23" height="15" trailing="-1" />
+  <item ascii="88" raw="X" top="2" bottom="4" x="236" y="0" width="18" height="15" trailing="-1" />
+  <item ascii="89" raw="Y" top="2" bottom="5" x="118" y="31" width="17" height="14" trailing="-1" />
+  <item ascii="90" raw="Z" top="1" bottom="5" x="24" y="16" width="17" height="15" trailing="-1" />
+  <item ascii="91" raw="[" top="1" x="210" y="71" width="8" height="20" trailing="-1" />
+  <item ascii="92" raw="\" bottom="3" x="141" y="18" width="14" height="18" trailing="-1" />
+  <item ascii="93" raw="]" top="1" x="58" y="66" width="8" height="20" trailing="-1" />
+  <item ascii="94" raw="^" top="2" bottom="12" x="231" y="96" width="10" height="7" trailing="-1" />
+  <item ascii="95" raw="_" top="13" bottom="3" x="73" y="95" width="15" height="5" trailing="-1" />
+  <item ascii="97" raw="a" top="5" bottom="5" x="95" y="73" width="14" height="11" trailing="-1" />
+  <item ascii="98" raw="b" top="2" bottom="5" x="101" y="58" width="13" height="14" trailing="-1" />
+  <item ascii="99" raw="c" top="6" bottom="5" x="181" y="92" width="11" height="10" trailing="-1" />
+  <item ascii="100" raw="d" top="3" bottom="4" x="0" y="54" width="13" height="14" trailing="-1" />
+  <item ascii="101" raw="e" top="6" bottom="5" x="107" y="92" width="11" height="10" trailing="-1" />
+  <item ascii="102" raw="f" top="1" bottom="5" x="69" y="63" width="12" height="15" trailing="-1" />
+  <item ascii="103" raw="g" top="6" bottom="1" x="87" y="54" width="13" height="14" trailing="-1" />
+  <item ascii="104" raw="h" top="3" bottom="5" x="152" y="49" width="15" height="13" trailing="-1" />
+  <item ascii="105" raw="i" top="1" bottom="5" x="200" y="78" width="8" height="15" trailing="-1" />
+  <item ascii="106" raw="j" top="1" x="104" y="37" width="10" height="20" trailing="-1" />
+  <item ascii="107" raw="k" top="3" bottom="5" x="44" y="66" width="13" height="13" trailing="-1" />
+  <item ascii="108" raw="l" top="3" bottom="5" x="24" y="91" width="9" height="13" trailing="-1" />
+  <item ascii="109" raw="m" top="6" bottom="5" x="221" y="62" width="18" height="10" trailing="-1" />
+  <item ascii="110" raw="n" top="6" bottom="5" x="93" y="85" width="13" height="10" trailing="-1" />
+  <item ascii="111" raw="o" top="6" bottom="5" x="79" y="84" width="13" height="10" trailing="-1" />
+  <item ascii="112" raw="p" top="5" bottom="1" x="196" y="48" width="13" height="15" trailing="-1" />
+  <item ascii="113" raw="q" top="5" x="90" y="37" width="13" height="16" trailing="-1" />
+  <item ascii="114" raw="r" top="5" bottom="5" x="0" y="84" width="11" height="11" trailing="-1" />
+  <item ascii="115" raw="s" top="5" bottom="5" x="144" y="91" width="10" height="11" trailing="-1" />
+  <item ascii="116" raw="t" top="3" bottom="5" x="244" y="82" width="10" height="13" trailing="-1" />
+  <item ascii="117" raw="u" top="6" bottom="5" x="121" y="82" width="13" height="10" trailing="-1" />
+  <item ascii="118" raw="v" top="6" bottom="5" x="156" y="91" width="12" height="10" trailing="-1" />
+  <item ascii="119" raw="w" top="6" bottom="4" x="157" y="65" width="16" height="11" trailing="-1" />
+  <item ascii="120" raw="x" top="6" bottom="5" x="51" y="87" width="12" height="10" trailing="-1" />
+  <item ascii="121" raw="y" top="6" bottom="1" x="240" y="67" width="12" height="14" trailing="-1" />
+  <item ascii="122" raw="z" top="5" bottom="5" x="142" y="79" width="13" height="11" trailing="-1" />
+  <item ascii="123" raw="{" top="2" x="210" y="51" width="10" height="19" trailing="-1" />
+  <item ascii="124" raw="|" bottom="3" x="209" y="92" width="6" height="18" trailing="-1" />
+  <item ascii="125" raw="}" top="2" x="243" y="47" width="10" height="19" trailing="-1" />
+  <item ascii="126" raw="~" top="3" bottom="11" x="193" y="94" width="11" height="7" trailing="-1" />
+  <item ucode="211" top="-1" bottom="5" x="84" y="0" width="18" height="17" trailing="-1" />
+  <item ucode="243" top="2" bottom="5" x="129" y="67" width="12" height="14" trailing="-1" />
+  <item ucode="260" top="1" bottom="2" x="66" y="0" width="17" height="18" trailing="-1" />
+  <item ucode="261" top="5" bottom="2" x="0" y="39" width="14" height="14" trailing="-1" />
+  <item ucode="262" top="-1" bottom="5" x="219" y="0" width="16" height="17" trailing="-1" />
+  <item ucode="263" top="3" bottom="5" x="67" y="79" width="11" height="13" trailing="-1" />
+  <item ucode="280" top="2" bottom="2" x="181" y="16" width="15" height="17" trailing="-1" />
+  <item ucode="281" top="6" bottom="2" x="188" y="78" width="11" height="13" trailing="-1" />
+  <item ucode="321" top="2" bottom="5" x="73" y="33" width="16" height="14" trailing="-1" />
+  <item ucode="322" top="3" bottom="5" x="157" y="77" width="11" height="13" trailing="-1" />
+  <item ucode="323" bottom="5" x="201" y="0" width="17" height="16" trailing="-1" />
+  <item ucode="324" top="3" bottom="5" x="174" y="65" width="13" height="13" trailing="-1" />
+  <item ucode="346" top="-1" bottom="5" x="0" y="21" width="14" height="17" trailing="-1" />
+  <item ucode="347" top="3" bottom="5" x="233" y="82" width="10" height="13" trailing="-1" />
+  <item ucode="377" top="-1" bottom="5" x="144" y="0" width="17" height="17" trailing="-1" />
+  <item ucode="378" top="3" bottom="5" x="196" y="64" width="13" height="13" trailing="-1" />
+  <item ucode="379" top="-2" bottom="5" x="48" y="0" width="17" height="18" trailing="-1" />
+  <item ucode="380" top="2" bottom="5" x="130" y="52" width="13" height="14" trailing="-1" />
 </font>

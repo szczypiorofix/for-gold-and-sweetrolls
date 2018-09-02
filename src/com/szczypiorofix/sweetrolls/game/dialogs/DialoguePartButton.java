@@ -88,8 +88,7 @@ public class DialoguePartButton extends GameObject {
     }
 
     public void setFontForGame() {
-        font = FontParser.getFont("Immortal Menu Button Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
-        font.setSize(5f);
+        font = FontParser.getFont();
     }
 
     public int getRangeFrom() {

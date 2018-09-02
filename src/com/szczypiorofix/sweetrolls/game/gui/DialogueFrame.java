@@ -23,17 +23,14 @@ public class DialogueFrame implements CloseableFrameListener {
     private NPC npc;
     private MouseCursor mouseCursor;
     private boolean showDialog = false;
-    private BitMapFont fontS, fontL;
+    private BitMapFont font;
     private Image dialogueFrameImage;
 
 
     public DialogueFrame(Player player, MouseCursor mouseCursor) {
         this.player = player;
         this.mouseCursor = mouseCursor;
-        fontS = FontParser.getFont("Immortal NPC S Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
-        fontS.setSize(4.5f);
-        fontL = FontParser.getFont("Immortal NPC L Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
-        fontL.setSize(5.5f);
+        font = FontParser.getFont();
         dialogueFrameImage = Textures.getInstance().dialogueFrame;
     }
 
@@ -86,8 +83,8 @@ public class DialogueFrame implements CloseableFrameListener {
     public void render(Graphics g) throws SlickException {
         if (showDialog) {
             dialogueFrameImage.draw(10, 300);
-            fontS.draw(npc.getName()+" :", 30, 310);
-            fontL.draw(npc.getDialogue().getCurrentDialoguePart().getText(), 30, 345);
+            font.draw(npc.getName()+" :", 30, 310);
+            font.draw(npc.getDialogue().getCurrentDialoguePart().getText(), 30, 345);
 
             int c = 0;
             for (int i = 0; i < npc.getDialogue().getCurrentDialoguePart().getDialoguePartButtons().size(); i++) {

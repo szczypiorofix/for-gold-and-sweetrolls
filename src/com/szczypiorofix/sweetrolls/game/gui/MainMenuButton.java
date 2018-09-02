@@ -30,8 +30,7 @@ public class MainMenuButton extends GameObject {
         this.name = name;
         image = Textures.getInstance().mainMenuMainButtons.getSprite(0, 0);
         imagePressed = Textures.getInstance().mainMenuMainButtons.getSprite(0, 1);
-        font = FontParser.getFont("Immortal Main Menu Button Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
-        font.setSize(4f);
+        font = FontParser.getFont();
         nameX = x + (width / 2) - (font.getStringLength(name) / 2);
     }
 

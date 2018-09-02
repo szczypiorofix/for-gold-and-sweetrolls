@@ -37,9 +37,7 @@ public class HUD {
         this.timeCounter = timeCounter;
         image = Textures.getInstance().hudImage;
         clockImage = Textures.getInstance().clockImage;
-        font = FontParser.getFont("HUD Font", "immortal-bitmap.xml", "immortal-bitmap.png");
-        font.setSize(4.2f);
-
+        font = FontParser.getFont();
     }
 
     public void turn() {

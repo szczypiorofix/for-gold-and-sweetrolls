@@ -22,8 +22,7 @@ public class InventoryOptionsButton extends GameObject {
     public InventoryOptionsButton(String name, int x, int y, String command) {
         super(name, x, y, 100, 25, ObjectType.GUI);
         this.command = command;
-        font = FontParser.getFont("Immortal Menu Button Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
-        font.setSize(4f);
+        font = FontParser.getFont();
     }
 
     @Override
@@ -35,7 +34,7 @@ public class InventoryOptionsButton extends GameObject {
         g.setColor(Color.black);
         g.fillRect(x - 4, y - 2, width + 4, height + 4);
         g.setColor(c);
-        font.draw(name, x, y + 5);
+        font.draw(name, (int) x, (int) (y + 5));
     }
 
 

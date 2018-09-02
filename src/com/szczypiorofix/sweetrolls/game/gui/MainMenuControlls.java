@@ -102,8 +102,7 @@ public class MainMenuControlls extends GameObject {
             }
         }
 
-        font = FontParser.getFont("Immortal Controlls Button Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
-        font.setSize(5f);
+        font = FontParser.getFont();
     }
 
     @Override

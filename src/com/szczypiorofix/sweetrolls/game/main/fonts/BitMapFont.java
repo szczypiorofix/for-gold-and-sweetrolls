@@ -16,26 +16,20 @@ public class BitMapFont {
 
     private final float DEFAULT_FONT_SIZE = 1f;
     private int fontWidth, fontHeight, fontSpace;
-    private String name;
     private ArrayList<FontChar> chars;
     private Image fontImage;
-    private float size;
-    private float scale;
 
-    public BitMapFont(String name) {
-        this.name = name;
+
+    public BitMapFont() {
         chars = new ArrayList<>();
-        size = DEFAULT_FONT_SIZE;
-        scale = 0.5f;
     }
 
-    public BitMapFont(String name, float size) {
-        this(name);
-        this.size = size;
+    public BitMapFont(float size) {
+        //this.size = size;
     }
 
-    public BitMapFont(int fontWidth, int fontHeight, int fontSpace, String name) {
-        this(name);
+    public BitMapFont(int fontWidth, int fontHeight, int fontSpace) {
+        this();
         this.fontWidth = fontWidth;
         this.fontHeight = fontHeight;
         this.fontSpace = fontSpace;
@@ -57,49 +51,16 @@ public class BitMapFont {
                         || ((int) (text.charAt(i)) == chars.get(j).getUcode() && (chars.get(j).getUcode() > 0))
                         ) {
 
-                    c += chars.get(j).getWidth() * scale;
+                    c += chars.get(j).getWidth();
                 }
                 if (text.charAt(i) == 32) {
-                    c += 0.2f * scale;
+                    c += 0.2f;
                 }
             }
         }
         return c;
     }
 
-    public void draw(String text, int x, int y) {
-        float c = 0;
-        char[] ch = text.toCharArray();
-        int line = 0;
-        for (int i = 0; i < text.length(); i++) {
-            for (int j = 0; j < chars.size(); j++) {
-                if (ch[i] == '\n' || ch[i] == '\r') {
-                    line++;
-                    c = 0;
-                }
-                if (ch[i] == chars.get(j).getAscii()
-                    || ((int) (ch[i]) == chars.get(j).getUcode() && (chars.get(j).getUcode() > 0))
-                    ) {
-
-                    fontImage.getSubImage(
-                            chars.get(j).getX(),
-                            chars.get(j).getY(),
-                            chars.get(j).getWidth(),
-                            chars.get(j).getHeight()
-                    ).draw(
-                            x + c  * scale,
-                            (int) (( y + chars.get(j).getTop() * scale ) + fontHeight * scale ) - (fontHeight * scale) + (line * scale),
-                            scale
-                    );
-
-                    c += chars.get(j).getWidth();
-                }
-                if (ch[i] == 32) {
-                    c += 0.2f;
-                }
-            }
-        }
-    }
 
     public void draw(String text, float x, float y) {
         float c = 0;
@@ -122,28 +83,19 @@ public class BitMapFont {
                             chars.get(j).getWidth(),
                             chars.get(j).getHeight()
                     ).draw(
-                            x + c  * scale,
-                            (int) (( y + chars.get(j).getTop() * scale ) + fontHeight * scale ) - (fontHeight * scale) + (line * scale),
-                            scale
+                            x + c,
+                            (int) (( y + chars.get(j).getTop() ) + fontHeight ) - (fontHeight ) + (line)
                     );
-                    c += chars.get(j).getWidth();
+                    c += chars.get(j).getWidth() - chars.get(j).getLeading() + chars.get(j).getTrailing();
                 }
 
                 if (ch[i] == 32) {
-                    c += 0.2f;
+                    c += 0.07f;
                 }
             }
         }
     }
 
-    public float getSize() {
-        return size;
-    }
-
-    public void setSize(float size) {
-        this.size = size;
-        scale = size / 16;
-    }
 
     public void addChar(FontChar fontChar) {
         chars.add(fontChar);
@@ -181,11 +133,5 @@ public class BitMapFont {
         this.fontSpace = fontSpace;
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 }

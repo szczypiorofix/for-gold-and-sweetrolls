@@ -13,11 +13,11 @@
         <dialogue_button order="0" response="Szukam pracy." endbutton="false" nextId="2"/>
         <dialogue_button order="1" response="Żegnaj" endbutton="true" nextId="1"/>
     </dialogue_part>
-    <dialogue_part id="2" text="Hmmm pracy powiadasz... Może i byłoby coś do zrobienia.">
+    <dialogue_part id="2" text="Hmmm pracy powiadasz... Może i byłoby \ncoś do zrobienia.">
         <dialogue_button order="0" response="Co takiego?" endbutton="false" nextId="3"/>
         <dialogue_button order="1" response="Nie interesuje mnie to. Żegnaj" endbutton="true" nextId="1"/>
     </dialogue_part>
-    <dialogue_part id="3" text="Musiz przynieść mi 10 skór wilków.">
+    <dialogue_part id="3" text="Musisz przynieść mi 10 skór wilków.">
         <dialogue_button order="0" response="Super! Już pędzę" endbutton="true" nextId="5"/>
         <dialogue_button order="1" response="Sam sobie poluj na wilki!" endbutton="true" nextId="4"/>
     </dialogue_part>

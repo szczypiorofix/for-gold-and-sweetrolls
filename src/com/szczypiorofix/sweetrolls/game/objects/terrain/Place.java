@@ -24,8 +24,7 @@ public class Place extends GameObject {
 
     public Place(String name, int x, int y, int width, int height, Image image, String type, ArrayList<Property> properties) {
         super(name, x, y, width, height, ObjectType.PLACE, properties);
-        font = FontParser.getFont("Immortal HUD Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
-        font.setSize(4.5f);
+        font = FontParser.getFont();
         this.type = type;
         this.image = image;
     }

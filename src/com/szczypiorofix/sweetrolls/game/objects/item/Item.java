@@ -34,8 +34,7 @@ public class Item extends GameObject {
         super(name, x, y, width, height, objectType, properties);
         this.image = image;
         this.type = type;
-        font = FontParser.getFont("Immortal HUD Bitmap Font", "immortal-bitmap.xml", "immortal-bitmap.png");
-        font.setSize(4.5f);
+        font = FontParser.getFont();
         this.pickable = getBooleanProperty("pickable");
         armorRatio = 1;
         damageRatio = 1;
