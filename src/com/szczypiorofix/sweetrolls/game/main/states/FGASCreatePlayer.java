@@ -21,7 +21,7 @@ public class FGASCreatePlayer {
     private FGASMainMenu fgasMainMenu;
     private ForGoldAndSweetrolls forGoldAndSweetrolls;
     private MainMenuControlls[] controlls;
-    private Image currentImage = null;
+    private Image currentPortraitImage = null;
     private int currentAvatarSpriteSheetId = 0;
     private int currentAvatarSpriteSheetColumns = 0;
     private SpriteSheet currentSpriteSheet = null;
@@ -42,7 +42,7 @@ public class FGASCreatePlayer {
         else currentSpriteSheet = Textures.getInstance().avatarsFemales;
 
         currentAvatarSpriteSheetColumns = currentSpriteSheet.getHorizontalCount();
-        currentImage = currentSpriteSheet.getSprite(currentAvatarSpriteSheetId % currentAvatarSpriteSheetColumns, currentAvatarSpriteSheetId / currentAvatarSpriteSheetColumns);
+        currentPortraitImage = currentSpriteSheet.getSprite(currentAvatarSpriteSheetId % currentAvatarSpriteSheetColumns, currentAvatarSpriteSheetId / currentAvatarSpriteSheetColumns);
 
         // Avatars
         // https://www.deviantart.com/artastrophe/art/BG-Portrait-Package-145216289
@@ -50,13 +50,14 @@ public class FGASCreatePlayer {
         controlls = new MainMenuControlls[8];
         controlls[0] = new MainMenuControlls(MainMenuControlls.ControlType.CANCEL, "", false, 330, 540);
         controlls[1] = new MainMenuControlls(MainMenuControlls.ControlType.OK, "", false, 380, 540);
-        controlls[2] = new MainMenuControlls(MainMenuControlls.ControlType.LEF_ARROW, "", false, 120, 260);
-        controlls[3] = new MainMenuControlls(MainMenuControlls.ControlType.RIGHT_ARROW, "", false, 270, 260);
+        controlls[2] = new MainMenuControlls(MainMenuControlls.ControlType.LEF_ARROW, "", false, 80, 320);
+        controlls[3] = new MainMenuControlls(MainMenuControlls.ControlType.RIGHT_ARROW, "", false, 220, 320);
 
-        controlls[4] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Mężczyzna", false, 450, 100);
-        controlls[5] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentSex.equals(CharacterSex.MALE), 450, 140);
+        controlls[4] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Mężczyzna", false, 420, 100);
+        controlls[5] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentSex.equals(CharacterSex.MALE), 450, 130);
         controlls[6] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Kobieta", false, 600, 100);
-        controlls[7] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentSex.equals(CharacterSex.FEMALE), 600, 140);
+        controlls[7] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentSex.equals(CharacterSex.FEMALE), 625, 130);
+
     }
 
     public void update(GameContainer gc, int delta) throws SlickException {
@@ -90,7 +91,7 @@ public class FGASCreatePlayer {
                             if (currentAvatarSpriteSheetId < 0) {
                                 currentAvatarSpriteSheetId = (currentSpriteSheet.getHorizontalCount() * currentSpriteSheet.getVerticalCount()) - 1;
                             }
-                            currentImage = currentSpriteSheet.getSprite(currentAvatarSpriteSheetId % currentAvatarSpriteSheetColumns, currentAvatarSpriteSheetId / currentAvatarSpriteSheetColumns);
+                            currentPortraitImage = currentSpriteSheet.getSprite(currentAvatarSpriteSheetId % currentAvatarSpriteSheetColumns, currentAvatarSpriteSheetId / currentAvatarSpriteSheetColumns);
                             break;
                         }
                         case 3: {
@@ -98,7 +99,7 @@ public class FGASCreatePlayer {
                             if (currentAvatarSpriteSheetId >= currentSpriteSheet.getHorizontalCount() * currentSpriteSheet.getVerticalCount()) {
                                 currentAvatarSpriteSheetId = 0;
                             }
-                            currentImage = currentSpriteSheet.getSprite(currentAvatarSpriteSheetId % currentAvatarSpriteSheetColumns, currentAvatarSpriteSheetId / currentAvatarSpriteSheetColumns);
+                            currentPortraitImage = currentSpriteSheet.getSprite(currentAvatarSpriteSheetId % currentAvatarSpriteSheetColumns, currentAvatarSpriteSheetId / currentAvatarSpriteSheetColumns);
                             break;
                         }
                         case 5: {
@@ -107,7 +108,7 @@ public class FGASCreatePlayer {
                             controlls[5].setChecked(true);
                             currentSpriteSheet = Textures.getInstance().avatarsMales;
                             currentAvatarSpriteSheetId = 0;
-                            currentImage = currentSpriteSheet.getSprite(currentAvatarSpriteSheetId % currentAvatarSpriteSheetColumns, currentAvatarSpriteSheetId / currentAvatarSpriteSheetColumns);
+                            currentPortraitImage = currentSpriteSheet.getSprite(currentAvatarSpriteSheetId % currentAvatarSpriteSheetColumns, currentAvatarSpriteSheetId / currentAvatarSpriteSheetColumns);
                             break;
                         }
                         case 7: {
@@ -116,7 +117,7 @@ public class FGASCreatePlayer {
                             controlls[5].setChecked(false);
                             currentSpriteSheet = Textures.getInstance().avatarsFemales;
                             currentAvatarSpriteSheetId = 0;
-                            currentImage = currentSpriteSheet.getSprite(currentAvatarSpriteSheetId % currentAvatarSpriteSheetColumns, currentAvatarSpriteSheetId / currentAvatarSpriteSheetColumns);
+                            currentPortraitImage = currentSpriteSheet.getSprite(currentAvatarSpriteSheetId % currentAvatarSpriteSheetColumns, currentAvatarSpriteSheetId / currentAvatarSpriteSheetColumns);
                             break;
                         }
                     }
@@ -126,11 +127,11 @@ public class FGASCreatePlayer {
     }
 
     public void render(GameContainer gc, Graphics g) throws SlickException {
+        currentPortraitImage.draw(80, 40);
         hudImage.draw(0, 0);
         for (int i = 0; i < controlls.length; i++) {
             controlls[i].render(g, 0, 0);
         }
-        currentImage.draw(170, 150);
     }
 
 }
