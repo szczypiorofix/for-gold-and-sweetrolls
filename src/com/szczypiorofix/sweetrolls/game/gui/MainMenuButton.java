@@ -26,7 +26,7 @@ public class MainMenuButton extends GameObject {
 
 
     public MainMenuButton(String name, float x, float y) {
-        super(name, x, y, 148, 32, ObjectType.GUI);
+        super(name, x, y, 168, 32, ObjectType.GUI);
         this.name = name;
         image = Textures.getInstance().mainMenuMainButtons.getSprite(0, 0);
         imagePressed = Textures.getInstance().mainMenuMainButtons.getSprite(0, 1);

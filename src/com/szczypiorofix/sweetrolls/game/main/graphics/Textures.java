@@ -39,7 +39,7 @@ public class Textures {
     private Textures() {
         try {
             classm32 = new SpriteSheet("map/dg_classm32.png", 32, 32);
-            mainMenuMainButtons = new SpriteSheet("assets/mm-gui-button.png", 148, 32);
+            mainMenuMainButtons = new SpriteSheet("assets/mm-gui-button.png", 168, 32);
             mainMenuControlls = new SpriteSheet("assets/mm-gui-controlls.png", 32, 32);
             avatarsMales = new SpriteSheet("avatars/males.png", 54, 84);
             avatarsFemales = new SpriteSheet("avatars/females.png", 54 ,84);

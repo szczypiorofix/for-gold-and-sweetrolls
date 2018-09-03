@@ -40,8 +40,8 @@ public class FGASMainMenu {
     private ForGoldAndSweetrolls forGoldAndSweetrolls;
     private ObjectManager objectManager;
     private Ground[][] mainMenuMovingBackground;
-    private ParticleSystem system;
-    private Image torch;
+    //private ParticleSystem system;
+    //private Image torch;
 
     private int selectedGameWidth, selectedGameHeight;
     private int selectedMusicVolume, selectedSFXVolume;
@@ -137,34 +137,34 @@ public class FGASMainMenu {
 
         // ############ PRZYCISKI
         menuButtons = new MainMenuButton[5];
-        menuButtons[0] = new MainMenuButton("KONTYNUUJ", 320, 260);
-        menuButtons[1] = new MainMenuButton("NOWA GRA", 320, 300);
-        menuButtons[2] = new MainMenuButton("KOSTNICA", 320, 340);
-        menuButtons[3] = new MainMenuButton("USTAWIENIA", 320, 380);
-        menuButtons[4] = new MainMenuButton("KONIEC", 320, 420);
+        menuButtons[0] = new MainMenuButton("Podróżuj Dalej", 320, 280);
+        menuButtons[1] = new MainMenuButton("Nowa Przygoda", 320, 320);
+        menuButtons[2] = new MainMenuButton("Kostnica", 320, 360);
+        menuButtons[3] = new MainMenuButton("Ustawienia", 320, 400);
+        menuButtons[4] = new MainMenuButton("Wyjdź", 320, 440);
 
 
         // PARTICLES
-        torch = new Image("particles/torch.png");
-
-        Image image = new Image("particles/particle.png", false);
-        system = new ParticleSystem(image,1500);
-
-        try {
-            File xmlFile = new File(MainClass.RES + "particles/torch.xml");
-            ConfigurableEmitter emitter = ParticleIO.loadEmitter(xmlFile);
-            emitter.setPosition(295, 358);
-            system.addEmitter(emitter);
-            emitter = ParticleIO.loadEmitter(xmlFile);
-            emitter.setPosition(485, 358);
-            system.addEmitter(emitter);
-        } catch (Exception e) {
-            System.out.println("Exception: " +e.getMessage());
-            e.printStackTrace();
-            System.exit(0);
-        }
-
-        system.setBlendingMode(ParticleSystem.BLEND_ADDITIVE);
+//        torch = new Image("particles/torch.png");
+//
+//        Image image = new Image("particles/particle.png", false);
+//        system = new ParticleSystem(image,1500);
+//
+//        try {
+//            File xmlFile = new File(MainClass.RES + "particles/torch.xml");
+//            ConfigurableEmitter emitter = ParticleIO.loadEmitter(xmlFile);
+//            emitter.setPosition(295, 358);
+//            system.addEmitter(emitter);
+//            emitter = ParticleIO.loadEmitter(xmlFile);
+//            emitter.setPosition(485, 358);
+//            system.addEmitter(emitter);
+//        } catch (Exception e) {
+//            System.out.println("Exception: " +e.getMessage());
+//            e.printStackTrace();
+//            System.exit(0);
+//        }
+//
+//        system.setBlendingMode(ParticleSystem.BLEND_ADDITIVE);
 
     }
 
@@ -346,7 +346,7 @@ public class FGASMainMenu {
 
         }
 
-        system.update(delta);
+        //system.update(delta);
 
     }
 
@@ -371,10 +371,10 @@ public class FGASMainMenu {
             m.render(g, 0 ,0);
         }
 
-        torch.draw(280,350);
-        torch.draw(470,350);
+        //torch.draw(280,350);
+        //torch.draw(470,350);
 
-        system.render();
+        //system.render();
 
         if (showSettings) {
             optionsGui.draw(230, 160);
