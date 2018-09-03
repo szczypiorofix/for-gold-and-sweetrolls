@@ -5,7 +5,7 @@
   ~
   -->
 <dialogue name="Todd Howard">
-    <dialogue_part id="0" text="Witaj nieznajomy!">
+    <dialogue_part id="0" text="Pośród ogrodu siedzi ta królewska para...">
         <dialogue_button order="0" response="Witaj" endbutton="false" nextId="1"/>
         <dialogue_button order="1" response="Żegnaj" endbutton="true" nextId="0"/>
     </dialogue_part>

@@ -14,28 +14,14 @@ import java.util.ArrayList;
 
 public class BitMapFont {
 
-    private final float DEFAULT_FONT_SIZE = 1f;
+    private final float SPACE_WIDTH = 0.06f;
     private int fontWidth, fontHeight, fontSpace;
-    private ArrayList<FontChar> chars;
+    private ArrayList<FontChar> charsArray;
     private Image fontImage;
 
 
-    public BitMapFont() {
-        chars = new ArrayList<>();
-    }
-
-    public BitMapFont(float size) {
-        //this.size = size;
-    }
-
-    public BitMapFont(int fontWidth, int fontHeight, int fontSpace) {
-        this();
-        this.fontWidth = fontWidth;
-        this.fontHeight = fontHeight;
-        this.fontSpace = fontSpace;
-    }
-
-    public void setFontImage(String name) {
+    public BitMapFont(String name) {
+        charsArray = new ArrayList<>();
         try {
             fontImage = new Image("fonts/" +name);
         } catch (SlickException e) {
@@ -46,15 +32,17 @@ public class BitMapFont {
     public float getStringLength(String text) {
         float c = 0;
         for (int i = 0; i < text.length(); i++) {
-            for (int j = 0; j < chars.size(); j++) {
-                if (text.charAt(i) == chars.get(j).getAscii()
-                        || ((int) (text.charAt(i)) == chars.get(j).getUcode() && (chars.get(j).getUcode() > 0))
+            for (int j = 0; j < charsArray.size(); j++) {
+                if (text.charAt(i) == charsArray.get(j).getAscii()
+                        || ((int) (text.charAt(i)) == charsArray.get(j).getUcode() && (charsArray.get(j).getUcode() > 0))
                         ) {
 
-                    c += chars.get(j).getWidth();
+                    c += this.charsArray.get(j).getWidth()
+                            + this.charsArray.get(j).getLeading()
+                            + this.charsArray.get(j).getTrailing();
                 }
                 if (text.charAt(i) == 32) {
-                    c += 0.2f;
+                    c += SPACE_WIDTH;
                 }
             }
         }
@@ -63,73 +51,58 @@ public class BitMapFont {
 
 
     public void draw(String text, float x, float y) {
-        float c = 0;
-        char[] ch = text.toCharArray();
+        float currentCharLength = 0;
+        char[] chars = text.toCharArray();
         int line = 0;
-        for (int i = 0; i < ch.length; i++) {
-            for (int j = 0; j < chars.size(); j++) {
-                if (ch[i] == '\n' || ch[i] == '\r') {
+        for (int i = 0; i < chars.length; i++) {
+            for (int j = 0; j < this.charsArray.size(); j++) {
+
+                if (chars[i] == '\n' || chars[i] == '\r') {
                     line++;
-                    c = 0;
+                    currentCharLength = 0;
+                    break;
                 }
 
-                if (ch[i] == chars.get(j).getAscii()
-                        || ((int) ch[i] == chars.get(j).getUcode() && (chars.get(j).getUcode() > 0))
+                if (chars[i] == this.charsArray.get(j).getAscii()
+                        || ((int) chars[i] == this.charsArray.get(j).getUcode() && (this.charsArray.get(j).getUcode() > 0))
                         ) {
 
                     fontImage.getSubImage(
-                            chars.get(j).getX(),
-                            chars.get(j).getY(),
-                            chars.get(j).getWidth(),
-                            chars.get(j).getHeight()
+                            this.charsArray.get(j).getX(),
+                            this.charsArray.get(j).getY(),
+                            this.charsArray.get(j).getWidth(),
+                            this.charsArray.get(j).getHeight()
                     ).draw(
-                            x + c,
-                            (int) (( y + chars.get(j).getTop() ) + fontHeight ) - (fontHeight ) + (line)
+                            x + currentCharLength,
+                            (int) (( y + this.charsArray.get(j).getTop()) + fontHeight) - fontHeight + (line * (fontHeight + fontSpace))
                     );
-                    c += chars.get(j).getWidth() - chars.get(j).getLeading() + chars.get(j).getTrailing();
+
+                    currentCharLength += this.charsArray.get(j).getWidth()
+                            + this.charsArray.get(j).getLeading()
+                            + this.charsArray.get(j).getTrailing();
                 }
 
-                if (ch[i] == 32) {
-                    c += 0.07f;
+                if (chars[i] == 32) {
+                    currentCharLength += SPACE_WIDTH;
                 }
             }
         }
     }
 
 
-    public void addChar(FontChar fontChar) {
-        chars.add(fontChar);
+    void addChar(FontChar fontChar) {
+        charsArray.add(fontChar);
     }
 
-    public ArrayList<FontChar> getChars() {
-        return chars;
-    }
-
-    public void setChars(ArrayList<FontChar> chars) {
-        this.chars = chars;
-    }
-
-    public int getFontWidth() {
-        return fontWidth;
-    }
-
-    public void setFontWidth(int fontWidth) {
+    void setFontWidth(int fontWidth) {
         this.fontWidth = fontWidth;
     }
 
-    public int getFontHeight() {
-        return fontHeight;
-    }
-
-    public void setFontHeight(int fontHeight) {
+    void setFontHeight(int fontHeight) {
         this.fontHeight = fontHeight;
     }
 
-    public int getFontSpace() {
-        return fontSpace;
-    }
-
-    public void setFontSpace(int fontSpace) {
+    void setFontSpace(int fontSpace) {
         this.fontSpace = fontSpace;
     }
 

@@ -69,6 +69,7 @@ public class EditorWindow extends JFrame {
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = fc.getSelectedFile();
                 Dialogue dialogue = DialoguesXMLParser.parseDialogueXML(selectedFile.getAbsolutePath(), true);
+                System.out.println(dialogue.getName());
                 mainPanel.updateMainPanel(dialogue);
                 menuFileOpen.setEnabled(false);
             }

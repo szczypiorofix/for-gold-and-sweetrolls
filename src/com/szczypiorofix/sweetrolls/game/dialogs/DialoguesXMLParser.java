@@ -7,7 +7,6 @@
 package com.szczypiorofix.sweetrolls.game.dialogs;
 
 
-import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -15,7 +14,9 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class DialoguesXMLParser {
 
@@ -23,12 +24,14 @@ public class DialoguesXMLParser {
 
     public static Dialogue parseDialogueXML(String filename, boolean editorContext) {
         Dialogue dialogue = new Dialogue();
-        String path = filename;
-        if (!editorContext) {
-            path = MainClass.RES + "dialogues/" + filename;
-        }
+        InputStream inputFile = null;
         try {
-            File inputFile = new File(path);
+
+            if (!editorContext)
+                inputFile = DialoguesXMLParser.class.getResourceAsStream("/dialogues/"+filename);
+            else
+                inputFile = new FileInputStream(filename);
+
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
@@ -102,6 +105,14 @@ public class DialoguesXMLParser {
 
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if (inputFile != null) {
+                try {
+                    inputFile.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return dialogue;
     }

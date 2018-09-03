@@ -11,16 +11,16 @@
     <dialogue_part id="1" text="Co mogę dla ciebie zrobić?">
         <dialogue_button order="0" id="101" response="Opowiedz mi o sobie" endbutton="false" nextId="2"/>
         <dialogue_button order="1" id="102" response="Co słychać w mieście?" endbutton="false" nextId="5"/>
-        <dialogue_button order="2" id="103" response="Co mi powiesz o waszym władcy?" locked="true" endbutton="false" nextId="4"/>
+        <dialogue_button order="2" id="103" response="Co mi powiesz o waszym zarządcy?" locked="true" endbutton="false" nextId="4"/>
         <dialogue_button order="3" id="104" response="Żegnaj" endbutton="true" nextId="1"/>
     </dialogue_part>
-    <dialogue_part id="2" text="Jestem tutejszym rolnikiem. Pracuję ciężko \nale nie narzekam.">
+    <dialogue_part id="2" text="Jestem tutejszym rolnikiem. Pracuję ciężko ale \nnie narzekam.">
         <dialogue_button order="0" id="105" response="..." endbutton="false" nextId="3"/>
     </dialogue_part>
-    <dialogue_part id="3" text="Życie na roli nie jest lekkie, a w dodatku\ntutejszy władca nie ułatwia nam życia.">
+    <dialogue_part id="3" text="Życie na roli nie jest lekkie, a w dodatku tutejszy \nzarządca nie ułatwia nam życia.">
         <dialogue_button order="0" id="106" response="Aha" endbutton="false" nextId="1" unlockId="103"/>
     </dialogue_part>
-    <dialogue_part id="4" text="Masz 'wielce czcigodny pan i władca?' Hahaha\nTo kawał sukinsyna! Zdziera z nas ostatni grosz\ni ciągle mu mało!">
+    <dialogue_part id="4" text="Masz 'WIELCE CZCIGODNY PAN I WŁADCA'? Ha-ha-ha!\nTo kawał sukinsyna! Zdziera z nas ostatni grosz\ni ciągle mu mało!">
         <dialogue_button order="0" id="107" response="Rozumiem. Nie jest lekko." endbutton="false" nextId="1"/>
     </dialogue_part>
     <dialogue_part id="5" text="Nic ciekawego się obecnie nie dzieje. Nudy.">
