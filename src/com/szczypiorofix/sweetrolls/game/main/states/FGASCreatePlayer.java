@@ -8,6 +8,7 @@ package com.szczypiorofix.sweetrolls.game.main.states;
 
 import com.szczypiorofix.sweetrolls.game.enums.CharacterSex;
 import com.szczypiorofix.sweetrolls.game.enums.GameState;
+import com.szczypiorofix.sweetrolls.game.gui.MainMenuButton;
 import com.szczypiorofix.sweetrolls.game.gui.MainMenuControlls;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
 import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
@@ -26,6 +27,41 @@ public class FGASCreatePlayer {
     private int currentAvatarSpriteSheetColumns = 0;
     private SpriteSheet currentSpriteSheet = null;
     private CharacterSex currentSex = CharacterSex.MALE;
+    private MainMenuButton generateRandomName;
+    private final String[] MALE_NAMES = {"Nhashur Risha",
+            "Hahnun Rekhan",
+            "Negrun Ravensteel",
+            "Buvud Evenblossom",
+            "Vivem Stodz",
+            "Kin Rovirsk",
+            "Blelvur Hammerblood",
+            "Zon Runecut",
+            "Mivue-Rek Rapruzrafk",
+            "Lachan Vonkheld",
+            "Forvorelm Dubyangemya",
+            "Vlinosk Stilmava",
+            "Lioh Yiaong",
+            "Fam Tai",
+            "Fostorvon Fahohu",
+            "Zortaz Macirgil"};
+    private final String[] FEMALE_NAMES = {
+            "Zarudah Khila",
+            "Eshil Rhamma",
+            "Jhilzierli Hellwhirl",
+            "Lieweill Hawkrunner",
+            "Helme Shudz",
+            "Cin Shemav",
+            "Iflole Moonsprinter",
+            "Ilgi Tuskshield",
+            "Carephath Hulachihk",
+            "Chefru Boltrefk",
+            "Varlervun Stirgimigi",
+            "Hadhi Momzege",
+            "Chiao Cuey",
+            "Tui Lam",
+            "Jont Misemi",
+            "Seinc Zunzulbir"
+    };
 
     public FGASCreatePlayer(ForGoldAndSweetrolls forGoldAndSweetrolls, FGASMainMenu fgasMainMenu) {
         this.forGoldAndSweetrolls = forGoldAndSweetrolls;
@@ -47,17 +83,24 @@ public class FGASCreatePlayer {
         // Avatars
         // https://www.deviantart.com/artastrophe/art/BG-Portrait-Package-145216289
 
-        controlls = new MainMenuControlls[8];
+        generateRandomName = new MainMenuButton("Losowe imię", 540, 50);
+
+        controlls = new MainMenuControlls[9];
         controlls[0] = new MainMenuControlls(MainMenuControlls.ControlType.CANCEL, "", false, 330, 540);
         controlls[1] = new MainMenuControlls(MainMenuControlls.ControlType.OK, "", false, 380, 540);
+
+        // portrait controlls
         controlls[2] = new MainMenuControlls(MainMenuControlls.ControlType.LEF_ARROW, "", false, 80, 320);
         controlls[3] = new MainMenuControlls(MainMenuControlls.ControlType.RIGHT_ARROW, "", false, 220, 320);
 
+        // character sex
         controlls[4] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Mężczyzna", false, 420, 100);
         controlls[5] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentSex.equals(CharacterSex.MALE), 450, 130);
         controlls[6] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Kobieta", false, 600, 100);
-        controlls[7] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentSex.equals(CharacterSex.FEMALE), 625, 130);
+        controlls[7] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "<CHAR_NAME>", currentSex.equals(CharacterSex.FEMALE), 625, 130);
 
+        // character name
+        controlls[8] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "", false, 420, 50);
     }
 
     public void update(GameContainer gc, int delta) throws SlickException {
@@ -70,6 +113,13 @@ public class FGASCreatePlayer {
             fgasMainMenu.loadGame(false);
             forGoldAndSweetrolls.setGameState(GameState.GAME);
         }
+
+        if (mouseCursor.intersects(generateRandomName)) {
+            generateRandomName.setHover(true);
+            if (mouseCursor.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+
+            }
+        } else generateRandomName.setHover(false);
 
         for (int i = 0; i < controlls.length; i++) {
             if (mouseCursor.intersects(controlls[i])) {
@@ -132,6 +182,7 @@ public class FGASCreatePlayer {
         for (int i = 0; i < controlls.length; i++) {
             controlls[i].render(g, 0, 0);
         }
+        generateRandomName.render(g, 0, 0);
     }
 
 }
