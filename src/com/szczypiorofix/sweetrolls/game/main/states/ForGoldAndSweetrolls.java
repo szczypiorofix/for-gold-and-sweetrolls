@@ -7,6 +7,8 @@
 package com.szczypiorofix.sweetrolls.game.main.states;
 
 
+import com.szczypiorofix.sweetrolls.game.enums.CharacterRace;
+import com.szczypiorofix.sweetrolls.game.enums.CharacterSex;
 import com.szczypiorofix.sweetrolls.game.enums.GameState;
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
@@ -32,6 +34,7 @@ public final class ForGoldAndSweetrolls extends BasicGame {
     private SFX sfx;
     private int musicVolume = 100;
     private int sfxVolume = 100;
+
 
     public ForGoldAndSweetrolls(String title, ArrayList<DisplayMode> modes, Configuration config) {
         super(title);
@@ -165,4 +168,5 @@ public final class ForGoldAndSweetrolls extends BasicGame {
     public void setSfxVolume(int sfxVolume) {
         this.sfxVolume = sfxVolume;
     }
+
 }

@@ -16,20 +16,18 @@ import org.newdawn.slick.Image;
 
 public class MainMenuButton extends GameObject {
 
-    private Image image;
-    private String name;
     private float nameX;
     private boolean hover = false;
     private boolean active = false;
-    private Image imagePressed;
+    private Image image, imageHover, imagePressed;
     private BitMapFont font;
 
 
     public MainMenuButton(String name, float x, float y) {
         super(name, x, y, 168, 32, ObjectType.GUI);
-        this.name = name;
         image = Textures.getInstance().mainMenuMainButtons.getSprite(0, 0);
-        imagePressed = Textures.getInstance().mainMenuMainButtons.getSprite(0, 1);
+        imageHover = Textures.getInstance().mainMenuMainButtons.getSprite(0, 1);
+        imagePressed = Textures.getInstance().mainMenuMainButtons.getSprite(0, 2);
         font = FontParser.getFont();
         nameX = x + (width / 2) - (font.getStringLength(name) / 2);
     }
@@ -42,11 +40,15 @@ public class MainMenuButton extends GameObject {
     public void render(Graphics g, float offsetX, float offsetY) {
 
         if (hover) {
-            imagePressed.draw(x, y);
-            font.draw(name, (int) (nameX + offsetX), (int) (y + 8 + offsetY));
+            imageHover.draw(x, y);
+            font.draw(name, (int) (nameX + offsetX), (int) (y + 6 + offsetY));
         } else {
             image.draw(x, y);
             font.draw(name, (int) (nameX + offsetX), (int) (y + 5 + offsetY));
+        }
+        if (active){
+            imagePressed.draw(x, y);
+            font.draw(name, (int) (nameX + offsetX), (int) (y + 7 + offsetY));
         }
 
     }

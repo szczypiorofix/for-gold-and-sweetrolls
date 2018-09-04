@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Developed by szczypiorofix on 04.09.18 13:33.
+  ~ Copyright (c) 2018. All rights reserved.
+  ~
+  -->
+<names_all>
+    <names race="human">
+        <male_names>
+            Bacohonder,Clizone,Coductunian,Corecius,Frihat,Garremius,Ignalinus,Ilavien,Imusianus,Itiucator,Lerevius,Mattick,Ormend,Plitumeliorus,Pususanis,Regunus,Rimuarius,Sitinnius,Sullerius,Surudir,Synnarus,Tasuel,Teratus,Thefy,Tyremus,Tyrogren,Urixto,Vasion,ZedoriIlnoyon
+        </male_names>
+        <female_names>
+            Adenari,Arnorina,Avienari,Caeloria,Catotis,Cirta,Cori,Domimmana,Dominileria,Domise,Dumabia,Emefora,Fruspia,Gruistae,Helene,Helga,Idollia,Laufza,Laulaisa,Laurivinia,Marcermia,Mirmia,Mosala,Nariscia,Paniveria,Terana,Vilemitia,Viletrix,Vininne,Viomilia
+        </female_names>
+        <surnames>
+            Accagan,Aciler,Alfiand,Amponia,Arteld,Aurridenius,Beralius,Brusicius,Caelinnius,Caesuleius,Carbant,Ceconia,Clanelius,Clanillin,Clanone,Cosissaeia,Curugrius,Derant,Endellia,Fularian,Gemale,Gravitian,Harmia,Harulusus,Hasecus,Hayilchiotus,Hodgand,Julonia,Maccorel,Mallim,Monruius,Niguceius,Oholulus,Olcio,Ostol,Ostunceia,Petrich,Plalidius,Posalius,Quasinia,Quinibonia,Roscevius,Roscidius,Rosenshield,Rosianus,Sallacia,Sesteius,Turana,Turannus,Turinnius,Umbinus,Urtestrake,Valibonia,Vantarnian,Varectus,Vendori,Vicinius,Viticius,Vonen,Wotuius
+        </surnames>
+    </names>
+    <names race="elf">
+        <male_names>
+            Arinnoion,Artellor,Caranmil,Carendilin,Elidmaillin,Erranaamokar,Faelndialtel,Ganyon,Kaearnimarco,Kelkemmeonolemar,Korenendor,Moroarnimarco,Mossarintil,Nandndildaril,Nerindilaran,Nurnil,Ocaton,Ondoitaracar,Orinldilnen,Pelntiersanon,Sanynarenquarien,Soronl,Taumaillin,Telinoion,Treimarcoindil,Tuminilianranir,Vinglas,Vorioonimbar,Yannelerinde,Yaralin
+        </male_names>
+        <female_names>
+            Arante,Ararume,Arivilonwe,Arqrne,Aurelda,Ayreelle,Celrdith,Culuarume,Earande,Earaninde,Elaena,Elenulae,Endaara,Eriion,Fairenn,Heletha,Hesginia,Kariana,Loraelinwae,Lorria,Minoalinde,Miraninde,Mirinalda,Morlae,Niraande,Raveith,Relanya,Sonnwen,Tandaale,Valimia
+        </female_names>
+        <surnames>
+            Aelsinaire,Aelsinal,Aelsinlock,Aelsonihle,Aelsonius,Aelsonthaer,Anaedire,Anaeduseus,Athahl,Athlock,Camaire,Camire,Chaeahl,Chaebinder,Chaeorinh,Charmbinder,Charmore,Charmus,Elsinaere,Elsiniath,Elsinkaender,Faethaer,Gaeorin,Gaethius,Gaethore,Granorin,Granuseus,Jaerihre,Kaeiane,Khraemihre,Koraire,Laemaine,Laemlock,Laraethian,Laraethlock,Larenhonin,Larenhthar,Larethian,Loreahl,Salingorin,Silinaere,Silinaerith,Silinal,Silinkaender,Sillonaire,Sillonlock,Sillonour,Sillonthius,Stormahl,Tahromaerith,Tahroman,Tahromian,Tahromiane,Tahromiuth,Tahromlock,Thaoraine,Thilinahl,Thromeus,Thromorin
+        </surnames>
+    </names>
+    <names race="dwarf">
+        <male_names>
+            Agrugrac,Anchavin,Bzradit,Cbradit,Chiuhrek,Chudac,Chugrath,Cuomuard,Dafrak,Dafuan,Dathld,Ghavnak,Igrevraz,Ihleban,Ihlerhunch,Irhagrum,Irhahrek,Irhathunch,Klahrek,Nchumgar,Rard,Rhzomrond,Rkund,Sthorhunch,Tchavnak,Tnabrec,Tugralec,Yralbar,Yrathunch,Ythalbar
+        </male_names>
+        <female_names>
+            Aknaglas,Bluhrada,Bluznara,Britwern,Byralnif,Bzeftris,Cravlara,Dadryna,Drehvlin,Gorloar,Ichufwinn,Iorazril,Jarehrada,Kshodhis,Morloar,Movlara,Mrahzis,Nahken,Navrash,Nhehvlin,Nrigzis,Ruegriln,Ruenadis,Shibrina,Sovrash,Stretwern,Taevrash,Thrihvlin,Ylrebryn,Ynegrida
+        </female_names>
+        <surnames>
+            Alnomgunch,Asradchan,Bnogrenz,Bnotchatz,Carehuanch,Chranzcharn,Chratchzan,Crabaln,Cstobwarn,Cstonrazg,Cstoztar,Dobnanch,Dotchatz,Dovragch,Druzlurch,Dzrezalf,Gelchanf,Gerzhurk,Geztar,Gralzarf,Grimaratzch,Grimorn,Grivzyrn,Gzovzyrn,Ilzehnch,Ilzerach,Inravretch,Inrazchyn,Ishefrach,Jhogrenz,Konrazg,Konzcharn,Kremorn,Ksredlin,Ksrerhytz,Ksrevnorz,Kzredras,Mharhytz,Nhedrunz,Nhelzarf,Nhethurzch,Nrofurn,Nromratz,Raothurzch,Ratchatz,Ryudchan,Ryuzchyn,Shradchan,Shrafurn,Snefrysz,Stulzarf,Szofrysz,Tabchasz,Tatchzan,Tchatarn,Tzerhytz,Yadrunz,Yaglynsh,Ychofnyg,Yredzach
+        </surnames>
+    </names>
+</names_all>

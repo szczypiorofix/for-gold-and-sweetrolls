@@ -7,6 +7,7 @@
 package com.szczypiorofix.sweetrolls.game.objects;
 
 
+import com.szczypiorofix.sweetrolls.game.enums.CharacterRace;
 import com.szczypiorofix.sweetrolls.game.enums.CharacterSex;
 
 import java.io.Serializable;
@@ -18,6 +19,7 @@ public class Statistics implements Serializable {
     public int P_Gold;
 
     public CharacterSex sex;
+    public CharacterRace race;
 
     public int P_Strength;
     public int P_Dexterity;

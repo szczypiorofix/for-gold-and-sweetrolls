@@ -6,10 +6,7 @@
 
 package com.szczypiorofix.sweetrolls.game.main.states;
 
-import com.szczypiorofix.sweetrolls.game.enums.GameState;
-import com.szczypiorofix.sweetrolls.game.enums.ItemType;
-import com.szczypiorofix.sweetrolls.game.enums.LevelType;
-import com.szczypiorofix.sweetrolls.game.enums.PlayerAction;
+import com.szczypiorofix.sweetrolls.game.enums.*;
 import com.szczypiorofix.sweetrolls.game.gui.*;
 import com.szczypiorofix.sweetrolls.game.interfaces.ConsumableListener;
 import com.szczypiorofix.sweetrolls.game.interfaces.DroppableListener;
@@ -55,6 +52,9 @@ public class FGASGame implements DroppableListener, ConsumableListener {
     private int tileWidth, tileHeight;
     private int gameWidth, gameHeight;
     private boolean setNextRound;
+    private String playerName;
+    private CharacterRace playerRace;
+    private CharacterSex playerSex;
 
 
 
@@ -601,6 +601,31 @@ public class FGASGame implements DroppableListener, ConsumableListener {
 
     public HUD getHud() {
         return hud;
+    }
+
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+        player.setName(playerName);
+    }
+
+    public CharacterRace getPlayerRace() {
+        return playerRace;
+    }
+
+    public void setPlayerRace(CharacterRace playerRace) {
+        this.playerRace = playerRace;
+    }
+
+    public CharacterSex getPlayerSex() {
+        return playerSex;
+    }
+
+    public void setPlayerSex(CharacterSex playerSex) {
+        this.playerSex = playerSex;
     }
 
     public ActionHistory getActionHistory() {

@@ -6,11 +6,13 @@
 
 package com.szczypiorofix.sweetrolls.game.main.states;
 
+import com.szczypiorofix.sweetrolls.game.enums.CharacterRace;
 import com.szczypiorofix.sweetrolls.game.enums.CharacterSex;
 import com.szczypiorofix.sweetrolls.game.enums.GameState;
 import com.szczypiorofix.sweetrolls.game.gui.MainMenuButton;
 import com.szczypiorofix.sweetrolls.game.gui.MainMenuControlls;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
+import com.szczypiorofix.sweetrolls.game.main.core.NameGenerator;
 import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
 import org.newdawn.slick.*;
 
@@ -27,41 +29,10 @@ public class FGASCreatePlayer {
     private int currentAvatarSpriteSheetColumns = 0;
     private SpriteSheet currentSpriteSheet = null;
     private CharacterSex currentSex = CharacterSex.MALE;
+    private CharacterRace currentRace = CharacterRace.HUMAN;
     private MainMenuButton generateRandomName;
-    private final String[] MALE_NAMES = {"Nhashur Risha",
-            "Hahnun Rekhan",
-            "Negrun Ravensteel",
-            "Buvud Evenblossom",
-            "Vivem Stodz",
-            "Kin Rovirsk",
-            "Blelvur Hammerblood",
-            "Zon Runecut",
-            "Mivue-Rek Rapruzrafk",
-            "Lachan Vonkheld",
-            "Forvorelm Dubyangemya",
-            "Vlinosk Stilmava",
-            "Lioh Yiaong",
-            "Fam Tai",
-            "Fostorvon Fahohu",
-            "Zortaz Macirgil"};
-    private final String[] FEMALE_NAMES = {
-            "Zarudah Khila",
-            "Eshil Rhamma",
-            "Jhilzierli Hellwhirl",
-            "Lieweill Hawkrunner",
-            "Helme Shudz",
-            "Cin Shemav",
-            "Iflole Moonsprinter",
-            "Ilgi Tuskshield",
-            "Carephath Hulachihk",
-            "Chefru Boltrefk",
-            "Varlervun Stirgimigi",
-            "Hadhi Momzege",
-            "Chiao Cuey",
-            "Tui Lam",
-            "Jont Misemi",
-            "Seinc Zunzulbir"
-    };
+    private NameGenerator nameGenerator;
+    private String currentName = "<CHAR_NAME>";
 
     public FGASCreatePlayer(ForGoldAndSweetrolls forGoldAndSweetrolls, FGASMainMenu fgasMainMenu) {
         this.forGoldAndSweetrolls = forGoldAndSweetrolls;
@@ -85,7 +56,7 @@ public class FGASCreatePlayer {
 
         generateRandomName = new MainMenuButton("Losowe imię", 540, 50);
 
-        controlls = new MainMenuControlls[9];
+        controlls = new MainMenuControlls[15];
         controlls[0] = new MainMenuControlls(MainMenuControlls.ControlType.CANCEL, "", false, 330, 540);
         controlls[1] = new MainMenuControlls(MainMenuControlls.ControlType.OK, "", false, 380, 540);
 
@@ -97,10 +68,20 @@ public class FGASCreatePlayer {
         controlls[4] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Mężczyzna", false, 420, 100);
         controlls[5] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentSex.equals(CharacterSex.MALE), 450, 130);
         controlls[6] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Kobieta", false, 600, 100);
-        controlls[7] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "<CHAR_NAME>", currentSex.equals(CharacterSex.FEMALE), 625, 130);
+        controlls[7] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentSex.equals(CharacterSex.FEMALE), 625, 130);
 
         // character name
-        controlls[8] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "", false, 420, 50);
+        controlls[8] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, currentName, false, 420, 20);
+
+        // character race
+        controlls[9] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Człowiek", false, 320, 180);
+        controlls[10] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentRace.equals(CharacterRace.HUMAN), 350, 210);
+        controlls[11] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Krasnolud", false, 460, 180);
+        controlls[12] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentRace.equals(CharacterRace.DWARF), 475, 210);
+        controlls[13] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Elf", false, 625, 180);
+        controlls[14] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentRace.equals(CharacterRace.ELF), 625, 210);
+
+        nameGenerator = new NameGenerator();
     }
 
     public void update(GameContainer gc, int delta) throws SlickException {
@@ -117,8 +98,12 @@ public class FGASCreatePlayer {
         if (mouseCursor.intersects(generateRandomName)) {
             generateRandomName.setHover(true);
             if (mouseCursor.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+                generateRandomName.setActive(true);
 
-            }
+                currentName = nameGenerator.getRandomName(currentSex, currentRace);
+                controlls[8].setText(currentName);
+
+            } else generateRandomName.setActive(false);
         } else generateRandomName.setHover(false);
 
         for (int i = 0; i < controlls.length; i++) {
@@ -132,7 +117,9 @@ public class FGASCreatePlayer {
                             break;
                         }
                         case 1: {
-                            fgasMainMenu.loadGame(false);
+                            //fgasMainMenu.loadGame(false);
+                            forGoldAndSweetrolls.getFGASGame().restartGame();
+                            forGoldAndSweetrolls.getFGASGame().setPlayerName(currentName);
                             forGoldAndSweetrolls.setGameState(GameState.GAME);
                             break;
                         }
@@ -170,6 +157,27 @@ public class FGASCreatePlayer {
                             currentPortraitImage = currentSpriteSheet.getSprite(currentAvatarSpriteSheetId % currentAvatarSpriteSheetColumns, currentAvatarSpriteSheetId / currentAvatarSpriteSheetColumns);
                             break;
                         }
+                        case 10: {
+                            currentRace = CharacterRace.HUMAN;
+                            controlls[10].setChecked(true);
+                            controlls[12].setChecked(false);
+                            controlls[14].setChecked(false);
+                            break;
+                        }
+                        case 12: {
+                            currentRace = CharacterRace.DWARF;
+                            controlls[10].setChecked(false);
+                            controlls[12].setChecked(true);
+                            controlls[14].setChecked(false);
+                            break;
+                        }
+                        case 14: {
+                            currentRace = CharacterRace.ELF;
+                            controlls[10].setChecked(false);
+                            controlls[12].setChecked(false);
+                            controlls[14].setChecked(true);
+                            break;
+                        }
                     }
                 } else controlls[i].setActive(false);
             } else controlls[i].setHover(false);
@@ -185,4 +193,7 @@ public class FGASCreatePlayer {
         generateRandomName.render(g, 0, 0);
     }
 
+    public String getCurrentName() {
+        return currentName;
+    }
 }

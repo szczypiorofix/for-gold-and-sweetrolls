@@ -206,7 +206,6 @@ public class FGASMainMenu {
                                 break;
                             }
                             case 1: {
-                                //loadGame(false);
                                 forGoldAndSweetrolls.setGameState(GameState.CREATION_MENU);
                                 break;
                             }
