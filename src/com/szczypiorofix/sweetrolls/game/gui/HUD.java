@@ -113,7 +113,7 @@ public class HUD {
                         : timeCounter.getMinuteCounter()
         ), 590, 80);
 
-        font.draw("Gracz: " + player.getName(), 590, 100);
+        font.draw(player.getName(), 590, 100);
         font.draw("Poziom: " +player.statistics.P_Level, 590, 120);
         //font.draw("Złoto: " + player.statistics.P_Gold, 590, 170);
         //font.draw("Teren: " +player.getTerrainType().getName(), 590, 190);

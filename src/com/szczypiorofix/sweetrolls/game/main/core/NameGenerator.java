@@ -28,7 +28,6 @@ public class NameGenerator {
 
     private String[] humanFemaleNames, humanMaleNames, humanSurnames;
     private String[] elfFemaleNames, elfMaleNames, elfSurnames;
-    private String[] dwarfFemaleNames, dwarfMaleNames, dwardSurnames;
 
     public NameGenerator() {
         parseXML();
@@ -42,13 +41,6 @@ public class NameGenerator {
                     name = elfMaleNames[MainClass.RANDOM.nextInt(elfMaleNames.length)]+" "+elfSurnames[MainClass.RANDOM.nextInt(elfSurnames.length)];
                 else
                     name = elfFemaleNames[MainClass.RANDOM.nextInt(elfFemaleNames.length)]+" "+elfSurnames[MainClass.RANDOM.nextInt(elfSurnames.length)];
-                break;
-            }
-            case DWARF: {
-                if (sex == CharacterSex.MALE)
-                    name = dwarfMaleNames[MainClass.RANDOM.nextInt(dwarfMaleNames.length)]+" "+dwardSurnames[MainClass.RANDOM.nextInt(dwardSurnames.length)];
-                else
-                    name = dwarfFemaleNames[MainClass.RANDOM.nextInt(dwarfFemaleNames.length)]+" "+dwardSurnames[MainClass.RANDOM.nextInt(dwardSurnames.length)];
                 break;
             }
             default: { // HUMAN
@@ -147,35 +139,6 @@ public class NameGenerator {
                     }
                     default: {
                         humanSurnames = e
-                                .getFirstChild()
-                                .getNodeValue()
-                                .trim()
-                                .split(",");
-                        break;
-                    }
-                }
-                break;
-            }
-            case "dwarf": {
-                switch (type) {
-                    case 1: {
-                        dwarfMaleNames = e
-                                .getFirstChild()
-                                .getNodeValue()
-                                .trim()
-                                .split(",");
-                        break;
-                    }
-                    case 2: {
-                        dwarfFemaleNames = e
-                                .getFirstChild()
-                                .getNodeValue()
-                                .trim()
-                                .split(",");
-                        break;
-                    }
-                    default: {
-                        dwardSurnames = e
                                 .getFirstChild()
                                 .getNodeValue()
                                 .trim()
