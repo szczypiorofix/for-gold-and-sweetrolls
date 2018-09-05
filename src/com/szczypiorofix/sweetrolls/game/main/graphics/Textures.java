@@ -22,10 +22,8 @@ public class Textures {
     public SpriteSheet classm32 = null;
     public SpriteSheet mainMenuMainButtons = null;
     public SpriteSheet mainMenuControlls = null;
-    public SpriteSheet avatarsElfMales = null;
-    public SpriteSheet avatarsElfFemales = null;
-    public SpriteSheet avatarsHumanMales = null;
-    public SpriteSheet avatarsHumanFemales = null;
+    public SpriteSheet avatarsMales = null;
+    public SpriteSheet avatarsFemales = null;
     public Image dialogueFrame = null;
     public Image hudImage = null;
     public Image clockImage = null;
@@ -43,10 +41,8 @@ public class Textures {
             classm32 = new SpriteSheet("map/dg_classm32.png", 32, 32);
             mainMenuMainButtons = new SpriteSheet("assets/mm-gui-button.png", 168, 32);
             mainMenuControlls = new SpriteSheet("assets/mm-gui-controlls.png", 32, 32);
-            avatarsElfFemales = new SpriteSheet("avatars/elf_female.jpg", 169, 266);
-            avatarsElfMales = new SpriteSheet("avatars/elf_male.jpg", 169 ,266);
-            avatarsHumanFemales = new SpriteSheet("avatars/human_female.jpg", 169, 266);
-            avatarsHumanMales = new SpriteSheet("avatars/human_male.jpg", 169 ,266);
+            avatarsMales = new SpriteSheet("avatars/males.jpg", 169, 266);
+            avatarsFemales = new SpriteSheet("avatars/females.jpg", 169 ,266);
             dialogueFrame = new Image("assets/dialogue-frame.png");
             hudImage = new Image("assets/hud.png");
             clockImage = new Image("assets/time-counter.png");

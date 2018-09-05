@@ -4,38 +4,46 @@
   ~ Copyright (c) 2018. All rights reserved.
   ~
   -->
+
 <names_all>
     <names race="human">
         <male_names>
-            Bacohonder,Clizone,Coductunian,Corecius,Frihat,Garremius,Ignalinus,Ilavien,Imusianus,Itiucator,Lerevius,Mattick,Ormend,Plitumeliorus,Pususanis,Regunus,Rimuarius,Sitinnius,Sullerius,Surudir,Synnarus,Tasuel,Teratus,Thefy,Tyremus,Tyrogren,Urixto,Vasion,ZedoriIlnoyon
+            Adalbrecht,Adonis,Amadeo,Anaximander,Arney,Athelstan,Bartram,Bastian,Bolton,Bonifacius,Bradney,Cade,Carl,Carolus,Chanler,Choncey,Damon,Darcell,Darien,Destry,Dominik,Fidelis,Gilbert,Giulio,Hamlyn,Heini,Helge,Herbert,Hermann,Heymo,Ian,Isaac,Jakie,Jarrod,Jarvey,Jeffery,Jenik,Jerard,Johnathon,Kaden,Keshawn,Kester,Kimberley,Kjell,Konradin,Leroux,Leszek,Leveret,Lind,Marque,Mika,Morven,Nedes,Odell,Ossie,Oswald,Pell,Raul,Rypley,Salomon,Sauville,Senet,Severin,Sherwin,Sidney,Ted,Thierry,Tompkin,Townsend,Tripp,Tycho,Uve,Valdis,Victorinus,Wells,Westcott,Weston,Whitmore,Wolfram,Wyatt
         </male_names>
         <female_names>
-            Adenari,Arnorina,Avienari,Caeloria,Catotis,Cirta,Cori,Domimmana,Dominileria,Domise,Dumabia,Emefora,Fruspia,Gruistae,Helene,Helga,Idollia,Laufza,Laulaisa,Laurivinia,Marcermia,Mirmia,Mosala,Nariscia,Paniveria,Terana,Vilemitia,Viletrix,Vininne,Viomilia
+            Alex,Alhertine,Alita,Aloyse,Annekathrin,Anneke,Ariane,Ariella,Ashanti,Ashley,Briana,Brookes,Channelle,Chantrell,Charlene,Clarette,Cortney,Dale,Dawina,Diamond,Dortas,Ellinor,Emmaline,Engelberthe,Fabiola,Genovefa,Gerda,Golda,Gretchen,Grete,Gretel,Harvelle,Hedvige,Hollee,Ine,Jamie,Janina,Jineen,Jonesy,Josefin,Juana,Kailee,Kaitlyn,Kara,Karley,Katarina,Kelsey,Lacie,Lara,Laura,Lexus,Luca,Luwanna,Luzie,Madelon,Magnolia,Malenka,Miya,Mollie,Noelle,Pascaline,Patience,Peggy,Raymonde,Richelle,Roddy,Romhilda,Romilda,Roxane,Sasha,Selby,Shayna,Skylar,Tania,Tatyana,Teresa,Tiana,Waltraud,Xandra,Xaviere
         </female_names>
-        <surnames>
-            Accagan,Aciler,Alfiand,Amponia,Arteld,Aurridenius,Beralius,Brusicius,Caelinnius,Caesuleius,Carbant,Ceconia,Clanelius,Clanillin,Clanone,Cosissaeia,Curugrius,Derant,Endellia,Fularian,Gemale,Gravitian,Harmia,Harulusus,Hasecus,Hayilchiotus,Hodgand,Julonia,Maccorel,Mallim,Monruius,Niguceius,Oholulus,Olcio,Ostol,Ostunceia,Petrich,Plalidius,Posalius,Quasinia,Quinibonia,Roscevius,Roscidius,Rosenshield,Rosianus,Sallacia,Sesteius,Turana,Turannus,Turinnius,Umbinus,Urtestrake,Valibonia,Vantarnian,Varectus,Vendori,Vicinius,Viticius,Vonen,Wotuius
-        </surnames>
     </names>
     <names race="elf">
         <male_names>
-            Arinnoion,Artellor,Caranmil,Carendilin,Elidmaillin,Erranaamokar,Faelndialtel,Ganyon,Kaearnimarco,Kelkemmeonolemar,Korenendor,Moroarnimarco,Mossarintil,Nandndildaril,Nerindilaran,Nurnil,Ocaton,Ondoitaracar,Orinldilnen,Pelntiersanon,Sanynarenquarien,Soronl,Taumaillin,Telinoion,Treimarcoindil,Tuminilianranir,Vinglas,Vorioonimbar,Yannelerinde,Yaralin
+            Balkas,Ballar,Balwarin,Beikas,Beikian,Beineiros,Beinorin,Beiren,Crahorn,Craquinal,Daezeiros,Dorric,Dorris,Elaberos,Elahice,Elajor,Elaxalim,Elkas,Ergeiros,Erpetor,Erwraek,Erxalim,Farmaer,Farxidor,Fenpeiros,Genkian,Genven,Heinan,Herquinal,Herric,Ianqen,Ianquinal,Iantumal,Ianzeiros,Keajor,Kearo,Keatumal,Keljeon,Leopeiros,Mirakian,Miralar,Miramaer,Miranan,Morberos,Morceran,Morgolor,Morhice,Mornelis,Morsalor,Naebalar,Naeran,Naesalor,Naeyarus,Naeydark,Norwraek,Omajeon,Paberos,Pajeon,Palen,Palen,Panorin,Papetor,Perjor,Perro,Perzeiros,Petcan,Pettumal,Qidan,Qinfir,Qinhorn,Qinlen,Qinnan,Qinquinal,Ralomaris,Ralomyar,Ralopetor,Rogolor,Roquinal,Roren,Rotumal,Sarven,Sylsalor,Trasandoral,Tratumal,Umefaren,Umejeon,Urifaren,Urimenor,Urizumin,Vayarus,Virberos,Waeslamin,Waesmaer,Wranwraek,Wranzeiros,Yelhice,Yinven,Zumberos,Zumfir,Zumyarus
         </male_names>
         <female_names>
-            Arante,Ararume,Arivilonwe,Arqrne,Aurelda,Ayreelle,Celrdith,Culuarume,Earande,Earaninde,Elaena,Elenulae,Endaara,Eriion,Fairenn,Heletha,Hesginia,Kariana,Loraelinwae,Lorria,Minoalinde,Miraninde,Mirinalda,Morlae,Niraande,Raveith,Relanya,Sonnwen,Tandaale,Valimia
+            Adjyre,Adphine,Adsys,Arabella,Aracaryn,Aramoira,Arawenys,Arazana,Biynore,Cairieth,Chaemoira,Chaephine,Daegella,Daelee,Dagwyn,Dahana,Encaryn,Enphyra,Facaryn,Faecyne,Faelana,Faethana,Fagella,Gillee,Gilna,Gilphine,Gilsatra,Gilthyra,Gregella,Grestina,Helecaryn,Helegella,Holabanise,Iarcaryn,Iarxina,Iarzorwyn,Jona,Keyrie,Keyrieth,Keyrona,Kriscyne,Krishana,Kriskalyn,Krisqirelle,Krisroris,Lialeth,Liarora,Loranala,Miaqirelle,Nerigella,Neriynore,Olarieth,Olasys,Olazana,Oririe,Philana,Phixina,Presvaris,Qiroris,Quijyre,Quiyra,Ravaphyra,Ravaxina,Ravaxisys,Reylynn,Reynala,Reyrie,Reyrieth,Reyroris,Reyxina,Sharie,Shathyra,Sylfina,Syljyre,Sylzana,Torgella,Torkrana,Torleth,Trisharice,Triszorwyn,Ulaxina,Uriralei,Valfina,Vallee,Valrieth,Venbella,Wynrona,Wysajyre,Wysakrana,Wysayra,Xilbanise,Xilnala,Xiltris,Xyrphine,Xyrroris,Yesleth,Yesxina,Yllakrana,Zinthyra,Zylmys
         </female_names>
-        <surnames>
-            Aelsinaire,Aelsinal,Aelsinlock,Aelsonihle,Aelsonius,Aelsonthaer,Anaedire,Anaeduseus,Athahl,Athlock,Camaire,Camire,Chaeahl,Chaebinder,Chaeorinh,Charmbinder,Charmore,Charmus,Elsinaere,Elsiniath,Elsinkaender,Faethaer,Gaeorin,Gaethius,Gaethore,Granorin,Granuseus,Jaerihre,Kaeiane,Khraemihre,Koraire,Laemaine,Laemlock,Laraethian,Laraethlock,Larenhonin,Larenhthar,Larethian,Loreahl,Salingorin,Silinaere,Silinaerith,Silinal,Silinkaender,Sillonaire,Sillonlock,Sillonour,Sillonthius,Stormahl,Tahromaerith,Tahroman,Tahromian,Tahromiane,Tahromiuth,Tahromlock,Thaoraine,Thilinahl,Thromeus,Thromorin
-        </surnames>
     </names>
     <names race="dwarf">
         <male_names>
-            Agrugrac,Anchavin,Bzradit,Cbradit,Chiuhrek,Chudac,Chugrath,Cuomuard,Dafrak,Dafuan,Dathld,Ghavnak,Igrevraz,Ihleban,Ihlerhunch,Irhagrum,Irhahrek,Irhathunch,Klahrek,Nchumgar,Rard,Rhzomrond,Rkund,Sthorhunch,Tchavnak,Tnabrec,Tugralec,Yralbar,Yrathunch,Ythalbar
+            Adduhr,Adkum,Adnam,Amdain,Armmyr,Baldus,Balgran,Balmyl,Bankam,Bannik,Barnir,Beldir,Bendan,Bendrus,Berbek,Berdor,Berdrom,Bergrim,Bhardor,Bharmin,Brammun,Brankyl,Brommond,Brumron,Bundrum,Bungurn,Daerbek,Dargram,Darron,Dolnus,Duldren,Dulmek,Dulron,Ebdan,Ebgrum,Ebkum,Emnar,Emrak,Ermdal,Ermnum,Fardrak,Fargurn,Farnus,Galron,Gardir,Gardrus,Gerdor,Gimkam,Gimnik,Gralryl,Gramnik,Gramtharn,Grenthrun,Grydohr,Hariggs,Harmor,Hjalkum,Hjolmond,Hjolthrun,Hjuldrum,Hurmin,Kharkum,Krommar,Krommir,Krumiggs,Magrig,Muirgram,Murnar,Ranbek,Ranron,Regdrak,Regtharn,Rotnur,Thalrik,Thalrum,Thargarn,Tharkuhm,Tharmus,Thelkum,Thogron,Thonur,Thorigg,Thorram,Thulgrom,Thulrim,Thurdrus,Thurgron,Thurren,Thyrom,Tordek,Torman,Torrig,Torryl,Tyrim,Umgrim,Umgurn,Urmnir,Urmrak,Vongrom,Vonthran
         </male_names>
         <female_names>
-            Aknaglas,Bluhrada,Bluznara,Britwern,Byralnif,Bzeftris,Cravlara,Dadryna,Drehvlin,Gorloar,Ichufwinn,Iorazril,Jarehrada,Kshodhis,Morloar,Movlara,Mrahzis,Nahken,Navrash,Nhehvlin,Nrigzis,Ruegriln,Ruenadis,Shibrina,Sovrash,Stretwern,Taevrash,Thrihvlin,Ylrebryn,Ynegrida
+            Baerthel,Beldelle,Belthel,Bondish,Bonleen,Bonnsael,Bonntin,Bonris,Braensora,Bralledille,Brallenia,Bretri,Bretria,Brilnura,Brilra,Broldielle,Brollinn,Brolmyla,Brulros,Brylnip,Brytnip,Byllelin,Bylleris,Bylma,Bylmyla,Dimrielle,Dimrin,Eddelle,Edleil,Eldeth,Elvan,Gemdille,Gersael,Gwanwyn,Gwinmora,Gwinsael,Gwyndielle,Gwynnys,Gwynthel,Gymthel,Jenlin,Jennlyn,Jennsora,Jennwin,Jinma,Jinrin,Jyndryn,Kaitlyl,Karnar,Karsora,Kathryl,Ketnas,Laslyl,Leslynn,Lessdielle,Lesselle,Lessnip,Lessryl,Lyesnar,Lysrin,Lysslinn,Lyswaen,Maerdora,Maevria,Marselle,Misris,Mistdora,Myrdryn,Mysnera,Mysros,Mystdelle,Naerthiel,Nalsora,Naltin,Nalvia,Nasdyl,Nassmyl,Nesdelle,Nesrielle,Nesryl,Nisvia,Niswaen,Redrin,Reynthel,Runnura,Rynwyn,Sarbera,Sarnip,Tasva,Tazdyl,Tazras,Tishtin,Tiznia,Tizthel,Torva,Tysbera,Tyshlyn,Tysrielle,Tyssyl,Tyswin
         </female_names>
-        <surnames>
-            Alnomgunch,Asradchan,Bnogrenz,Bnotchatz,Carehuanch,Chranzcharn,Chratchzan,Crabaln,Cstobwarn,Cstonrazg,Cstoztar,Dobnanch,Dotchatz,Dovragch,Druzlurch,Dzrezalf,Gelchanf,Gerzhurk,Geztar,Gralzarf,Grimaratzch,Grimorn,Grivzyrn,Gzovzyrn,Ilzehnch,Ilzerach,Inravretch,Inrazchyn,Ishefrach,Jhogrenz,Konrazg,Konzcharn,Kremorn,Ksredlin,Ksrerhytz,Ksrevnorz,Kzredras,Mharhytz,Nhedrunz,Nhelzarf,Nhethurzch,Nrofurn,Nromratz,Raothurzch,Ratchatz,Ryudchan,Ryuzchyn,Shradchan,Shrafurn,Snefrysz,Stulzarf,Szofrysz,Tabchasz,Tatchzan,Tchatarn,Tzerhytz,Yadrunz,Yaglynsh,Ychofnyg,Yredzach
-        </surnames>
+    </names>
+    <names race="halfling">
+        <male_names>
+            Arhorn,Arorin,Arpos,Arser,Aryver,Arzor,Barbin,Bartran,Barwrick,Conkas,Connan,Corret,Corton,Dandal,Danvias,Davos,Davry,Davver,Elner,Elton,Erdak,Erorin,Erpher,Erpher,Erras,Falemin,Falpos,Finnad,Finwrick,Flyndak,Flynfire,Flynsire,Flynvias,Garpos,Garras,Haldon,Hormo,Horzor,Idoret,Idorich,Iravias,Irazin,Janras,Jolos,Joner,Kasemin,Kaslan,Kaszu,Lanad,Lindal,Marnad,Marpos,Marver,Merorin,Merzu,Neyver,Nornad,Norpher,Noryas,Oriace,Orilan,Oririn,Ospher,Oswrick,Perkas,Peros,Perwan,Pimdon,Quoton,Quowan,Ricgin,Ricrin,Tarner,Tepos,Tevias,Tezor,Ulgin,Ulric,Ulzor,Uriser,Uriwan,Valser,Vinkas,Vinnan,Vinser,Vinver,Wenace,Wenner,Wenras,Wilbin,Wilder,Xanmin,Xanpos,Xanrich,Yarric,Yarton,Yarwrick,Yenorin,Yenrin,Zaldak,Zalmin,Zalmo,Zalry,Zenlan,Zenlos,Zenlos,Zenpos,Zenras,Zenumo,Zenzu
+        </male_names>
+        <female_names>
+            Aneni,Arialyn,Belcaryn,Bella,Belmia,Breara,Bregwen,Brelienne,Breris,Caleni,Calphina,Calula,Chentina,Chenwyn,Darris,Elikis,Elizana,Eotina,Eoula,Eozira,Fayula,Fenbyn,Fenfice,Fenzana,Graalyn,Gradove,Grakath,Haleigh,Hawyse,Hiljen,Hiltrix,Idaeni,Idafice,Idalie,Idaola,Isajen,Isaphina,Jaykis,Jildrey,Jilmia,Kelara,Keldove,Kelhaly,Lehaly,Lidhaly,Lidkis,Lidtina,Lidvira,Lidzira,Maewyn,Malfice,Malla,Malleigh,Marsira,Neddove,Nedjen,Neelle,Nehaly,Netina,Oraalyn,Oraeni,Oragrace,Oraprys,Paerana,Paeula,Prugrace,Prurana,Pruzana,Rieni,Rilienne,Rirana,Rosgwen,Sylri,Sylwyse,Sylyola,Thamkis,Thamula,Thervira,Trynsys,Unabrix,Unalie,Uvigrace,Vahaly,Vakath,Vawyse,Welcey,Welleigh,Welsica,Weltrix,Xialyn,Ximia,Ximita,Xirana,Yesprys,Yokis,Zefdove,Zeflie,Zefzana,Zenprys,Zensica
+        </female_names>
+    </names>
+    <names race="gnome">
+        <male_names>
+            Aldon,Alpos,Alrick,Alros,Alxim,Arifiz,Arigrim,Arihim,Bilxim,Calbis,Calgrim,Calnan,Calner,Calvyn,Calziver,Corni,Davji,Davmin,Davni,Dorpip,Dorser,Dorwor,Erdon,Ermop,Ertix,Erwor,Fargim,Farrick,Farwin,Felkas,Grahim,Graros,Horgrim,Iancorin,Ianlen,Ianros,Ianzu,Jecryn,Jorhik,Kelben,Kelston,Lanben,Lanmop,Lokur,Lolen,Loros,Mankas,Manpip,Manzu,Merver,Nesdon,Nesxim,Nicryn,Oruybar,Panaben,Quahik,Quaston,Quomop,Quoni,Quoni,Quopip,Rasgrim,Ronfiz,Ronner,Ronpip,Sacorin,Salfiz,Sawin,Sinlin,Sinpip,Tanben,Tanybar,Tolen,Tovyn,Trafiz,Traji,Umcorin,Umfan,Umver,Valros,Valrug,Valston,Vordri,Vorros,Vorxif,Warvyn,Wrekur,Wrelen,Wreryn,Wretor,Wreyur,Wrezu,Yospos,Yosybar,Zanji,Zanni,Zanpos,Zanser,Zillen,Zilston
+        </male_names>
+        <female_names>
+            Arina,Aritina,Breehani,Breelys,Dosys,Eilidira,Eilihana,Eilissa,Eiliza,Elmila,Faebys,Faemiphi,Faenove,Fenceli,Fenniana,Fenphina,Fensany,Fenwyse,Folgyra,Folhana,Follys,Folpine,Galzyre,Grendira,Grenphina,Helhani,Helwyn,Helxi,Hesbi,Hesgani,Hesgyra,Hestra,Hesxi,Inasys,Inaza,Isogyra,Isossa,Jeltina,Jeltra,Jotra,Krici,Krici,Krisys,Lorifi,Loriphina,Loriqys,Loritra,Minwyn,Minxis,Nifi,Nila,Nisys,Niwyse,Nixi,Nydira,Nytra,Nyyore,Odaroe,Odassa,Odawyn,Orbys,Prigyra,Prila,Prila,Primiphi,Primiphi,Pritra,Qilin,Quedira,Quegani,Quemiphi,Quetina,Rebi,Rosiyore,Sabi,Saphina,Saza,Spixis,Tifakini,Tifamyra,Uriceli,Urilin,Venzyre,Welbys,Welceli,Welnove,Welrhana,Wroceli,Xafi,Xyrolin,Yobi,Yoli,Yolin,Yomyn,Yoqaryn,Yotina,Zanila,Zinhani,Zinli,Zinsany
+        </female_names>
     </names>
 </names_all>

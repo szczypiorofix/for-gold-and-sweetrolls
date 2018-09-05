@@ -9,6 +9,9 @@ package com.szczypiorofix.sweetrolls.game.enums;
 public enum CharacterRace {
 
     HUMAN,
-    ELF
+    ELF,
+    DWARF,
+    HALFLING,
+    GNOME
 
 }

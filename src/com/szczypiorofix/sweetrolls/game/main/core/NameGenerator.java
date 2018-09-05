@@ -26,8 +26,11 @@ import java.io.InputStream;
 public class NameGenerator {
 
 
-    private String[] humanFemaleNames, humanMaleNames, humanSurnames;
-    private String[] elfFemaleNames, elfMaleNames, elfSurnames;
+    private String[] humanFemaleNames, humanMaleNames;
+    private String[] elfFemaleNames, elfMaleNames;
+    private String[] gnomeFemaleNames, gnomeMaleNames;
+    private String[] dwarfFemaleNames, dwarfMaleNames;
+    private String[] halflingFemaleNames, halflingMaleNames;
 
     public NameGenerator() {
         parseXML();
@@ -38,20 +41,40 @@ public class NameGenerator {
         switch (race) {
             case ELF: {
                 if (sex == CharacterSex.MALE)
-                    name = elfMaleNames[MainClass.RANDOM.nextInt(elfMaleNames.length)]+" "+elfSurnames[MainClass.RANDOM.nextInt(elfSurnames.length)];
+                    name = elfMaleNames[MainClass.RANDOM.nextInt(elfMaleNames.length)];
                 else
-                    name = elfFemaleNames[MainClass.RANDOM.nextInt(elfFemaleNames.length)]+" "+elfSurnames[MainClass.RANDOM.nextInt(elfSurnames.length)];
+                    name = elfFemaleNames[MainClass.RANDOM.nextInt(elfFemaleNames.length)];
+                break;
+            }
+            case DWARF: {
+                if (sex == CharacterSex.MALE)
+                    name = dwarfMaleNames[MainClass.RANDOM.nextInt(dwarfMaleNames.length)];
+                else
+                    name = dwarfFemaleNames[MainClass.RANDOM.nextInt(dwarfFemaleNames.length)];
+                break;
+            }
+            case GNOME: {
+                if (sex == CharacterSex.MALE)
+                    name = gnomeMaleNames[MainClass.RANDOM.nextInt(gnomeMaleNames.length)];
+                else
+                    name = gnomeFemaleNames[MainClass.RANDOM.nextInt(gnomeFemaleNames.length)];
+                break;
+            }
+            case HALFLING: {
+                if (sex == CharacterSex.MALE)
+                    name = halflingMaleNames[MainClass.RANDOM.nextInt(halflingMaleNames.length)];
+                else
+                    name = halflingFemaleNames[MainClass.RANDOM.nextInt(halflingFemaleNames.length)];
                 break;
             }
             default: { // HUMAN
                 if (sex == CharacterSex.MALE)
-                    name = humanMaleNames[MainClass.RANDOM.nextInt(humanMaleNames.length)]+" "+humanSurnames[MainClass.RANDOM.nextInt(humanSurnames.length)];
+                    name = humanMaleNames[MainClass.RANDOM.nextInt(humanMaleNames.length)];
                 else
-                    name = humanFemaleNames[MainClass.RANDOM.nextInt(humanFemaleNames.length)]+" "+humanSurnames[MainClass.RANDOM.nextInt(humanSurnames.length)];
+                    name = humanFemaleNames[MainClass.RANDOM.nextInt(humanFemaleNames.length)];
                 break;
             }
         }
-
         return name;
     }
 
@@ -93,16 +116,6 @@ public class NameGenerator {
                             addToArray(namesElement.getAttribute("race"), femaleNamesElement, 2);
                         }
                     }
-
-                    // SURNAMES
-                    NodeList surnamesList = namesElement.getElementsByTagName("surnames");
-                    for (int j = 0; j < surnamesList.getLength(); j++) {
-                        Node surnameNode = surnamesList.item(j);
-                        if (surnameNode.getNodeType() == Node.ELEMENT_NODE) {
-                            Element surnamesElement = (Element) surnameNode;
-                            addToArray(namesElement.getAttribute("race"), surnamesElement, 3);
-                        }
-                    }
                 }
             }
         } catch (ParserConfigurationException | IOException | SAXException e) {
@@ -137,14 +150,6 @@ public class NameGenerator {
                                 .split(",");
                         break;
                     }
-                    default: {
-                        humanSurnames = e
-                                .getFirstChild()
-                                .getNodeValue()
-                                .trim()
-                                .split(",");
-                        break;
-                    }
                 }
                 break;
             }
@@ -166,8 +171,63 @@ public class NameGenerator {
                                 .split(",");
                         break;
                     }
-                    default: {
-                        elfSurnames = e
+                }
+                break;
+            }
+            case "dwarf": {
+                switch (type) {
+                    case 1: {
+                        dwarfMaleNames = e
+                                .getFirstChild()
+                                .getNodeValue()
+                                .trim()
+                                .split(",");
+                        break;
+                    }
+                    case 2: {
+                        dwarfFemaleNames = e
+                                .getFirstChild()
+                                .getNodeValue()
+                                .trim()
+                                .split(",");
+                        break;
+                    }
+                }
+                break;
+            }
+            case "gnome": {
+                switch (type) {
+                    case 1: {
+                        gnomeMaleNames = e
+                                .getFirstChild()
+                                .getNodeValue()
+                                .trim()
+                                .split(",");
+                        break;
+                    }
+                    case 2: {
+                        gnomeFemaleNames = e
+                                .getFirstChild()
+                                .getNodeValue()
+                                .trim()
+                                .split(",");
+                        break;
+                    }
+                }
+                break;
+            }
+            case "halfling": {
+                switch (type) {
+                    case 1: {
+                        halflingMaleNames = e
+                                .getFirstChild()
+                                .getNodeValue()
+                                .trim()
+                                .split(",");
+                        break;
+                    }
+                    case 2: {
+                        halflingFemaleNames = e
                                 .getFirstChild()
                                 .getNodeValue()
                                 .trim()
@@ -178,8 +238,8 @@ public class NameGenerator {
                 break;
             }
             default: {
-                //System.out.println("Podano niewłaściwą rasę !!!");
-                //System.exit(0);
+                System.out.println("Podano niewłaściwą rasę !!!");
+                System.exit(0);
             }
         }
     }

@@ -47,7 +47,7 @@ public class FGASCreatePlayer {
         this.mouseCursor = mouseCursor;
         hudImage = Textures.getInstance().creationGUI;
 
-        currentSpriteSheet = Textures.getInstance().avatarsHumanMales;
+        currentSpriteSheet = Textures.getInstance().avatarsMales;
 
         currentAvatarSpriteSheetColumns = currentSpriteSheet.getHorizontalCount();
         currentPortraitImage = currentSpriteSheet.getSprite(currentAvatarSpriteSheetId % currentAvatarSpriteSheetColumns, currentAvatarSpriteSheetId / currentAvatarSpriteSheetColumns);
@@ -57,7 +57,7 @@ public class FGASCreatePlayer {
 
         generateRandomName = new MainMenuButton("Losowe imię", 540, 50);
 
-        controlls = new MainMenuControlls[13];
+        controlls = new MainMenuControlls[19];
         controlls[0] = new MainMenuControlls(MainMenuControlls.ControlType.CANCEL, "", false, 330, 540);
         controlls[1] = new MainMenuControlls(MainMenuControlls.ControlType.OK, "", false, 380, 540);
 
@@ -77,8 +77,14 @@ public class FGASCreatePlayer {
         // character race
         controlls[9] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Człowiek", false, 420, 180);
         controlls[10] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentRace.equals(CharacterRace.HUMAN), 450, 210);
-        controlls[11] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Elf", false, 625, 180);
-        controlls[12] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentRace.equals(CharacterRace.ELF), 625, 210);
+        controlls[11] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Elf", false, 420, 230);
+        controlls[12] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentRace.equals(CharacterRace.ELF), 450, 260);
+        controlls[13] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Krasnolud", false, 420, 280);
+        controlls[14] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentRace.equals(CharacterRace.DWARF), 450, 310);
+        controlls[15] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Niziołek", false, 420, 330);
+        controlls[16] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentRace.equals(CharacterRace.HALFLING), 450, 360);
+        controlls[17] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Gnom", false, 420, 380);
+        controlls[18] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentRace.equals(CharacterRace.GNOME), 450, 410);
 
     }
 
@@ -142,8 +148,7 @@ public class FGASCreatePlayer {
                             currentSex = CharacterSex.MALE;
                             controlls[7].setChecked(false);
                             controlls[5].setChecked(true);
-                            if (currentRace == CharacterRace.ELF) currentSpriteSheet = Textures.getInstance().avatarsElfMales;
-                            else currentSpriteSheet = Textures.getInstance().avatarsHumanMales;
+                            currentSpriteSheet = Textures.getInstance().avatarsMales;
                             currentAvatarSpriteSheetId = 0;
                             currentPortraitImage = currentSpriteSheet.getSprite(currentAvatarSpriteSheetId % currentAvatarSpriteSheetColumns, currentAvatarSpriteSheetId / currentAvatarSpriteSheetColumns);
                             break;
@@ -152,8 +157,7 @@ public class FGASCreatePlayer {
                             currentSex = CharacterSex.FEMALE;
                             controlls[7].setChecked(true);
                             controlls[5].setChecked(false);
-                            if (currentRace == CharacterRace.ELF) currentSpriteSheet = Textures.getInstance().avatarsElfFemales;
-                            else currentSpriteSheet = Textures.getInstance().avatarsHumanFemales;
+                            currentSpriteSheet = Textures.getInstance().avatarsFemales;
                             currentAvatarSpriteSheetId = 0;
                             currentPortraitImage = currentSpriteSheet.getSprite(currentAvatarSpriteSheetId % currentAvatarSpriteSheetColumns, currentAvatarSpriteSheetId / currentAvatarSpriteSheetColumns);
                             break;
@@ -162,20 +166,45 @@ public class FGASCreatePlayer {
                             currentRace = CharacterRace.HUMAN;
                             controlls[10].setChecked(true);
                             controlls[12].setChecked(false);
-                            if (currentSex == CharacterSex.FEMALE) currentSpriteSheet = Textures.getInstance().avatarsHumanFemales;
-                            else currentSpriteSheet = Textures.getInstance().avatarsHumanMales;
-                            currentAvatarSpriteSheetId = 0;
-                            currentPortraitImage = currentSpriteSheet.getSprite(currentAvatarSpriteSheetId % currentAvatarSpriteSheetColumns, currentAvatarSpriteSheetId / currentAvatarSpriteSheetColumns);
+                            controlls[14].setChecked(false);
+                            controlls[16].setChecked(false);
+                            controlls[18].setChecked(false);
                             break;
                         }
                         case 12: {
                             currentRace = CharacterRace.ELF;
                             controlls[10].setChecked(false);
+                            controlls[12].setChecked(true);
+                            controlls[14].setChecked(false);
+                            controlls[16].setChecked(false);
+                            controlls[18].setChecked(false);
+                            break;
+                        }
+                        case 14: {
+                            currentRace = CharacterRace.DWARF;
+                            controlls[10].setChecked(false);
                             controlls[12].setChecked(false);
-                            if (currentSex == CharacterSex.FEMALE) currentSpriteSheet = Textures.getInstance().avatarsElfFemales;
-                            else currentSpriteSheet = Textures.getInstance().avatarsElfMales;
-                            currentAvatarSpriteSheetId = 0;
-                            currentPortraitImage = currentSpriteSheet.getSprite(currentAvatarSpriteSheetId % currentAvatarSpriteSheetColumns, currentAvatarSpriteSheetId / currentAvatarSpriteSheetColumns);
+                            controlls[14].setChecked(true);
+                            controlls[16].setChecked(false);
+                            controlls[18].setChecked(false);
+                            break;
+                        }
+                        case 16: {
+                            currentRace = CharacterRace.HALFLING;
+                            controlls[10].setChecked(false);
+                            controlls[12].setChecked(false);
+                            controlls[14].setChecked(false);
+                            controlls[16].setChecked(true);
+                            controlls[18].setChecked(false);
+                            break;
+                        }
+                        case 18: {
+                            currentRace = CharacterRace.GNOME;
+                            controlls[10].setChecked(false);
+                            controlls[12].setChecked(false);
+                            controlls[14].setChecked(false);
+                            controlls[16].setChecked(false);
+                            controlls[18].setChecked(true);
                             break;
                         }
                     }

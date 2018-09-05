@@ -114,7 +114,7 @@ public class HUD {
         ), 590, 80);
 
         font.draw(player.statistics.P_Name, 590, 100);
-        font.draw("Poziom: " +player.statistics.P_Level, 590, 120);
+        //font.draw("Poziom: " +player.statistics.P_Level, 590, 120);
         //font.draw("Złoto: " + player.statistics.P_Gold, 590, 170);
         //font.draw("Teren: " +player.getTerrainType().getName(), 590, 190);
 
@@ -128,7 +128,6 @@ public class HUD {
                 healthBarColor,
                 font,
                 "Zdrowie: " +player.statistics.P_Health +"/"+player.statistics.P_MaxHealth);
-        //font.draw(" Zdrowie: " +player.statistics.P_Health +"/"+player.statistics.P_MaxHealth, 125, 20);
 
         featureBar(g,
                 590,
@@ -152,8 +151,6 @@ public class HUD {
                 font,
                 "Woda: " + String.format("%.2f", player.statistics.P_Water));
 
-        //font.draw("Jedzenie: " + String.format("%.2f", player.statistics.P_Food), 590, 230);
-        //font.draw("Woda: " + String.format("%.2f", player.statistics.P_Water), 590, 250);
 
         for (int i = 0; i < actionHistory.history.length; i++) {
             font.draw(actionHistory.history[i], 580, 380 + (i * 20));
