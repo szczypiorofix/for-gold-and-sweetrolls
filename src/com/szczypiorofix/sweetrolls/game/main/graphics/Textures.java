@@ -43,10 +43,10 @@ public class Textures {
             classm32 = new SpriteSheet("map/dg_classm32.png", 32, 32);
             mainMenuMainButtons = new SpriteSheet("assets/mm-gui-button.png", 168, 32);
             mainMenuControlls = new SpriteSheet("assets/mm-gui-controlls.png", 32, 32);
-            avatarsElfFemales = new SpriteSheet("avatars/elf_female.png", 169, 266);
-            avatarsElfMales = new SpriteSheet("avatars/elf_male.png", 169 ,266);
-            avatarsHumanFemales = new SpriteSheet("avatars/human_female.png", 169, 266);
-            avatarsHumanMales = new SpriteSheet("avatars/human_male.png", 169 ,266);
+            avatarsElfFemales = new SpriteSheet("avatars/elf_female.jpg", 169, 266);
+            avatarsElfMales = new SpriteSheet("avatars/elf_male.jpg", 169 ,266);
+            avatarsHumanFemales = new SpriteSheet("avatars/human_female.jpg", 169, 266);
+            avatarsHumanMales = new SpriteSheet("avatars/human_male.jpg", 169 ,266);
             dialogueFrame = new Image("assets/dialogue-frame.png");
             hudImage = new Image("assets/hud.png");
             clockImage = new Image("assets/time-counter.png");

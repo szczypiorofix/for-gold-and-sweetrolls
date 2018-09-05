@@ -116,7 +116,9 @@ public class FGASCreatePlayer {
                         case 1: {
                             //fgasMainMenu.loadGame(false);
                             forGoldAndSweetrolls.getFGASGame().restartGame();
-                            forGoldAndSweetrolls.getFGASGame().setPlayerName(currentName);
+                            forGoldAndSweetrolls.getFGASGame().getPlayer().statistics.P_Name = currentName;
+                            forGoldAndSweetrolls.getFGASGame().getPlayer().statistics.P_Sex = currentSex;
+                            forGoldAndSweetrolls.getFGASGame().getPlayer().statistics.P_Race = currentRace;
                             forGoldAndSweetrolls.setGameState(GameState.GAME);
                             break;
                         }

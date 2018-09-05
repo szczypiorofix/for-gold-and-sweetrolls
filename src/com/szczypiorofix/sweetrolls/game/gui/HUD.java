@@ -113,7 +113,7 @@ public class HUD {
                         : timeCounter.getMinuteCounter()
         ), 590, 80);
 
-        font.draw(player.getName(), 590, 100);
+        font.draw(player.statistics.P_Name, 590, 100);
         font.draw("Poziom: " +player.statistics.P_Level, 590, 120);
         //font.draw("Złoto: " + player.statistics.P_Gold, 590, 170);
         //font.draw("Teren: " +player.getTerrainType().getName(), 590, 190);
@@ -170,6 +170,8 @@ public class HUD {
         font.draw("Atak: " +player.statistics.P_Damage, 590, 340);
 
         font.draw("Picked: " +player.statistics.W_PickedUpItems, 590, 360);
+        font.draw("Sex: " +player.statistics.P_Sex, 590, 380);
+        font.draw("Race: " +player.statistics.P_Race, 590, 400);
 
     }
 

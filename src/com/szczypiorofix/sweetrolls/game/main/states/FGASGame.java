@@ -52,9 +52,7 @@ public class FGASGame implements DroppableListener, ConsumableListener {
     private int tileWidth, tileHeight;
     private int gameWidth, gameHeight;
     private boolean setNextRound;
-    private String playerName;
-    private CharacterRace playerRace;
-    private CharacterSex playerSex;
+
 
 
 
@@ -603,30 +601,6 @@ public class FGASGame implements DroppableListener, ConsumableListener {
         return hud;
     }
 
-    public String getPlayerName() {
-        return playerName;
-    }
-
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-        player.setName(playerName);
-    }
-
-    public CharacterRace getPlayerRace() {
-        return playerRace;
-    }
-
-    public void setPlayerRace(CharacterRace playerRace) {
-        this.playerRace = playerRace;
-    }
-
-    public CharacterSex getPlayerSex() {
-        return playerSex;
-    }
-
-    public void setPlayerSex(CharacterSex playerSex) {
-        this.playerSex = playerSex;
-    }
 
     public ActionHistory getActionHistory() {
         return actionHistory;

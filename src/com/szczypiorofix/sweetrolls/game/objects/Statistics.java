@@ -18,8 +18,9 @@ public class Statistics implements Serializable {
 
     public int P_Gold;
 
-    public CharacterSex sex;
-    public CharacterRace race;
+    public String P_Name;
+    public CharacterSex P_Sex;
+    public CharacterRace P_Race;
 
     public int P_Strength;
     public int P_Dexterity;

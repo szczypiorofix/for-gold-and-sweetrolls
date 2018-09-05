@@ -385,7 +385,7 @@ public class FGASMainMenu {
     }
 
 
-    public void loadGame(boolean load) {
+    void loadGame(boolean load) {
         forGoldAndSweetrolls.resetGame();
         forGoldAndSweetrolls.setGameState(GameState.GAME);
         if (load) {
@@ -403,6 +403,7 @@ public class FGASMainMenu {
             forGoldAndSweetrolls.getFGASGame().getTimeCounter().setMinuteCounter(saveGameData.getTimeCounterMinuteCounter());
             forGoldAndSweetrolls.getFGASGame().getObjectManager().getCurrentMap().setLevelType(saveGameData.getLevelType());
             forGoldAndSweetrolls.getFGASGame().setActionHistory(saveGameData.getActionHistory());
+            forGoldAndSweetrolls.getFGASGame().getPlayer().setName(saveGameData.getPlayerStatistics().P_Name);
 
             forGoldAndSweetrolls.getFGASGame().getHud().turn(saveGameData.getTimeCounterTimeStamp());
         }
