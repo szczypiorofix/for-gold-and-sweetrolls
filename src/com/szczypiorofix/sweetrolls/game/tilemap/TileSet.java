@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 24.08.18 13:39.
+ * Developed by szczypiorofix on 06.09.18 00:07.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -21,6 +21,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
@@ -46,9 +47,10 @@ public class TileSet {
         this.sourceFile = sourceFile;
         collisions = new ArrayList<>();
 
+        InputStream inputFile = null;
         try {
-            //InputStream inputFile = getClass().getResourceAsStream("/map/"+sourceFile);
-            File inputFile = new File(MainClass.RES + "map/" + sourceFile);
+            inputFile = getClass().getResourceAsStream("/map/"+sourceFile);
+            //File inputFile = new File(MainClass.RES + "map/" + sourceFile);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
@@ -126,6 +128,14 @@ public class TileSet {
         } catch (ParserConfigurationException | IOException | SAXException e) {
             e.printStackTrace();
             MainClass.logging(true, Level.WARNING, MainClass.getStackTrace(e));
+        } finally {
+            if (inputFile != null) {
+                try {
+                    inputFile.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 

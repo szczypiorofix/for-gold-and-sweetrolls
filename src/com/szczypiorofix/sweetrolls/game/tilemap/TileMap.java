@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 24.08.18 13:39.
+ * Developed by szczypiorofix on 06.09.18 00:07.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -18,6 +18,8 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 
@@ -90,9 +92,10 @@ public class TileMap {
      */
     private void loadFromTiledMap(String fileName) {
 
+        InputStream inputFile = null;
         try {
-            //InputStream inputFile = getClass().getResourceAsStream("/map/"+fileName);
-            File inputFile = new File(MainClass.RES + "map/" + fileName);
+            inputFile = getClass().getResourceAsStream("/map/"+fileName);
+            //File inputFile = new File(MainClass.RES + "map/" + fileName);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
@@ -270,6 +273,14 @@ public class TileMap {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if (inputFile != null) {
+                try {
+                    inputFile.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         calculateCollisions();

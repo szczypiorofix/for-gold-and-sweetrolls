@@ -17,6 +17,8 @@
       <element id="extracted-dir" path="C:/Java Libraries/Slick2D/lib/natives-mac.jar" path-in-jar="/" />
       <element id="extracted-dir" path="C:/Java Libraries/Slick2D/lib/jogg-0.0.7.jar" path-in-jar="/" />
       <element id="extracted-dir" path="C:/Java Libraries/Slick2D/lib/jorbis-0.0.15.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="C:/Java Libraries/ApacheCommonsCodec/commons-codec-1.11/commons-codec-1.11-tests.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="C:/Java Libraries/ApacheCommonsCodec/commons-codec-1.11/commons-codec-1.11.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
