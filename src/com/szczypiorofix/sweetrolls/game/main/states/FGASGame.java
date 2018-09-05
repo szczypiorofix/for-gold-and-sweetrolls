@@ -679,6 +679,7 @@ public class FGASGame implements DroppableListener, ConsumableListener {
         switch (item.getItemType()) {
             case FOOD: {
                 actionHistory.addValue("Zjedzono coś...");
+                player.statistics.P_Food += 5;
                 break;
             }
             case POTION: {
