@@ -193,7 +193,5 @@ public class FGASCreatePlayer {
         generateRandomName.render(g, 0, 0);
     }
 
-    public String getCurrentName() {
-        return currentName;
-    }
+
 }

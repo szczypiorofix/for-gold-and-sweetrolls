@@ -318,15 +318,10 @@ public class ObjectManager {
                         && player.getTileX(x) < level.getWidth()
                         && player.getTileY(y) < level.getHeight()) {
 
-                    int sx = x;
-                    int sy = y;
-                    if (player.getTileX() < tilesToEast) {
-                        //sx += 1;
-                    }
 
-                    if (list[player.getTileX() + sx][player.getTileY() + sy] != null) {
+                    if (list[player.getTileX() + x][player.getTileY() + y] != null) {
 
-                        list[player.getTileX() + sx][player.getTileY() + sy].render(g, offsetX, offsetY);
+                        list[player.getTileX() + x][player.getTileY() + y].render(g, offsetX, offsetY);
 
                     }
                 }

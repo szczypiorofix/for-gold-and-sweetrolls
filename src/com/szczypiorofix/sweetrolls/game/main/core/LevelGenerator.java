@@ -23,8 +23,8 @@ public class LevelGenerator {
     private final int TILEWIDTH = 32;
     private final int TILEHEIGHT = 32;
     private float chanceToStartAlive;
-    private int deathLimit = 4;
-    private int birthLimit = 3;
+    private int deathLimit;
+    private int birthLimit;
     private int emptyFieldGid;
     private int wallFieldGid;
     private int simulationSteps = 5;

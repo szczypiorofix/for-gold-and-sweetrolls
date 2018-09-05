@@ -10,7 +10,6 @@ import com.szczypiorofix.sweetrolls.game.enums.GameState;
 import com.szczypiorofix.sweetrolls.game.gui.MainMenuButton;
 import com.szczypiorofix.sweetrolls.game.gui.MainMenuControlls;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
-import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import com.szczypiorofix.sweetrolls.game.main.core.*;
 import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
 import com.szczypiorofix.sweetrolls.game.objects.terrain.Ground;
@@ -18,13 +17,8 @@ import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.*;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.particles.ConfigurableEmitter;
-import org.newdawn.slick.particles.ParticleIO;
-import org.newdawn.slick.particles.ParticleSystem;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class FGASMainMenu {

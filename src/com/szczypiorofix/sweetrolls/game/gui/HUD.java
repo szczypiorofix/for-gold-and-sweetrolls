@@ -127,7 +127,7 @@ public class HUD {
                 player.statistics.P_MaxHealth,
                 healthBarColor,
                 font,
-                " Zdrowie: " +player.statistics.P_Health +"/"+player.statistics.P_MaxHealth);
+                "Zdrowie: " +player.statistics.P_Health +"/"+player.statistics.P_MaxHealth);
         //font.draw(" Zdrowie: " +player.statistics.P_Health +"/"+player.statistics.P_MaxHealth, 125, 20);
 
         featureBar(g,

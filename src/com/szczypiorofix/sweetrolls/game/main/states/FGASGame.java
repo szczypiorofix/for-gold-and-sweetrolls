@@ -178,8 +178,8 @@ public class FGASGame implements DroppableListener, ConsumableListener {
         inventory = new Inventory(player, mouseCursor);
 
         pauseMenuButtons = new MainMenuButton[2];
-        pauseMenuButtons[0] = new MainMenuButton("WZNÓW", 230, 280);
-        pauseMenuButtons[1] = new MainMenuButton("ZAPIS I WYJDŹ", 230, 320);
+        pauseMenuButtons[0] = new MainMenuButton("Wznów", 230, 280);
+        pauseMenuButtons[1] = new MainMenuButton("Zapisz i wyjdź", 230, 320);
 
         // CREATE WORLD MAP IMAGE
         try {
@@ -550,7 +550,7 @@ public class FGASGame implements DroppableListener, ConsumableListener {
         if (player.getPlayerAction() == PlayerAction.MAP) {
             worldMapImage.draw(60, 50, 450, 450);
             g.drawRect(59, 49, 451, 451);
-            g.drawRect(60 + (int) ((player.getWorldMapTileX() * 450)/300), 50 + (int) ((player.getWorldMapTileY() * 450)/300), 1, 1);
+            g.drawRect(60 + (int) ((player.getWorldMapTileX() * 450)/300f), 50 + (int) ((player.getWorldMapTileY() * 450)/300f), 1, 1);
         }
 
         if (player.getPlayerAction() == PlayerAction.PAUSE_MENU) {
