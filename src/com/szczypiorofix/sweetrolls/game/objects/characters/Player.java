@@ -48,24 +48,24 @@ public class Player extends Character {
 
         image = Textures.getInstance().classm32.getSprite(3, 0);
 
-        statistics.P_Gold = 0;
-        statistics.P_Level = 1;
-        statistics.P_CurrentLevelBar = 0;
-        statistics.P_CurrentLevelMaxBar = 25;
-        statistics.P_Food = Statistics.P_MAX_FOOD;
-        statistics.P_FoodUsagePerHour = 0.1f;
-        statistics.P_Water = Statistics.P_MAX_WATER;
-        statistics.P_WaterUsagePerHour = 0.1f;
-        statistics.P_Strength = 10;
-        statistics.P_Dexterity = 10;
-        statistics.P_Constitution = 10;
-        statistics.P_Intelligence = 10;
+        statistics.p_Gold = 0;
+        statistics.p_Level = 1;
+        statistics.p_CurrentLevelBar = 0;
+        statistics.p_CurrentLevelMaxBar = 25;
+        statistics.p_Food = Statistics.P_MAX_FOOD;
+        statistics.p_FoodUsagePerHour = 0.1f;
+        statistics.p_Water = Statistics.P_MAX_WATER;
+        statistics.p_WaterUsagePerHour = 0.1f;
+        statistics.p_Stat_Strength = 10;
+        statistics.p_Stat_Dexterity = 10;
+        statistics.p_Stat_Constitution = 10;
+        statistics.p_Stat_Intelligence = 10;
 
-        statistics.P_ArmorClass = 0;
-        statistics.P_Damage = 1;
+        statistics.p_ArmorClass = 0;
+        statistics.p_Damage = 1;
 
-        statistics.P_MaxHealth = (statistics.P_Constitution * 10) + 50;
-        statistics.P_Health = statistics.P_MaxHealth;
+        statistics.p_MaxHealth = (statistics.p_Stat_Constitution * 10) + 50;
+        statistics.p_Health = statistics.p_MaxHealth;
 
         playerTurn = 0;
 
@@ -107,8 +107,8 @@ public class Player extends Character {
     }
 
     public void calculateSurvival() {
-        statistics.P_Food -= statistics.P_FoodUsagePerHour;
-        statistics.P_Water -= statistics.P_WaterUsagePerHour;
+        statistics.p_Food -= statistics.p_FoodUsagePerHour;
+        statistics.p_Water -= statistics.p_WaterUsagePerHour;
     }
 
 

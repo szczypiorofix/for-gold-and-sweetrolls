@@ -28,8 +28,6 @@ public class FontParser {
     private FontParser() {
         bitMapFont = new BitMapFont("vinque-bitmap.png");
 
-        System.out.println("Rejestracja nowego fontu.");
-
         InputStream in = null;
         try {
             in = FontParser.class.getResourceAsStream("/fonts/vinque-bitmap.xml");

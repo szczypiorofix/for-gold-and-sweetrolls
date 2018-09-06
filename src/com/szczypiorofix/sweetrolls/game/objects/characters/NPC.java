@@ -49,7 +49,7 @@ public class NPC extends Character {
         font = FontParser.getFont();
 
         characterType = estimateCharacterType(getStringProperty("type"));
-        statistics.P_MaxHealth = getIntegerProperty("maxhealth");
+        statistics.p_MaxHealth = getIntegerProperty("maxhealth");
 
         londTalk = getBooleanProperty("longTalk");
 

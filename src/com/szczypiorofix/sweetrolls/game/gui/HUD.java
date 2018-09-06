@@ -100,12 +100,12 @@ public class HUD {
                 590,
                 150,
                 160,
-                16,
-                player.statistics.P_CurrentLevelBar,
-                player.statistics.P_CurrentLevelMaxBar,
+                20,
+                player.statistics.p_CurrentLevelBar,
+                player.statistics.p_CurrentLevelMaxBar,
                 levelBarColor,
                 font,
-                "Poziom "+player.statistics.P_Level
+                "Poziom "+player.statistics.p_Level
                 );
 
         font.draw("Dzień: " + timeCounter.getDayCounter() + ", godz: " + timeCounter.getHourCounter() + ":" + (
@@ -113,7 +113,7 @@ public class HUD {
                         : timeCounter.getMinuteCounter()
         ), 590, 80);
 
-        font.draw(player.statistics.P_Name, 590, 100);
+        font.draw(player.statistics.p_Name, 590, 100);
         //font.draw("Poziom: " +player.statistics.P_Level, 590, 120);
         //font.draw("Złoto: " + player.statistics.P_Gold, 590, 170);
         //font.draw("Teren: " +player.getTerrainType().getName(), 590, 190);
@@ -123,33 +123,33 @@ public class HUD {
                 180,
                 160,
                 20,
-                player.statistics.P_Health,
-                player.statistics.P_MaxHealth,
+                player.statistics.p_Health,
+                player.statistics.p_MaxHealth,
                 healthBarColor,
                 font,
-                "Zdrowie: " +player.statistics.P_Health +"/"+player.statistics.P_MaxHealth);
+                "Zdrowie: " +player.statistics.p_Health +"/"+player.statistics.p_MaxHealth);
 
         featureBar(g,
                 590,
                 200,
                 160,
                 20,
-                player.statistics.P_Food,
+                player.statistics.p_Food,
                 Statistics.P_MAX_FOOD,
                 foodBarColor,
                 font,
-                "Jedzenie: " + String.format("%.2f", player.statistics.P_Food));
+                "Jedzenie: " + String.format("%.2f", player.statistics.p_Food));
 
         featureBar(g,
                 590,
                 220,
                 160,
                 20,
-                player.statistics.P_Water,
+                player.statistics.p_Water,
                 Statistics.P_MAX_WATER,
                 waterBarColor,
                 font,
-                "Woda: " + String.format("%.2f", player.statistics.P_Water));
+                "Woda: " + String.format("%.2f", player.statistics.p_Water));
 
 
         for (int i = 0; i < actionHistory.history.length; i++) {
@@ -163,12 +163,12 @@ public class HUD {
 //        font.draw("Mouse tile: " +mouseCursor.getTileX()+":"+mouseCursor.getTileY(), 590, 300);
 //        font.draw("Player offset: " +player.getOffsetX()+":"+player.getOffsetY(), 590, 340);
 
-        font.draw("Pancerz : " +player.statistics.P_ArmorClass, 590, 320);
-        font.draw("Atak: " +player.statistics.P_Damage, 590, 340);
+        font.draw("Pancerz : " +player.statistics.p_ArmorClass, 590, 320);
+        font.draw("Atak: " +player.statistics.p_Damage, 590, 340);
 
-        font.draw("Picked: " +player.statistics.W_PickedUpItems, 590, 360);
-        font.draw("Sex: " +player.statistics.P_Sex, 590, 380);
-        font.draw("Race: " +player.statistics.P_Race, 590, 400);
+        font.draw("Picked: " +player.statistics.w_PickedUpItems, 590, 360);
+        font.draw("Sex: " +player.statistics.p_Sex, 590, 380);
+        font.draw("Race: " +player.statistics.p_Race, 590, 400);
 
     }
 

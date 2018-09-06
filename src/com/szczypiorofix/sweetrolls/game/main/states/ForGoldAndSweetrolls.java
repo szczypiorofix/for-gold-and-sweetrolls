@@ -42,6 +42,8 @@ public final class ForGoldAndSweetrolls extends BasicGame {
         FGASGame = new FGASGame(this);
         FGASCreatePlayer = new FGASCreatePlayer(this, FGASMainMenu);
         gameState = GameState.MAIN_MENU;
+        musicVolume = config.musicVolume;
+        sfxVolume = config.sfxVolume;
     }
 
 

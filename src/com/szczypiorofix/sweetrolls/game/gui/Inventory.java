@@ -170,16 +170,16 @@ public class Inventory implements CloseableFrameListener {
                                     inventoryContainers[dragOriginX][dragOriginY].item = null;
 
                                     if (currentContainer.getInventorySlotType() == InventorySlotType.HEAD) {
-                                        player.statistics.P_ArmorClass += dragItem.getArmorRatio();
+                                        player.statistics.p_ArmorClass += dragItem.getArmorRatio();
                                     }
 
                                     if (currentContainer.getInventorySlotType() == InventorySlotType.CHEST) {
-                                        player.statistics.P_ArmorClass += dragItem.getArmorRatio();
+                                        player.statistics.p_ArmorClass += dragItem.getArmorRatio();
                                     }
 
                                     if (currentContainer.getInventorySlotType() == InventorySlotType.INVENTORY) {
-                                        player.statistics.P_ArmorClass -= dragItem.getArmorRatio();
-                                        player.statistics.P_Damage -= dragItem.getDamageRatio();
+                                        player.statistics.p_ArmorClass -= dragItem.getArmorRatio();
+                                        player.statistics.p_Damage -= dragItem.getDamageRatio();
                                     }
                                 }
                                 dragItem = null;

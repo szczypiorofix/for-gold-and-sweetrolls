@@ -22,6 +22,6 @@ public class SFX {
     }
 
     public void play(int volume) {
-        s.play(1f, (float) volume / 100);
+        s.play(1f, (float) (volume) / 100);
     }
 }

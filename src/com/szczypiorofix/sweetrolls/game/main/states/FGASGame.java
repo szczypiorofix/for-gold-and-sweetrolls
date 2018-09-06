@@ -92,7 +92,7 @@ public class FGASGame implements DroppableListener, ConsumableListener {
                 player = objectManager.getPlayer();
 
                 //STATISTICS: Discovered Places +1
-                player.statistics.W_DiscoveredPlaces++;
+                player.statistics.w_DiscoveredPlaces++;
             } else {
                 levelMap = levels.get(levelName);
             }
@@ -106,7 +106,7 @@ public class FGASGame implements DroppableListener, ConsumableListener {
                 player = objectManager.getPlayer();
 
                 //STATISTICS: Discovered Places +1
-                player.statistics.W_DiscoveredPlaces++;
+                player.statistics.w_DiscoveredPlaces++;
             } else {
                 levelMap = levels.get(levelName);
             }
@@ -368,11 +368,12 @@ public class FGASGame implements DroppableListener, ConsumableListener {
 
 
             if (input.isKeyPressed(Input.KEY_SPACE)) {
-                player.statistics.P_CurrentLevelBar++;
+                //player.statistics.p_CurrentLevelBar++;
+                setNextRound = true;
             }
 
             if (input.isKeyPressed(Input.KEY_F1)) {
-                player.statistics.P_Health -= 7;
+                player.statistics.p_Health -= 7;
             }
 
             if (objectManager.getCurrentMap().getLevelType() == LevelType.WORLD_MAP) {
@@ -622,13 +623,13 @@ public class FGASGame implements DroppableListener, ConsumableListener {
             if (currentItem.getItemType() == ItemType.GOLD) {
                 int goldGained = currentItem.getIntegerProperty("value");
                 actionHistory.addValue("Znaleziono złoto: "+goldGained);
-                player.statistics.P_Gold += goldGained;
+                player.statistics.p_Gold += goldGained;
                 objectManager.getItems()[player.getTileX(i)][player.getTileY(j)] = null;
             } // Złoto nie pojawia się w ekwipunku.
             else {
                 actionHistory.addValue("Podniesiono: "+currentItem.getStringProperty("name"));
                 // STATISTICS: Picked Up item +1
-                if (!currentItem.isFound()) player.statistics.W_PickedUpItems++;
+                if (!currentItem.isFound()) player.statistics.w_PickedUpItems++;
                 if (inventory.putToInventory(currentItem)) {
                     objectManager.getItems()[player.getTileX(i)][player.getTileY(j)] = null;
                 } else {
@@ -638,7 +639,7 @@ public class FGASGame implements DroppableListener, ConsumableListener {
         } else {
             if (currentItem.getItemType() == ItemType.CHEST) {
                 int goldGained = MainClass.RANDOM.nextInt(currentItem.getIntegerProperty("value")) + 1;
-                player.statistics.P_Gold += goldGained;
+                player.statistics.p_Gold += goldGained;
                 actionHistory.addValue("Przeszukiwanie skrzyni...");
                 actionHistory.addValue("Znaleziono: złoto: " + goldGained);
                 objectManager.getItems()[player.getTileX(i)][player.getTileY(j)] = null;
@@ -678,8 +679,8 @@ public class FGASGame implements DroppableListener, ConsumableListener {
     public void consume(Item item) {
         switch (item.getItemType()) {
             case FOOD: {
-                actionHistory.addValue("Zjedzono coś...");
-                player.statistics.P_Food += 5;
+                actionHistory.addValue("Zjedzono "+item.getName());
+                player.statistics.p_Food += 5;
                 break;
             }
             case POTION: {
