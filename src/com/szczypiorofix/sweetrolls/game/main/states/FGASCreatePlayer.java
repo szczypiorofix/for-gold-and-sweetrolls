@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 06.09.18 08:12.
+ * Developed by szczypiorofix on 06.09.18 22:42.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -20,7 +20,8 @@ import org.newdawn.slick.*;
 public class FGASCreatePlayer {
 
     private final int MIN_STRENGTH = 10, MIN_DEXTERITY = 10, MIN_CONSTITUTION = 10, MIN_INTELLIGENCE = 10;
-    private final int MAX_POINTS = 20;
+    private final int MAX_STAT_POINTS = 20;
+    private final int MAX_SKILLS_POINTS = 6;
     private Input input;
     private MouseCursor mouseCursor;
     private Image hudImage;
@@ -36,8 +37,8 @@ public class FGASCreatePlayer {
     private MainMenuButton generateRandomName;
     private NameGenerator nameGenerator;
     private String currentName;
-    private int currentStr, currentDex, currentCon, currentInt, maxPoints, leftPoints;
-    private int currentAlchemy, currentLockpicking, currentSpeech, currentArchery, currentSurvival, currentSword, currentSheild, currentArmor;
+    private int currentStr, currentDex, currentCon, currentInt, leftStatsPoints, leftSkillsPoints;
+    private int currentAlchemy, currentLockpicking, currentSpeech, currentArchery, currentSurvival, currentSword, currentShield, currentArmor;
     private SFX sfx;
 
     public FGASCreatePlayer(ForGoldAndSweetrolls forGoldAndSweetrolls, FGASMainMenu fgasMainMenu) {
@@ -55,11 +56,21 @@ public class FGASCreatePlayer {
 
         sfx = new SFX("hit.ogg");
 
-        leftPoints = maxPoints = MAX_POINTS;
+        leftStatsPoints = MAX_STAT_POINTS;
         currentStr = MIN_STRENGTH;
         currentDex = MIN_DEXTERITY;
         currentCon = MIN_CONSTITUTION;
         currentInt = MIN_INTELLIGENCE;
+
+        leftSkillsPoints = MAX_SKILLS_POINTS;
+        currentAlchemy = 0;
+        currentArchery = 0;
+        currentArmor = 0;
+        currentLockpicking = 0;
+        currentSpeech = 0;
+        currentShield = 0;
+        currentSurvival = 0;
+        currentSword = 0;
 
         currentSpriteSheet = Textures.getInstance().avatarsMales;
 
@@ -99,32 +110,72 @@ public class FGASCreatePlayer {
         // ########## STATISTICS CONTROLLS
         statisticsControlls = new MainMenuControlls[18];
         statisticsControlls[0] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Punkty:", false, 30, 380);
-        statisticsControlls[1] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, leftPoints+"", false, 190, 380);
+        statisticsControlls[1] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, leftStatsPoints +"", false, 190, 380);
 
         statisticsControlls[2] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Siła", false, 30, 420);
         statisticsControlls[3] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, currentStr + "", false, 190, 420);
         statisticsControlls[4] = new MainMenuControlls(MainMenuControlls.ControlType.UP_ARROW, "", false, 230, 415);
         statisticsControlls[5] = new MainMenuControlls(MainMenuControlls.ControlType.DOWN_ARROW, "", false, 270, 415);
 
-        statisticsControlls[6] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Zręczność", false, 30, 460);
-        statisticsControlls[7] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, currentDex + "", false, 190, 460);
-        statisticsControlls[8] = new MainMenuControlls(MainMenuControlls.ControlType.UP_ARROW, "", false, 230, 455);
-        statisticsControlls[9] = new MainMenuControlls(MainMenuControlls.ControlType.DOWN_ARROW, "", false, 270, 455);
+        statisticsControlls[6] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Zręczność", false, 30, 450);
+        statisticsControlls[7] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, currentDex + "", false, 190, 450);
+        statisticsControlls[8] = new MainMenuControlls(MainMenuControlls.ControlType.UP_ARROW, "", false, 230, 445);
+        statisticsControlls[9] = new MainMenuControlls(MainMenuControlls.ControlType.DOWN_ARROW, "", false, 270, 445);
 
-        statisticsControlls[10] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Wytrzymałość", false, 30, 500);
-        statisticsControlls[11] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, currentCon + "", false, 190, 500);
-        statisticsControlls[12] = new MainMenuControlls(MainMenuControlls.ControlType.UP_ARROW, "", false, 230, 495);
-        statisticsControlls[13] = new MainMenuControlls(MainMenuControlls.ControlType.DOWN_ARROW, "", false, 270, 495);
+        statisticsControlls[10] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Wytrzymałość", false, 30, 480);
+        statisticsControlls[11] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, currentCon + "", false, 190, 480);
+        statisticsControlls[12] = new MainMenuControlls(MainMenuControlls.ControlType.UP_ARROW, "", false, 230, 475);
+        statisticsControlls[13] = new MainMenuControlls(MainMenuControlls.ControlType.DOWN_ARROW, "", false, 270, 475);
 
-        statisticsControlls[14] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Inteligencja", false, 30, 540);
-        statisticsControlls[15] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, currentInt + "", false, 190, 540);
-        statisticsControlls[16] = new MainMenuControlls(MainMenuControlls.ControlType.UP_ARROW, "", false, 230, 535);
-        statisticsControlls[17] = new MainMenuControlls(MainMenuControlls.ControlType.DOWN_ARROW, "", false, 270, 535);
+        statisticsControlls[14] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Inteligencja", false, 30, 510);
+        statisticsControlls[15] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, currentInt + "", false, 190, 510);
+        statisticsControlls[16] = new MainMenuControlls(MainMenuControlls.ControlType.UP_ARROW, "", false, 230, 505);
+        statisticsControlls[17] = new MainMenuControlls(MainMenuControlls.ControlType.DOWN_ARROW, "", false, 270, 505);
 
         // ########## SKILLS CONTROLLS
-        skillsControlls = new MainMenuControlls[2];
-        skillsControlls[0] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Punkty:", false, 460, 300);
-        skillsControlls[1] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, leftPoints+"", false, 550, 300);
+        skillsControlls = new MainMenuControlls[34];
+        skillsControlls[0] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Punkty:", false, 460, 260);
+        skillsControlls[1] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, leftSkillsPoints +"", false, 620, 260);
+
+        skillsControlls[2] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Alchemia", false, 460, 300);
+        skillsControlls[3] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, currentAlchemy + "", false, 620, 300);
+        skillsControlls[4] = new MainMenuControlls(MainMenuControlls.ControlType.UP_ARROW, "", false, 660, 295);
+        skillsControlls[5] = new MainMenuControlls(MainMenuControlls.ControlType.DOWN_ARROW, "", false, 700, 295);
+
+        skillsControlls[6] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Otw. zamków", false, 460, 330);
+        skillsControlls[7] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, currentLockpicking + "", false, 620, 330);
+        skillsControlls[8] = new MainMenuControlls(MainMenuControlls.ControlType.UP_ARROW, "", false, 660, 325);
+        skillsControlls[9] = new MainMenuControlls(MainMenuControlls.ControlType.DOWN_ARROW, "", false, 700, 325);
+
+        skillsControlls[10] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Miecze", false, 460, 360);
+        skillsControlls[11] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, currentSword + "", false, 620, 360);
+        skillsControlls[12] = new MainMenuControlls(MainMenuControlls.ControlType.UP_ARROW, "", false, 660, 355);
+        skillsControlls[13] = new MainMenuControlls(MainMenuControlls.ControlType.DOWN_ARROW, "", false, 700, 355);
+
+        skillsControlls[14] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Zbroja", false, 460, 390);
+        skillsControlls[15] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, currentArmor + "", false, 620, 390);
+        skillsControlls[16] = new MainMenuControlls(MainMenuControlls.ControlType.UP_ARROW, "", false, 660, 385);
+        skillsControlls[17] = new MainMenuControlls(MainMenuControlls.ControlType.DOWN_ARROW, "", false, 700, 385);
+
+        skillsControlls[18] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Tarcze", false, 460, 420);
+        skillsControlls[19] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, currentShield + "", false, 620, 420);
+        skillsControlls[20] = new MainMenuControlls(MainMenuControlls.ControlType.UP_ARROW, "", false, 660, 415);
+        skillsControlls[21] = new MainMenuControlls(MainMenuControlls.ControlType.DOWN_ARROW, "", false, 700, 415);
+
+        skillsControlls[22] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Surwiwal", false, 460, 450);
+        skillsControlls[23] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, currentSurvival + "", false, 620, 450);
+        skillsControlls[24] = new MainMenuControlls(MainMenuControlls.ControlType.UP_ARROW, "", false, 660, 445);
+        skillsControlls[25] = new MainMenuControlls(MainMenuControlls.ControlType.DOWN_ARROW, "", false, 700, 445);
+
+        skillsControlls[26] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Retoryka", false, 460, 480);
+        skillsControlls[27] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, currentSpeech + "", false, 620, 480);
+        skillsControlls[28] = new MainMenuControlls(MainMenuControlls.ControlType.UP_ARROW, "", false, 660, 475);
+        skillsControlls[29] = new MainMenuControlls(MainMenuControlls.ControlType.DOWN_ARROW, "", false, 700, 475);
+
+        skillsControlls[30] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Łucznictwo", false, 460, 510);
+        skillsControlls[31] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, currentArchery + "", false, 620, 510);
+        skillsControlls[32] = new MainMenuControlls(MainMenuControlls.ControlType.UP_ARROW, "", false, 660, 505);
+        skillsControlls[33] = new MainMenuControlls(MainMenuControlls.ControlType.DOWN_ARROW, "", false, 700, 505);
     }
 
     public void update(GameContainer gc, int delta) throws SlickException {
@@ -159,7 +210,7 @@ public class FGASCreatePlayer {
                             break;
                         }
                         case 1: {
-                            if (leftPoints == 0) {
+                            if (leftStatsPoints == 0 && leftSkillsPoints == 0) {
                                 //fgasMainMenu.loadGame(false);
                                 forGoldAndSweetrolls.getFGASGame().restartGame();
                                 forGoldAndSweetrolls.getFGASGame().getPlayer().statistics.p_Name = currentName;
@@ -291,10 +342,10 @@ public class FGASCreatePlayer {
                     switch (i) {
                         // STRENGTH
                         case 4: {
-                            if (leftPoints > 0) {
+                            if (leftStatsPoints > 0) {
                                 currentStr++;
-                                leftPoints--;
-                                statisticsControlls[1].setText(leftPoints+"");
+                                leftStatsPoints--;
+                                statisticsControlls[1].setText(leftStatsPoints +"");
                                 statisticsControlls[3].setText(currentStr+"");
                             }
                             break;
@@ -302,18 +353,18 @@ public class FGASCreatePlayer {
                         case 5: {
                             if (currentStr > MIN_STRENGTH) {
                                 currentStr--;
-                                leftPoints++;
-                                statisticsControlls[1].setText(leftPoints+"");
+                                leftStatsPoints++;
+                                statisticsControlls[1].setText(leftStatsPoints +"");
                                 statisticsControlls[3].setText(currentStr+"");
                             }
                             break;
                         }
                         // DEXTERITY
                         case 8: {
-                            if (leftPoints > 0) {
+                            if (leftStatsPoints > 0) {
                                 currentDex++;
-                                leftPoints--;
-                                statisticsControlls[1].setText(leftPoints+"");
+                                leftStatsPoints--;
+                                statisticsControlls[1].setText(leftStatsPoints +"");
                                 statisticsControlls[7].setText(currentDex+"");
                             }
                             break;
@@ -321,18 +372,18 @@ public class FGASCreatePlayer {
                         case 9: {
                             if (currentDex > MIN_DEXTERITY) {
                                 currentDex--;
-                                leftPoints++;
-                                statisticsControlls[1].setText(leftPoints+"");
+                                leftStatsPoints++;
+                                statisticsControlls[1].setText(leftStatsPoints +"");
                                 statisticsControlls[7].setText(currentDex+"");
                             }
                             break;
                         }
                         // CONSTITUTION
                         case 12: {
-                            if (leftPoints > 0) {
+                            if (leftStatsPoints > 0) {
                                 currentCon++;
-                                leftPoints--;
-                                statisticsControlls[1].setText(leftPoints+"");
+                                leftStatsPoints--;
+                                statisticsControlls[1].setText(leftStatsPoints +"");
                                 statisticsControlls[11].setText(currentCon+"");
                             }
                             break;
@@ -340,18 +391,18 @@ public class FGASCreatePlayer {
                         case 13: {
                             if (currentCon > MIN_CONSTITUTION) {
                                 currentCon--;
-                                leftPoints++;
-                                statisticsControlls[1].setText(leftPoints+"");
+                                leftStatsPoints++;
+                                statisticsControlls[1].setText(leftStatsPoints +"");
                                 statisticsControlls[11].setText(currentCon+"");
                             }
                             break;
                         }
                         // INTELLIGENCE
                         case 16: {
-                            if (leftPoints > 0) {
+                            if (leftStatsPoints > 0) {
                                 currentInt++;
-                                leftPoints--;
-                                statisticsControlls[1].setText(leftPoints+"");
+                                leftStatsPoints--;
+                                statisticsControlls[1].setText(leftStatsPoints +"");
                                 statisticsControlls[15].setText(currentInt+"");
                             }
                             break;
@@ -359,8 +410,8 @@ public class FGASCreatePlayer {
                         case 17: {
                             if (currentInt > MIN_INTELLIGENCE) {
                                 currentInt--;
-                                leftPoints++;
-                                statisticsControlls[1].setText(leftPoints+"");
+                                leftStatsPoints++;
+                                statisticsControlls[1].setText(leftStatsPoints +"");
                                 statisticsControlls[15].setText(currentInt+"");
                             }
                             break;
@@ -368,6 +419,170 @@ public class FGASCreatePlayer {
                     }
                 } else statisticsControlls[i].setActive(false);
             } else statisticsControlls[i].setHover(false);
+        }
+
+        for (int i = 0; i < skillsControlls.length; i++) {
+            if (mouseCursor.intersects(skillsControlls[i])) {
+                skillsControlls[i].setHover(true);
+                if (mouseCursor.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+                    skillsControlls[i].setActive(true);
+                    switch (i) {
+                        // ALCHEMY
+                        case 4: {
+                            if (leftSkillsPoints > 0) {
+                                currentAlchemy++;
+                                leftSkillsPoints--;
+                                skillsControlls[1].setText(leftSkillsPoints +"");
+                                skillsControlls[3].setText(currentAlchemy+"");
+                            }
+                            break;
+                        }
+                        case 5: {
+                            if (currentAlchemy > 0) {
+                                currentAlchemy--;
+                                leftSkillsPoints++;
+                                skillsControlls[1].setText(leftSkillsPoints +"");
+                                skillsControlls[3].setText(currentAlchemy+"");
+                            }
+                            break;
+                        }
+                        // LOCKPICKING
+                        case 8: {
+                            if (leftSkillsPoints > 0) {
+                                currentLockpicking++;
+                                leftSkillsPoints--;
+                                skillsControlls[1].setText(leftSkillsPoints +"");
+                                skillsControlls[7].setText(currentLockpicking+"");
+                            }
+                            break;
+                        }
+                        case 9: {
+                            if (currentLockpicking > 0) {
+                                currentLockpicking--;
+                                leftSkillsPoints++;
+                                skillsControlls[1].setText(leftSkillsPoints +"");
+                                skillsControlls[7].setText(currentLockpicking+"");
+                            }
+                            break;
+                        }
+                        // SWORDS
+                        case 12: {
+                            if (leftSkillsPoints > 0) {
+                                currentSword++;
+                                leftSkillsPoints--;
+                                skillsControlls[1].setText(leftSkillsPoints +"");
+                                skillsControlls[11].setText(currentSword+"");
+                            }
+                            break;
+                        }
+                        case 13: {
+                            if (currentSword > 0) {
+                                currentSword--;
+                                leftSkillsPoints++;
+                                skillsControlls[1].setText(leftSkillsPoints +"");
+                                skillsControlls[11].setText(currentSword+"");
+                            }
+                            break;
+                        }
+                        // ARMOR
+                        case 16: {
+                            if (leftSkillsPoints > 0) {
+                                currentArmor++;
+                                leftSkillsPoints--;
+                                skillsControlls[1].setText(leftSkillsPoints +"");
+                                skillsControlls[15].setText(currentArmor+"");
+                            }
+                            break;
+                        }
+                        case 17: {
+                            if (currentArmor > 0) {
+                                currentArmor--;
+                                leftSkillsPoints++;
+                                skillsControlls[1].setText(leftSkillsPoints +"");
+                                skillsControlls[15].setText(currentArmor+"");
+                            }
+                            break;
+                        }
+                        // SHIELD
+                        case 20: {
+                            if (leftSkillsPoints > 0) {
+                                currentShield++;
+                                leftSkillsPoints--;
+                                skillsControlls[1].setText(leftSkillsPoints +"");
+                                skillsControlls[19].setText(currentShield+"");
+                            }
+                            break;
+                        }
+                        case 21: {
+                            if (currentShield > 0) {
+                                currentShield--;
+                                leftSkillsPoints++;
+                                skillsControlls[1].setText(leftSkillsPoints +"");
+                                skillsControlls[19].setText(currentShield+"");
+                            }
+                            break;
+                        }
+                        // SURVIVAL
+                        case 24: {
+                            if (leftSkillsPoints > 0) {
+                                currentSurvival++;
+                                leftSkillsPoints--;
+                                skillsControlls[1].setText(leftSkillsPoints +"");
+                                skillsControlls[23].setText(currentSurvival+"");
+                            }
+                            break;
+                        }
+                        case 25: {
+                            if (currentSurvival > 0) {
+                                currentSurvival--;
+                                leftSkillsPoints++;
+                                skillsControlls[1].setText(leftSkillsPoints +"");
+                                skillsControlls[23].setText(currentSurvival+"");
+                            }
+                            break;
+                        }
+                        // SPEECH
+                        case 28: {
+                            if (leftSkillsPoints > 0) {
+                                currentSpeech++;
+                                leftSkillsPoints--;
+                                skillsControlls[1].setText(leftSkillsPoints +"");
+                                skillsControlls[27].setText(currentSpeech+"");
+                            }
+                            break;
+                        }
+                        case 29: {
+                            if (currentSpeech > 0) {
+                                currentSpeech--;
+                                leftSkillsPoints++;
+                                skillsControlls[1].setText(leftSkillsPoints +"");
+                                skillsControlls[27].setText(currentSpeech+"");
+                            }
+                            break;
+                        }
+                        // ARCHARY
+                        case 32: {
+                            if (leftSkillsPoints > 0) {
+                                currentArchery++;
+                                leftSkillsPoints--;
+                                skillsControlls[1].setText(leftSkillsPoints +"");
+                                skillsControlls[31].setText(currentArchery+"");
+                            }
+                            break;
+                        }
+                        case 33: {
+                            if (currentArchery > 0) {
+                                currentArchery--;
+                                leftSkillsPoints++;
+                                skillsControlls[1].setText(leftSkillsPoints +"");
+                                skillsControlls[31].setText(currentArchery+"");
+                            }
+                            break;
+                        }
+
+                    }
+                } else skillsControlls[i].setActive(false);
+            } else skillsControlls[i].setHover(false);
         }
     }
 
