@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 30.08.18 14:41.
+ * Developed by szczypiorofix on 06.09.18 08:12.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -55,7 +55,7 @@ public class FGASCreatePlayer {
         // Avatars
         // https://www.deviantart.com/artastrophe/art/BG-Portrait-Package-145216289
 
-        generateRandomName = new MainMenuButton("Losowe imię", 540, 50);
+        generateRandomName = new MainMenuButton("Losowe imię", 620, 15);
 
         controlls = new MainMenuControlls[19];
         controlls[0] = new MainMenuControlls(MainMenuControlls.ControlType.CANCEL, "", false, 330, 540);
@@ -66,25 +66,25 @@ public class FGASCreatePlayer {
         controlls[3] = new MainMenuControlls(MainMenuControlls.ControlType.RIGHT_ARROW, "", false, 220, 320);
 
         // character sex
-        controlls[4] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Mężczyzna", false, 420, 100);
-        controlls[5] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentSex.equals(CharacterSex.MALE), 450, 130);
-        controlls[6] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Kobieta", false, 600, 100);
-        controlls[7] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentSex.equals(CharacterSex.FEMALE), 625, 130);
+        controlls[4] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Mężczyzna", false, 420, 80);
+        controlls[5] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentSex.equals(CharacterSex.MALE), 450, 110);
+        controlls[6] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Kobieta", false, 600, 80);
+        controlls[7] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentSex.equals(CharacterSex.FEMALE), 625, 110);
 
         // character name
         controlls[8] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, currentName, false, 420, 20);
 
         // character race
-        controlls[9] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Człowiek", false, 420, 180);
-        controlls[10] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentRace.equals(CharacterRace.HUMAN), 450, 210);
-        controlls[11] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Elf", false, 420, 230);
-        controlls[12] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentRace.equals(CharacterRace.ELF), 450, 260);
-        controlls[13] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Krasnolud", false, 420, 280);
-        controlls[14] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentRace.equals(CharacterRace.DWARF), 450, 310);
-        controlls[15] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Niziołek", false, 420, 330);
-        controlls[16] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentRace.equals(CharacterRace.HALFLING), 450, 360);
-        controlls[17] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Gnom", false, 420, 380);
-        controlls[18] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentRace.equals(CharacterRace.GNOME), 450, 410);
+        controlls[9] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Człowiek", false, 260, 180);
+        controlls[10] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentRace.equals(CharacterRace.HUMAN), 290, 200);
+        controlls[11] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Elf", false, 360, 180);
+        controlls[12] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentRace.equals(CharacterRace.ELF), 400, 200);
+        controlls[13] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Krasnolud", false, 460, 180);
+        controlls[14] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentRace.equals(CharacterRace.DWARF), 510, 200);
+        controlls[15] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Niziołek", false, 560, 180);
+        controlls[16] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentRace.equals(CharacterRace.HALFLING), 620, 200);
+        controlls[17] = new MainMenuControlls(MainMenuControlls.ControlType.TEXT, "Gnom", false, 660, 180);
+        controlls[18] = new MainMenuControlls(MainMenuControlls.ControlType.RADIO_BUTTON, "", currentRace.equals(CharacterRace.GNOME), 730, 200);
 
     }
 
