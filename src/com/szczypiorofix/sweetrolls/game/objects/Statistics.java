@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 24.08.18 13:34.
+ * Developed by szczypiorofix on 07.09.18 07:51.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -21,6 +21,8 @@ public class Statistics implements Serializable {
     public String p_Name;
     public CharacterSex p_Sex;
     public CharacterRace p_Race;
+
+    // TODO GURPS System?
 
     public int p_Stat_Strength;
     public int p_Stat_Dexterity;
