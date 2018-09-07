@@ -15,10 +15,11 @@ import com.szczypiorofix.sweetrolls.game.tilemap.Property;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class Player extends Character {
+public class Player extends Character implements Serializable {
 
 
     private int playerTurn;
@@ -29,7 +30,7 @@ public class Player extends Character {
     private int worldMapTileY = 0;
     private String currentLevelName;
 
-    private Image image;
+    private transient Image image;
     private ObjectType terrainType;
     private LevelType levelType;
     private PlayerAction playerAction;

@@ -14,6 +14,7 @@ import com.szczypiorofix.sweetrolls.game.tilemap.Property;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Place extends GameObject {

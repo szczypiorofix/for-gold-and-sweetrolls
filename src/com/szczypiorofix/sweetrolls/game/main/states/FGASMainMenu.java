@@ -19,6 +19,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 
 public class FGASMainMenu {
@@ -386,18 +387,26 @@ public class FGASMainMenu {
             SaveGameData saveGameData = SaveGameManager.load("player.sav");
 
             // DATA
-            forGoldAndSweetrolls.getFGASGame().getPlayer().setX(saveGameData.getPlayerX());
-            forGoldAndSweetrolls.getFGASGame().getPlayer().setY(saveGameData.getPlayerY());
-            forGoldAndSweetrolls.getFGASGame().getPlayer().setWorldMapTileX(saveGameData.getPlayerWorldMapTileX());
-            forGoldAndSweetrolls.getFGASGame().getPlayer().setWorldMapTileY(saveGameData.getPlayerWorldMapTileY());
-            forGoldAndSweetrolls.getFGASGame().getPlayer().statistics = saveGameData.getPlayerStatistics();
+
             forGoldAndSweetrolls.getFGASGame().getTimeCounter().setTimeStamp(saveGameData.getTimeCounterTimeStamp());
             forGoldAndSweetrolls.getFGASGame().getTimeCounter().setDayCounter(saveGameData.getTimeCounterDayCounter());
             forGoldAndSweetrolls.getFGASGame().getTimeCounter().setHourCounter(saveGameData.getTimeCounterHourCounter());
             forGoldAndSweetrolls.getFGASGame().getTimeCounter().setMinuteCounter(saveGameData.getTimeCounterMinuteCounter());
-            forGoldAndSweetrolls.getFGASGame().getObjectManager().getCurrentMap().setLevelType(saveGameData.getLevelType());
             forGoldAndSweetrolls.getFGASGame().setActionHistory(saveGameData.getActionHistory());
-            forGoldAndSweetrolls.getFGASGame().getPlayer().setName(saveGameData.getPlayerStatistics().p_Name);
+
+            forGoldAndSweetrolls.getFGASGame().getObjectManager().setLevelMaps(saveGameData.getLevels());
+
+            forGoldAndSweetrolls.getFGASGame().setPlayer(saveGameData.getPlayer());
+            forGoldAndSweetrolls.getFGASGame().getObjectManager().setPlayer(saveGameData.getPlayer());
+
+            //System.out.println("Wczytywanie mapy: "+saveGameData.getCurrentWorldName());
+
+            //System.out.println(forGoldAndSweetrolls.getFGASGame().getLevels().get(saveGameData.getCurrentWorldName()));
+
+//            forGoldAndSweetrolls.getFGASGame().getObjectManager().setLevel(
+//                    forGoldAndSweetrolls.getFGASGame().getLevels().get(saveGameData.getCurrentWorldName()),
+//                    saveGameData.getCurrentWorldName()
+//            );
 
             forGoldAndSweetrolls.getFGASGame().getHud().turn(saveGameData.getTimeCounterTimeStamp());
         }

@@ -10,6 +10,7 @@ import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.enums.ResourceType;
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import static com.szczypiorofix.sweetrolls.game.enums.ResourceType.FOOD;
@@ -17,7 +18,7 @@ import static com.szczypiorofix.sweetrolls.game.enums.ResourceType.WATER;
 import static com.szczypiorofix.sweetrolls.game.enums.ResourceType.WOOD;
 import static com.szczypiorofix.sweetrolls.game.enums.ResourceType.IRON;
 
-public class TerrainResources {
+public class TerrainResources implements Serializable {
 
 
     private ObjectType objectType;

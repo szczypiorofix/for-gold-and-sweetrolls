@@ -179,11 +179,13 @@ public class ObjectManager {
                                     currentItem.getY(),
                                     currentItem.getWidth(),
                                     currentItem.getHeight(),
-                                    currentItem.getGid() >= 0 ?
-                                            tileMap.getTileSets().get(tileSet).getImageSprite(
-                                                    currentItem.getGid()
-                                                            - tileMap.getTileSets().get(tileSet).getFirstGid())
-                                            : null,
+//                                    currentItem.getGid() >= 0 ?
+//                                            tileMap.getTileSets().get(tileSet).getImageSprite(
+//                                                    currentItem.getGid()
+//                                                            - tileMap.getTileSets().get(tileSet).getFirstGid())
+//                                            : null,
+                                    tileMap.getTileSets().get(tileSet),
+                                    currentItem.getGid() - tileMap.getTileSets().get(tileSet).getFirstGid(),
                                     currentItem.getProperties()
                             );
                 }
@@ -254,6 +256,8 @@ public class ObjectManager {
 
         this.level = tileMap;
         currentMap = levelMaps.get(levelName);
+
+        System.out.println(currentMap);
 
         int maxTileX = gameWidth / tileMap.getTileWidth();
         int maxTileY = gameHeight / tileMap.getTileHeight();
@@ -365,6 +369,10 @@ public class ObjectManager {
         return levelMaps;
     }
 
+    public void setLevelMaps(HashMap<String, LevelMap> levelMaps) {
+        this.levelMaps = levelMaps;
+    }
+
     public Player getPlayer() {
         return player;
     }
@@ -423,6 +431,14 @@ public class ObjectManager {
 
     public LevelMap getCurrentMap() {
         return currentMap;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public void setCurrentMap(LevelMap currentMap) {
+        this.currentMap = currentMap;
     }
 
     //    private void graczSwieci(int x,  int y, int sila) {

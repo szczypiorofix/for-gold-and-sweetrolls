@@ -9,23 +9,23 @@ package com.szczypiorofix.sweetrolls.game.main.core;
 import com.szczypiorofix.sweetrolls.game.enums.LevelType;
 import com.szczypiorofix.sweetrolls.game.gui.ActionHistory;
 import com.szczypiorofix.sweetrolls.game.objects.Statistics;
+import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class SaveGameData implements Serializable {
 
-    private int playerWorldMapTileX, playerWorldMapTileY;
-    private float playerX, playerY;
-    private Statistics playerStatistics;
+
     private String currentWorldName;
-    private HashSet<String> levels;
+    private HashMap<String, LevelMap> levels;
     private long timeCounterTimeStamp;
     private int timeCounterDayCounter;
     private int timeCounterHourCounter;
     private int timeCounterMinuteCounter;
-    private LevelType levelType;
     private ActionHistory actionHistory;
+    private Player player;
 
     public SaveGameData() {}
 
@@ -62,68 +62,12 @@ public class SaveGameData implements Serializable {
         this.timeCounterMinuteCounter = timeCounterMinuteCounter;
     }
 
-    public void setPlayerX(float playerX) {
-        this.playerX = playerX;
-    }
-
-    public void setPlayerY(float playerY) {
-        this.playerY = playerY;
-    }
-
     public void setCurrentWorldName(String currentWorldName) {
         this.currentWorldName = currentWorldName;
     }
 
-    public void setLevels(HashSet<String> levels) {
-        this.levels = levels;
-    }
-
-    public void setPlayerStatistics(Statistics playerStatistics) {
-        this.playerStatistics = playerStatistics;
-    }
-
-    public int getPlayerWorldMapTileX() {
-        return playerWorldMapTileX;
-    }
-
-    public void setPlayerWorldMapTileX(int playerWorldMapTileX) {
-        this.playerWorldMapTileX = playerWorldMapTileX;
-    }
-
-    public int getPlayerWorldMapTileY() {
-        return playerWorldMapTileY;
-    }
-
-    public void setPlayerWorldMapTileY(int playerWorldMapTileY) {
-        this.playerWorldMapTileY = playerWorldMapTileY;
-    }
-
-    public float getPlayerX() {
-        return playerX;
-    }
-
-    public float getPlayerY() {
-        return playerY;
-    }
-
-    public Statistics getPlayerStatistics() {
-        return playerStatistics;
-    }
-
     public String getCurrentWorldName() {
         return currentWorldName;
-    }
-
-    public HashSet<String> getLevels() {
-        return levels;
-    }
-
-    public LevelType getLevelType() {
-        return levelType;
-    }
-
-    public void setLevelType(LevelType levelType) {
-        this.levelType = levelType;
     }
 
     public ActionHistory getActionHistory() {
@@ -133,4 +77,21 @@ public class SaveGameData implements Serializable {
     public void setActionHistory(ActionHistory actionHistory) {
         this.actionHistory = actionHistory;
     }
+
+    public HashMap<String, LevelMap> getLevels() {
+        return levels;
+    }
+
+    public void setLevels(HashMap<String, LevelMap> levels) {
+        this.levels = levels;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
 }

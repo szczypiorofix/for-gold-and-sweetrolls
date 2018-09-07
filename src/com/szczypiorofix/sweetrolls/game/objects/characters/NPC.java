@@ -16,18 +16,20 @@ import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
 import com.szczypiorofix.sweetrolls.game.objects.Statistics;
 import com.szczypiorofix.sweetrolls.game.tilemap.CollisionObject;
 import com.szczypiorofix.sweetrolls.game.tilemap.Property;
+import com.szczypiorofix.sweetrolls.game.tilemap.TileSet;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class NPC extends Character {
+public class NPC extends Character implements Serializable {
 
-    private BitMapFont font;
-    private Image npcImage;
+    private transient BitMapFont font;
+    private transient Image npcImage;
     private CharacterType characterType;
-    private Dialogue dialogue;
+    private transient Dialogue dialogue;
     private String[] talks = {
         "IT JUST WORKS !"
     };
@@ -38,7 +40,37 @@ public class NPC extends Character {
     private boolean londTalk;
     private Statistics statistics = new Statistics();
 
+    public NPC() {
+        //super(null);
+    }
 
+    public NPC(String name, float x, float y, float width, float height, TileSet tileSet, int gid, ArrayList<Property> properties) {
+        super(name, x, y, width, height, ObjectType.NPC, properties);
+
+        npcImage = tileSet.getImageSprite(gid);
+
+        font = FontParser.getFont();
+
+        characterType = estimateCharacterType(getStringProperty("type"));
+        statistics.p_MaxHealth = getIntegerProperty("maxhealth");
+
+        londTalk = getBooleanProperty("longTalk");
+
+        if (londTalk) {
+            dialogue = DialoguesXMLParser.parseDialogueXML(getStringProperty("dialogueFileName"), false);
+        }
+
+        displayName = getStringProperty("name");
+
+        setCollisions(new CollisionObject(
+                1,
+                "npc",
+                0,
+                0,
+                32,
+                32
+        ));
+    }
 
     public NPC(String name, float x, float y, float width, float height, Image image, ArrayList<Property> properties) {
         super(name, x, y, width, height, ObjectType.NPC, properties);

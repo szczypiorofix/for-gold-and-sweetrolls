@@ -12,16 +12,18 @@ import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
 import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
 import com.szczypiorofix.sweetrolls.game.objects.GameObject;
 import com.szczypiorofix.sweetrolls.game.tilemap.Property;
+import com.szczypiorofix.sweetrolls.game.tilemap.TileSet;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Item extends GameObject {
+public class Item extends GameObject implements Serializable {
 
-    protected Image image;
-    private BitMapFont font;
+    private transient Image image;
+    private transient BitMapFont font;
     private boolean pickable;
     private String type;
     private int armorRatio;
@@ -29,6 +31,16 @@ public class Item extends GameObject {
     private ItemType itemType;
     private boolean found = false;
 
+    public Item(String name, float x, float y, float width, float height, TileSet tileSet, int gid, ObjectType objectType, String type, ArrayList<Property> properties) {
+        super(name, x, y, width, height, objectType, properties);
+        image = tileSet.getImageSprite(gid);
+        this.type = type;
+        font = FontParser.getFont();
+        this.pickable = getBooleanProperty("pickable");
+        armorRatio = 1;
+        damageRatio = 1;
+        this.itemType = estimateItemType(getStringProperty("type"));
+    }
 
     public Item(String name, float x, float y, float width, float height, Image image, ObjectType objectType, String type, ArrayList<Property> properties) {
         super(name, x, y, width, height, objectType, properties);

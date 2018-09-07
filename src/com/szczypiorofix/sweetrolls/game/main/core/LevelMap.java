@@ -12,11 +12,13 @@ import com.szczypiorofix.sweetrolls.game.objects.item.Item;
 import com.szczypiorofix.sweetrolls.game.objects.terrain.Place;
 import com.szczypiorofix.sweetrolls.game.objects.terrain.Ground;
 
+import java.io.Serializable;
 
-public class LevelMap {
 
-    private Ground[][] ground;
-    private Place[][] places;
+public class LevelMap implements Serializable {
+
+    private transient Ground[][] ground;
+    private transient Place[][] places;
     private NPC[][] npc;
     private Item[][] items;
     private int playerLastTileX, playerLastTileY;

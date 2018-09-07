@@ -6,6 +6,7 @@
 
 package com.szczypiorofix.sweetrolls.game.enums;
 
+
 public enum ItemType {
 
     DAGGER("sztylet", ItemGroup.WEAPON),

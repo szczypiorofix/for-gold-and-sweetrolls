@@ -602,6 +602,9 @@ public class FGASGame implements DroppableListener, ConsumableListener {
         return hud;
     }
 
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
 
     public ActionHistory getActionHistory() {
         return actionHistory;

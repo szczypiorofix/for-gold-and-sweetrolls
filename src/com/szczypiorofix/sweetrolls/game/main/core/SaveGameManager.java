@@ -61,27 +61,19 @@ public class SaveGameManager {
         SaveGameData saveGameData = new SaveGameData();
 
         // PLAYER
-        saveGameData.setPlayerX(game.getPlayer().getX());
-        saveGameData.setPlayerY(game.getPlayer().getY());
-        saveGameData.setPlayerWorldMapTileX(game.getPlayer().getWorldMapTileX());
-        saveGameData.setPlayerWorldMapTileY(game.getPlayer().getWorldMapTileY());
-        saveGameData.setPlayerStatistics(game.getPlayer().statistics);
+        saveGameData.setPlayer(game.getPlayer());
+
+        // TIMER
         saveGameData.setTimeCounterDayCounter(game.getTimeCounter().getDayCounter());
         saveGameData.setTimeCounterHourCounter(game.getTimeCounter().getHourCounter());
         saveGameData.setTimeCounterMinuteCounter(game.getTimeCounter().getMinuteCounter());
         saveGameData.setTimeCounterTimeStamp(game.getTimeCounter().getTimeStamp());
-        saveGameData.setLevelType(game.getObjectManager().getCurrentMap().getLevelType());
         saveGameData.setActionHistory(game.getActionHistory());
-
 
         // LEVELS
         saveGameData.setCurrentWorldName(game.getCurrentLevelName());
-        HashSet<String> levels = new HashSet<>();
+        saveGameData.setLevels(game.getObjectManager().getLevelMaps());
 
-        for (Map.Entry<String, TileMap> map : game.getLevels().entrySet()) {
-            levels.add(map.getKey());
-        }
-        saveGameData.setLevels(levels);
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
 

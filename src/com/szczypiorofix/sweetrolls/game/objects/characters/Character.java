@@ -22,6 +22,9 @@ public abstract class Character extends GameObject {
     public int shortTalkCounter = 0;
     public int shortTalkCounerMax = 120;
 
+    public Character() {
+
+    }
 
     Character(String name, float x, float y, float width, float height, ObjectType objectType, ArrayList<Property> properties) {
         super(name, x, y, width, height, objectType, properties);

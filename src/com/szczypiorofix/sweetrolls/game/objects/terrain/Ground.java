@@ -14,6 +14,8 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
+import java.io.Serializable;
+
 
 public class Ground extends GameObject {
 
@@ -31,7 +33,6 @@ public class Ground extends GameObject {
         setCollisions(collisionObject);
         terrainResources = new TerrainResources(objectType);
         lastStamp = 0L;
-
     }
 
 

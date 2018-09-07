@@ -8,7 +8,9 @@ package com.szczypiorofix.sweetrolls.game.main.core;
 
 import com.szczypiorofix.sweetrolls.game.enums.ResourceType;
 
-public class Resource {
+import java.io.Serializable;
+
+public class Resource implements Serializable {
 
     private int amount;
     private int initialAmount;

@@ -210,7 +210,7 @@ public class FGASCreatePlayer {
                             break;
                         }
                         case 1: {
-                            if (leftStatsPoints == 0 && leftSkillsPoints == 0) {
+                            //if (leftStatsPoints == 0 && leftSkillsPoints == 0) {
                                 //fgasMainMenu.loadGame(false);
                                 forGoldAndSweetrolls.getFGASGame().restartGame();
                                 forGoldAndSweetrolls.getFGASGame().getPlayer().statistics.p_Name = currentName;
@@ -221,9 +221,9 @@ public class FGASCreatePlayer {
                                 forGoldAndSweetrolls.getFGASGame().getPlayer().statistics.p_Stat_Constitution = currentCon;
                                 forGoldAndSweetrolls.getFGASGame().getPlayer().statistics.p_Stat_Intelligence = currentInt;
                                 forGoldAndSweetrolls.setGameState(GameState.GAME);
-                            } else {
-                                sfx.play(forGoldAndSweetrolls.getSfxVolume());
-                            }
+//                            } else {
+//                                sfx.play(forGoldAndSweetrolls.getSfxVolume());
+//                            }
                             break;
                         }
                         case 2: {
