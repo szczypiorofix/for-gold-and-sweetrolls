@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 24.08.18 13:38.
+ * Developed by szczypiorofix on 09.09.18 00:04.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -257,7 +257,7 @@ public class ObjectManager {
         this.level = tileMap;
         currentMap = levelMaps.get(levelName);
 
-        System.out.println(currentMap);
+        System.out.println("OM setLevel: "+currentMap +", levelName: '"+levelName+"'");
 
         int maxTileX = gameWidth / tileMap.getTileWidth();
         int maxTileY = gameHeight / tileMap.getTileHeight();

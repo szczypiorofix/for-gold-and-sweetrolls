@@ -1,12 +1,11 @@
 /*
- * Developed by szczypiorofix on 06.09.18 00:07.
+ * Developed by szczypiorofix on 09.09.18 00:04.
  * Copyright (c) 2018. All rights reserved.
  *
  */
 
 package com.szczypiorofix.sweetrolls.game.tilemap;
 
-import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -16,13 +15,13 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class ObjectGroupObject {
+public class ObjectGroupObject implements Serializable {
 
     private int id;
     private String name;

@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 24.08.18 13:38.
+ * Developed by szczypiorofix on 09.09.18 00:04.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -60,19 +60,16 @@ public class SaveGameManager {
 
         SaveGameData saveGameData = new SaveGameData();
 
-        // PLAYER
-        saveGameData.setPlayer(game.getPlayer());
-
-        // TIMER
-        saveGameData.setTimeCounterDayCounter(game.getTimeCounter().getDayCounter());
-        saveGameData.setTimeCounterHourCounter(game.getTimeCounter().getHourCounter());
-        saveGameData.setTimeCounterMinuteCounter(game.getTimeCounter().getMinuteCounter());
-        saveGameData.setTimeCounterTimeStamp(game.getTimeCounter().getTimeStamp());
         saveGameData.setActionHistory(game.getActionHistory());
-
-        // LEVELS
-        saveGameData.setCurrentWorldName(game.getCurrentLevelName());
+        saveGameData.setPlayer(game.getPlayer());
+        saveGameData.setCurrentMapName(game.getCurrentLevelName());
+        saveGameData.setTimeCounter(game.getTimeCounter());
+        saveGameData.setInventory(game.getInventory());
+        saveGameData.setCurrentMapName(game.getPlayer().getCurrentLevelName());
         saveGameData.setLevels(game.getObjectManager().getLevelMaps());
+        saveGameData.setCurrentLevelType(game.getObjectManager().getCurrentMap().getLevelType());
+
+        System.out.println("Saving current level name: " +game.getPlayer().getCurrentLevelName());
 
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;

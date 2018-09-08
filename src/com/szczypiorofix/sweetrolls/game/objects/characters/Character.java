@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 24.08.18 13:35.
+ * Developed by szczypiorofix on 09.09.18 00:04.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -23,10 +23,11 @@ public abstract class Character extends GameObject {
     public int shortTalkCounerMax = 120;
 
     public Character() {
-
+        super();
+        statistics = new Statistics();
     }
 
-    Character(String name, float x, float y, float width, float height, ObjectType objectType, ArrayList<Property> properties) {
+    public Character(String name, float x, float y, float width, float height, ObjectType objectType, ArrayList<Property> properties) {
         super(name, x, y, width, height, objectType, properties);
         statistics = new Statistics();
     }

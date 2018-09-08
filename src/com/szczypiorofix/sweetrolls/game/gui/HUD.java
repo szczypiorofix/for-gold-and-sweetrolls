@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 24.08.18 13:29.
+ * Developed by szczypiorofix on 09.09.18 00:04.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -24,15 +24,13 @@ public class HUD {
     private Image image;
     private Image clockImage;
     private Player player;
-    private MouseCursor mouseCursor;
     private BitMapFont font;
     private TimeCounter timeCounter;
     private ActionHistory actionHistory;
     private float rotateFactor = 0;
 
-    public HUD(Player player, TimeCounter timeCounter, ActionHistory actionHistory, MouseCursor mouseCursor) {
+    public HUD(Player player, TimeCounter timeCounter, ActionHistory actionHistory) {
         this.player = player;
-        this.mouseCursor = mouseCursor;
         this.actionHistory = actionHistory;
         this.timeCounter = timeCounter;
         image = Textures.getInstance().hudImage;

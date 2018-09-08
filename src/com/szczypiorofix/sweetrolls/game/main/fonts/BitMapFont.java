@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 24.08.18 13:37.
+ * Developed by szczypiorofix on 09.09.18 00:04.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -52,38 +52,40 @@ public class BitMapFont {
 
     public void draw(String text, float x, float y) {
         float currentCharLength = 0;
-        char[] chars = text.toCharArray();
-        int line = 0;
-        for (int i = 0; i < chars.length; i++) {
-            for (int j = 0; j < this.charsArray.size(); j++) {
+        if (text != null) {
+            char[] chars = text.toCharArray();
+            int line = 0;
+            for (int i = 0; i < chars.length; i++) {
+                for (int j = 0; j < this.charsArray.size(); j++) {
 
-                if (chars[i] == '\n' || chars[i] == '\r') {
-                    line++;
-                    currentCharLength = 0;
-                    break;
-                }
+                    if (chars[i] == '\n' || chars[i] == '\r') {
+                        line++;
+                        currentCharLength = 0;
+                        break;
+                    }
 
-                if (chars[i] == this.charsArray.get(j).getAscii()
-                        || ((int) chars[i] == this.charsArray.get(j).getUcode() && (this.charsArray.get(j).getUcode() > 0))
-                        ) {
+                    if (chars[i] == this.charsArray.get(j).getAscii()
+                            || ((int) chars[i] == this.charsArray.get(j).getUcode() && (this.charsArray.get(j).getUcode() > 0))
+                    ) {
 
-                    fontImage.getSubImage(
-                            this.charsArray.get(j).getX(),
-                            this.charsArray.get(j).getY(),
-                            this.charsArray.get(j).getWidth(),
-                            this.charsArray.get(j).getHeight()
-                    ).draw(
-                            x + currentCharLength,
-                            (int) (( y + this.charsArray.get(j).getTop()) + fontHeight) - fontHeight + (line * (fontHeight + fontSpace))
-                    );
+                        fontImage.getSubImage(
+                                this.charsArray.get(j).getX(),
+                                this.charsArray.get(j).getY(),
+                                this.charsArray.get(j).getWidth(),
+                                this.charsArray.get(j).getHeight()
+                        ).draw(
+                                x + currentCharLength,
+                                (int) (( y + this.charsArray.get(j).getTop()) + fontHeight) - fontHeight + (line * (fontHeight + fontSpace))
+                        );
 
-                    currentCharLength += this.charsArray.get(j).getWidth()
-                            + this.charsArray.get(j).getLeading()
-                            + this.charsArray.get(j).getTrailing();
-                }
+                        currentCharLength += this.charsArray.get(j).getWidth()
+                                + this.charsArray.get(j).getLeading()
+                                + this.charsArray.get(j).getTrailing();
+                    }
 
-                if (chars[i] == 32) {
-                    currentCharLength += SPACE_WIDTH;
+                    if (chars[i] == 32) {
+                        currentCharLength += SPACE_WIDTH;
+                    }
                 }
             }
         }

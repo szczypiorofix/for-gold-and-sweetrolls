@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 06.09.18 22:42.
+ * Developed by szczypiorofix on 09.09.18 00:04.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -184,10 +184,10 @@ public class FGASCreatePlayer {
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
             forGoldAndSweetrolls.setGameState(GameState.MAIN_MENU);
         }
-        if (input.isKeyPressed(Input.KEY_ENTER)) {
-            fgasMainMenu.loadGame(false);
-            forGoldAndSweetrolls.setGameState(GameState.GAME);
-        }
+//        if (input.isKeyPressed(Input.KEY_ENTER)) {
+//            fgasMainMenu.loadGame(false);
+//            forGoldAndSweetrolls.setGameState(GameState.GAME);
+//        }
 
         if (mouseCursor.intersects(generateRandomName)) {
             generateRandomName.setHover(true);
@@ -212,6 +212,11 @@ public class FGASCreatePlayer {
                         case 1: {
                             //if (leftStatsPoints == 0 && leftSkillsPoints == 0) {
                                 //fgasMainMenu.loadGame(false);
+
+
+                            // TODO Coś z tym trzeba zeobić
+
+
                                 forGoldAndSweetrolls.getFGASGame().restartGame();
                                 forGoldAndSweetrolls.getFGASGame().getPlayer().statistics.p_Name = currentName;
                                 forGoldAndSweetrolls.getFGASGame().getPlayer().statistics.p_Sex = currentSex;

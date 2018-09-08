@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 24.08.18 13:38.
+ * Developed by szczypiorofix on 09.09.18 00:04.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -10,9 +10,10 @@ import com.szczypiorofix.sweetrolls.game.enums.LevelType;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import org.newdawn.slick.Color;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class TimeCounter {
+public class TimeCounter implements Serializable {
 
     private Player player;
 

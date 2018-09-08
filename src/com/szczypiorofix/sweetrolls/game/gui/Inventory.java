@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 24.08.18 13:29.
+ * Developed by szczypiorofix on 09.09.18 00:04.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -17,15 +17,16 @@ import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import com.szczypiorofix.sweetrolls.game.objects.item.Item;
 import org.newdawn.slick.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class Inventory implements CloseableFrameListener {
+public class Inventory implements CloseableFrameListener, Serializable {
 
     private Player player;
-    private MouseCursor mouseCursor;
-    private MainMenuControlls inventoryExit;
-    private Image image;
+    private transient MouseCursor mouseCursor;
+    private transient MainMenuControlls inventoryExit;
+    private transient Image image;
     private boolean show;
     private int rows = 5;
     private int cols = 8;
@@ -35,9 +36,9 @@ public class Inventory implements CloseableFrameListener {
     private int dropX, dropY;
     private int dragOriginX, dragOriginY;
     private boolean drag;
-    private DroppableListener droppableListener;
-    private ConsumableListener consumableListener;
-    private ArrayList<InventoryOptionsButton> optionsFrameButtons = new ArrayList<>();
+    private transient DroppableListener droppableListener;
+    private transient ConsumableListener consumableListener;
+    private transient ArrayList<InventoryOptionsButton> optionsFrameButtons = new ArrayList<>();
     private boolean showOptionsFrame = false;
     private int lockedX, lockedY;
 
@@ -247,6 +248,28 @@ public class Inventory implements CloseableFrameListener {
         return true;
     }
 
+    public void setMouseCursor(MouseCursor mouseCursor) {
+        this.mouseCursor = mouseCursor;
+    }
+
+    public void inventorySetup() {
+        inventoryExit = new MainMenuControlls(
+                MainMenuControlls.ControlType.CANCEL,
+                "",
+                false,
+                409,
+                100
+        );
+        inventoryExit.setCloseableFrameListener(this);
+        image = Textures.getInstance().inventoryImage;
+        for (int x = 0; x < inventoryContainers.length; x++) {
+            for (int y = 0; y < inventoryContainers[0].length; y++) {
+                if (inventoryContainers[x][y] != null) {
+                    inventoryContainers[x][y].setFont();
+                }
+            }
+        }
+    }
 
     @Override
     public void closeFrame() {

@@ -1,12 +1,14 @@
 /*
- * Developed by szczypiorofix on 24.08.18 13:39.
+ * Developed by szczypiorofix on 09.09.18 00:04.
  * Copyright (c) 2018. All rights reserved.
  *
  */
 
 package com.szczypiorofix.sweetrolls.game.tilemap;
 
-public class TileObject {
+import java.io.Serializable;
+
+public class TileObject implements Serializable {
 
     private int gid;
     private int x;

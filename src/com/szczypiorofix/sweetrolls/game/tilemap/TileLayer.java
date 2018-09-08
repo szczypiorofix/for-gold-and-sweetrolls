@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 24.08.18 13:39.
+ * Developed by szczypiorofix on 09.09.18 00:04.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -11,11 +11,12 @@ import org.apache.commons.codec.binary.Base64;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.zip.GZIPInputStream;
 
-public class TileLayer {
+public class TileLayer implements Serializable {
 
     private String name;
     private int width;

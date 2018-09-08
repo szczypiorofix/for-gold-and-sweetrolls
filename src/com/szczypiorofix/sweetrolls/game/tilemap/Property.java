@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 24.08.18 13:39.
+ * Developed by szczypiorofix on 09.09.18 00:04.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -7,7 +7,9 @@
 package com.szczypiorofix.sweetrolls.game.tilemap;
 
 
-public class Property {
+import java.io.Serializable;
+
+public class Property implements Serializable {
 
     public static final String ERROR_MSG = "ERROR";
     private String name;

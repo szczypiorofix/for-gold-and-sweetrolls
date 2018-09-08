@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 24.08.18 13:35.
+ * Developed by szczypiorofix on 09.09.18 00:04.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -40,9 +40,6 @@ public class NPC extends Character implements Serializable {
     private boolean londTalk;
     private Statistics statistics = new Statistics();
 
-    public NPC() {
-        //super(null);
-    }
 
     public NPC(String name, float x, float y, float width, float height, TileSet tileSet, int gid, ArrayList<Property> properties) {
         super(name, x, y, width, height, ObjectType.NPC, properties);

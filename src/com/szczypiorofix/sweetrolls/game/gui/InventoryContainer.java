@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 24.08.18 13:31.
+ * Developed by szczypiorofix on 09.09.18 00:04.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -21,7 +21,7 @@ public class InventoryContainer extends GameObject {
     private int c;
     private InventorySlotType inventorySlotType;
     public Item item;
-    public BitMapFont font;
+    public transient BitMapFont font;
 
     public InventoryContainer(int c, InventorySlotType inventorySlotType, int x, int y, Item item) {
         super("Inventory container", x, y, 32, 32, ObjectType.INVENTORY_CONTAINER);
@@ -33,6 +33,9 @@ public class InventoryContainer extends GameObject {
         font = FontParser.getFont();
     }
 
+    public void setFont() {
+        font = FontParser.getFont();
+    }
 
     @Override
     public void update(int delta, float offsetX, float offsetY) {

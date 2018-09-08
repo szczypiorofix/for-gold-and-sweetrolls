@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 24.08.18 13:34.
+ * Developed by szczypiorofix on 09.09.18 00:04.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -7,15 +7,17 @@
 package com.szczypiorofix.sweetrolls.game.objects;
 
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
+import com.szczypiorofix.sweetrolls.game.main.core.Registry;
 import com.szczypiorofix.sweetrolls.game.tilemap.CollisionObject;
 import com.szczypiorofix.sweetrolls.game.tilemap.Property;
 import com.szczypiorofix.sweetrolls.game.tilemap.PropertyType;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-abstract public class GameObject {
+abstract public class GameObject implements Serializable {
 
     protected long id;
     protected String name;
@@ -37,6 +39,7 @@ abstract public class GameObject {
 
     protected GameObject() {
         //id = Registry.getInstance().register(this);
+        this.properties = new ArrayList<>();
     }
 
     protected GameObject(String name, ObjectType objectType) {

@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 06.09.18 00:07.
+ * Developed by szczypiorofix on 09.09.18 00:04.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -7,7 +7,6 @@
 package com.szczypiorofix.sweetrolls.game.tilemap;
 
 
-import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.w3c.dom.Document;
@@ -17,9 +16,9 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -27,12 +26,11 @@ import java.util.ArrayList;
  * Main tile map object.
  * It contains all tile layers, tile sets and object groups.
  */
-public class TileMap {
+public class TileMap implements Serializable {
 
     private ArrayList<TileLayer> tileLayers;
     private ArrayList<TileSet> tileSets;
     private ArrayList<ObjectGroup> objectGroups;
-    private String fileName;
     private int tileWidth;
     private int tileHeight;
     private int width;
@@ -67,7 +65,6 @@ public class TileMap {
      */
     public TileMap(String fileName) {
         this();
-        this.fileName = fileName;
         loadFromTiledMap(fileName);
     }
 

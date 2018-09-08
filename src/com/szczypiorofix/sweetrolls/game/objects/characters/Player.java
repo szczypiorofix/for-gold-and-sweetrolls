@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 24.08.18 13:35.
+ * Developed by szczypiorofix on 09.09.18 00:04.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -19,8 +19,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class Player extends Character implements Serializable {
-
+public class Player extends Character {
 
     private int playerTurn;
     private float offsetX, offsetY;
@@ -35,6 +34,10 @@ public class Player extends Character implements Serializable {
     private LevelType levelType;
     private PlayerAction playerAction;
 
+    public Player() {
+        super();
+        image = Textures.getInstance().classm32.getSprite(3, 0);
+    }
 
     public Player(String name, float x, float y, float width, float height, ArrayList<Property> properties) {
         super(name, x, y, width, height, ObjectType.PLAYER, properties);
@@ -44,10 +47,10 @@ public class Player extends Character implements Serializable {
         this.visible = true;
         this.moving = true;
 
+        image = Textures.getInstance().classm32.getSprite(3, 0);
+
         playerAction = PlayerAction.MOVE;
         levelType = LevelType.getInitialLevelType();
-
-        image = Textures.getInstance().classm32.getSprite(3, 0);
 
         statistics.p_Gold = 0;
         statistics.p_Level = 1;
@@ -231,5 +234,47 @@ public class Player extends Character implements Serializable {
 
     public void setPlayerAction(PlayerAction playerAction) {
         this.playerAction = playerAction;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "playerTurn=" + playerTurn +
+                ", offsetX=" + offsetX +
+                ", offsetY=" + offsetY +
+                ", lastTileX=" + lastTileX +
+                ", lastTileY=" + lastTileY +
+                ", worldMapTileX=" + worldMapTileX +
+                ", worldMapTileY=" + worldMapTileY +
+                ", currentLevelName='" + currentLevelName + '\'' +
+                ", terrainType=" + terrainType +
+                ", levelType=" + levelType +
+                ", playerAction=" + playerAction +
+                ", statistics=" + statistics +
+                ", shortTalk=" + shortTalk +
+                ", randomTalk=" + randomTalk +
+                ", shortTalkCounter=" + shortTalkCounter +
+                ", shortTalkCounerMax=" + shortTalkCounerMax +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                ", x=" + x +
+                ", y=" + y +
+                ", width=" + width +
+                ", height=" + height +
+                ", moving=" + moving +
+                ", moveable=" + moveable +
+                ", living=" + living +
+                ", dynamic=" + dynamic +
+                ", visible=" + visible +
+                ", passable=" + passable +
+                ", hover=" + hover +
+                ", objectType=" + objectType +
+                ", properties=" + properties +
+                ", collisions=" + collisions +
+                '}';
     }
 }

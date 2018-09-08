@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 24.08.18 13:36.
+ * Developed by szczypiorofix on 09.09.18 00:04.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -32,7 +32,7 @@ public class FGASGame implements DroppableListener, ConsumableListener {
 
     private final LevelManager levelManager = new LevelManager();
 
-    private HashMap<String, TileMap> levels = new HashMap<>();
+    private HashMap<String, TileMap> tileMapLevels = new HashMap<>();
 
     private Image worldMapImage;
     private Input input;
@@ -47,6 +47,7 @@ public class FGASGame implements DroppableListener, ConsumableListener {
     private ActionHistory actionHistory;
     private TimeCounter timeCounter;
     private MainMenuButton[] pauseMenuButtons;
+    private TileMap currentTileMap;
 
     private float offsetX, offsetY;
     private int tileWidth, tileHeight;
@@ -71,8 +72,7 @@ public class FGASGame implements DroppableListener, ConsumableListener {
      * @param levelName (String) - level name.
      * @param levelType (LevelType) - level type (generated or created).
      */
-    private void changeLevel(String levelName, String prevLevelName, LevelType levelType) {
-        TileMap levelMap;
+    public void changeLevel(String levelName, String prevLevelName, LevelType levelType) {
 
         if ( !prevLevelName.equalsIgnoreCase("") ) {
             objectManager.getLevelMaps().get(prevLevelName).setPlayerLastTiles(player.getTileX(), player.getTileY());
@@ -81,37 +81,39 @@ public class FGASGame implements DroppableListener, ConsumableListener {
         if (levelType == LevelType.INNER_RANDOM_MAP) {
             levelName = levelName+player.getTileX()+"x"+player.getTileY();
 
-            if (!levels.containsKey(levelName)) {
-                levelMap = levelManager.loadGeneratedLevel(
+            if (!tileMapLevels.containsKey(levelName)) {
+                currentTileMap = levelManager.loadGeneratedLevel(
                         levelName,
                         objectManager.getGround(player.getTileX(), player.getTileY()).getCollisions().getTypeName(),
                         actionHistory
                 );
-                levels.put(levelName, levelMap);
-                objectManager.generateLevel(levelMap, levelName);
+                tileMapLevels.put(levelName, currentTileMap);
+                objectManager.generateLevel(currentTileMap, levelName);
                 player = objectManager.getPlayer();
 
                 //STATISTICS: Discovered Places +1
                 player.statistics.w_DiscoveredPlaces++;
             } else {
-                levelMap = levels.get(levelName);
+                currentTileMap = tileMapLevels.get(levelName);
             }
 
         } else {
 
-            if (!levels.containsKey(levelName)) {
-                levelMap = levelManager.loadLevel(levelName);
-                levels.put(levelName, levelMap);
-                objectManager.generateLevel(levelMap, levelName);
+            if (!tileMapLevels.containsKey(levelName)) {
+                currentTileMap = levelManager.loadLevel(levelName);
+                tileMapLevels.put(levelName, currentTileMap);
+                objectManager.generateLevel(currentTileMap, levelName);
                 player = objectManager.getPlayer();
 
                 //STATISTICS: Discovered Places +1
                 player.statistics.w_DiscoveredPlaces++;
             } else {
-                levelMap = levels.get(levelName);
+                currentTileMap = tileMapLevels.get(levelName);
             }
 
         }
+
+        System.out.println("FGASGame change leveL: " +levelName);
 
         if (!prevLevelName.equalsIgnoreCase("")) {
             int stx = objectManager.getLevelMaps().get(levelName).getPlayerLastTileX();// * tileWidth;
@@ -121,10 +123,12 @@ public class FGASGame implements DroppableListener, ConsumableListener {
         }
 
         this.currentLevelName = levelName;
-        tileWidth = levelMap.getTileWidth();
-        tileHeight = levelMap.getTileHeight();
+        tileWidth = currentTileMap.getTileWidth();
+        tileHeight = currentTileMap.getTileHeight();
 
-        objectManager.setLevel(levelMap, levelName);
+        System.out.println(currentTileMap);
+
+        objectManager.setLevel(currentTileMap, levelName);
         if (levelType == LevelType.INNER_RANDOM_MAP) {
             player.setX( (float) (objectManager.getCurrentMap().getWidth() * objectManager.getCurrentMap().getTileWidth()) / 2);
             player.setY( (float) (objectManager.getCurrentMap().getHeight() * objectManager.getCurrentMap().getTileHeight()) / 2);
@@ -138,14 +142,14 @@ public class FGASGame implements DroppableListener, ConsumableListener {
 
 
     public void restartGame() {
-        levels = new HashMap<>();
+        tileMapLevels = new HashMap<>();
         objectManager = new ObjectManager(gameWidth, gameHeight);
         changeLevel(WORLD_MAP_NAME, "", LevelType.WORLD_MAP);
         calculateOffset();
         player.setCurrentLevelName(currentLevelName);
         timeCounter = new TimeCounter(player);
         actionHistory = new ActionHistory();
-        hud = new HUD(player, timeCounter, actionHistory, mouseCursor);
+        hud = new HUD(player, timeCounter, actionHistory);
 
         inventory = new Inventory(player, mouseCursor);
         inventory.setConsumableListener(this);
@@ -174,7 +178,7 @@ public class FGASGame implements DroppableListener, ConsumableListener {
         actionHistory = new ActionHistory();
 
         player.setCurrentLevelName(currentLevelName);
-        hud = new HUD(player, timeCounter, actionHistory, mouseCursor);
+        hud = new HUD(player, timeCounter, actionHistory);
         inventory = new Inventory(player, mouseCursor);
 
         pauseMenuButtons = new MainMenuButton[2];
@@ -590,8 +594,12 @@ public class FGASGame implements DroppableListener, ConsumableListener {
         return gameHeight;
     }
 
-    public HashMap<String, TileMap> getLevels() {
-        return levels;
+    public HashMap<String, TileMap> getTileMapLevels() {
+        return tileMapLevels;
+    }
+
+    public void setTileMapLevels(HashMap<String, TileMap> tileMapLevels) {
+        this.tileMapLevels = tileMapLevels;
     }
 
     public TimeCounter getTimeCounter() {
@@ -602,12 +610,40 @@ public class FGASGame implements DroppableListener, ConsumableListener {
         return hud;
     }
 
+    public void setHud(HUD hud) {
+        this.hud = hud;
+    }
+
+    public MouseCursor getMouseCursor() {
+        return mouseCursor;
+    }
+
+    public TileMap getCurrentTileMap() {
+        return currentTileMap;
+    }
+
+    public void setCurrentTileMap(TileMap currentTileMap) {
+        this.currentTileMap = currentTileMap;
+    }
+
     public void setPlayer(Player player) {
         this.player = player;
     }
 
     public ActionHistory getActionHistory() {
         return actionHistory;
+    }
+
+    public void setTimeCounter(TimeCounter timeCounter) {
+        this.timeCounter = timeCounter;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
     }
 
     public void setActionHistory(ActionHistory actionHistory) {

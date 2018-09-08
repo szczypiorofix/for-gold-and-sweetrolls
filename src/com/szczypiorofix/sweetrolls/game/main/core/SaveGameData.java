@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 24.08.18 13:38.
+ * Developed by szczypiorofix on 09.09.18 00:04.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -8,67 +8,27 @@ package com.szczypiorofix.sweetrolls.game.main.core;
 
 import com.szczypiorofix.sweetrolls.game.enums.LevelType;
 import com.szczypiorofix.sweetrolls.game.gui.ActionHistory;
-import com.szczypiorofix.sweetrolls.game.objects.Statistics;
+import com.szczypiorofix.sweetrolls.game.gui.Inventory;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
+import com.szczypiorofix.sweetrolls.game.tilemap.TileMap;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.HashSet;
 
 public class SaveGameData implements Serializable {
 
 
-    private String currentWorldName;
+    private String currentMapName;
     private HashMap<String, LevelMap> levels;
-    private long timeCounterTimeStamp;
-    private int timeCounterDayCounter;
-    private int timeCounterHourCounter;
-    private int timeCounterMinuteCounter;
     private ActionHistory actionHistory;
     private Player player;
+    private TimeCounter timeCounter;
+    private Inventory inventory;
+    private LevelType currentLevelType;
+
 
     public SaveGameData() {}
 
-
-    public long getTimeCounterTimeStamp() {
-        return timeCounterTimeStamp;
-    }
-
-    public void setTimeCounterTimeStamp(long timeCounterTimeStamp) {
-        this.timeCounterTimeStamp = timeCounterTimeStamp;
-    }
-
-    public int getTimeCounterDayCounter() {
-        return timeCounterDayCounter;
-    }
-
-    public void setTimeCounterDayCounter(int timeCounterDayCounter) {
-        this.timeCounterDayCounter = timeCounterDayCounter;
-    }
-
-    public int getTimeCounterHourCounter() {
-        return timeCounterHourCounter;
-    }
-
-    public void setTimeCounterHourCounter(int timeCounterHourCounter) {
-        this.timeCounterHourCounter = timeCounterHourCounter;
-    }
-
-    public int getTimeCounterMinuteCounter() {
-        return timeCounterMinuteCounter;
-    }
-
-    public void setTimeCounterMinuteCounter(int timeCounterMinuteCounter) {
-        this.timeCounterMinuteCounter = timeCounterMinuteCounter;
-    }
-
-    public void setCurrentWorldName(String currentWorldName) {
-        this.currentWorldName = currentWorldName;
-    }
-
-    public String getCurrentWorldName() {
-        return currentWorldName;
-    }
 
     public ActionHistory getActionHistory() {
         return actionHistory;
@@ -86,12 +46,44 @@ public class SaveGameData implements Serializable {
         this.levels = levels;
     }
 
+    public String getCurrentMapName() {
+        return currentMapName;
+    }
+
+    public void setCurrentMapName(String currentMapName) {
+        this.currentMapName = currentMapName;
+    }
+
     public Player getPlayer() {
         return player;
     }
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public TimeCounter getTimeCounter() {
+        return timeCounter;
+    }
+
+    public void setTimeCounter(TimeCounter timeCounter) {
+        this.timeCounter = timeCounter;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
+    }
+
+    public LevelType getCurrentLevelType() {
+        return currentLevelType;
+    }
+
+    public void setCurrentLevelType(LevelType currentLevelType) {
+        this.currentLevelType = currentLevelType;
     }
 
 }
