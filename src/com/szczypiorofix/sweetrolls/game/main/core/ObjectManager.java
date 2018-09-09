@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 09.09.18 00:04.
+ * Developed by szczypiorofix on 09.09.18 21:41.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -274,6 +274,7 @@ public class ObjectManager {
 
         // SET PLAYER'S INITIAL GROUND TILE
         player.setTerrainType(grounds[player.getTileX()][player.getTileY()].getObjectType());
+
     }
 
     private void iterateUpdate(int delta, GameObject[][] list, float offsetX, float offsetY) throws SlickException {
