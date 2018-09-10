@@ -199,7 +199,7 @@ public class FGASMainMenu {
                         menuButtons[i].setActive(true);
                         switch (i) {
                             case 0: {
-                                loadGame(true);
+                                loadGame();
                                 break;
                             }
                             case 1: {
@@ -382,55 +382,66 @@ public class FGASMainMenu {
     }
 
 
-    void loadGame(boolean load) {
-        //forGoldAndSweetrolls.resetGame();
-
-        System.out.println("Load? "+load);
+    private void loadGame() {
 
         forGoldAndSweetrolls.getFGASGame().restartGame();
 
-        if (load) {
-            SaveGameData saveGameData = SaveGameManager.load("player.sav");
+        SaveGameData saveGameData = SaveGameManager.load("player.sav");
 
-            // DATA
+        // DATA
 
-//            System.out.println("Loading save FGASMainMenu load.");
-//            System.out.println(saveGameData.getPlayer().statistics.p_Name);
-//            System.out.println(saveGameData.getPlayer().statistics.p_Race);
-//            System.out.println(saveGameData.getPlayer().statistics.p_Sex);
-//            System.out.println(saveGameData.getPlayer().getX()+":"+saveGameData.getPlayer().getY());
+//        System.out.println("Loading save FGASMainMenu load.");
+//        System.out.println(saveGameData.getPlayer().statistics.p_Name);
+//        System.out.println(saveGameData.getPlayer().statistics.p_Race);
+//        System.out.println(saveGameData.getPlayer().statistics.p_Sex);
+//        System.out.println(saveGameData.getPlayer().getX()+":"+saveGameData.getPlayer().getY());
 
-            forGoldAndSweetrolls.getFGASGame().setPlayer(saveGameData.getPlayer());
-            forGoldAndSweetrolls.getFGASGame().getObjectManager().setPlayer(saveGameData.getPlayer());
-            forGoldAndSweetrolls.getFGASGame().getPlayer().setImage(Textures.getInstance().classm32.getSprite(3, 0));
+        forGoldAndSweetrolls.getFGASGame().setPlayer(saveGameData.getPlayer());
+        forGoldAndSweetrolls.getFGASGame().getObjectManager().setPlayer(saveGameData.getPlayer());
+        forGoldAndSweetrolls.getFGASGame().getPlayer().setImage(Textures.getInstance().classm32.getSprite(3, 0));
 
-            //forGoldAndSweetrolls.getFGASGame().changeLevel(saveGameData.getCurrentMapName(), "", LevelType.WORLD_MAP);
+        forGoldAndSweetrolls.getFGASGame().getPlayer().setPlayerAction(PlayerAction.MOVE);
 
-            forGoldAndSweetrolls.getFGASGame().getPlayer().setPlayerAction(PlayerAction.MOVE);
+        //System.out.println("FGASMainMenu player: " +saveGameData.getPlayer().getStringProperty("name"));
 
-            //System.out.println("FGASMainMenu player: " +saveGameData.getPlayer().getStringProperty("name"));
+        forGoldAndSweetrolls.getFGASGame().setActionHistory(saveGameData.getActionHistory());
+        forGoldAndSweetrolls.getFGASGame().setTimeCounter(saveGameData.getTimeCounter());
 
-            forGoldAndSweetrolls.getFGASGame().setActionHistory(saveGameData.getActionHistory());
-            forGoldAndSweetrolls.getFGASGame().setTimeCounter(saveGameData.getTimeCounter());
 
-            System.out.println("FGASMainMenu load: '" +saveGameData.getCurrentMapName()+"'");
 
-            forGoldAndSweetrolls.getFGASGame().changeLevel(saveGameData.getCurrentMapName(), "", saveGameData.getCurrentLevelType());
+        System.out.println("FGASMainMenu load: '" +saveGameData.getCurrentMapName()+"'");
 
-            forGoldAndSweetrolls.getFGASGame().getObjectManager().setLevelMaps(saveGameData.getLevels());
 
-//            forGoldAndSweetrolls.getFGASGame().getObjectManager().setLevel(
-//                    forGoldAndSweetrolls.getFGASGame().getTileMapLevels().get(saveGameData.getCurrentMapName()),
-//                    saveGameData.getCurrentMapName()
-//            );
+        forGoldAndSweetrolls.getFGASGame().changeLevel(saveGameData.getCurrentMapName(), "", saveGameData.getCurrentLevelType());
 
-            forGoldAndSweetrolls.getFGASGame().setHud(new HUD(saveGameData.getPlayer(), saveGameData.getTimeCounter(), saveGameData.getActionHistory()));
-            forGoldAndSweetrolls.getFGASGame().setInventory(saveGameData.getInventory());
-            forGoldAndSweetrolls.getFGASGame().getInventory().setMouseCursor(forGoldAndSweetrolls.getFGASGame().getMouseCursor());
-            forGoldAndSweetrolls.getFGASGame().getInventory().inventorySetup();
+        //forGoldAndSweetrolls.getFGASGame().getObjectManager().setLevelMaps(saveGameData.getLevels());
+        forGoldAndSweetrolls.getFGASGame()
+                .getObjectManager()
+                .getLevelMaps()
+                .get(saveGameData.getCurrentMapName())
+                .setGround(
+                        saveGameData.getLevels()
+                                .get(saveGameData.getCurrentMapName()).getGround());
 
-            //forGoldAndSweetrolls.getFGASGame().getHud().turn(saveGameData.getTimeCounterTimeStamp());
-        }
+        forGoldAndSweetrolls.getFGASGame()
+                .getObjectManager()
+                .getLevelMaps()
+                .get(saveGameData.getCurrentMapName())
+                .setPlaces(
+                        saveGameData.getLevels()
+                                .get(saveGameData.getCurrentMapName()).getPlaces());
+
+
+        System.out.println("LevelMaps size: " +forGoldAndSweetrolls.getFGASGame().getObjectManager().getLevelMaps().size());
+
+        forGoldAndSweetrolls.getFGASGame().getObjectManager().setCurrentLevelMap(saveGameData.getCurrentMapName());
+        forGoldAndSweetrolls.getFGASGame().getObjectManager().setCurrentTileMap(saveGameData.getCurrentMapName());
+
+
+        forGoldAndSweetrolls.getFGASGame().setHud(new HUD(saveGameData.getPlayer(), saveGameData.getTimeCounter(), saveGameData.getActionHistory()));
+        forGoldAndSweetrolls.getFGASGame().setInventory(saveGameData.getInventory());
+        forGoldAndSweetrolls.getFGASGame().getInventory().setMouseCursor(forGoldAndSweetrolls.getFGASGame().getMouseCursor());
+        forGoldAndSweetrolls.getFGASGame().getInventory().inventorySetup();
 
         forGoldAndSweetrolls.getFGASGame().calculateOffset();
         forGoldAndSweetrolls.setGameState(GameState.GAME);

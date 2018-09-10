@@ -36,6 +36,7 @@ public class TileMap implements Serializable {
     private int width;
     private int height;
     private int nextObjectId;
+    private String fileName;
 
 
     private TileMap() {
@@ -57,6 +58,7 @@ public class TileMap implements Serializable {
         this.height = height;
         this.tileWidth = tileWidth;
         this.tileHeight = tileHeight;
+        this.fileName = "level generated";
     }
 
     /**
@@ -66,6 +68,7 @@ public class TileMap implements Serializable {
     public TileMap(String fileName) {
         this();
         loadFromTiledMap(fileName);
+        this.fileName = fileName;
     }
 
     /**
@@ -395,6 +398,14 @@ public class TileMap implements Serializable {
 
     public ArrayList<TileLayer> getTileLayers() {
         return tileLayers;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public int getNextObjectId() {
+        return nextObjectId;
     }
 
     @Override

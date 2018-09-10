@@ -25,8 +25,10 @@ public class LevelMap implements Serializable {
     private LevelType levelType;
     private int width, height;
     private int tileWidth, tileHeight;
+    private String name;
 
-    public LevelMap(int tileWidth, int tileHeight, LevelType levelType, Ground[][] ground, Place[][] places, NPC[][] npc, Item[][] items, int playerLastTileX, int playerLastTileY) {
+    public LevelMap(String name, int tileWidth, int tileHeight, LevelType levelType, Ground[][] ground, Place[][] places, NPC[][] npc, Item[][] items, int playerLastTileX, int playerLastTileY) {
+        this.name = name;
         this.tileWidth = tileWidth;
         this.tileHeight = tileHeight;
         this.levelType = levelType;
@@ -133,4 +135,11 @@ public class LevelMap implements Serializable {
         this.tileHeight = tileHeight;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

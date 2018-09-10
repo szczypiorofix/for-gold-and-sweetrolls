@@ -7,11 +7,8 @@
 package com.szczypiorofix.sweetrolls.game.main.core;
 
 import com.szczypiorofix.sweetrolls.game.main.states.FGASGame;
-import com.szczypiorofix.sweetrolls.game.tilemap.TileMap;
 
 import java.io.*;
-import java.util.HashSet;
-import java.util.Map;
 
 public class SaveGameManager {
 
@@ -67,7 +64,7 @@ public class SaveGameManager {
         saveGameData.setInventory(game.getInventory());
         saveGameData.setCurrentMapName(game.getPlayer().getCurrentLevelName());
         saveGameData.setLevels(game.getObjectManager().getLevelMaps());
-        saveGameData.setCurrentLevelType(game.getObjectManager().getCurrentMap().getLevelType());
+        saveGameData.setCurrentLevelType(game.getObjectManager().getCurrentLevelMap().getLevelType());
 
         System.out.println("Saving current level name: " +game.getPlayer().getCurrentLevelName());
 

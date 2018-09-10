@@ -213,10 +213,6 @@ public class FGASCreatePlayer {
                             //if (leftStatsPoints == 0 && leftSkillsPoints == 0) {
                                 //fgasMainMenu.loadGame(false);
 
-
-                            // TODO Coś z tym trzeba zeobić
-
-
                                 forGoldAndSweetrolls.getFGASGame().restartGame();
                                 forGoldAndSweetrolls.getFGASGame().getPlayer().statistics.p_Name = currentName;
                                 forGoldAndSweetrolls.getFGASGame().getPlayer().statistics.p_Sex = currentSex;

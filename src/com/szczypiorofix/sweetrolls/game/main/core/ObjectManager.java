@@ -28,7 +28,7 @@ import java.util.HashMap;
 public class ObjectManager {
 
 
-    private TileMap level;
+    private TileMap currentTileMap;
     private Player player;
 
     // WORLD MAP OBJECTS
@@ -40,7 +40,8 @@ public class ObjectManager {
     private int gameWidth, gameHeight;
 
     private HashMap<String, LevelMap> levelMaps;
-    private LevelMap currentMap;
+    private HashMap<String, TileMap> tileMaps;
+    private LevelMap currentLevelMap;
 
     private int tilesToWest, tilesToEast, tilesToNorth, tilesToSouth;
 
@@ -48,15 +49,17 @@ public class ObjectManager {
         gameWidth = width;
         gameHeight = height;
         levelMaps = new HashMap<>();
+        tileMaps = new HashMap<>();
     }
 
     public void generateLevel(TileMap tileMap, String levelName) {
-        this.level = tileMap;
+        this.currentTileMap = tileMap;
+        tileMaps.put(levelName, tileMap);
 
-        grounds = new Ground[level.getWidth()][level.getHeight()];
-        places = new Place[level.getWidth()][level.getHeight()];
-        npcs = new NPC[level.getWidth()][level.getHeight()];
-        items = new Item[level.getWidth()][level.getHeight()];
+        grounds = new Ground[currentTileMap.getWidth()][currentTileMap.getHeight()];
+        places = new Place[currentTileMap.getWidth()][currentTileMap.getHeight()];
+        npcs = new NPC[currentTileMap.getWidth()][currentTileMap.getHeight()];
+        items = new Item[currentTileMap.getWidth()][currentTileMap.getHeight()];
 
         // ############ OBIEKTY
         for (int objectGroups = 0; objectGroups < tileMap.getObjectGroups().size(); objectGroups++) {
@@ -239,7 +242,8 @@ public class ObjectManager {
             }
         }
 
-        currentMap = new LevelMap(
+        currentLevelMap = new LevelMap(
+                levelName,
                 tileMap.getTileWidth(),
                 tileMap.getTileHeight(),
                 levelName.equalsIgnoreCase(FGASGame.WORLD_MAP_NAME) ? LevelType.WORLD_MAP : LevelType.INNER_MAP,
@@ -249,31 +253,34 @@ public class ObjectManager {
                 items,
                 player.getTileX(),
                 player.getTileY());
-        levelMaps.put(levelName, currentMap);
+
+        levelMaps.put(levelName, currentLevelMap);
     }
 
-    public void setLevel(TileMap tileMap, String levelName) {
+    public void setLevel() {
 
-        this.level = tileMap;
-        currentMap = levelMaps.get(levelName);
+        System.out.println("OM setLevel: "+currentLevelMap.getName());
 
-        System.out.println("OM setLevel: "+currentMap +", levelName: '"+levelName+"'");
-
-        int maxTileX = gameWidth / tileMap.getTileWidth();
-        int maxTileY = gameHeight / tileMap.getTileHeight();
+        int maxTileX = gameWidth / currentLevelMap.getTileWidth();
+        int maxTileY = gameHeight / currentLevelMap.getTileHeight();
 
         tilesToWest = - maxTileX / 2 - 1;
         tilesToEast = maxTileX / 2 - 3;
         tilesToNorth = - maxTileY / 2 - 1;
         tilesToSouth = maxTileY / 2 + 1;
 
-        grounds = currentMap.getGround();
-        places = currentMap.getPlaces();
-        npcs = currentMap.getNpc();
-        items = currentMap.getItems();
+        grounds = currentLevelMap.getGround();
+        places = currentLevelMap.getPlaces();
+        npcs = currentLevelMap.getNpc();
+        items = currentLevelMap.getItems();
+
+        System.out.println("Grounds length: "+grounds.length);
 
         // SET PLAYER'S INITIAL GROUND TILE
-        player.setTerrainType(grounds[player.getTileX()][player.getTileY()].getObjectType());
+        player.setTerrainType(
+                grounds[
+                        player.getTileX()]
+                        [player.getTileY()].getObjectType());
 
     }
 
@@ -282,8 +289,8 @@ public class ObjectManager {
             for (int y = tilesToNorth; y < tilesToSouth; y++) {
                 if (player.getTileX(x) >= 0
                         && player.getTileY(y) >= 0
-                        && player.getTileX(x) < level.getWidth()
-                        && player.getTileY(y) < level.getHeight()
+                        && player.getTileX(x) < currentTileMap.getWidth()
+                        && player.getTileY(y) < currentTileMap.getHeight()
                         ) {
                     if (list[player.getTileX() + x][player.getTileY() + y] != null) {
                         list[player.getTileX() + x][player.getTileY() + y].update(delta, offsetX, offsetY);
@@ -304,7 +311,7 @@ public class ObjectManager {
             tE = Math.abs(tilesToWest) + Math.abs(tilesToEast);
         }
 
-        if (player.getTileX() > (level.getWidth() - 10) ) {
+        if (player.getTileX() > (currentTileMap.getWidth() - 10) ) {
             tW = tilesToWest - 4;
         }
 
@@ -312,7 +319,7 @@ public class ObjectManager {
             tS = Math.abs(tilesToSouth) + Math.abs(tilesToNorth);
         }
 
-        if (player.getTileY() > (level.getHeight() - 10) ) {
+        if (player.getTileY() > (currentTileMap.getHeight() - 10) ) {
             tN = tilesToNorth - tilesToSouth;
         }
 
@@ -320,8 +327,8 @@ public class ObjectManager {
             for (int y = tN; y < tS; y++) {
                 if (player.getTileX(x) >= 0
                         && player.getTileY(y) >= 0
-                        && player.getTileX(x) < level.getWidth()
-                        && player.getTileY(y) < level.getHeight()) {
+                        && player.getTileX(x) < currentTileMap.getWidth()
+                        && player.getTileY(y) < currentTileMap.getHeight()) {
 
 
                     if (list[player.getTileX() + x][player.getTileY() + y] != null) {
@@ -378,8 +385,8 @@ public class ObjectManager {
         return player;
     }
 
-    public TileMap getLevel() {
-        return level;
+    public TileMap getCurrentTileMap() {
+        return currentTileMap;
     }
 
     public Place getPlace(int x, int y) {
@@ -430,16 +437,26 @@ public class ObjectManager {
         return tilesToSouth;
     }
 
-    public LevelMap getCurrentMap() {
-        return currentMap;
+    public LevelMap getCurrentLevelMap() {
+        return currentLevelMap;
     }
 
     public void setPlayer(Player player) {
         this.player = player;
     }
 
-    public void setCurrentMap(LevelMap currentMap) {
-        this.currentMap = currentMap;
+    public void setCurrentLevelMap(String currentLevelMap) {
+        this.currentLevelMap = levelMaps.get(currentLevelMap);
+        System.out.println("Ustawianie nowej LevelMap: "+this.currentLevelMap.getName());
+    }
+
+    public void setCurrentTileMap(String currentTileMap) {
+        this.currentTileMap = tileMaps.get(currentTileMap);
+        System.out.println("Ustawianie nowej TileMap: "+this.currentTileMap.getFileName());
+    }
+
+    public HashMap<String, TileMap> getTileMaps() {
+        return tileMaps;
     }
 
     //    private void graczSwieci(int x,  int y, int sila) {
