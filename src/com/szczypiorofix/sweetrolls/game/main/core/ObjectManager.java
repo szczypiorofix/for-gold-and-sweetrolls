@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 09.09.18 21:41.
+ * Developed by szczypiorofix on 10.09.18 17:32.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -259,8 +259,6 @@ public class ObjectManager {
 
     public void setLevel() {
 
-        System.out.println("OM setLevel: "+currentLevelMap.getName());
-
         int maxTileX = gameWidth / currentLevelMap.getTileWidth();
         int maxTileY = gameHeight / currentLevelMap.getTileHeight();
 
@@ -274,15 +272,10 @@ public class ObjectManager {
         npcs = currentLevelMap.getNpc();
         items = currentLevelMap.getItems();
 
-        System.out.println("Grounds length: "+grounds.length);
-
         // SET PLAYER'S INITIAL GROUND TILE
-        player.setTerrainType(
-                grounds[
-                        player.getTileX()]
-                        [player.getTileY()].getObjectType());
-
+        player.setTerrainType(grounds[player.getTileX()][player.getTileY()].getObjectType());
     }
+
 
     private void iterateUpdate(int delta, GameObject[][] list, float offsetX, float offsetY) throws SlickException {
         for (int x = tilesToWest; x < tilesToEast; x++) {

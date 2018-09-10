@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 09.09.18 00:04.
+ * Developed by szczypiorofix on 10.09.18 17:32.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -396,40 +396,40 @@ public class FGASMainMenu {
 //        System.out.println(saveGameData.getPlayer().statistics.p_Sex);
 //        System.out.println(saveGameData.getPlayer().getX()+":"+saveGameData.getPlayer().getY());
 
-        forGoldAndSweetrolls.getFGASGame().setPlayer(saveGameData.getPlayer());
-        forGoldAndSweetrolls.getFGASGame().getObjectManager().setPlayer(saveGameData.getPlayer());
-        forGoldAndSweetrolls.getFGASGame().getPlayer().setImage(Textures.getInstance().classm32.getSprite(3, 0));
+        forGoldAndSweetrolls.getFGASGame().setSaveGameLoaded(true);
 
-        forGoldAndSweetrolls.getFGASGame().getPlayer().setPlayerAction(PlayerAction.MOVE);
+        forGoldAndSweetrolls.getFGASGame().setSaveGameData(saveGameData);
 
         //System.out.println("FGASMainMenu player: " +saveGameData.getPlayer().getStringProperty("name"));
 
         forGoldAndSweetrolls.getFGASGame().setActionHistory(saveGameData.getActionHistory());
         forGoldAndSweetrolls.getFGASGame().setTimeCounter(saveGameData.getTimeCounter());
 
-
-
         System.out.println("FGASMainMenu load: '" +saveGameData.getCurrentMapName()+"'");
-
 
         forGoldAndSweetrolls.getFGASGame().changeLevel(saveGameData.getCurrentMapName(), "", saveGameData.getCurrentLevelType());
 
-        //forGoldAndSweetrolls.getFGASGame().getObjectManager().setLevelMaps(saveGameData.getLevels());
-        forGoldAndSweetrolls.getFGASGame()
-                .getObjectManager()
-                .getLevelMaps()
-                .get(saveGameData.getCurrentMapName())
-                .setGround(
-                        saveGameData.getLevels()
-                                .get(saveGameData.getCurrentMapName()).getGround());
+        forGoldAndSweetrolls.getFGASGame().setPlayer(saveGameData.getPlayer());
+        forGoldAndSweetrolls.getFGASGame().getObjectManager().setPlayer(saveGameData.getPlayer());
+        forGoldAndSweetrolls.getFGASGame().getPlayer().setImage(Textures.getInstance().classm32.getSprite(3, 0));
+        forGoldAndSweetrolls.getFGASGame().getPlayer().setPlayerAction(PlayerAction.MOVE);
 
-        forGoldAndSweetrolls.getFGASGame()
-                .getObjectManager()
-                .getLevelMaps()
-                .get(saveGameData.getCurrentMapName())
-                .setPlaces(
-                        saveGameData.getLevels()
-                                .get(saveGameData.getCurrentMapName()).getPlaces());
+        //forGoldAndSweetrolls.getFGASGame().getObjectManager().setLevelMaps(saveGameData.getLevels());
+//        forGoldAndSweetrolls.getFGASGame()
+//                .getObjectManager()
+//                .getLevelMaps()
+//                .get(saveGameData.getCurrentMapName())
+//                .setItems(
+//                        saveGameData.getLevels()
+//                                .get(saveGameData.getCurrentMapName()).getItems());
+//
+//        forGoldAndSweetrolls.getFGASGame()
+//                .getObjectManager()
+//                .getLevelMaps()
+//                .get(saveGameData.getCurrentMapName())
+//                .setNpc(
+//                        saveGameData.getLevels()
+//                                .get(saveGameData.getCurrentMapName()).getNpc());
 
 
         System.out.println("LevelMaps size: " +forGoldAndSweetrolls.getFGASGame().getObjectManager().getLevelMaps().size());

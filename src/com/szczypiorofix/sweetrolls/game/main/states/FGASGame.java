@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 09.09.18 00:04.
+ * Developed by szczypiorofix on 10.09.18 17:32.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -43,11 +43,13 @@ public class FGASGame implements DroppableListener, ConsumableListener {
     private TimeCounter timeCounter;
     private MainMenuButton[] pauseMenuButtons;
     private TileMap currentTileMap;
+    private SaveGameData saveGameData;
 
     private float offsetX, offsetY;
     private int tileWidth, tileHeight;
     private int gameWidth, gameHeight;
     private boolean setNextRound;
+    private boolean saveGameLoaded;
 
 
 
@@ -106,9 +108,9 @@ public class FGASGame implements DroppableListener, ConsumableListener {
 
             } else {
                 System.out.println("Wczytanie lokacji z pamięci.");
+
                 objectManager.setCurrentTileMap(levelName);
                 objectManager.setCurrentLevelMap(levelName);
-                //player = objectManager.getPlayer();
             }
 
         //}
@@ -124,6 +126,21 @@ public class FGASGame implements DroppableListener, ConsumableListener {
         tileWidth = currentTileMap.getTileWidth();
         tileHeight = currentTileMap.getTileHeight();
 
+        if (saveGameLoaded) {
+            objectManager
+                    .getLevelMaps()
+                    .get(levelName)
+                    .setNpc(
+                            saveGameData.getLevels()
+                                    .get(saveGameData.getCurrentMapName()).getNpc());
+
+            objectManager
+                    .getLevelMaps()
+                    .get(levelName)
+                    .setItems(
+                            saveGameData.getLevels()
+                                    .get(saveGameData.getCurrentMapName()).getItems());
+        }
         objectManager.setLevel();
 
         // PLAYER IN THE MIDDLE OF GENERATED OPEN MAP
@@ -567,6 +584,14 @@ public class FGASGame implements DroppableListener, ConsumableListener {
 
     }
 
+    public SaveGameData getSaveGameData() {
+        return saveGameData;
+    }
+
+    public void setSaveGameData(SaveGameData saveGameData) {
+        this.saveGameData = saveGameData;
+    }
+
     public static String getWorldMapName() {
         return WORLD_MAP_NAME;
     }
@@ -630,6 +655,14 @@ public class FGASGame implements DroppableListener, ConsumableListener {
     public void setActionHistory(ActionHistory actionHistory) {
         this.actionHistory = actionHistory;
         this.hud.setActionHistory(this.actionHistory);
+    }
+
+    public boolean isSaveGameLoaded() {
+        return saveGameLoaded;
+    }
+
+    public void setSaveGameLoaded(boolean saveGameLoaded) {
+        this.saveGameLoaded = saveGameLoaded;
     }
 
     /**
