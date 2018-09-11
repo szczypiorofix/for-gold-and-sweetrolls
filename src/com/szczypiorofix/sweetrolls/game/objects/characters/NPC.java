@@ -29,7 +29,7 @@ public class NPC extends Character implements Serializable {
     private transient BitMapFont font;
     private transient Image npcImage;
     private CharacterType characterType;
-    private transient Dialogue dialogue;
+    private Dialogue dialogue;
     private String[] talks = {
         "IT JUST WORKS !"
     };
@@ -38,17 +38,22 @@ public class NPC extends Character implements Serializable {
     };
     private String displayName;
     private boolean londTalk;
-    private Statistics statistics = new Statistics();
+    private Statistics statistics;
+    private int gid;
+    private String tileSetName;
 
 
     public NPC(String name, float x, float y, float width, float height, TileSet tileSet, int gid, ArrayList<Property> properties) {
         super(name, x, y, width, height, ObjectType.NPC, properties);
 
+        this.tileSetName = tileSet.getName();
+        this.gid = gid;
         npcImage = tileSet.getImageSprite(gid);
 
         font = FontParser.getFont();
 
         characterType = estimateCharacterType(getStringProperty("type"));
+        statistics = new Statistics();
         statistics.p_MaxHealth = getIntegerProperty("maxhealth");
 
         londTalk = getBooleanProperty("longTalk");
@@ -69,34 +74,6 @@ public class NPC extends Character implements Serializable {
         ));
     }
 
-    public NPC(String name, float x, float y, float width, float height, Image image, ArrayList<Property> properties) {
-        super(name, x, y, width, height, ObjectType.NPC, properties);
-        if (image == null) {
-            npcImage = Textures.getInstance().classm32.getSprite(0, 0);
-        } else npcImage = image;
-
-        font = FontParser.getFont();
-
-        characterType = estimateCharacterType(getStringProperty("type"));
-        statistics.p_MaxHealth = getIntegerProperty("maxhealth");
-
-        londTalk = getBooleanProperty("longTalk");
-
-        if (londTalk) {
-            dialogue = DialoguesXMLParser.parseDialogueXML(getStringProperty("dialogueFileName"), false);
-        }
-
-        displayName = getStringProperty("name");
-
-        setCollisions(new CollisionObject(
-                1,
-                "npc",
-                0,
-                0,
-                32,
-                32
-        ));
-    }
 
     private CharacterType estimateCharacterType(String type) {
         CharacterType ct = CharacterType.STRANGER;
@@ -131,6 +108,21 @@ public class NPC extends Character implements Serializable {
         }
     }
 
+    public void prepareNPCAfterSaveGameLoad(ArrayList<TileSet> tileSets) {
+        for (int i = 0; i < tileSets.size(); i++) {
+            if (tileSets.get(i).getName().equalsIgnoreCase(tileSetName)) {
+                npcImage = tileSets.get(i).getImageSprite(gid);
+                break;
+            }
+        }
+        font = FontParser.getFont();
+        statistics = new Statistics();
+        for (int i = 0; i < dialogue.getDialogueParts().size(); i++) {
+            for (int j = 0; j < dialogue.getDialogueParts().get(i).getDialoguePartButtons().size(); j++) {
+                dialogue.getDialogueParts().get(i).getDialoguePartButtons().get(j).setFontForGame();
+            }
+        }
+    }
 
     public String[] getTalks() {
         return talks;
@@ -153,5 +145,10 @@ public class NPC extends Character implements Serializable {
 
     public Dialogue getDialogue() {
         return dialogue;
+    }
+
+
+    public int getGid() {
+        return gid;
     }
 }

@@ -53,7 +53,6 @@ public class FGASGame implements DroppableListener, ConsumableListener {
 
 
 
-
     /**
      * Main FGASGame constructor.
      * @param forGoldAndSweetrolls (ForGoldAndSweetrolls) - main class of game (starting main menu state and game state - FGASGame).
@@ -127,19 +126,44 @@ public class FGASGame implements DroppableListener, ConsumableListener {
         tileHeight = currentTileMap.getTileHeight();
 
         if (saveGameLoaded) {
-            objectManager
-                    .getLevelMaps()
-                    .get(levelName)
-                    .setNpc(
-                            saveGameData.getLevels()
-                                    .get(saveGameData.getCurrentMapName()).getNpc());
+            if (!objectManager.getLevelMaps().get(levelName).isSaveGameContentLoaded()) {
+                objectManager
+                        .getLevelMaps()
+                        .get(levelName)
+                        .setNpc(
+                                saveGameData.getLevels()
+                                        .get(saveGameData.getCurrentMapName()).getNpc());
 
-            objectManager
-                    .getLevelMaps()
-                    .get(levelName)
-                    .setItems(
-                            saveGameData.getLevels()
-                                    .get(saveGameData.getCurrentMapName()).getItems());
+                // USTAWIANIE NPCów
+                for (int i = 0; i < objectManager.getLevelMaps().get(levelName).getNpc().length; i++) {
+                    for (int j = 0; j < objectManager.getLevelMaps().get(levelName).getNpc()[0].length; j++) {
+                        if (objectManager.getLevelMaps().get(levelName).getNpc()[i][j] != null) {
+                            objectManager.getLevelMaps().get(levelName).getNpc()[i][j].prepareNPCAfterSaveGameLoad(
+                                    objectManager.getTileMaps().get(levelName).getTileSets()
+                            );
+                        }
+                    }
+                }
+
+                objectManager
+                        .getLevelMaps()
+                        .get(levelName)
+                        .setItems(
+                                saveGameData.getLevels()
+                                        .get(saveGameData.getCurrentMapName()).getItems());
+                // USTAWIANIE ITEMÓW
+                for (int i = 0; i < objectManager.getLevelMaps().get(levelName).getItems().length; i++) {
+                    for (int j = 0; j < objectManager.getLevelMaps().get(levelName).getItems()[0].length; j++) {
+                        if (objectManager.getLevelMaps().get(levelName).getItems()[i][j] != null) {
+                            objectManager.getLevelMaps().get(levelName).getItems()[i][j].prepareItemAfterSaveGameLoad(
+                                    objectManager.getTileMaps().get(levelName).getTileSets()
+                            );
+                        }
+                    }
+                }
+
+                objectManager.getLevelMaps().get(levelName).setSaveGameContentLoaded(true);
+            }
         }
         objectManager.setLevel();
 
@@ -156,7 +180,7 @@ public class FGASGame implements DroppableListener, ConsumableListener {
     }
 
 
-    public void restartGame() {
+    void restartGame() {
         objectManager = new ObjectManager(gameWidth, gameHeight);
         changeLevel(WORLD_MAP_NAME, "", LevelType.WORLD_MAP);
         calculateOffset();
@@ -175,50 +199,53 @@ public class FGASGame implements DroppableListener, ConsumableListener {
 
     public void init(GameContainer gc, Input input, MouseCursor mouseCursor) {
 
+        this.input = input;
+        this.mouseCursor = mouseCursor;
+
         gameWidth = gc.getWidth();
         gameHeight = gc.getHeight();
 
-        this.input = input;
 
-        objectManager = new ObjectManager(gameWidth, gameHeight);
 
-        // INITIAL WORLD MAP
-        changeLevel(WORLD_MAP_NAME, "", LevelType.WORLD_MAP);
-        calculateOffset();
-
-        this.mouseCursor = mouseCursor;
-
-        timeCounter = new TimeCounter(player);
-        actionHistory = new ActionHistory();
-
-        player.setCurrentLevelName(currentLevelName);
-        hud = new HUD(player, timeCounter, actionHistory);
-        inventory = new Inventory(player, mouseCursor);
-
-        pauseMenuButtons = new MainMenuButton[2];
-        pauseMenuButtons[0] = new MainMenuButton("Wznów", 230, 280);
-        pauseMenuButtons[1] = new MainMenuButton("Zapisz i wyjdź", 230, 320);
-
-        // CREATE WORLD MAP IMAGE
-        try {
-            int imgWidth = 300;
-            int imgHeight = 300;
-            ImageBuffer ib = new ImageBuffer(imgWidth, imgHeight);
-            for (int i = 0; i < imgWidth; i++) {
-                for (int j = 0; j < imgHeight; j++) {
-                    ib.setRGBA(i,
-                            j,
-                            objectManager.getGrounds()[i][j].getMiniMapColor().getRed(),
-                            objectManager.getGrounds()[i][j].getMiniMapColor().getGreen(),
-                            objectManager.getGrounds()[i][j].getMiniMapColor().getBlue(),
-                            objectManager.getGrounds()[i][j].getMiniMapColor().getAlpha()
-                            );
-                }
-            }
-            worldMapImage = ib.getImage();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//
+//        objectManager = new ObjectManager(gameWidth, gameHeight);
+//
+//        // INITIAL WORLD MAP
+//        changeLevel(WORLD_MAP_NAME, "", LevelType.WORLD_MAP);
+//        calculateOffset();
+//
+//
+//        timeCounter = new TimeCounter(player);
+//        actionHistory = new ActionHistory();
+//
+//        player.setCurrentLevelName(currentLevelName);
+//        hud = new HUD(player, timeCounter, actionHistory);
+//        inventory = new Inventory(player, mouseCursor);
+//
+//        pauseMenuButtons = new MainMenuButton[2];
+//        pauseMenuButtons[0] = new MainMenuButton("Wznów", 230, 280);
+//        pauseMenuButtons[1] = new MainMenuButton("Zapisz i wyjdź", 230, 320);
+//
+//        // CREATE WORLD MAP IMAGE
+//        try {
+//            int imgWidth = 300;
+//            int imgHeight = 300;
+//            ImageBuffer ib = new ImageBuffer(imgWidth, imgHeight);
+//            for (int i = 0; i < imgWidth; i++) {
+//                for (int j = 0; j < imgHeight; j++) {
+//                    ib.setRGBA(i,
+//                            j,
+//                            objectManager.getGrounds()[i][j].getMiniMapColor().getRed(),
+//                            objectManager.getGrounds()[i][j].getMiniMapColor().getGreen(),
+//                            objectManager.getGrounds()[i][j].getMiniMapColor().getBlue(),
+//                            objectManager.getGrounds()[i][j].getMiniMapColor().getAlpha()
+//                            );
+//                }
+//            }
+//            worldMapImage = ib.getImage();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
     }
 
@@ -584,12 +611,11 @@ public class FGASGame implements DroppableListener, ConsumableListener {
 
     }
 
-    public SaveGameData getSaveGameData() {
-        return saveGameData;
-    }
 
-    public void setSaveGameData(SaveGameData saveGameData) {
+    void setSaveGameData(SaveGameData saveGameData) {
         this.saveGameData = saveGameData;
+        restartGame();
+        changeLevel(saveGameData.getCurrentMapName(), "", saveGameData.getCurrentLevelType());
     }
 
     public static String getWorldMapName() {

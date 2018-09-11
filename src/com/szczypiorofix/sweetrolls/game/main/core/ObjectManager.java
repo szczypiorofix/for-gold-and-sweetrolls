@@ -111,12 +111,14 @@ public class ObjectManager {
                                     currentItem.getY(),
                                     currentItem.getWidth(),
                                     currentItem.getHeight(),
-                                    currentItem.getGid() >= 0 ?
-                                            tileMap.getTileSets().get(tileSet).getImageSprite(
-                                                    currentItem.getGid()
-                                                            - tileMap.getTileSets().get(tileSet).getFirstGid()
-                                            )
-                                            : null,
+//                                    currentItem.getGid() >= 0 ?
+//                                            tileMap.getTileSets().get(tileSet).getImageSprite(
+//                                                    currentItem.getGid()
+//                                                            - tileMap.getTileSets().get(tileSet).getFirstGid()
+//                                            )
+//                                            : null,
+                                    tileMap.getTileSets().get(tileSet),
+                                    currentItem.getGid() - tileMap.getTileSets().get(tileSet).getFirstGid(),
                                     ObjectType.ITEM,
                                     currentItem.getType(),
                                     currentItem.getProperties()

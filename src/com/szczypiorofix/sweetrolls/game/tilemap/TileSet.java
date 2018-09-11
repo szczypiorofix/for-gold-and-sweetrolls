@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 
 
-public class TileSet implements Serializable {
+public class TileSet {
 
     private int firstGid;
     private String name;
@@ -38,7 +38,7 @@ public class TileSet implements Serializable {
     private int columns;
     private int sourceWidth;
     private int sourceHeight;
-    private transient SpriteSheet image;
+    private SpriteSheet image;
     private ArrayList<CollisionObject> collisions;
 
 

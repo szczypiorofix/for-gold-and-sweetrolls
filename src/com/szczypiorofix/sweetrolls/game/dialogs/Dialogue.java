@@ -7,9 +7,10 @@
 package com.szczypiorofix.sweetrolls.game.dialogs;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Dialogue {
+public class Dialogue implements Serializable {
 
 
     private String name;

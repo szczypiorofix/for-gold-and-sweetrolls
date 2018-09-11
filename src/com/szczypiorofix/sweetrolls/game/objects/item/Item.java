@@ -11,6 +11,7 @@ import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.main.fonts.BitMapFont;
 import com.szczypiorofix.sweetrolls.game.main.fonts.FontParser;
 import com.szczypiorofix.sweetrolls.game.objects.GameObject;
+import com.szczypiorofix.sweetrolls.game.objects.Statistics;
 import com.szczypiorofix.sweetrolls.game.tilemap.Property;
 import com.szczypiorofix.sweetrolls.game.tilemap.TileSet;
 import org.newdawn.slick.Graphics;
@@ -30,9 +31,13 @@ public class Item extends GameObject implements Serializable {
     private int damageRatio;
     private ItemType itemType;
     private boolean found = false;
+    private int gid;
+    private String tileSetName;
 
     public Item(String name, float x, float y, float width, float height, TileSet tileSet, int gid, ObjectType objectType, String type, ArrayList<Property> properties) {
         super(name, x, y, width, height, objectType, properties);
+        this.tileSetName = tileSet.getName();
+        this.gid = gid;
         image = tileSet.getImageSprite(gid);
         this.type = type;
         font = FontParser.getFont();
@@ -125,5 +130,15 @@ public class Item extends GameObject implements Serializable {
 
     public void setFound(boolean found) {
         this.found = found;
+    }
+
+    public void prepareItemAfterSaveGameLoad(ArrayList<TileSet> tileSets) {
+        for (int i = 0; i < tileSets.size(); i++) {
+            if (tileSets.get(i).getName().equalsIgnoreCase(tileSetName)) {
+                image = tileSets.get(i).getImageSprite(gid);
+                break;
+            }
+        }
+        font = FontParser.getFont();
     }
 }

@@ -26,6 +26,7 @@ public class LevelMap implements Serializable {
     private int width, height;
     private int tileWidth, tileHeight;
     private String name;
+    private boolean saveGameContentLoaded;
 
     public LevelMap(String name, int tileWidth, int tileHeight, LevelType levelType, Ground[][] ground, Place[][] places, NPC[][] npc, Item[][] items, int playerLastTileX, int playerLastTileY) {
         this.name = name;
@@ -141,5 +142,13 @@ public class LevelMap implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isSaveGameContentLoaded() {
+        return saveGameContentLoaded;
+    }
+
+    public void setSaveGameContentLoaded(boolean saveGameContentLoaded) {
+        this.saveGameContentLoaded = saveGameContentLoaded;
     }
 }

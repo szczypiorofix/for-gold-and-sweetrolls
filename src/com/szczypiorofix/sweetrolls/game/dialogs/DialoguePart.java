@@ -8,9 +8,10 @@ package com.szczypiorofix.sweetrolls.game.dialogs;
 
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class DialoguePart {
+public class DialoguePart implements Serializable {
 
 
     private int id;

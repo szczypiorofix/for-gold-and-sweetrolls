@@ -7,7 +7,6 @@
 package com.szczypiorofix.sweetrolls.game.main.states;
 
 import com.szczypiorofix.sweetrolls.game.enums.GameState;
-import com.szczypiorofix.sweetrolls.game.enums.LevelType;
 import com.szczypiorofix.sweetrolls.game.enums.PlayerAction;
 import com.szczypiorofix.sweetrolls.game.gui.HUD;
 import com.szczypiorofix.sweetrolls.game.gui.MainMenuButton;
@@ -36,7 +35,7 @@ public class FGASMainMenu {
     private MouseCursor mouseCursor;
     private ForGoldAndSweetrolls forGoldAndSweetrolls;
     private ObjectManager objectManager;
-    private Ground[][] mainMenuMovingBackground;
+    //private Ground[][] mainMenuMovingBackground;
     //private ParticleSystem system;
     //private Image torch;
 
@@ -181,12 +180,13 @@ public class FGASMainMenu {
             gameContainer.setDisplayMode(selectedGameWidth, selectedGameHeight, selectedFullScreen);
             settingsLoaded = true;
             objectManager = forGoldAndSweetrolls.getFGASGame().getObjectManager();
-            mainMenuMovingBackground = new Ground[objectManager.getGrounds().length][objectManager.getGrounds()[0].length];
-            for (int i = 0; i < objectManager.getGrounds().length; i++) {
-                for (int j = 0; j < objectManager.getGrounds()[0].length; j++) {
-                    mainMenuMovingBackground[i][j] = objectManager.getGrounds()[i][j];
-                }
-            }
+
+//            mainMenuMovingBackground = new Ground[objectManager.getGrounds().length][objectManager.getGrounds()[0].length];
+//            for (int i = 0; i < objectManager.getGrounds().length; i++) {
+//                for (int j = 0; j < objectManager.getGrounds()[0].length; j++) {
+//                    mainMenuMovingBackground[i][j] = objectManager.getGrounds()[i][j];
+//                }
+//            }
         }
 
         mouseCursor.update(delta, 0, 0);
@@ -348,13 +348,13 @@ public class FGASMainMenu {
 
     public void render(GameContainer gc, Graphics g) throws SlickException {
 
-        if (mainMenuMovingBackground != null) {
-            for (int i = 0; i < 26; i++) {
-                for (int j = 0; j < 20; j++) {
-                    mainMenuMovingBackground[i + ((int) (offsetX / 32))][j + ((int) (offsetY / 32))].render(g, offsetX, offsetY);
-                }
-            }
-        }
+//        if (mainMenuMovingBackground != null) {
+//            for (int i = 0; i < 26; i++) {
+//                for (int j = 0; j < 20; j++) {
+//                    mainMenuMovingBackground[i + ((int) (offsetX / 32))][j + ((int) (offsetY / 32))].render(g, offsetX, offsetY);
+//                }
+//            }
+//        }
 
         // #### LITTLE SHADE ON MAP
         mainMenuBackgroundShade.draw(0, 0);
@@ -384,66 +384,39 @@ public class FGASMainMenu {
 
     private void loadGame() {
 
-        forGoldAndSweetrolls.getFGASGame().restartGame();
-
         SaveGameData saveGameData = SaveGameManager.load("player.sav");
-
-        // DATA
-
-//        System.out.println("Loading save FGASMainMenu load.");
-//        System.out.println(saveGameData.getPlayer().statistics.p_Name);
-//        System.out.println(saveGameData.getPlayer().statistics.p_Race);
-//        System.out.println(saveGameData.getPlayer().statistics.p_Sex);
-//        System.out.println(saveGameData.getPlayer().getX()+":"+saveGameData.getPlayer().getY());
-
-        forGoldAndSweetrolls.getFGASGame().setSaveGameLoaded(true);
 
         forGoldAndSweetrolls.getFGASGame().setSaveGameData(saveGameData);
 
-        //System.out.println("FGASMainMenu player: " +saveGameData.getPlayer().getStringProperty("name"));
 
-        forGoldAndSweetrolls.getFGASGame().setActionHistory(saveGameData.getActionHistory());
-        forGoldAndSweetrolls.getFGASGame().setTimeCounter(saveGameData.getTimeCounter());
-
-        System.out.println("FGASMainMenu load: '" +saveGameData.getCurrentMapName()+"'");
-
-        forGoldAndSweetrolls.getFGASGame().changeLevel(saveGameData.getCurrentMapName(), "", saveGameData.getCurrentLevelType());
-
-        forGoldAndSweetrolls.getFGASGame().setPlayer(saveGameData.getPlayer());
-        forGoldAndSweetrolls.getFGASGame().getObjectManager().setPlayer(saveGameData.getPlayer());
-        forGoldAndSweetrolls.getFGASGame().getPlayer().setImage(Textures.getInstance().classm32.getSprite(3, 0));
-        forGoldAndSweetrolls.getFGASGame().getPlayer().setPlayerAction(PlayerAction.MOVE);
-
-        //forGoldAndSweetrolls.getFGASGame().getObjectManager().setLevelMaps(saveGameData.getLevels());
-//        forGoldAndSweetrolls.getFGASGame()
-//                .getObjectManager()
-//                .getLevelMaps()
-//                .get(saveGameData.getCurrentMapName())
-//                .setItems(
-//                        saveGameData.getLevels()
-//                                .get(saveGameData.getCurrentMapName()).getItems());
+//        forGoldAndSweetrolls.getFGASGame().setActionHistory(saveGameData.getActionHistory());
+//        forGoldAndSweetrolls.getFGASGame().setTimeCounter(saveGameData.getTimeCounter());
 //
-//        forGoldAndSweetrolls.getFGASGame()
-//                .getObjectManager()
-//                .getLevelMaps()
-//                .get(saveGameData.getCurrentMapName())
-//                .setNpc(
-//                        saveGameData.getLevels()
-//                                .get(saveGameData.getCurrentMapName()).getNpc());
+//        System.out.println("FGASMainMenu load: '" +saveGameData.getCurrentMapName()+"'");
+//
+//        forGoldAndSweetrolls.getFGASGame().getObjectManager().setLevelMaps(saveGameData.getLevels());
+//
+//        forGoldAndSweetrolls.getFGASGame().changeLevel(saveGameData.getCurrentMapName(), "", saveGameData.getCurrentLevelType());
+//
+//        forGoldAndSweetrolls.getFGASGame().setPlayer(saveGameData.getPlayer());
+//        forGoldAndSweetrolls.getFGASGame().getObjectManager().setPlayer(saveGameData.getPlayer());
+//        forGoldAndSweetrolls.getFGASGame().getPlayer().setImage(Textures.getInstance().classm32.getSprite(3, 0));
+//        forGoldAndSweetrolls.getFGASGame().getPlayer().setPlayerAction(PlayerAction.MOVE);
+//
+//
+//        System.out.println("LevelMaps size: " +forGoldAndSweetrolls.getFGASGame().getObjectManager().getLevelMaps().size());
+//
+//        forGoldAndSweetrolls.getFGASGame().getObjectManager().setCurrentLevelMap(saveGameData.getCurrentMapName());
+//        forGoldAndSweetrolls.getFGASGame().getObjectManager().setCurrentTileMap(saveGameData.getCurrentMapName());
+//
+//
+//        forGoldAndSweetrolls.getFGASGame().setHud(new HUD(saveGameData.getPlayer(), saveGameData.getTimeCounter(), saveGameData.getActionHistory()));
+//        forGoldAndSweetrolls.getFGASGame().setInventory(saveGameData.getInventory());
+//        forGoldAndSweetrolls.getFGASGame().getInventory().setMouseCursor(forGoldAndSweetrolls.getFGASGame().getMouseCursor());
+//        forGoldAndSweetrolls.getFGASGame().getInventory().inventorySetup();
+//
+//        forGoldAndSweetrolls.getFGASGame().calculateOffset();
+//        forGoldAndSweetrolls.setGameState(GameState.GAME);
 
-
-        System.out.println("LevelMaps size: " +forGoldAndSweetrolls.getFGASGame().getObjectManager().getLevelMaps().size());
-
-        forGoldAndSweetrolls.getFGASGame().getObjectManager().setCurrentLevelMap(saveGameData.getCurrentMapName());
-        forGoldAndSweetrolls.getFGASGame().getObjectManager().setCurrentTileMap(saveGameData.getCurrentMapName());
-
-
-        forGoldAndSweetrolls.getFGASGame().setHud(new HUD(saveGameData.getPlayer(), saveGameData.getTimeCounter(), saveGameData.getActionHistory()));
-        forGoldAndSweetrolls.getFGASGame().setInventory(saveGameData.getInventory());
-        forGoldAndSweetrolls.getFGASGame().getInventory().setMouseCursor(forGoldAndSweetrolls.getFGASGame().getMouseCursor());
-        forGoldAndSweetrolls.getFGASGame().getInventory().inventorySetup();
-
-        forGoldAndSweetrolls.getFGASGame().calculateOffset();
-        forGoldAndSweetrolls.setGameState(GameState.GAME);
     }
 }

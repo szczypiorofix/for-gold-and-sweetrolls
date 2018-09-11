@@ -101,10 +101,6 @@ public final class ForGoldAndSweetrolls extends BasicGame {
 
     }
 
-    public void resetGame() {
-        FGASGame.restartGame();
-    }
-
     public GameState getGameState() {
         return gameState;
     }
@@ -114,7 +110,7 @@ public final class ForGoldAndSweetrolls extends BasicGame {
             case MAIN_MENU: {
                 gameMusic.stop();
                 mainMenuMusic.loop(1f, musicVolume);
-
+                FGASGame.setSaveGameLoaded(false);
                 break;
             }
             case GAME: {
@@ -123,7 +119,6 @@ public final class ForGoldAndSweetrolls extends BasicGame {
                 break;
             }
             case CREATION_MENU: {
-
                 break;
             }
             default: {
