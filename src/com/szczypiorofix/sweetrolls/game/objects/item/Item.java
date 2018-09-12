@@ -20,6 +20,9 @@ import org.newdawn.slick.SlickException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class Item extends GameObject implements Serializable {
 
@@ -32,12 +35,14 @@ public class Item extends GameObject implements Serializable {
     private ItemType itemType;
     private boolean found = false;
     private int gid;
+    private int gidOrigin;
     private String tileSetName;
 
-    public Item(String name, float x, float y, float width, float height, TileSet tileSet, int gid, ObjectType objectType, String type, ArrayList<Property> properties) {
+    public Item(String name, float x, float y, float width, float height, TileSet tileSet, int gid, int gidOrigin, ObjectType objectType, String type, ArrayList<Property> properties) {
         super(name, x, y, width, height, objectType, properties);
         this.tileSetName = tileSet.getName();
         this.gid = gid;
+        this.gidOrigin = gidOrigin;
         image = tileSet.getImageSprite(gid);
         this.type = type;
         font = FontParser.getFont();
@@ -132,13 +137,15 @@ public class Item extends GameObject implements Serializable {
         this.found = found;
     }
 
-    public void prepareItemAfterSaveGameLoad(ArrayList<TileSet> tileSets) {
-        for (int i = 0; i < tileSets.size(); i++) {
-            if (tileSets.get(i).getName().equalsIgnoreCase(tileSetName)) {
-                image = tileSets.get(i).getImageSprite(gid);
+    public void prepareItemAfterSaveGameLoad(HashMap<String, TileSet> tileSets) {
+
+        for (Map.Entry<String, TileSet> entry : tileSets.entrySet()) {
+            if (entry.getKey().equalsIgnoreCase(tileSetName+".tsx")) {
+                image = entry.getValue().getImageSprite(gid);
                 break;
             }
         }
+
         font = FontParser.getFont();
     }
 }

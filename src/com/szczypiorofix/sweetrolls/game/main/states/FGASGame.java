@@ -17,7 +17,12 @@ import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import com.szczypiorofix.sweetrolls.game.objects.item.Item;
 import com.szczypiorofix.sweetrolls.game.tilemap.CollisionObject;
 import com.szczypiorofix.sweetrolls.game.tilemap.TileMap;
+import com.szczypiorofix.sweetrolls.game.tilemap.TileSet;
 import org.newdawn.slick.*;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -45,6 +50,7 @@ public class FGASGame implements DroppableListener, ConsumableListener {
     private MainMenuButton[] pauseMenuButtons;
     private TileMap currentTileMap;
     private SaveGameData saveGameData;
+    private HashMap<String, TileSet> loadedTileSets;
 
     private float offsetX, offsetY;
     private int tileWidth, tileHeight;
@@ -63,6 +69,30 @@ public class FGASGame implements DroppableListener, ConsumableListener {
         offsetX = 0;
         offsetY = 0;
     }
+
+
+    void loadSaveGame(SaveGameData saveGameData) {
+        this.saveGameData = saveGameData;
+        restartGame();
+
+        player = saveGameData.getPlayer();
+        objectManager.setPlayer(saveGameData.getPlayer());
+        player.setImage(Textures.getInstance().classm32.getSprite(3, 0));
+        player.setPlayerAction(PlayerAction.MOVE);
+        currentLevelName = saveGameData.getCurrentMapName();
+
+        actionHistory = saveGameData.getActionHistory();
+        timeCounter = saveGameData.getTimeCounter();
+        hud  = new HUD(saveGameData.getPlayer(), saveGameData.getTimeCounter(), saveGameData.getActionHistory());
+
+        hud = new HUD(saveGameData.getPlayer(), saveGameData.getTimeCounter(), saveGameData.getActionHistory());
+        inventory  = saveGameData.getInventory();
+        inventory.setMouseCursor(forGoldAndSweetrolls.getFGASGame().getMouseCursor());
+        inventory.setup(loadedTileSets);
+
+        calculateOffset();
+    }
+
 
     /**
      * Method for changing level.
@@ -157,7 +187,7 @@ public class FGASGame implements DroppableListener, ConsumableListener {
                     for (int j = 0; j < objectManager.getLevelMaps().get(levelName).getItems()[0].length; j++) {
                         if (objectManager.getLevelMaps().get(levelName).getItems()[i][j] != null) {
                             objectManager.getLevelMaps().get(levelName).getItems()[i][j].prepareItemAfterSaveGameLoad(
-                                    objectManager.getTileMaps().get(levelName).getTileSets()
+                                    loadedTileSets
                             );
                         }
                     }
@@ -180,8 +210,23 @@ public class FGASGame implements DroppableListener, ConsumableListener {
         offsetY = 0;
     }
 
+    private File[] finder(){
+        File dir = new File("res/map");
+        return dir.listFiles((dir1, filename) -> filename.endsWith(".tsx"));
+    }
 
     void restartGame() {
+
+        // TODO Ladowanie wszystkich tilesetów od razu.
+        System.out.println("Restarting ...");
+        loadedTileSets = new HashMap<>();
+        File[] tilesetFiles = finder();
+        for (File f : tilesetFiles) {
+            loadedTileSets.put(f.getName(), new TileSet(0, f.getName()));
+        }
+
+
+
         objectManager = new ObjectManager(gameWidth, gameHeight);
         changeLevel(WORLD_MAP_NAME, "", LevelType.WORLD_MAP);
         calculateOffset();
@@ -195,62 +240,45 @@ public class FGASGame implements DroppableListener, ConsumableListener {
         inventory.setDroppableListener(this);
 
         dialogueFrame = new DialogueFrame(player, mouseCursor);
+
+        pauseMenuButtons = new MainMenuButton[2];
+        pauseMenuButtons[0] = new MainMenuButton("Wznów", 230, 280);
+        pauseMenuButtons[1] = new MainMenuButton("Zapisz i wyjdź", 230, 320);
+
+        // CREATE WORLD MAP IMAGE
+        try {
+            int imgWidth = 300;
+            int imgHeight = 300;
+            ImageBuffer ib = new ImageBuffer(imgWidth, imgHeight);
+            for (int i = 0; i < imgWidth; i++) {
+                for (int j = 0; j < imgHeight; j++) {
+                    ib.setRGBA(i,
+                            j,
+                            objectManager.getGrounds()[i][j].getMiniMapColor().getRed(),
+                            objectManager.getGrounds()[i][j].getMiniMapColor().getGreen(),
+                            objectManager.getGrounds()[i][j].getMiniMapColor().getBlue(),
+                            objectManager.getGrounds()[i][j].getMiniMapColor().getAlpha()
+                    );
+                }
+            }
+            worldMapImage = ib.getImage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 
     public void init(GameContainer gc, Input input, MouseCursor mouseCursor) {
-
         this.input = input;
         this.mouseCursor = mouseCursor;
-
         gameWidth = gc.getWidth();
         gameHeight = gc.getHeight();
-
-
-//
-//        objectManager = new ObjectManager(gameWidth, gameHeight);
-//
-//        // INITIAL WORLD MAP
-//        changeLevel(WORLD_MAP_NAME, "", LevelType.WORLD_MAP);
-//        calculateOffset();
-//
-//
-//        timeCounter = new TimeCounter(player);
-//        actionHistory = new ActionHistory();
-//
-//        player.setCurrentLevelName(currentLevelName);
-//        hud = new HUD(player, timeCounter, actionHistory);
-//        inventory = new Inventory(player, mouseCursor);
-//
-        pauseMenuButtons = new MainMenuButton[2];
-        pauseMenuButtons[0] = new MainMenuButton("Wznów", 230, 280);
-        pauseMenuButtons[1] = new MainMenuButton("Zapisz i wyjdź", 230, 320);
-//
-//        // CREATE WORLD MAP IMAGE
-//        try {
-//            int imgWidth = 300;
-//            int imgHeight = 300;
-//            ImageBuffer ib = new ImageBuffer(imgWidth, imgHeight);
-//            for (int i = 0; i < imgWidth; i++) {
-//                for (int j = 0; j < imgHeight; j++) {
-//                    ib.setRGBA(i,
-//                            j,
-//                            objectManager.getGrounds()[i][j].getMiniMapColor().getRed(),
-//                            objectManager.getGrounds()[i][j].getMiniMapColor().getGreen(),
-//                            objectManager.getGrounds()[i][j].getMiniMapColor().getBlue(),
-//                            objectManager.getGrounds()[i][j].getMiniMapColor().getAlpha()
-//                            );
-//                }
-//            }
-//            worldMapImage = ib.getImage();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
     }
 
 
-    public void handleInputs(GameContainer gc, int delta) throws SlickException {
+
+    public void handleLogic(GameContainer gc, int delta) throws SlickException {
 
         mouseCursor.update(delta, offsetX, offsetY);
 
@@ -397,9 +425,9 @@ public class FGASGame implements DroppableListener, ConsumableListener {
 
                     if (
                             ((player.getTileX() <= 0
-                            || player.getTileY() <= 0
-                            || player.getTileX() >= objectManager.getCurrentLevelMap().getWidth()-1
-                            || player.getTileY() >= objectManager.getCurrentLevelMap().getHeight()-1))
+                                    || player.getTileY() <= 0
+                                    || player.getTileX() >= objectManager.getCurrentLevelMap().getWidth()-1
+                                    || player.getTileY() >= objectManager.getCurrentLevelMap().getHeight()-1))
 
                     ) {
                         //actionHistory.addValue("Wyjście z generowanego poziomu...");
@@ -427,29 +455,6 @@ public class FGASGame implements DroppableListener, ConsumableListener {
             }
 
         }
-
-    }
-
-    public void calculateOffset() {
-
-        if ((player.getTileX() >= objectManager.getTilesToEast())
-                &&
-                (player.getTileX() < objectManager.getCurrentTileMap().getWidth() - objectManager.getTilesToEast() + 1)
-                ) {
-            offsetX = player.getX() - (float) (gameWidth / 2) + (3 * tileWidth) + (player.getWidth()/2);
-        }
-
-        if ((player.getTileY() >= objectManager.getTilesToSouth() - 1)
-                &&
-                (player.getTileY() < objectManager.getCurrentTileMap().getHeight() - objectManager.getTilesToSouth() + 1)
-                ) {
-            offsetY = player.getY() - (float) (gameHeight / 2) + (player.getHeight()/2) - 4;
-        }
-
-    }
-
-
-    public void handleLogic(GameContainer gc, int delta) throws SlickException {
 
         objectManager.update(delta, offsetX, offsetY);
         player.update(delta, offsetX, offsetY);
@@ -575,6 +580,25 @@ public class FGASGame implements DroppableListener, ConsumableListener {
 
     }
 
+
+    public void calculateOffset() {
+
+        if ((player.getTileX() >= objectManager.getTilesToEast())
+                &&
+                (player.getTileX() < objectManager.getCurrentTileMap().getWidth() - objectManager.getTilesToEast() + 1)
+        ) {
+            offsetX = player.getX() - (float) (gameWidth / 2) + (3 * tileWidth) + (player.getWidth()/2);
+        }
+
+        if ((player.getTileY() >= objectManager.getTilesToSouth() - 1)
+                &&
+                (player.getTileY() < objectManager.getCurrentTileMap().getHeight() - objectManager.getTilesToSouth() + 1)
+        ) {
+            offsetY = player.getY() - (float) (gameHeight / 2) + (player.getHeight()/2) - 4;
+        }
+
+    }
+
     /**
      * Slick2D main render method.
      * @param gc (GameContainer) - Slick2D GameContainer object.
@@ -613,22 +637,6 @@ public class FGASGame implements DroppableListener, ConsumableListener {
 
     }
 
-
-    void loadSaveGame(SaveGameData saveGameData) {
-        this.saveGameData = saveGameData;
-        restartGame();
-
-        player = saveGameData.getPlayer();
-        objectManager.setPlayer(saveGameData.getPlayer());
-        player.setImage(Textures.getInstance().classm32.getSprite(3, 0));
-        player.setPlayerAction(PlayerAction.MOVE);
-
-        actionHistory = saveGameData.getActionHistory();
-        timeCounter = saveGameData.getTimeCounter();
-        hud  = new HUD(saveGameData.getPlayer(), saveGameData.getTimeCounter(), saveGameData.getActionHistory());
-
-        calculateOffset();
-    }
 
     public static String getWorldMapName() {
         return WORLD_MAP_NAME;
@@ -703,6 +711,15 @@ public class FGASGame implements DroppableListener, ConsumableListener {
         this.saveGameLoaded = saveGameLoaded;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
+    public ObjectManager getObjectManager() {
+        return objectManager;
+    }
+
+
     /**
      * Method for picking up items from ground
      * @param currentItem (Item) current object - clicked by mouse left button or in the same tile as polayer ("E" key presssed)
@@ -738,21 +755,6 @@ public class FGASGame implements DroppableListener, ConsumableListener {
         }
     }
 
-    /**
-     * Returns player object.
-     * @return (Player) player object.
-     */
-    public Player getPlayer() {
-        return player;
-    }
-
-    /**
-     * Returns ObjectManager object (for main menu and background map scrolling - mainly).
-     * @return (ObjectManager) objectManager object.
-     */
-    public ObjectManager getObjectManager() {
-        return objectManager;
-    }
 
 
     @Override

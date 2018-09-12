@@ -15,10 +15,12 @@ import com.szczypiorofix.sweetrolls.game.interfaces.DroppableListener;
 import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import com.szczypiorofix.sweetrolls.game.objects.item.Item;
+import com.szczypiorofix.sweetrolls.game.tilemap.TileSet;
 import org.newdawn.slick.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class Inventory implements CloseableFrameListener, Serializable {
@@ -252,7 +254,7 @@ public class Inventory implements CloseableFrameListener, Serializable {
         this.mouseCursor = mouseCursor;
     }
 
-    public void inventorySetup() {
+    public void setup(HashMap<String, TileSet> tileSets) {
         inventoryExit = new MainMenuControlls(
                 MainMenuControlls.ControlType.CANCEL,
                 "",
@@ -265,6 +267,10 @@ public class Inventory implements CloseableFrameListener, Serializable {
         for (int x = 0; x < inventoryContainers.length; x++) {
             for (int y = 0; y < inventoryContainers[0].length; y++) {
                 if (inventoryContainers[x][y] != null) {
+                    if (inventoryContainers[x][y].item != null) {
+                        inventoryContainers[x][y].item.prepareItemAfterSaveGameLoad(tileSets);
+                        System.out.println("Setting item "+inventoryContainers[x][y].item.getName());
+                    }
                     inventoryContainers[x][y].setFont();
                 }
             }

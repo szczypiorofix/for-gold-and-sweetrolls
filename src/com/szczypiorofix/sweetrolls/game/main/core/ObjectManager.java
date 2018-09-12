@@ -119,6 +119,7 @@ public class ObjectManager {
 //                                            : null,
                                     tileMap.getTileSets().get(tileSet),
                                     currentItem.getGid() - tileMap.getTileSets().get(tileSet).getFirstGid(),
+                                    currentItem.getGid(),
                                     ObjectType.ITEM,
                                     currentItem.getType(),
                                     currentItem.getProperties()

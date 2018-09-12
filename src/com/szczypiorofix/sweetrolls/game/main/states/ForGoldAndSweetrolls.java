@@ -7,8 +7,7 @@
 package com.szczypiorofix.sweetrolls.game.main.states;
 
 
-import com.szczypiorofix.sweetrolls.game.enums.CharacterRace;
-import com.szczypiorofix.sweetrolls.game.enums.CharacterSex;
+
 import com.szczypiorofix.sweetrolls.game.enums.GameState;
 import com.szczypiorofix.sweetrolls.game.enums.ObjectType;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
@@ -27,7 +26,6 @@ public final class ForGoldAndSweetrolls extends BasicGame {
     private FGASGame FGASGame;
     private FGASMainMenu FGASMainMenu;
     private FGASCreatePlayer FGASCreatePlayer;
-    private MouseCursor mouseCursor;
 
     private GameState gameState;
     private Music gameMusic, mainMenuMusic;
@@ -64,7 +62,7 @@ public final class ForGoldAndSweetrolls extends BasicGame {
 
         // https://opengameart.org/content/dwarven-cursor
         gc.setMouseCursor(Textures.getInstance().mouseCursor, 0, 0);
-        mouseCursor = new MouseCursor("Mouse Cursor Main Menu", input.getMouseX(), input.getMouseY(), 32, 32, ObjectType.MOUSECURSOR, input);
+        MouseCursor mouseCursor = new MouseCursor("Mouse Cursor Main Menu", input.getMouseX(), input.getMouseY(), 32, 32, ObjectType.MOUSECURSOR, input);
 
         FGASMainMenu.init(gc, input, mouseCursor);
         FGASCreatePlayer.init(gc, input, mouseCursor);
@@ -79,7 +77,6 @@ public final class ForGoldAndSweetrolls extends BasicGame {
         } else if (gameState == GameState.CREATION_MENU) {
             FGASCreatePlayer.update(gc, delta);
         } else if (gameState == GameState.GAME) {
-            FGASGame.handleInputs(gc, delta);
             FGASGame.handleLogic(gc, delta);
         } else if (gameState == GameState.EXIT) {
             gc.exit();
@@ -101,11 +98,8 @@ public final class ForGoldAndSweetrolls extends BasicGame {
 
     }
 
-    public GameState getGameState() {
-        return gameState;
-    }
 
-    public void setGameState(GameState gameState){
+    void setGameState(GameState gameState){
         switch (gameState) {
             case MAIN_MENU: {
                 gameMusic.stop();

@@ -47,6 +47,7 @@ public class InventoryContainer extends GameObject {
         if (item != null) {
             if (item.getImage() != null)
                 item.getImage().draw(item.getX(), item.getY());
+            else System.out.println("BRAK OBRAZKA !!");
         }
         if (hover) {
             g.drawRect(x-1, y, width-2, height-2);
