@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 10.09.18 17:32.
+ * Developed by szczypiorofix on 12.09.18 08:16.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -12,6 +12,7 @@ import com.szczypiorofix.sweetrolls.game.interfaces.ConsumableListener;
 import com.szczypiorofix.sweetrolls.game.interfaces.DroppableListener;
 import com.szczypiorofix.sweetrolls.game.main.MainClass;
 import com.szczypiorofix.sweetrolls.game.main.core.*;
+import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
 import com.szczypiorofix.sweetrolls.game.objects.characters.Player;
 import com.szczypiorofix.sweetrolls.game.objects.item.Item;
 import com.szczypiorofix.sweetrolls.game.tilemap.CollisionObject;
@@ -97,7 +98,7 @@ public class FGASGame implements DroppableListener, ConsumableListener {
 
 
             if (!objectManager.getLevelMaps().containsKey(levelName)) {
-                System.out.println("Odczyt nowej lokacji");
+                System.out.println("Odczyt nowej lokacji "+levelName);
                 currentTileMap = levelManager.loadLevel(levelName);
                 objectManager.generateLevel(currentTileMap, levelName);
                 player = objectManager.getPlayer();
@@ -106,7 +107,7 @@ public class FGASGame implements DroppableListener, ConsumableListener {
                 player.statistics.w_DiscoveredPlaces++;
 
             } else {
-                System.out.println("Wczytanie lokacji z pamięci.");
+                System.out.println("Wczytanie lokacji z pamięci "+levelName);
 
                 objectManager.setCurrentTileMap(levelName);
                 objectManager.setCurrentLevelMap(levelName);
@@ -206,7 +207,6 @@ public class FGASGame implements DroppableListener, ConsumableListener {
         gameHeight = gc.getHeight();
 
 
-
 //
 //        objectManager = new ObjectManager(gameWidth, gameHeight);
 //
@@ -222,9 +222,9 @@ public class FGASGame implements DroppableListener, ConsumableListener {
 //        hud = new HUD(player, timeCounter, actionHistory);
 //        inventory = new Inventory(player, mouseCursor);
 //
-//        pauseMenuButtons = new MainMenuButton[2];
-//        pauseMenuButtons[0] = new MainMenuButton("Wznów", 230, 280);
-//        pauseMenuButtons[1] = new MainMenuButton("Zapisz i wyjdź", 230, 320);
+        pauseMenuButtons = new MainMenuButton[2];
+        pauseMenuButtons[0] = new MainMenuButton("Wznów", 230, 280);
+        pauseMenuButtons[1] = new MainMenuButton("Zapisz i wyjdź", 230, 320);
 //
 //        // CREATE WORLD MAP IMAGE
 //        try {
@@ -559,8 +559,10 @@ public class FGASGame implements DroppableListener, ConsumableListener {
                                 input.clearKeyPressedRecord();
                                 input.clearMousePressedRecord();
 
-                                SaveGameManager.saveGame("player.sav", this);
-
+                                if (!SaveGameManager.saveGame("player.sav", this)) {
+                                    System.out.println("Błąd przy wczytywaniu pliku zapisu.");
+                                    System.exit(-1);
+                                }
                                 forGoldAndSweetrolls.setGameState(GameState.MAIN_MENU);
                                 break;
                             }
@@ -612,10 +614,20 @@ public class FGASGame implements DroppableListener, ConsumableListener {
     }
 
 
-    void setSaveGameData(SaveGameData saveGameData) {
+    void loadSaveGame(SaveGameData saveGameData) {
         this.saveGameData = saveGameData;
         restartGame();
-        changeLevel(saveGameData.getCurrentMapName(), "", saveGameData.getCurrentLevelType());
+
+        player = saveGameData.getPlayer();
+        objectManager.setPlayer(saveGameData.getPlayer());
+        player.setImage(Textures.getInstance().classm32.getSprite(3, 0));
+        player.setPlayerAction(PlayerAction.MOVE);
+
+        actionHistory = saveGameData.getActionHistory();
+        timeCounter = saveGameData.getTimeCounter();
+        hud  = new HUD(saveGameData.getPlayer(), saveGameData.getTimeCounter(), saveGameData.getActionHistory());
+
+        calculateOffset();
     }
 
     public static String getWorldMapName() {

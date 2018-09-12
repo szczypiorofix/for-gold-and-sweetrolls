@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 09.09.18 00:04.
+ * Developed by szczypiorofix on 12.09.18 08:16.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -21,14 +21,9 @@ public class SaveGameManager {
         ObjectInputStream ois = null;
 
         try {
-
             fis = new FileInputStream(new File(saveGameFileName));
             ois = new ObjectInputStream(fis);
-
             sgd = (SaveGameData) ois.readObject();
-
-            //System.out.println("Wczytano świat : " + sgd.getCurrentWorldName());
-
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
             e.printStackTrace();
@@ -49,12 +44,12 @@ public class SaveGameManager {
                 e.printStackTrace();
             }
         }
-
         return sgd;
     }
 
-    public static void saveGame(String saveGameFileName, FGASGame game) {
+    public static boolean saveGame(String saveGameFileName, FGASGame game) {
 
+        boolean successfull;
         SaveGameData saveGameData = new SaveGameData();
 
         saveGameData.setActionHistory(game.getActionHistory());
@@ -66,8 +61,6 @@ public class SaveGameManager {
         saveGameData.setLevels(game.getObjectManager().getLevelMaps());
         saveGameData.setCurrentLevelType(game.getObjectManager().getCurrentLevelMap().getLevelType());
 
-        System.out.println("Saving current level name: " +game.getPlayer().getCurrentLevelName());
-
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
 
@@ -75,12 +68,15 @@ public class SaveGameManager {
             fos = new FileOutputStream(new File(saveGameFileName));
             oos = new ObjectOutputStream(fos);
             oos.writeObject(saveGameData);
+            successfull = true;
         } catch (FileNotFoundException e) {
             System.out.println("File not found !");
             e.printStackTrace();
+            successfull = false;
         } catch (IOException e) {
             System.out.println("Error initializing stream !");
             e.printStackTrace();
+            successfull = false;
         } finally {
             try {
                 if (oos != null) oos.close();
@@ -93,9 +89,7 @@ public class SaveGameManager {
                 e.printStackTrace();
             }
         }
-
-        //System.out.println("Save complete...");
-
+        return successfull;
     }
 
 }

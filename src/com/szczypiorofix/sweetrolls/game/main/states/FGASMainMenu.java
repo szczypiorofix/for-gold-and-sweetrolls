@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 10.09.18 17:32.
+ * Developed by szczypiorofix on 12.09.18 08:16.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -7,14 +7,11 @@
 package com.szczypiorofix.sweetrolls.game.main.states;
 
 import com.szczypiorofix.sweetrolls.game.enums.GameState;
-import com.szczypiorofix.sweetrolls.game.enums.PlayerAction;
-import com.szczypiorofix.sweetrolls.game.gui.HUD;
 import com.szczypiorofix.sweetrolls.game.gui.MainMenuButton;
 import com.szczypiorofix.sweetrolls.game.gui.MainMenuControlls;
 import com.szczypiorofix.sweetrolls.game.gui.MouseCursor;
 import com.szczypiorofix.sweetrolls.game.main.core.*;
 import com.szczypiorofix.sweetrolls.game.main.graphics.Textures;
-import com.szczypiorofix.sweetrolls.game.objects.terrain.Ground;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.*;
 import org.newdawn.slick.Graphics;
@@ -386,7 +383,8 @@ public class FGASMainMenu {
 
         SaveGameData saveGameData = SaveGameManager.load("player.sav");
 
-        forGoldAndSweetrolls.getFGASGame().setSaveGameData(saveGameData);
+        forGoldAndSweetrolls.getFGASGame().loadSaveGame(saveGameData);
+        forGoldAndSweetrolls.setGameState(GameState.GAME);
 
 
 //        forGoldAndSweetrolls.getFGASGame().setActionHistory(saveGameData.getActionHistory());
