@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 12.09.18 08:16.
+ * Developed by szczypiorofix on 13.09.18 07:38.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -581,7 +581,7 @@ public class FGASGame implements DroppableListener, ConsumableListener {
     }
 
 
-    public void calculateOffset() {
+    private void calculateOffset() {
 
         if ((player.getTileX() >= objectManager.getTilesToEast())
                 &&
