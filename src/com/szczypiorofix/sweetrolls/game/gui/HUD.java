@@ -154,17 +154,17 @@ public class HUD {
             font.draw(actionHistory.history[i], 580, 380 + (i * 20));
         }
 
-        font.draw("Tiles c: " +player.getTileX()+":"+player.getTileY(), 590, 240);
+        //font.draw("Tiles c: " +player.getTileX()+":"+player.getTileY(), 590, 240);
         //font.draw("PS: " +player.getPlayerAction(), 590, 270);
-        font.draw("Tiles w: " +player.getWorldMapTileX()+":"+player.getWorldMapTileY(), 590, 260);
-        font.draw("Location: " +player.getCurrentLevelName(), 590, 280);
+        //font.draw("Tiles w: " +player.getWorldMapTileX()+":"+player.getWorldMapTileY(), 590, 260);
+        //font.draw("Location: " +player.getCurrentLevelName(), 590, 280);
 //        font.draw("Mouse tile: " +mouseCursor.getTileX()+":"+mouseCursor.getTileY(), 590, 300);
 //        font.draw("Player offset: " +player.getOffsetX()+":"+player.getOffsetY(), 590, 340);
 
-        font.draw("Pancerz : " +player.statistics.p_ArmorClass, 590, 320);
-        font.draw("Atak: " +player.statistics.p_Damage, 590, 340);
+        //font.draw("Pancerz : " +player.statistics.p_ArmorClass, 590, 320);
+        //font.draw("Atak: " +player.statistics.p_Damage, 590, 340);
 
-        font.draw("Picked: " +player.statistics.w_PickedUpItems, 590, 360);
+        //font.draw("Picked: " +player.statistics.w_PickedUpItems, 590, 360);
 
 
     }
