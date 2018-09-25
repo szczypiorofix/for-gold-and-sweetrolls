@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 13.09.18 07:38.
+ * Developed by szczypiorofix on 25.09.18 23:44.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -21,7 +21,6 @@ import com.szczypiorofix.sweetrolls.game.tilemap.TileSet;
 import org.newdawn.slick.*;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -224,7 +223,6 @@ public class FGASGame implements DroppableListener, ConsumableListener {
         for (File f : tilesetFiles) {
             loadedTileSets.put(f.getName(), new TileSet(0, f.getName()));
         }
-
 
 
         objectManager = new ObjectManager(gameWidth, gameHeight);
