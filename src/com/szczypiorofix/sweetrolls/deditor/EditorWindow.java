@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 30.08.18 11:22.
+ * Developed by szczypiorofix on 10.10.18 23:10.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -34,6 +34,7 @@ public class EditorWindow extends JFrame {
         setSize(new Dimension(600, 450));
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
+
         mainPanel = new MainPanel();
         functionalButtonsPanel = new FunctionalButtonsPanel();
         mainScrollPanel = new JScrollPane(mainPanel);

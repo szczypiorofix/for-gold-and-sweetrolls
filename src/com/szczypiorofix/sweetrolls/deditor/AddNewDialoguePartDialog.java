@@ -1,5 +1,5 @@
 /*
- * Developed by szczypiorofix on 01.09.18 21:29.
+ * Developed by szczypiorofix on 10.10.18 23:10.
  * Copyright (c) 2018. All rights reserved.
  *
  */
@@ -18,9 +18,10 @@ public class AddNewDialoguePartDialog extends JDialog {
     private JTextArea textArea;
     private JButton saveButton, addButton;
     private JPanel northPanel, centerPanel, southPanel;
+    private JList buttonsList;
+    private DefaultListModel<String> listModel;
     private String textData;
     private int idData;
-    private ArrayList<JButton> buttons;
     private AddNewDialoguePartButtonDIalog addNewDialoguePartButtonDIalog;
 
     public AddNewDialoguePartDialog(Frame owner) {
@@ -46,9 +47,10 @@ public class AddNewDialoguePartDialog extends JDialog {
 
         // CENTER PANEL
         centerPanel = new JPanel();
-        buttons = new ArrayList<>();
 
-
+        listModel = new DefaultListModel<>();
+        buttonsList = new JList<>(listModel);
+        centerPanel.add(buttonsList);
 
         // SOUTH PANEL
         southPanel = new JPanel();
@@ -72,11 +74,10 @@ public class AddNewDialoguePartDialog extends JDialog {
 
     public void addNewDialoguePartButton(DialoguePartButton button) {
         System.out.println(button);
-        buttons.add(new JButton(button.getResponse()));
-        centerPanel.removeAll();
-        for(JButton b : buttons) {
-            centerPanel.add(b);
-        }
+
+        listModel.addElement(button.getResponse());
+        centerPanel.revalidate();
+
         centerPanel.revalidate();
 
     }
