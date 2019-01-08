@@ -9,6 +9,7 @@ package com.szczypiorofix.sweetrolls.game.main;
 import com.szczypiorofix.sweetrolls.game.main.core.ConfigManager;
 import com.szczypiorofix.sweetrolls.game.main.core.Configuration;
 import com.szczypiorofix.sweetrolls.game.main.states.ForGoldAndSweetrolls;
+
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.AppGameContainer;
@@ -31,14 +32,14 @@ import java.util.logging.SimpleFormatter;
  * #############################################################################################
  *
  * @author Piotr Wróblewski (szczypiorofix)
- * @version 0.50.000
+ * @version 0.50.003
  */
 public final class MainClass {
 
 
-    public static final String VERSION = "0.50.000";
+    public static final String VERSION = "0.50.005";
     public static final Random RANDOM = new Random();
-    public static final String RES = "res/";
+
 
     private final int initialGameWidth = 800;
     private final int initialGameHeight = 600;
